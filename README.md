@@ -6,11 +6,11 @@ Nós usamos as melhores práticas da indústria e tecnologias de ponta para ajud
 Nosso compromisso com a excelência é refletido em nosso trabalho diário. Nós nos esforçamos para fornecer soluções de segurança personalizadas e adaptadas às necessidades de nossos clientes, independentemente do tamanho ou setor de atuação. Trabalhamos em estreita colaboração com nossos clientes para entender seus desafios específicos de segurança da informação e desenvolver soluções inovadoras e eficazes.
 
  ## INTEGRANTES
- *[LUCAS SOUZA MILAGRES](https://github.com/LucasSouza1407) 
- *[MATHEUS LEONE SILVA](https://github.com/Matheu5Leone) 
- *[NATÃ DOS SANTOS FERREIRA DA SILVA](https://github.com/NataSFSilva) 
- *[SOFIA VALADARES BASTOS](https://github.com/SofiVBastos) 
- *[VICTOR DANIEL MARTINS DIAZ](https://github.com/10340314) 
+ - [LUCAS SOUZA MILAGRES](https://github.com/LucasSouza1407) 
+ - [MATHEUS LEONE SILVA](https://github.com/Matheu5Leone) 
+ - [NATÃ DOS SANTOS FERREIRA DA SILVA](https://github.com/NataSFSilva) 
+ - [SOFIA VALADARES BASTOS](https://github.com/SofiVBastos) 
+ - [VICTOR DANIEL MARTINS DIAZ](https://github.com/10340314) 
 
  ## NOSSAS CORES
 
