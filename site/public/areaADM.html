@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DATAWATCH | Administração</title>
+
+    <script src="./js/funcoes.js"></script>
+
+    <link rel="icon" href="./assets/imgs/LOGOV2.png">
+    <link rel="stylesheet" href="./css/areaADM.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+</head>
+
+<body>
+    <!-- NAVBAR -->
+    <nav>
+        <ul class="nav-list">
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="\">Sobre</a></li>
+            <li><a href="\">Serviços</a></li>
+            <li><a onclick="limparSessao()">Sair</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="colunas">
+            <h2>Empresa</h2>
+            <button>Cadastrar</button>
+        </div>
+        <div class="colunas">
+            <h2>Funcionários</h2>
+            <button>Cadastrar</button>
+        </div>
+        <div class="colunas">
+            <h2>Máquinas</h2>
+            <button>Cadastrar</button>
+        </div>
+    </div>
+
+
+    <footer>
+        <p>Logado como: <span id="nomeUsuario"></span></p>
+    </footer>
+</body>
+<script>
+    nomeUsuario.innerHTML = `<p>${sessionStorage.NOME_USUARIO}</p>`
+</script>

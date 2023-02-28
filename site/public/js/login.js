@@ -1,17 +1,17 @@
 function entrar() {
-    aguardar();
+    /* aguardar(); */
 
     var emailVar = email_input.value;
     var senhaVar = senha_input.value;
 
     if (emailVar == "" || senhaVar == "") {
-        cardErro.style.display = "block"
-        mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
-        finalizarAguardar();
+        /* cardErro.style.display = "block"
+        mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)"; */
+        /* finalizarAguardar(); */
         return false;
     }
     else {
-        setInterval(sumirMensagem, 5000)
+        /* setInterval(sumirMensagem, 5000) */
     }
 
     console.log("FORM LOGIN: ", emailVar);
@@ -37,11 +37,11 @@ function entrar() {
                 console.log(JSON.stringify(json));
 
                 sessionStorage.EMAIL_USUARIO = json.email;
-                sessionStorage.NOME_USUARIO = json.nome;
-                sessionStorage.ID_USUARIO = json.id;
+                sessionStorage.NOME_USUARIO = json.nomeUsuario;
+                sessionStorage.ID_USUARIO = json.idUsuario;
 
                 setTimeout(function () {
-                    window.location = "./dashboard/cards.html";
+                    window.location = "./areaADM.html";
                 }, 1000); // apenas para exibir o loading
 
             });
@@ -52,7 +52,7 @@ function entrar() {
 
             resposta.text().then(texto => {
                 console.error(texto);
-                finalizarAguardar(texto);
+                /* finalizarAguardar(texto); */
             });
         }
 
@@ -63,6 +63,6 @@ function entrar() {
     return false;
 }
 
-function sumirMensagem() {
+/* function sumirMensagem() {
     cardErro.style.display = "none"
-}
+} */
