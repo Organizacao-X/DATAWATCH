@@ -16,7 +16,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
 </head>
 
-<body>
+<body onload="verificarLembrarMe()">
     <!-- NAVBAR -->
     <nav>
         <ul class="nav-list">
@@ -58,3 +58,29 @@
 </body>
 
 </html>
+
+<script>
+    var remember = document.getElementById('rememberMe');
+
+    function verificarLembrarMe() {
+        if (localStorage.getItem('username') && localStorage.getItem('password')) {
+            document.getElementById('email_input').value = localStorage.getItem('username');
+            document.getElementById('senha_input').value = localStorage.getItem('password');
+            remember.checked = true;
+        }
+    }
+
+    function entrar() {
+        if (remember.checked) {
+            salvarCredenciais();
+        }
+        alert('Logado com sucesso')
+    }
+
+    function salvarCredenciais() {
+        var email = email_input.value;
+        var senha = senha_input.value;
+        localStorage.setItem('username', email);
+        localStorage.setItem('password', senha); // seria bom criptografar isso
+    }
+</script>
