@@ -12,7 +12,7 @@
     <script src="./js/funcoes.js"></script>
     <script src="./js/cadastro.js"></script>
 
-
+    <link rel="stylesheet" href="./css/cadastroUsuario.css">
     <link rel="icon" href="./assets/icon/favicon2.ico">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link
@@ -22,70 +22,46 @@
 
 <body>
 
-    <!--header inicio-->
-    <div class="header">
-        <div class="container">
-            <h1 class="titulo">DATAWATCH</h1>
-            <ul class="navbar">
-                <li>
-                    <a href="./index.html">
-                        Inicial
-                    </a>
-                </li>
-                <li>
-                    <a href="./login.html">Login</a>
-                </li>
-                <li class="agora">
-                    <a href="./cadastro.html">Cadastro</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-    <!--header fim-->
+    <nav>
+        <img src="assets/LOGOcomTextoV2.png" alt="" width="200px">
 
+        <ul class="nav-list">
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="\">Sobre</a></li>
+            <li><a href="\">Serviços</a></li>
+        </ul>
 
-    <div class="banner ">
-        <div class="alerta_erro">
-            <div class="card_erro" id="cardErro">
-                <span id="mensagem_erro"></span>
+    </nav>
+    <div class="container">
+        <div class="ladoA">
+            <div class="ladoACor">
+                <div class="alinhamentoInputs">
+                    <h1>Já possui uma conta?</h1>
+                    <a href="./login.html"><button class="btn">LOGIN</button></a>
+                </div>
             </div>
         </div>
-        <div class="container tamanho-conteudo">
-            <div class="card medio">
-                <h2>Bem-vindo!</h2>
-                <div class="formulario">
+        <div class="ladoB">
+            <div class="alinhamentoInputs">
+                <h1>Cadastre-se:</h1>
+                <label class="tipo_campo">Nome:</label>
+                <input id="nome_input" type="text" placeholder="Seu nome">
 
-                    <!--
-                         Para inserir mais um campo, copie uma das inputs abaixo.
-                         Assim que inserir vá para o script abaixo.
-                     -->
+                <label class="tipo_campo">E-mail:</label>
+                <input id="email_input" type="text" placeholder="meuemail@provedor.com">
 
-                    <span class="tipo_campo">Nome:</span>
-                    <input id="nome_input" type="text" placeholder="Seu nome">
+                <label class="tipo_campo">Senha:</label>
+                <input id="senha_input" type="password" placeholder="******">
 
-                    <span class="tipo_campo">E-mail:</span>
-                    <input id="email_input" type="text" placeholder="meuemail@provedor.com">
+                <label class="tipo_campo">Confirmação da Senha:</label>
+                <input id="confirmacao_senha_input" type="password" placeholder="******">
 
-                    <span class="tipo_campo">Senha:</span>
-                    <input id="senha_input" type="password" placeholder="******">
-
-                    <span class="tipo_campo">Confirmação da Senha:</span>
-                    <input id="confirmacao_senha_input" type="password" placeholder="******">
-
-                    <button class="btn" onclick="cadastrar()">Cadastrar</button>
-
-                </div>
-                <div id="div_aguardar" class="loading-div">
-                    <img src="./assets/circle-loading.gif" id="loading-gif">
-                </div>
-
-                <div id="div_erros_login">
-
-                </div>
+                <button class="btn" onclick="cadastrar()">CADASTRAR</button>
             </div>
         </div>
     </div>
 </body>
+
 </html>
 <script>
 </script>
