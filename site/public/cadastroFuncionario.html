@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DATAWATCH | Funcionários</title>
+
+    <script src="./js/funcoes.js"></script>
+    <script src="./js/cadastro.js"></script>
+
+    <link rel="icon" href="./assets/imgs/LOGOV2.png">
+    <link rel="stylesheet" href="./css/cadastroFuncionario.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+</head>
+
+<body>
+    <!-- NAVBAR -->
+    <nav>
+        <ul class="nav-list">
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="\">Sobre</a></li>
+            <li><a href="\">Serviços</a></li>
+        </ul>
+    </nav>
+
+    <!-- SESSAO 1 -->
+    <div class="container">
+        <div class="ladoA">
+            <div class="ladoACor">
+
+            </div>
+        </div>
+        <div class="ladoB">
+            <div class="alinhamentoInputs">
+                <h1>Cadastro de funcionários</h1>
+                <label class="tipo_campo">Nome:</label>
+                <input id="nome_input" type="text" placeholder="Seu nome">
+
+                <label class="tipo_campo">E-mail:</label>
+                <input id="email_input" type="text" placeholder="meuemail@provedor.com">
+
+                <label class="tipo_campo">CPF:</label>
+                <input id="cpf_input" type="text" placeholder="000.000.000-00">
+
+                <label class="tipo_campo">Senha:</label>
+                <input id="senha_input" type="password" placeholder="******">
+
+                <label class="tipo_campo">Confirmação da Senha:</label>
+                <input id="confirmacao_senha_input" type="password" placeholder="******">
+
+                <button class="btn" onclick="cadastrar()">CADASTRAR</button>
+
+                <p>Cadastro de funcionário com baixa permissão</p>
+            </div>
+        </div>
+        <div class="ladoA">
+            <div class="ladoACor">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script>
+</script>
