@@ -91,10 +91,11 @@
     }
 
     // Enviando o valor da nova input
-    fetch("/usuarios/cadastrarMaquina", {
+    fetch("/datawatch/cadastrarMaquina", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
+            // "Access-Control-Allow-Origin": "http://localhost:3333"
         },
         body: JSON.stringify({
             // crie um atributo que recebe o valor recuperado aqui
