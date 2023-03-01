@@ -9,7 +9,6 @@
     <title>DATAWATCH | Cadastro</title>
 
     <script src="./js/funcoes.js"></script>
-    <script src="./js/cadastro.js"></script>
 
     <link rel="icon" href="./assets/imgs/LOGOV2.png">
     <link rel="stylesheet" href="./css/cadastroMaquina.css">
@@ -48,13 +47,13 @@
                 <input id="data_input" type="text" placeholder="**/**/****">
 
                 <label class="tipo_campo">Especificações da máquina:</label>
-                <input id="data_input" type="text" placeholder="Especificações">
+                <input id="especificacao_input" type="text" placeholder="Especificações">
 
                 <label class="tipo_campo">Setor atribuído:</label>
-                <input id="data_input" type="text" placeholder="Setor">
+                <input id="setor_input" type="text" placeholder="Setor">
 
 
-                <button class="btn" onclick="cadastrar()">CADASTRAR</button>
+                <button class="btn" onclick="cadastrarMaquina()">CADASTRAR</button>
             </div>
         </div>
         <div class="ladoA">
@@ -69,4 +68,72 @@
 
 </html>
 <script>
+    function cadastrarMaquina() {
+    // aguardar();
+
+    //Recupere o valor da nova input pelo nome do id
+    // Agora vá para o método fetch logo abaixo
+    var nomeVar = nome_input.value;
+    var serieVar = serie_input.value;
+    var dataVar = data_input.value;
+    var especificacaoVar = especificacao_input.value;
+    var setorVar = setor_input.value;
+
+    if (nomeVar == "" || serieVar == "" || dataVar == "" || especificacaoVar == "" || setorVar == "") {
+        /* cardErro.style.display = "block"
+        mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)"; */
+
+        // finalizarAguardar();
+        return false;
+    }
+    else {
+        /* setInterval(sumirMensagem, 5000) */
+    }
+
+    // Enviando o valor da nova input
+    fetch("/usuarios/cadastrarMaquina", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            // crie um atributo que recebe o valor recuperado aqui
+            // Agora vá para o arquivo routes/usuario.js
+            nomeServer: nomeVar,
+            serieServer: serieVar,
+            dataServer: dataVar,
+            especificacaoServer: especificacaoVar,
+            setorServer: setorVar
+        })
+    }).then(function (resposta) {
+
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+/*             cardErro.style.display = "block";
+
+            mensagem_erro.innerHTML = "Cadastro de máquina realizado com sucesso! Redirecionando para tela de Login..."; */
+
+            setTimeout(() => {
+                window.location = "cadastroMaquina.html";
+            }, "2000")
+            
+            limparFormulario();
+/*             finalizarAguardar(); */
+        } else {
+            throw ("Houve um erro ao tentar realizar o cadastro!");
+        }
+    }).catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+/*         finalizarAguardar();
+        finalizarAguardar();
+        finalizarAguardar(); */
+    });
+
+    return false;
+}
+
+/* function sumirMensagem() {
+    cardErro.style.display = "none"
+} */
 </script>

@@ -20,4 +20,17 @@ router.post("/autenticar", function (req, res) {
     usuarioController.entrar(req, res);
 });
 
+/* ============================================= DATAWATCH =================================================== */
+
+//Recebendo os dados do html cadastroFuncionario
+router.post("/cadastrarFuncionario", function (req, res) {
+    usuarioController.cadastrarFuncionario(req, res);
+})
+
+// Recebendo os dados do html cadastroMaquina
+router.post("/cadastrarMaquina", function (req, res) {
+    usuarioController.cadastrarMaquina(req, res);
+})
+
+
 module.exports = router;
