@@ -27,3 +27,10 @@ SELECT * FROM Maquina;
 
 INSERT INTO Usuario (nomeUsuario, email, cpf, senha, adm) VALUES
 ("lele","lele@gmail.com", 12312312312, 123456, "yes");
+
+CREATE TABLE Formulario (
+	idMensagem INT PRIMARY KEY AUTO_INCREMENT,
+    email VARCHAR(50),
+    assunto VARCHAR(80),
+    mensagem VARCHAR(150)
+);

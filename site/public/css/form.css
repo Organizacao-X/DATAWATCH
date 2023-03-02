@@ -1,0 +1,98 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: system-ui, -apple-system, Helvetica, Arial, sans-serif;
+}
+
+
+/* Navbar */
+a {
+    color: #fff;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+a:hover {
+    opacity: 0.7;
+}
+
+
+nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-family: system-ui, -apple-system, Helvetica, Arial, sans-serif;
+    background: #181818;
+    height: 10vh;
+}
+
+
+.nav-list {
+    list-style: none;
+    display: flex;
+}
+
+.nav-list li {
+    letter-spacing: 3px;
+    margin-left: 32px;
+}
+
+/* Conteúdo */
+.main {
+    display: flex;
+    flex-direction: row;
+    height: 90vh;
+}
+
+.sideA {
+    display: flex;
+    width: 50vw;
+    background-color: #F2CB05;
+    background-image: url(../assets/imgs/bgQuadrado.png);
+}
+
+.sideB {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50vw;
+}
+
+.box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 50%;
+    height: 60vh;
+}
+
+.text {
+    background-color: #F2CB05;
+    border: none;
+    width: 60%;
+    padding: 10px 10px;
+}
+
+.text:focus {
+    outline: none;
+    background-color: #ffe979;
+}
+
+.btn {
+    color: #FFF;
+    background-color: #000;
+    padding: 10px;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    cursor: pointer;
+    outline: none;
+    background-color: #3f3f3f;
+    scale: 1.1;
+}
+
+.erro {
+    color: crimson;
+}

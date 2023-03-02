@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DATAWACH | Contato</title>
+
+    <link rel="icon" href="./assets/imgs/LOGOV2.png">
+    <link rel="stylesheet" href="./css/form.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+</head>
+<body>
+    <nav>
+        <ul class="nav-list">
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="\">Sobre</a></li>
+            <li><a href="\">Serviços</a></li>
+            <li><a href="./form.html">Contato</a></li>
+        </ul>
+    </nav>
+
+    <div class="main">        
+        <div class="sideA">
+    
+        </div>
+        <div class="sideB">        
+            <div class="box">
+                <h1>Fale conosco!</h1>
+                <input class="text" type="email" id="ipt_email" placeholder="Seu e-mail" onchange="">
+                <!-- <p class="erro">* e-mail inválido</p> -->
+                <input class="text" type="text" id="ipt_assunto" placeholder="Assunto da mensagem">
+                <textarea class="text" onchange="validarDigitacao()" type="text" id="ipt_msg" rows="5" cols="40" maxlength="150" placeholder="Conteúdo da sua mensagem"></textarea>
+                <!-- <p id="maxChar">0/150</p> Vou fazer algumas alterações futuras ainda -Nacchan -->
+                <button class="btn" onclick="enviarMsg()">Enviar mensagem</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    var emailForm = ipt_email.value;
+    var assuntoForm = ipt_assunto.value;
+    var msgForm = ipt_msg.value;
+
+    // function validarDigitacao() {
+    // }
+
+    function enviarMsg() {
+
+
+    }
+</script>
