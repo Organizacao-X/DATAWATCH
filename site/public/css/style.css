@@ -1,352 +1,393 @@
-@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Barlow', "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background-color: black;
+* {
+    padding: 0;
+    margin: 0;
+    font-family: 'Inter', sans-serif;
 }
 
-.container {
-  width: 80%;
-  margin: auto;
-  display: flex;
+header {
+    background-color: #181818;
+    box-shadow: 0px 3px 10px #464646;
 }
 
-.header {
-  border-bottom: 3px solid #F2CB05 ;
+.nav-bar {
+    display: flex;
+    justify-content: space-between;
+    padding: 1.5rem 6rem;
 }
 
-.header .container {
-  justify-content: space-between;
+.logo {
+    display: flex;
+    align-items: center;
 }
 
-.header a {
-  text-decoration: none;
-  color: #e3b062;
+.nav-list {
+    display: flex;
+    align-items: center;
 }
 
-.agora {
-  font-weight: 800;
+.nav-list ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
 }
 
-.navbar {
-  width: 300px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  list-style: none;
-  color: #e3b062;
+.nav-item {
+    margin: 0 15px;
 }
 
+.nav-link {
+    text-decoration: none;
+    font-size: 1.15rem;
+    color: #fff;
+    font-weight: 400;
+}
+
+.login-button button {
+    border: none;
+    padding: 7px 15px;
+    border-radius: 10px;
+    background-color: #F2CB05;
+}
+
+.login-button button a {
+    text-decoration: none;
+    color: #000000;
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+
+.mobile-menu-icon {
+    display: none;
+}
+
+.mobile-menu {
+    display: none;
+}
+
+
+banner{
+        /* border: 3px solid red; */
+        display: flex;
+        height: auto;
+        background-color: #F2CB05;
+        width: 100%;
+}
+
+.imagem-inicial {
+    /* border: 3px solid rgb(0, 17, 255); */
+    width: 100%;
+    height: auto;
+    color: #fff;
+    background-image: url(/assets/img/beneficios-do-monitoramento-de-ti\ 1.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
 
 .titulo {
-  color: #32b9cd;
-  width: fit-content;
-  font-weight: 500;
+    /* border: 3px solid rgb(0, 255, 89); */
+    padding: 0.5rem;
+    font-size: 35px;
+    margin: 10% 25% 5% 5%;
+}
+
+.sub-texto {
+    /* border: 3px solid red; */
+    font-size: 30px;
+    margin: 0% 30% 0 5%;
+}
+
+.saber-mais {
+    /* border: 3px solid red; */
+    display: flex;
+    justify-content: left;
+    padding: 1rem;
+    margin: 2% 0% 0% 5%;
+}
+
+.saber-mais button {
+    display: flex;
+    background-color: #fff;
+    border: none;
+    padding: 1rem;
+    border-radius: 5px;
+    font-size: 20px;
+    margin-bottom: 5%;
+}
+
+site{
+    /* border: 3px solid red; */
+    display: flex;
+    justify-content: center;
+    height: auto;
+    background-color: #181818;
+}
+
+.sobre-nos{
+    /* border: 3px solid blue; */
+    background-color: #181818;
+    flex-direction: column;
+    margin: 0;
+    width: 20%;
+    height: auto;
+}
+
+.imagem-empresa{
+    /* border: 3px solid orange; */
+    display: flex;
+    justify-content: flex-end;
+    background-image: url(/assets/img/7d675566f44b598b1f41851000a6a654.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    margin: 42% 0% 0% 0%;
+    border-radius: 10px;
+    height: 65vh;
+}
+
+.texto-sobre{
+    /* border: 3px solid blue; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 60%;
+}
+
+.texto-sobre .titulo {
+    /* border: 3px solid orange; */
+    display: flex;
+    justify-content: center;
+    margin: 5% 0% 0% 0%;
+    width: 80%;
+    font-size: 40px;
+    padding: 2rem;
+    color: #fff;
 }
 
 
-/* BANNER */
 
-.banner {
-  height: fit-content;
-  padding: 40px 0;
-  color: white;
-  background-image: url(".././assets/imgs/bg-jelly-fish-para_outras_pags.png");
-  background-size: cover;
-}
-
-.banner .container {
-  height: 400px;
-  font-size: 36px;
-  justify-content: center;
-  align-items: center;
-}
-
-.tamanho-conteudo { 
-  height: fit-content !important;
-}
-
-.banner p {
-  width: 50%;
-  margin: 0;
-  padding: 0;
-  width: 280px;
-  font-size: 36px;
-}
-
-.banner .container span {
-  font-weight: 800;
-}
-
-/* missao visao valores */
-
-.social {
-  background-color: #e5e5e5;
-  display: flex;
-}
-
-.social .container{
-  justify-content: center;
-}
-
-.box img {
-  width: 170px;
-}
-
-.social .container .boxes {
-  display: flex;
-}
-
-.social p {
-  text-align: center;
-}
-
-.box {
-  margin: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.texto-sobre .texto{
+    /* border: 3px solid yellow; */
+    display: flex;
+    padding: 2rem;
+    color: #fff;
+    margin-bottom: 10%;
+    font-size: 25px;
 }
 
 
-.box {
-  margin-top: 50px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+@media screen and (max-width: 1500px){
+    site{
+        /* border: 3px solid red; */
+        display: flex;
+        flex-direction: column;
+        background-color: #181818;
+    }
+    
+    .sobre-nos{
+        /* border: 3px solid blue; */
+        background-color: #181818;
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
+        height: auto;
+    }
+    
+    .imagem-empresa{
+        /* border: 3px solid orange; */
+        display: flex;
+        justify-content: flex-end;
+        background-image: url(/assets/img/7d675566f44b598b1f41851000a6a654.jpg);
+        background-size: cover;
+        /* background-repeat: no-repeat; */
+        margin: 10% 10% 0 10%;
+        border-radius: 10px;
+        height: 40vh;
+    }
+    
+    .texto-sobre{
+        /* border: 3px solid blue; */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+    
+    .texto-sobre .titulo {
+        /* border: 3px solid orange; */
+        display: flex;
+        justify-content: center;
+        margin: 10% 0% 0% 0%;
+        width: 90%;
+        font-size: 40px;
+        color: #fff;
+    }
+    
+
+    .texto-sobre .texto{
+        /* border: 3px solid yellow; */
+        display: flex;
+        color: #fff;
+        margin: 5% 5% 0% 5%;
+        font-size: 20px;
+    }
 }
 
+@media screen and (max-width: 730px) {
+    .nav-bar {
+        padding: 1.5rem 6rem;
+    }
 
-/* FOOTER */
 
-.footer {
-  background-color: #32b9cd;
-  height: 150px;
-  color: #fff;
-  display: flex;
-  font-size: 15px;
+    .nav-item {
+        display: none;
+    }
+
+    .login-button {
+        display: none;
+    }
+
+    .mobile-menu-icon {
+        display: block;
+    }
+
+    .mobile-menu-icon button {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+    }
+
+    .mobile-menu ul {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        padding-bottom: 1rem;
+    }
+
+    .mobile-menu .nav-item {
+        display: block;
+        padding-top: 1.3rem;
+    }
+
+    .mobile-menu .login-button {
+        display: block;
+        padding: 1rem 5rem;
+    }
+
+    .mobile-menu .login-button button {
+        width: 100%;
+    }
+
+    .open {
+        display: block;
+    }
+
+    banner{
+        /* border: 3px solid red; */
+        display: flex;
+        height: auto;
+        background-color: #F2CB05;
+        width: 100%;
+    }
+    .imagem-inicial {
+        /* border: 3px solid rgb(0, 17, 255); */
+        margin: auto;
+        width: 100%;
+        height: auto;
+        color: #fff;
+        background-image: url(/assets/img/beneficios-do-monitoramento-de-ti\ 2.png);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+    }
+
+    .titulo {
+        /* border: 3px solid rgb(0, 255, 89); */
+        font-size: 1.03rem;
+        margin: 10% 5% 2% 5%;
+        padding: 0;
+    }
+
+    .sub-texto {
+        /* border: 3px solid red; */
+        margin: 0% 5% 0% 5%;
+        padding: 0.5rem;
+        font-size: 0.8rem;
+    }
+
+    .saber-mais {
+        /* border: 3px solid red;    */
+        display: flex;
+        justify-content: center;
+        padding: 1rem;
+        margin: 0% ;
+    }
+
+    .saber-mais button {
+        display: flex;
+        background-color: #fff;
+        border: none;
+        padding: 0.5rem;
+        border-radius: 5px;
+        font-size: 10px;
+    }
+
+    site{
+        /* border: 3px solid red; */
+        display: flex;
+        flex-direction: column;
+        background-color: #181818;
+    }
+    
+    .sobre-nos{
+        /* border: 3px solid blue; */
+        background-color: #181818;
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
+        height: auto;
+    }
+    
+    .imagem-empresa{
+        /* border: 3px solid orange; */
+        display: flex;
+        justify-content: flex-end;
+        background-image: url(/assets/img/7d675566f44b598b1f41851000a6a654.jpg);
+        background-repeat: no-repeat;
+        margin: 10% 10% 0% 10%;
+        border-radius: 10px;
+        height: 20vh;
+    }
+    
+    .texto-sobre{
+        /* border: 3px solid blue; */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+    
+    .texto-sobre .titulo {
+        /* border: 3px solid orange; */
+        display: flex;
+        justify-content: center;
+        margin: 5% 0% 0% 0%;
+        width: 90%;
+        font-size: 20px;
+        color: #fff;
+    }
+    
+
+    .texto-sobre .texto{
+        /* border: 3px solid yellow; */
+        display: flex;
+        padding: 1rem;
+        color: #fff;
+        margin: 0% 5% 0% 5%;
+        font-size: 10px;
+    }
 }
 
-.footer .container {
-  justify-content: center;
-  text-align: center;
-}
-
-.footer .container .version {
-  font-size: 12px;
-}
-
-
-/* LOGIN */
-
-.banner .container .card {
-  background-color: #e5e5e5;
-  height: fit-content;
-  width: 400px;
-  display: flex;
-  flex-direction: column;
-  color: palevioletred;
-  align-items: center;
-  border-radius: 4px;
-}
-
-.card {
-  display: flex;
-  justify-content: space-around;
-}
-
-.card h2 {
-  font-size: 30px;
-}
-
-.card h4 {
-  font-size: 16px;
-}
-
-.banner #div_erros_login {
-  margin-top: 15px;
-}
-
-button {
-  cursor: pointer;
-}
-
-/* FORMULARIO */
-
-.alerta_erro{
-  display: flex;
-  justify-content: flex-end;
-}
-
-.card_erro {
-  display: none;
-  background-color: #fff;
-  color: black;
-  width: 230px;
-  position: fixed;
-  border-radius: 4px;
-  border: #e6005a 3px solid;
-  padding: 10px;
-  margin-right: 10%;
-}
-
-.card_erro #mensagem_erro{
-  font-weight: 500;
-  font-size: 20px;
-}
-
-.formulario .tipo_campo {
-  font-size: 20px;
-  font-weight: 600 !important;
-}
-
-.formulario {
-  display: flex;
-  flex-direction: column;
-}
-
-input {
-  margin-bottom: 10px;
-  border: 2px solid #32b9cd;
-  padding: 10px;
-  text-align: center;
-  border-radius: 10px;
-}
-
-.btn {
-  font-family: "Barlow", sans-serif;
-  border: 0;
-  border-radius: 5px;
-  font-weight: 600;
-  font-size: 18px;
-  padding: 10px 15px;
-  color: white;
-  background-color: #e6005a;
-  width: 120px;
-  align-self: center;
-  margin-top: 5px;
-}
-
-.loading-div {
-  width: 50px;
-  margin: auto;
-  display: none;
-}
-
-.loading-div img {
-  height: 50px;
-  width: 50px;
-}
-
-/* PAGINA DOS GRÁFICOS */
-
-.janela {
-  display: flex;
-  width: 100vw;
-}
-
-.header-left a {
-  text-decoration: none;
-  color: white;
-}
-
-.header-left {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 999;
-  height: 100vh;
-  width: 20%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  border-right: 3px solid #32b9cd;
-  background-color: #212124;
-  /* border: 3px solid pink; */
-}
-
-.dash-right {
-  display: flex;
-  width: 80%;
-  height: fit-content;
-  background-color: #161618;
-  position: relative;
-  top: 0;
-  left: 25%;
-}
-
-.header-left h1 {
-  color: #32b9cd;
-}
-
-.hello {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.hello h3 {
-  color: #e3b062;
-  font-weight: 300;
-  font-size: 1.2rem;
-}
-
-.hello h3 span {
-  font-weight: 800;
-}
-
-.btn-nav {
-  width: 40%;
-  color: white;
-  background-color: #e6005a;
-  border-radius: 5px;
-  text-align: center;
-  padding: 2% 5%;
-}
-
-.btn-nav-white {
-  width: 40%;
-  background-color: white;
-  border: 3px solid #e6005a;
-  border-radius: 5px;
-  text-align: center;
-  padding: 2% 5%;
-}
-
-.btn-nav-white h3 {
-  color: #e6005a;
-  padding: 0;
-  margin: 0;
-}
-
-.btn-nav h3,
-.btn-logout h3 {
-  margin: 0;
-  padding: 0;
-}
-
-.btn-logout {
-  margin: 0;
-  padding: 0;
-  width: 20%;
-  background-color: #32b9cd;
-  color: white;
-  border-radius: 10px;
-  text-align: center;
-  padding: 10px 15px;
-  margin-bottom: 100px;
-  cursor: pointer;
-}
-
-/* pagina extra - simulador */
-.simulador {
-  color: white;
-
-}
-
-.simulador .container {
-  flex-direction: column
-}
