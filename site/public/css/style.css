@@ -78,7 +78,7 @@ banner{
     width: 100%;
     height: auto;
     color: #fff;
-    background-image: url(/assets/img/beneficios-do-monitoramento-de-ti\ 1.png);
+    background-image: url(/site/public/assets/imgs/beneficios-do-monitoramento-de-ti\ 1.png);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -136,7 +136,7 @@ site{
     /* border: 3px solid orange; */
     display: flex;
     justify-content: flex-end;
-    background-image: url(/assets/img/7d675566f44b598b1f41851000a6a654.jpg);
+    background-image: url(/site/public/assets/imgs/7d675566f44b598b1f41851000a6a654.jpg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -198,7 +198,7 @@ site{
         /* border: 3px solid orange; */
         display: flex;
         justify-content: flex-end;
-        background-image: url(/assets/img/7d675566f44b598b1f41851000a6a654.jpg);
+        background-image: url(/site/public/assets/imgs/7d675566f44b598b1f41851000a6a654.jpg);
         background-size: cover;
         /* background-repeat: no-repeat; */
         margin: 10% 10% 0 10%;
@@ -297,7 +297,7 @@ site{
         width: 100%;
         height: auto;
         color: #fff;
-        background-image: url(/assets/img/beneficios-do-monitoramento-de-ti\ 2.png);
+        background-image: url(/site/public/assets/imgs/beneficios-do-monitoramento-de-ti\ 2.png);
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
@@ -354,7 +354,7 @@ site{
         /* border: 3px solid orange; */
         display: flex;
         justify-content: flex-end;
-        background-image: url(/assets/img/7d675566f44b598b1f41851000a6a654.jpg);
+        background-image: url(/site/public/assets/imgs/7d675566f44b598b1f41851000a6a654.jpg);
         background-repeat: no-repeat;
         margin: 10% 10% 0% 10%;
         border-radius: 10px;
