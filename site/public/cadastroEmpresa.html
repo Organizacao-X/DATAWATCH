@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="./js/cadastro.js"></script>
+
+    <title>DATAWATCH | Empresas</title>
+
+    <link rel="icon" href="./assets/imgs/LOGOV2.png">
+    <link rel="stylesheet" href="./css/cadastroEmpresa.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+</head>
+
+<body>
+    <!-- NAVBAR -->
+    <nav>
+        <ul class="nav-list">
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="\">Sobre</a></li>
+            <li><a href="\">Serviços</a></li>
+        </ul>
+    </nav>
+
+    <!-- SESSAO 1 -->
+    <div class="container">
+        <div class="ladoA">
+            <div class="ladoACor">
+
+            </div>
+        </div>
+        <div class="ladoB">
+            <div class="alinhamentoInputs">
+                <h1>Cadastro de empresa</h1>
+                <label class="tipo_campo">Nome da empresa:</label>
+                <input id="nome_empresa_input" type="text" placeholder="Nome da empresa">
+
+                <label class="tipo_campo">Ramo de atividade:</label>
+                <input id="ramo_atividade_input" type="text" placeholder="">
+
+                <label class="tipo_campo">CNPJ:</label>
+                <input id="cnpj_input" type="text" placeholder="">
+
+                <label class="tipo_campo">CEP:</label>
+                <input id="cep_input" type="text" placeholder="000000-000" onblur="buscarCEP()">
+
+                <label class="tipo_campo">Rua/Av:</label>
+                <input id="rua_input" type="text" placeholder="">
+
+                <label class="tipo_campo">Número:</label>
+                <input id="numero_input" type="text" placeholder="">
+
+                <label class="tipo_campo">Bairro:</label>
+                <input id="bairro_input" type="text" placeholder="">
+
+                <label class="tipo_campo">Cidade:</label>
+                <input id="cidade_input" type="text" placeholder="">
+
+                <label class="tipo_campo">Estado:</label>
+                <input id="estado_input" type="text" placeholder="">
+
+                <label class="tipo_campo">E-mail:</label>
+                <input id="email_input" type="text" placeholder="meuemail@provedor.com">
+
+                <label class="tipo_campo">Número de telefone:</label>
+                <input id="telefone_input" type="text" placeholder="(00) 0000-0000">
+
+                <button class="btn" onclick="cadastrarEmpresa()">CADASTRAR</button>
+            </div>
+        </div>
+        <div class="ladoA">
+            <div class="ladoACor">
+
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>
+<script>
+
+    function buscarCEP() {
+        let cep1 = document.getElementById("cep_input")
+        let cep = cep1.value.replace(/\D/g, '')
+
+        if (cep != '') {
+            let url = "https://brasilapi.com.br/api/cep/v1/" + cep
+            let req = new XMLHttpRequest();
+            req.open("GET", url);
+            req.send();
+
+            req.onload = function () {
+                if (req.status == 200) {
+                    let endereco = JSON.parse(req.response)
+                    document.getElementById("rua_input").value = endereco.street
+                    document.getElementById("bairro_input").value = endereco.neighborhood
+                    document.getElementById("cidade_input").value = endereco.city
+                    document.getElementById("estado_input").value = endereco.state
+                } else if (req.status == 404) {
+                    document.getElementById("rua_input").value = ""
+                    document.getElementById("bairro_input").value = ""
+                    document.getElementById("cidade_input").value = ""
+                    document.getElementById("estado_input").value = ""
+                    document.getElementById("numero_input").value = ""
+                    cep1.focus()
+                    return false
+                } else {
+                    alert("Erro ao fazer a requisição")
+                }
+            }
+        }
+    }
+
+    function cadastrarEmpresa() {
+        var nomeEmpresa = nome_empresa_input.value
+        var ramoAtividade = ramo_atividade_input.value
+        var cnpj = cnpj_input.value
+        var cep = cep_input.value
+        var rua_av = rua_input.value
+        var numero = numero_input.value
+        var bairro = bairro_input.value
+        var cidade = cidade_input.value
+        var estado = estado_input.value
+        var email = email_input.value
+        var telefone = telefone_input.value
+
+        if (nomeEmpresa == "" || ramoAtividade == "" || cnpj == "" || cep == "" || rua_av == "" ||
+            bairro == "" || cidade == "" || estado == "" || email == "" || telefone == "") {
+            alert("Preencha todos os campos!");
+            return false;
+        }
+
+        fetch("/datawatch/cadastrarEmpresa", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nomeEmpresaServer: nomeEmpresa,
+                ramoAtividadeServer: ramoAtividade,
+                cnpjServer: cnpj,
+                cepServer: cep,
+                rua_avServer: rua_av,
+                numeroServer: numero,
+                bairroServer: bairro,
+                cidadeServer: cidade,
+                estadoServer: estado,
+                emailServer: email,
+                telefoneServer: telefone
+            })
+        }).then(function (resposta) {
+            console.log("resposta", resposta)
+
+            if (resposta.ok) {
+                alert("Empresa cadastrada com sucesso");
+
+            }
+            else {
+                throw ("Houve um erro ao tentar cadastrar a empresa")
+            }
+        }).catch(function (resposta) {
+            console.log(`ERRO: ${resposta}`);
+        })
+
+        return false
+    }
+
+    function cadastroFuncionario() {
+        /* aguardar(); */
+
+        //Recupere o valor da nova input pelo nome do id
+        // Agora vá para o método fetch logo abaixo
+        var nomeVar = nome_input.value;
+        var emailVar = email_input.value;
+        var cpfVar = cpf_input.value;
+        var senhaVar = senha_input.value;
+        var confirmacaoSenhaVar = confirmacao_senha_input.value;
+
+        if (nomeVar == "" || emailVar == "" || senhaVar == "" || confirmacaoSenhaVar == "" || cpfVar == "") {
+            /* cardErro.style.display = "block"
+            mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)"; */
+
+            /* finalizarAguardar(); */
+            return false;
+        }
+        else {
+            /* setInterval(sumirMensagem, 5000) */
+        }
+
+        // Enviando o valor da nova input
+        fetch("/datawatch/cadastrarFuncionario", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                nomeServer: nomeVar,
+                emailServer: emailVar,
+                cpfServer: cpfVar,
+                senhaServer: senhaVar
+            })
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                /* cardErro.style.display = "block"; */
+
+                /* mensagem_erro.innerHTML = "Cadastro de funcionário realizado com sucesso!"; */
+
+                setTimeout(() => {
+                    window.location = "areaADM.html";
+                }, "2000")
+
+                limparFormulario();
+                /* finalizarAguardar(); */
+            } else {
+                throw ("Houve um erro ao tentar realizar o cadastro!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            /* finalizarAguardar(); */
+        });
+
+        return false;
+    }
+</script>

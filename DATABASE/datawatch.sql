@@ -34,3 +34,19 @@ CREATE TABLE Formulario (
     assunto VARCHAR(80),
     mensagem VARCHAR(150)
 );
+
+CREATE TABLE Empresa (
+	idEmpresa INT PRIMARY KEY AUTO_INCREMENT,
+    nomeEmpresa VARCHAR(50) NOT NULL,
+    ramoAtividade VARCHAR(50) NOT NULL,
+    CNPJ VARCHAR(18) NOT NULL,
+    cep VARCHAR(9) NOT NULL,
+    ruaAvenida VARCHAR(50) NOT NULL,
+    numero VARCHAR(10) NOT NULL,
+    bairro VARCHAR(50) NOT NULL,
+    cidade VARCHAR(50) NOT NULL,
+    estado CHAR(2) NOT NULL,
+    email VARCHAR(50) NOT NULL,
+    telefone VARCHAR(20) NOT NULL,
+    verificado CHAR(3), CONSTRAINT chkEmpresaVerificada CHECK (verificado IN ('yes', 'no'))
+);
