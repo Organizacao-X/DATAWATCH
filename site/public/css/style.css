@@ -1,8 +1,10 @@
 * {
     padding: 0;
     margin: 0;
-    font-family: 'Inter', sans-serif;
+    /* font-family: Georgia, 'Times New Roman', Times, serif; */
 }
+
+/* Navbar */
 
 header {
     background-color: #181818;
@@ -42,18 +44,141 @@ header {
     font-weight: 400;
 }
 
-.login-button button {
+.nav-list button {
+    font-size: 18px;
+    color: #e1e1e1;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 800;
+    cursor: pointer;
+    position: relative;
     border: none;
-    padding: 7px 15px;
-    border-radius: 10px;
-    background-color: #F2CB05;
+    background: none;
+    text-transform: uppercase;
+    transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition-duration: 400ms;
+    transition-property: color;
 }
 
-.login-button button a {
-    text-decoration: none;
-    color: #000000;
-    font-weight: 500;
-    font-size: 1.1rem;
+.nav-list button:focus,
+.nav-list button:hover {
+    color: #f7f7f7;
+}
+
+.nav-list button:focus:after,
+.nav-list button:hover:after {
+    width: 100%;
+    left: 0%;
+}
+
+.nav-list button:after {
+    content: "";
+    pointer-events: none;
+    bottom: -2px;
+    left: 50%;
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    background-color: #F2CB05;
+    transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition-duration: 400ms;
+    transition-property: width, left;
+}
+
+.mobile-menu .decor {
+    font-size: 18px;
+    color: #e1e1e1;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 800;
+    cursor: pointer;
+    position: relative;
+    border: none;
+    background: none;
+    text-transform: uppercase;
+    transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition-duration: 400ms;
+    transition-property: color;
+}
+
+.mobile-menu .decor:focus,
+.mobile-menu .decor:hover {
+    color: #f7f7f7;
+}
+
+.mobile-menu .decor:focus:after,
+.mobile-menu .decor:hover:after {
+    width: 100%;
+    left: 0%;
+}
+
+.mobile-menu .decor:after {
+    content: "";
+    pointer-events: none;
+    bottom: -2px;
+    left: 50%;
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    background-color: #F2CB05;
+    transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition-duration: 400ms;
+    transition-property: width, left;
+}
+
+.login-button .cta {
+    position: relative;
+    margin: auto;
+    padding: 12px 18px;
+    transition: all 0.2s ease;
+    border: none;
+    background: none;
+}
+
+.login-button .cta:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    border-radius: 50px;
+    background: #F2CB05;
+    width: 45px;
+    height: 45px;
+    transition: all 0.3s ease;
+}
+
+.login-button .cta span {
+    position: relative;
+    font-family: "Ubuntu", sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: #ffffff;
+}
+
+.login-button .cta svg {
+    position: relative;
+    top: 0;
+    margin-left: 10px;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke: #ffffff;
+    stroke-width: 2;
+    transform: translateX(-5px);
+    transition: all 0.3s ease;
+}
+
+.login-button .cta:hover:before {
+    width: 100%;
+    background: #F2CB05;
+}
+
+.login-button .cta:hover svg {
+    transform: translateX(0);
+}
+
+.login-button .cta:active {
+    transform: scale(0.95);
 }
 
 .mobile-menu-icon {
@@ -65,12 +190,14 @@ header {
 }
 
 
-banner{
-        /* border: 3px solid red; */
-        display: flex;
-        height: auto;
-        background-color: #F2CB05;
-        width: 100%;
+/* Banner */
+
+banner {
+    /* border: 3px solid red; */
+    display: flex;
+    height: auto;
+    background-color: #F2CB05;
+    width: 100%;
 }
 
 .imagem-inicial {
@@ -115,7 +242,9 @@ banner{
     margin-bottom: 5%;
 }
 
-site{
+
+/* sessão um do site */
+.part-um {
     /* border: 3px solid red; */
     display: flex;
     justify-content: center;
@@ -123,16 +252,16 @@ site{
     background-color: #181818;
 }
 
-.sobre-nos{
+.sobre-nos {
     /* border: 3px solid blue; */
     background-color: #181818;
     flex-direction: column;
-    margin: 0;
+    margin: 0% 0% 5% 0%;
     width: 20%;
     height: auto;
 }
 
-.imagem-empresa{
+.imagem-empresa {
     /* border: 3px solid orange; */
     display: flex;
     justify-content: flex-end;
@@ -145,7 +274,7 @@ site{
     height: 65vh;
 }
 
-.texto-sobre{
+.texto-sobre {
     /* border: 3px solid blue; */
     display: flex;
     flex-direction: column;
@@ -165,9 +294,7 @@ site{
     color: #fff;
 }
 
-
-
-.texto-sobre .texto{
+.texto-sobre .texto {
     /* border: 3px solid yellow; */
     display: flex;
     padding: 2rem;
@@ -177,25 +304,323 @@ site{
 }
 
 
-@media screen and (max-width: 1500px){
-    site{
-        /* border: 3px solid red; */
-        display: flex;
+/* sessão dois do site */
+.part-dois {
+    /* border: 3px solid red; */
+    display: flex;
+    background-color: #F2CB05;
+}
+
+.o-que-fazemos {
+    /* border: 3px solid rgb(4, 0, 255); */
+    display: flex;
+    flex-direction: column;
+    margin: 5% 0% 5% 0%;
+}
+
+.info-um {
+    /* border: 3px solid rgb(26, 255, 0); */
+    display: flex;
+    padding: 1rem;
+    margin: 0% 5% 0% 5%;
+}
+
+.imagem-um {
+    /* border: 3px solid rgb(255, 115, 0); */
+    width: 70%;
+    background-color: #181818;
+    border-radius: 15px;
+}
+
+.info-um .texto {
+    /* border: 3px solid rgb(255, 0, 217); */
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+}
+
+.info-um .texto h2 {
+    /* border: 3px solid rgb(255, 0, 0); */
+    display: flex;
+    padding: 1rem;
+    font-size: 40px;
+}
+
+.info-um .texto p {
+    /* border: 3px solid rgb(255, 0, 0); */
+    display: flex;
+    font-size: 20px;
+}
+
+.info-dois {
+    /* border: 3px solid rgb(255, 0, 217); */
+    display: flex;
+    padding: 1rem;
+    margin: 0% 5% 0% 5%;
+}
+
+.info-dois .texto {
+    /* border: 3px solid rgb(26, 255, 0); */
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+}
+
+.info-dois .texto h2 {
+    /* border: 3px solid rgb(255, 0, 0); */
+    display: flex;
+    padding: 1rem;
+    font-size: 40px;
+}
+
+.info-dois .texto p {
+    /* border: 3px solid rgb(255, 0, 0); */
+    display: flex;
+    font-size: 20px;
+}
+
+.imagem-dois {
+    /* border: 3px solid rgb(255, 115, 0); */
+    width: 70%;
+    background-color: #181818;
+    border-radius: 15px;
+}
+
+/* SESSÃO PARTE 3 */
+
+.part-tres {
+    /* border: 3px solid rgb(255, 115, 0); */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #181818;
+}
+
+
+.vantagem {
+    /* border: 3px solid rgb(0, 13, 255); */
+    display: flex;
+    flex-direction: column;
+    margin: 5% 0% 0% 0%;
+    color: #fff;
+}
+
+.vantagem h2 {
+    /* border: 3px solid rgb(255, 115, 0); */
+    display: flex;
+    justify-content: center;
+    font-size: 40px;
+    padding: 0.8rem;
+}
+
+.vantagem p {
+    /* border: 3px solid rgb(13, 255, 0); */
+    display: flex;
+    font-size: 1.2rem;
+    padding: 1rem;
+}
+
+.part-tres .info-um {
+    /* border: 3px solid rgb(255, 0, 0); */
+    display: flex;
+    justify-content: center;
+    margin: 5% 15% 5% 15%;
+}
+
+.part-tres .info-um .itens {
+    /* border: 3px solid rgb(0, 17, 255); */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1rem;
+    height: auto;
+    background-color: #F2CB05;
+    margin: 2%;
+    border-radius: 15px;
+}
+
+.itens h3 {
+    /* border: 3px solid rgb(255, 0, 149); */
+    display: flex;
+    justify-content: center;
+    padding: 0.5rem;
+    font-size: 1.5rem;
+    color: #000000;
+}
+
+.itens p {
+    /* border: 3px solid rgb(255, 0, 0); */
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+    font-size: 1.1rem;
+    color: #000000;
+}
+
+/* sessão quatro */
+.part-quatro {
+    /* border: 3px solid red; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #1c1c1c;
+    height: auto;
+}
+
+.titulo-time {
+    /* border: 3px solid yellow; */
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    padding: 1.5rem;
+    font-size: 30px;
+    margin: 5% 0% 0% 0%;
+    color: #fff;
+}
+
+.linha {
+    border: 3px solid #F2CB05;
+    width: 20%;
+    border-radius: 5px;
+}
+
+.time {
+    /* border: 3px solid blue; */
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.time2 {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 5%;
+}
+
+/* CARDS SOBRE O GRUPO */
+
+.card-client {
+    background-image: url(/site/public/assets/imgs/Group\ 26.png);
+    background-size: 300px;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 14rem;
+    height: 20rem;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border: 4px solid #F2CB05;
+    border-radius: 10px;
+    text-align: center;
+    color: #ffffff;
+    font-family: "Poppins", sans-serif;
+    transition: all 0.3s ease;
+    margin: 5% 5% 0% 5%;
+}
+
+.card-client:hover {
+    transform: translateY(-40px);
+}
+
+.name-client {
+    /* border: 3px solid red; */
+    margin-top: 90%;
+    font-weight: bolder;
+    font-size: 25px;
+}
+
+.name-client span {
+    display: block;
+    font-weight: bolder;
+    font-size: 20px;
+}
+
+.social-media:before {
+    content: " ";
+    display: block;
+    width: 100%;
+    height: 2px;
+    margin: 20px 0;
+}
+
+.social-media a {
+    position: relative;
+    margin-right: 15px;
+    text-decoration: none;
+    color: inherit;
+}
+
+.social-media a:last-child {
+    margin-right: 0;
+}
+
+.social-media a svg {
+    width: 1.8rem;
+    fill: currentColor;
+}
+
+/*-- Tooltip Social Media --*/
+.tooltip-social {
+    background: #000000;
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    padding: 0.5rem 0.4rem;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, -90%);
+    transition: all 0.2s ease;
+    z-index: 1;
+}
+
+.tooltip-social:after {
+    content: " ";
+    position: absolute;
+    bottom: 1px;
+    left: 50%;
+    border: solid;
+    border-width: 10px 10px 0 10px;
+    border-color: transparent;
+    transform: translate(-50%, 100%);
+}
+
+.social-media a .tooltip-social:after {
+    border-top-color: #000000;
+}
+
+.social-media a:hover .tooltip-social {
+    opacity: 1;
+    transform: translate(-50%, -130%);
+}
+
+
+
+
+@media screen and (max-width: 1500px) {
+
+    /* sessão um do site */
+    .part-um {
         flex-direction: column;
-        background-color: #181818;
     }
-    
-    .sobre-nos{
-        /* border: 3px solid blue; */
+
+    .sobre-nos {
         background-color: #181818;
         flex-direction: column;
         justify-content: center;
         width: 100%;
         height: auto;
     }
-    
-    .imagem-empresa{
-        /* border: 3px solid orange; */
+
+    .imagem-empresa {
         display: flex;
         justify-content: flex-end;
         background-image: url(/site/public/assets/imgs/7d675566f44b598b1f41851000a6a654.jpg);
@@ -205,189 +630,38 @@ site{
         border-radius: 10px;
         height: 40vh;
     }
-    
-    .texto-sobre{
-        /* border: 3px solid blue; */
+
+    .texto-sobre {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         width: 100%;
     }
-    
+
     .texto-sobre .titulo {
-        /* border: 3px solid orange; */
         display: flex;
         justify-content: center;
-        margin: 10% 0% 0% 0%;
+        margin: 3% 0% 0% 0%;
+        padding: 0.5rem;
         width: 90%;
         font-size: 40px;
         color: #fff;
     }
-    
 
-    .texto-sobre .texto{
-        /* border: 3px solid yellow; */
+
+    .texto-sobre .texto {
         display: flex;
         color: #fff;
+        margin: 0% 5% 10% 5%;
+        font-size: 20px;
+    }
+
+
+    /* SESSÃO PARTE 3 */
+
+    .vantagem {
         margin: 5% 5% 0% 5%;
-        font-size: 20px;
     }
+
 }
-
-@media screen and (max-width: 730px) {
-    .nav-bar {
-        padding: 1.5rem 6rem;
-    }
-
-
-    .nav-item {
-        display: none;
-    }
-
-    .login-button {
-        display: none;
-    }
-
-    .mobile-menu-icon {
-        display: block;
-    }
-
-    .mobile-menu-icon button {
-        background-color: transparent;
-        border: none;
-        cursor: pointer;
-    }
-
-    .mobile-menu ul {
-        display: flex;
-        flex-direction: column;
-        text-align: center;
-        padding-bottom: 1rem;
-    }
-
-    .mobile-menu .nav-item {
-        display: block;
-        padding-top: 1.3rem;
-    }
-
-    .mobile-menu .login-button {
-        display: block;
-        padding: 1rem 5rem;
-    }
-
-    .mobile-menu .login-button button {
-        width: 100%;
-    }
-
-    .open {
-        display: block;
-    }
-
-    banner{
-        /* border: 3px solid red; */
-        display: flex;
-        height: auto;
-        background-color: #F2CB05;
-        width: 100%;
-    }
-    .imagem-inicial {
-        /* border: 3px solid rgb(0, 17, 255); */
-        margin: auto;
-        width: 100%;
-        height: auto;
-        color: #fff;
-        background-image: url(/site/public/assets/imgs/beneficios-do-monitoramento-de-ti\ 2.png);
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: cover;
-    }
-
-    .titulo {
-        /* border: 3px solid rgb(0, 255, 89); */
-        font-size: 1.03rem;
-        margin: 10% 5% 2% 5%;
-        padding: 0;
-    }
-
-    .sub-texto {
-        /* border: 3px solid red; */
-        margin: 0% 5% 0% 5%;
-        padding: 0.5rem;
-        font-size: 0.8rem;
-    }
-
-    .saber-mais {
-        /* border: 3px solid red;    */
-        display: flex;
-        justify-content: center;
-        padding: 1rem;
-        margin: 0% ;
-    }
-
-    .saber-mais button {
-        display: flex;
-        background-color: #fff;
-        border: none;
-        padding: 0.5rem;
-        border-radius: 5px;
-        font-size: 10px;
-    }
-
-    site{
-        /* border: 3px solid red; */
-        display: flex;
-        flex-direction: column;
-        background-color: #181818;
-    }
-    
-    .sobre-nos{
-        /* border: 3px solid blue; */
-        background-color: #181818;
-        flex-direction: column;
-        justify-content: center;
-        width: 100%;
-        height: auto;
-    }
-    
-    .imagem-empresa{
-        /* border: 3px solid orange; */
-        display: flex;
-        justify-content: flex-end;
-        background-image: url(/site/public/assets/imgs/7d675566f44b598b1f41851000a6a654.jpg);
-        background-repeat: no-repeat;
-        margin: 10% 10% 0% 10%;
-        border-radius: 10px;
-        height: 20vh;
-    }
-    
-    .texto-sobre{
-        /* border: 3px solid blue; */
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-    }
-    
-    .texto-sobre .titulo {
-        /* border: 3px solid orange; */
-        display: flex;
-        justify-content: center;
-        margin: 5% 0% 0% 0%;
-        width: 90%;
-        font-size: 20px;
-        color: #fff;
-    }
-    
-
-    .texto-sobre .texto{
-        /* border: 3px solid yellow; */
-        display: flex;
-        padding: 1rem;
-        color: #fff;
-        margin: 0% 5% 0% 5%;
-        font-size: 10px;
-    }
-}
-

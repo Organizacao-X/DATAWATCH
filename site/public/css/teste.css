@@ -1,0 +1,373 @@
+@media screen and (max-width: 1290px) {
+    .part-dois {
+        display: flex;
+        background-color: #F2CB05;
+    }
+
+    .o-que-fazemos {
+        display: flex;
+        flex-direction: column;
+        margin: 5% 0% 5% 0%;
+    }
+
+    .info-um {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        padding: 1rem;
+        margin: 0% 5% 0% 5%;
+    }
+
+    .imagem-um {
+        width: 70%;
+        height: 27vh;
+        background-color: #181818;
+        border-radius: 15px;
+    }
+
+    .info-um .texto {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 1.5rem;
+    }
+
+    .info-um .texto h2 {
+        justify-content: center;
+    }
+
+
+    .info-dois {
+        align-items: center;
+        flex-direction: column-reverse;
+    }
+
+    .info-dois .texto {
+        justify-content: center;
+        padding: 1.5rem;
+    }
+
+    .info-dois .texto h2 {
+        justify-content: center;
+    }
+
+
+    .imagem-dois {
+        height: 27vh;
+        margin-top: 5%;
+    }
+
+    /* SESSÃO PARTE 3 */
+
+    .vantagem {
+        margin: 5% 10% 0% 10%;
+    }
+
+
+    .part-tres .info-um .itens {
+        margin: 5% 20% 0% 20%;
+    }
+}
+
+
+
+/* media 3 */
+@media screen and (max-width: 730px) {
+
+    /* navbar */
+    .nav-bar {
+        padding: 1.5rem 6rem;
+    }
+
+
+    .nav-item {
+        display: none;
+    }
+
+    .login-button {
+        display: none;
+    }
+
+    .mobile-menu-icon {
+        display: block;
+    }
+
+    .mobile-menu-icon button {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+    }
+
+    .mobile-menu ul {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        padding-bottom: 1rem;
+    }
+
+    .mobile-menu .nav-item {
+        display: block;
+        padding-top: 1.3rem;
+    }
+
+    .mobile-menu .login-button {
+        display: block;
+        padding: 1rem 5rem;
+    }
+
+    .mobile-menu .login-button button {
+        width: 100%;
+    }
+
+    .open {
+        display: block;
+    }
+
+
+    /* banner */
+    banner {
+        background-color: #F2CB05;
+        width: 100%;
+    }
+
+    .imagem-inicial {
+        background-image: url(/site/public/assets/imgs/beneficios-do-monitoramento-de-ti\ 2.png);
+    }
+
+    .titulo {
+        font-size: 1.03rem;
+        margin: 10% 5% 2% 5%;
+        padding: 0;
+    }
+
+    .sub-texto {
+        margin: 0% 5% 0% 5%;
+        padding: 0.5rem;
+        font-size: 0.8rem;
+    }
+
+    .saber-mais {
+        display: flex;
+        justify-content: center;
+        padding: 1rem;
+        margin: 0%;
+    }
+
+    .saber-mais button {
+        padding: 0.5rem;
+        font-size: 10px;
+    }
+
+
+    /* sessão um do site */
+
+    .imagem-empresa {
+        height: 20vh;
+    }
+
+
+    .texto-sobre .titulo {
+        margin: 2% 0% 0% 0%;
+        font-size: 20px;
+        padding: 0.8rem;
+    }
+
+
+    .texto-sobre .texto {
+        padding: 0.8rem;
+        margin: 0% 5% 5% 5%;
+        font-size: 10px;
+    }
+
+
+    /* sessão dois */
+
+    .imagem-um {
+        width: 80%;
+        height: 18vh;
+    }
+
+    .info-um .texto {
+        padding: 1rem;
+    }
+
+    .info-um .texto h2 {
+        padding: 0.2rem;
+        font-size: 25px;
+    }
+
+    .info-um .texto p {
+        padding: 0.5rem;
+        font-size: 10px;
+    }
+
+
+    .info-dois .texto {
+        padding: 1rem;
+    }
+
+    .info-dois .texto h2 {
+        padding: 0.2rem;
+        font-size: 25px;
+    }
+
+    .info-dois .texto p {
+        padding: 0.8rem;
+        font-size: 10px;
+    }
+
+    .imagem-dois {
+        width: 80%;
+        height: 18vh;
+    }
+
+
+    /* SESSÃO PARTE 3 */
+
+    .vantagem {
+        margin: 5% 2% 0% 2%;
+    }
+
+    .vantagem h2 {
+        font-size: 1.5rem;
+        padding: 0.5rem;
+    }
+
+    .vantagem p {
+        font-size: 0.8rem;
+        padding: 0.5rem;
+    }
+
+    .part-tres .info-um {
+        margin: 5% 0% 10% 0%;
+    }
+
+    .part-tres .info-um .itens {
+        padding: 0.5rem;
+    }
+
+    .itens h3 {
+        font-size: 1.5rem;
+    }
+
+    .itens p {
+        font-size: 0.8rem;
+    }
+
+
+    .time {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .time2 {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        justify-content: center;
+        margin-bottom: 5%;
+    }
+
+    .card-client {
+        background-image: url(/site/public/assets/imgs/Group\ 26.png);
+        background-size: 300px;
+        background-repeat: no-repeat;
+        background-position: center;
+        width: 10rem;
+        height: 15rem;
+        padding-top: 25px;
+        padding-bottom: 25px;
+        padding-left: 20px;
+        padding-right: 20px;
+        border: 4px solid #F2CB05;
+        border-radius: 10px;
+        text-align: center;
+        color: #ffffff;
+        font-family: "Poppins", sans-serif;
+        transition: all 0.3s ease;
+        margin: 20% 10% 0% 25%;
+    }
+
+    .card-client:hover {
+        transform: translateY(-20px);
+
+    }
+
+    .name-client {
+        /* border: 3px solid red; */
+        margin-top: 70%;
+        font-weight: bolder;
+        font-size: 25px;
+    }
+
+    .name-client span {
+        display: block;
+        font-weight: bolder;
+        font-size: 20px;
+    }
+
+    .social-media:before {
+        content: " ";
+        display: block;
+        width: 100%;
+        height: 2px;
+        margin: 20px 0;
+    }
+
+    .social-media a {
+        position: relative;
+        margin-right: 8px;
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .social-media a:last-child {
+        margin-right: 0;
+    }
+
+    .social-media a svg {
+        width: 1.2rem;
+        fill: currentColor;
+    }
+
+    /*-- Tooltip Social Media --*/
+    .tooltip-social {
+        background: #000000;
+        display: block;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        padding: 0.5rem 0.4rem;
+        border-radius: 5px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        opacity: 0;
+        pointer-events: none;
+        transform: translate(-50%, -90%);
+        transition: all 0.2s ease;
+        z-index: 1;
+    }
+
+    .tooltip-social:after {
+        content: " ";
+        position: absolute;
+        bottom: 1px;
+        left: 50%;
+        border: solid;
+        border-width: 10px 10px 0 10px;
+        border-color: transparent;
+        transform: translate(-50%, 100%);
+    }
+
+    .social-media a .tooltip-social:after {
+        border-top-color: #000000;
+    }
+
+    .social-media a:hover .tooltip-social {
+        opacity: 1;
+        transform: translate(-50%, -130%);
+    }
+}
+
