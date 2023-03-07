@@ -529,9 +529,10 @@ banner {
 
 .name-client {
     /* border: 3px solid red; */
-    margin-top: 90%;
+    margin-top: 98%;
+    margin-bottom: -13%;
     font-weight: bolder;
-    font-size: 25px;
+    font-size: 22px;
 }
 
 .name-client span {
@@ -560,7 +561,7 @@ banner {
 }
 
 .social-media a svg {
-    width: 1.8rem;
+    width: 2.2rem;
     fill: currentColor;
 }
 
@@ -602,8 +603,102 @@ banner {
     transform: translate(-50%, -130%);
 }
 
+.card-client2 {
+    background-image: url(/site/public/assets/imgs/Group\ 27.png);
+    background-size: 300px;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 14rem;
+    height: 20rem;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border: 4px solid #F2CB05;
+    border-radius: 10px;
+    text-align: center;
+    color: #ffffff;
+    font-family: "Poppins", sans-serif;
+    transition: all 0.3s ease;
+    margin: 5% 5% 0% 5%;
+}
+
+.card-client2:hover {
+    transform: translateY(-40px);
+}
+
+.card-client3 {
+    background-image: url(/site/public/assets/imgs/Group\ );
+    background-size: 300px;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 14rem;
+    height: 20rem;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border: 4px solid #F2CB05;
+    border-radius: 10px;
+    text-align: center;
+    color: #ffffff;
+    font-family: "Poppins", sans-serif;
+    transition: all 0.3s ease;
+    margin: 5% 5% 0% 5%;
+}
+
+.card-client3:hover {
+    transform: translateY(-40px);
+}
+
+.card-client4 {
+    background-image: url(/site/public/assets/imgs/Group\ 28.png);
+    background-size: 300px;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 14rem;
+    height: 20rem;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border: 4px solid #F2CB05;
+    border-radius: 10px;
+    text-align: center;
+    color: #ffffff;
+    font-family: "Poppins", sans-serif;
+    transition: all 0.3s ease;
+    margin: 5% 5% 0% 5%;
+}
+
+.card-client4:hover {
+    transform: translateY(-40px);
+}
 
 
+.card-client5 {
+    background-image: url(/site/public/assets/imgs/Group\ 26.png);
+    background-size: 300px;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 14rem;
+    height: 20rem;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border: 4px solid #F2CB05;
+    border-radius: 10px;
+    text-align: center;
+    color: #ffffff;
+    font-family: "Poppins", sans-serif;
+    transition: all 0.3s ease;
+    margin: 5% 5% 0% 5%;
+}
+
+.card-client5:hover {
+    transform: translateY(-40px);
+}
 
 @media screen and (max-width: 1500px) {
 
