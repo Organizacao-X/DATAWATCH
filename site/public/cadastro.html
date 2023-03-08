@@ -40,16 +40,16 @@
             <div class="alinhamentoInputs">
                 <h1>Cadastre-se:</h1>
                 <label class="tipo_campo">Nome:</label>
-                <input id="nome_input" type="text" placeholder="Seu nome">
+                <input id="nome_input" type="text" placeholder="Seu nome" onchange="limparBorda(this)">
 
                 <label class="tipo_campo">E-mail:</label>
-                <input id="email_input" type="text" placeholder="meuemail@provedor.com">
+                <input id="email_input" type="text" placeholder="meuemail@provedor.com" onchange="limparBorda(this)">
 
                 <label class="tipo_campo">Senha:</label>
-                <input id="senha_input" type="password" placeholder="******">
+                <input id="senha_input" type="password" placeholder="******" onchange="limparBorda(this)">
 
                 <label class="tipo_campo">Confirmação da Senha:</label>
-                <input id="confirmacao_senha_input" type="password" placeholder="******">
+                <input id="confirmacao_senha_input" type="password" placeholder="******" onchange="limparBorda(this)">
 
                 <button class="btn" onclick="cadastrar()">CADASTRAR</button>
             </div>
@@ -59,4 +59,29 @@
 
 </html>
 <script>
+    function cadastrar() {
+        var inputs = document.querySelectorAll("input")
+        var erro = false
+
+        inputs.forEach(input => {
+            mostrarBordaVazio(input, input.value)
+        });
+
+        if (inputs[2].value != inputs[3].value) {
+            inputs[2].style.borderBottom = "solid 4px red"
+            inputs[3].style.borderBottom = "solid 4px red"
+        }
+    }
+
+    function mostrarBordaVazio(input, valorInput) {
+        if (valorInput.length == 0) {
+            input.style.borderBottom = "solid 4px red"
+        } else {
+            limparBorda(input)
+        }
+    }
+    
+    function limparBorda(input) {
+        input.style.borderBottom = "none"
+    }
 </script>
