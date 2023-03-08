@@ -108,3 +108,33 @@ p {
     font-size: 12px;
     margin-top: 20px;
 }
+
+.endereco {
+    /* border: 3px solid red; */
+    display: flex;
+    flex-direction: row;
+    width: 279.69px;
+}
+
+.endereco .metade2 label {
+    /* border: 3px solid rgb(0, 81, 255); */
+    display: flex;
+    margin-right: 46%;
+}
+
+.endereco input {
+    width: auto;
+}
+
+.metade1 {
+    /* border: 3px solid rgb(0, 13, 255); */
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+
+.metade2 {
+    display: flex;
+    justify-content: end;
+    flex-direction: column;
+}

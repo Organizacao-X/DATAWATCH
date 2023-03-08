@@ -15,7 +15,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
 </head>
 
-<body>
+<body onload="tamanho()">
     <!-- NAVBAR -->
     <nav>
         <ul class="nav-list">
@@ -44,23 +44,29 @@
                 <label class="tipo_campo">CNPJ:</label>
                 <input id="cnpj_input" type="text" placeholder="">
 
-                <label class="tipo_campo">CEP:</label>
-                <input id="cep_input" type="text" placeholder="000000-000" onblur="buscarCEP()">
+                <div class="endereco">
+                    <div class="metade1">                        
+                        <label class="tipo_campo">CEP:</label>
+                        <input id="cep_input" type="text" placeholder="000000-000" onblur="buscarCEP()">
+        
+                        <label class="tipo_campo">Rua/Av:</label>
+                        <input id="rua_input" type="text" placeholder="">
+        
+                        <label class="tipo_campo">Número:</label>
+                        <input id="numero_input" type="text" placeholder="">
+                    </div>
 
-                <label class="tipo_campo">Rua/Av:</label>
-                <input id="rua_input" type="text" placeholder="">
-
-                <label class="tipo_campo">Número:</label>
-                <input id="numero_input" type="text" placeholder="">
-
-                <label class="tipo_campo">Bairro:</label>
-                <input id="bairro_input" type="text" placeholder="">
-
-                <label class="tipo_campo">Cidade:</label>
-                <input id="cidade_input" type="text" placeholder="">
-
-                <label class="tipo_campo">Estado:</label>
-                <input id="estado_input" type="text" placeholder="">
+                    <div class="metade2">                        
+                        <label class="tipo_campo">Bairro:&nbsp;&nbsp;</label>
+                        <input id="bairro_input" type="text" placeholder="">
+        
+                        <label class="tipo_campo">Cidade:</label>
+                        <input id="cidade_input" type="text" placeholder="">
+        
+                        <label class="tipo_campo">Estado:</label>
+                        <input id="estado_input" type="text" placeholder="">
+                    </div>    
+                </div>
 
                 <label class="tipo_campo">E-mail:</label>
                 <input id="email_input" type="text" placeholder="meuemail@provedor.com">
@@ -82,6 +88,12 @@
 
 </html>
 <script>
+
+    function tamanho() {
+        // var aaa = window.getElementById(cnpj_input).width;
+        // var tamanhoIpt = ;
+        alert(document.getElementById('cnpj_input').style.width); 
+    }
 
     function buscarCEP() {
         let cep1 = document.getElementById("cep_input")
