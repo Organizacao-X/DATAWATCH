@@ -5,6 +5,11 @@ var router = express.Router();
 
 var datawatchController = require("../controllers/datawatchController");
 
+//Recebendo os dados do html cadastro
+router.post("/cadastrar", function (req, res) {
+    datawatchController.cadastrar(req, res);
+})
+
 //Recebendo os dados do html cadastroFuncionario
 router.post("/cadastrarFuncionario", function (req, res) {
     datawatchController.cadastrarFuncionario(req, res);
