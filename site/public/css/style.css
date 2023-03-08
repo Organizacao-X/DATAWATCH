@@ -124,63 +124,6 @@ header {
     transition-property: width, left;
 }
 
-.login-button .cta {
-    position: relative;
-    margin: auto;
-    padding: 12px 18px;
-    transition: all 0.2s ease;
-    border: none;
-    background: none;
-}
-
-.login-button .cta:before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: block;
-    border-radius: 50px;
-    background: #F2CB05;
-    width: 45px;
-    height: 45px;
-    transition: all 0.3s ease;
-}
-
-.login-button .cta span {
-    position: relative;
-    font-family: "Ubuntu", sans-serif;
-    font-size: 18px;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    color: #ffffff;
-}
-
-.login-button .cta svg {
-    position: relative;
-    top: 0;
-    margin-left: 10px;
-    fill: none;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    stroke: #ffffff;
-    stroke-width: 2;
-    transform: translateX(-5px);
-    transition: all 0.3s ease;
-}
-
-.login-button .cta:hover:before {
-    width: 100%;
-    background: #F2CB05;
-}
-
-.login-button .cta:hover svg {
-    transform: translateX(0);
-}
-
-.login-button .cta:active {
-    transform: scale(0.95);
-}
-
 .mobile-menu-icon {
     display: none;
 }
@@ -233,14 +176,93 @@ banner {
 }
 
 .saber-mais button {
-    display: flex;
-    background-color: #fff;
-    border: none;
-    padding: 1rem;
-    border-radius: 5px;
-    font-size: 20px;
-    margin-bottom: 5%;
-}
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    outline: none;
+    border: 0;
+    vertical-align: middle;
+    text-decoration: none;
+    background: transparent;
+    padding: 0;
+    font-size: inherit;
+    font-family: inherit;
+    margin-bottom: 6%;
+   }
+   
+   .saber-mais button.learn-more {
+    width: 12rem;
+    height: auto;
+   }
+   
+   .saber-mais button.learn-more .circle {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    position: relative;
+    display: block;
+    margin: 0;
+    width: 3rem;
+    height: 3rem;
+    background: #ffffff;
+    border-radius: 1.625rem;
+   }
+   
+   .saber-mais button.learn-more .circle .icon {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    background: #000000;
+   }
+   
+   .saber-mais button.learn-more .circle .icon.arrow {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    left: 0.625rem;
+    width: 1.125rem;
+    height: 0.125rem;
+    background: none;
+   }
+   
+   .saber-mais button.learn-more .circle .icon.arrow::before {
+    position: absolute;
+    content: "";
+    top: -0.29rem;
+    right: 0.0625rem;
+    width: 0.625rem;
+    height: 0.625rem;
+    border-top: 0.125rem solid #000000;
+    border-right: 0.125rem solid #000000;
+    transform: rotate(45deg);
+   }
+   
+   .saber-mais button.learn-more .button-text {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0.75rem 0;
+    margin: 0 0 0 1.85rem;
+    color: #ffffff;
+    font-weight: 700;
+    line-height: 1.6;
+    text-align: center;
+    text-transform: uppercase;
+   }
+   
+   .saber-mais button:hover .circle {
+    width: 100%;
+   }
+   
+   .saber-mais button:hover .circle .icon.arrow {
+    background: #000000;
+    transform: translate(1rem, 0);
+   }
+   
+   .saber-mais button:hover .button-text {
+    color: #000000;
+   }
 
 
 /* sessão um do site */
