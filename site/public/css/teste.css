@@ -123,6 +123,78 @@
         display: block;
     }
 
+    .button1 {
+        --bg: ##181818;
+        --hover-bg: #F2CB05;
+        --hover-text: #000;
+        color: #fff;
+        margin: 0% 35% 0% 35%;
+        margin-top: 1rem;
+        border: 1px solid var(--bg);
+        border-radius: 4px;
+        padding: 0.3em 1em;
+        background: var(--bg);
+        transition: 0.2s;
+        font-size: 20px;
+    }
+
+
+    .button1:hover {
+        color: var(--hover-text);
+        transform: translate(-0.25rem, -0.25rem);
+        background: var(--hover-bg);
+        box-shadow: 0.25rem 0.25rem var(--bg);
+    }
+
+    .button1:active {
+        transform: translate(0);
+        box-shadow: none;
+    }
+
+    .button2 {
+        --bg: #181818;
+        --hover-bg: #F2CB05;
+        --hover-text: #000;
+        margin: 0% 35% 0% 35%;
+        margin-top: 0.8rem;
+        color: #fff;
+        border: 1px solid var(--bg);
+        border-radius: 4px;
+        padding: 0.3em 1em;
+        background: var(--bg);
+        transition: 0.2s;
+        font-size: 20px;
+    }
+
+
+    .button2:hover {
+        color: var(--hover-text);
+        transform: translate(-0.25rem, -0.25rem);
+        background: var(--hover-bg);
+        box-shadow: 0.25rem 0.25rem var(--bg);
+    }
+
+    .button2:active {
+        transform: translate(0);
+        box-shadow: none;
+    }
+
+
+    .button1 a {
+        display: flex;
+        justify-content: center;
+        list-style: none;
+        text-decoration: none;
+        color: #fff;
+    }
+
+    .button2 a {
+        display: flex;
+        justify-content: center;
+        list-style: none;
+        text-decoration: none;
+        color: #fff;
+    }
 
     /* banner */
     banner {
@@ -166,14 +238,14 @@
         font-size: inherit;
         font-family: inherit;
         margin-bottom: 6%;
-       }
-       
-       .saber-mais button.learn-more {
+    }
+
+    .saber-mais button.learn-more {
         width: 12rem;
         height: auto;
-       }
-       
-       .saber-mais button.learn-more .circle {
+    }
+
+    .saber-mais button.learn-more .circle {
         transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
         position: relative;
         display: block;
@@ -182,26 +254,26 @@
         height: 2rem;
         background: #ffffff;
         border-radius: 1.625rem;
-       }
-       
-       .saber-mais button.learn-more .circle .icon {
+    }
+
+    .saber-mais button.learn-more .circle .icon {
         transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
         position: absolute;
         top: 0;
         bottom: 0;
         margin: auto;
         background: #000000;
-       }
-       
-       .saber-mais button.learn-more .circle .icon.arrow {
+    }
+
+    .saber-mais button.learn-more .circle .icon.arrow {
         transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
         left: 0.225rem;
         width: 1.125rem;
         height: 0.125rem;
         background: none;
-       }
-       
-       .saber-mais button.learn-more .circle .icon.arrow::before {
+    }
+
+    .saber-mais button.learn-more .circle .icon.arrow::before {
         position: absolute;
         content: "";
         top: -0.29rem;
@@ -211,9 +283,9 @@
         border-top: 0.125rem solid #000000;
         border-right: 0.125rem solid #000000;
         transform: rotate(45deg);
-       }
-       
-       .saber-mais button.learn-more .button-text {
+    }
+
+    .saber-mais button.learn-more .button-text {
         transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
         position: absolute;
         top: 0;
@@ -228,20 +300,20 @@
         line-height: 1.6;
         text-align: center;
         text-transform: uppercase;
-       }
-       
-       .saber-mais button:hover .circle {
+    }
+
+    .saber-mais button:hover .circle {
         width: 90%;
-       }
-       
-       .saber-mais button:hover .circle .icon.arrow {
+    }
+
+    .saber-mais button:hover .circle .icon.arrow {
         background: #000000;
         transform: translate(1rem, 0);
-       }
-       
-       .saber-mais button:hover .button-text {
+    }
+
+    .saber-mais button:hover .button-text {
         color: #000000;
-       }
+    }
 
 
     /* sessão um do site */
@@ -455,4 +527,3 @@
         transform: translate(-50%, -130%);
     }
 }
-
