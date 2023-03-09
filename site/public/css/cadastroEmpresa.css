@@ -36,105 +36,91 @@ nav {
     letter-spacing: 3px;
     margin-left: 32px;
 }
+
+/* Conteúdo */
+.main {
+    display: flex;
+    flex-direction: row;
+    height: 90vh;
+}
+
+.sideA {
+    display: flex;
+    width: 50vw;
+    background-color: #F2CB05;
+    background-image: url(../assets/imgs/bgQuadrado.png);
+}
+
+.sideB {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50vw;
+}
+
 .container {
     display: flex;
-    
-}
-.ladoA {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 25%;
-    height: 100vh;
-    background-color: #F2CB05;
-}
-.ladoACor {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    background-image: url(../assets/imgs/bgQuadrado.png);
-    background-size: 100%;
-    background-position: center;
-}
-.ladoB {
-    display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-evenly;
     align-items: center;
     width: 50%;
-    height: 100vh;
+    height: 90vh;
 }
-.alinhamentoInputs {
+
+.box {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    /* border: #000000 1px solid; */
-    width: 70%;
-    height: 100vh;
+    justify-content: space-evenly;
+    align-items: stretch;
+    width: 100%;
 }
-label {
-    margin: 20px 0 5px 0;
-}
-input {
-    width: 60%;
-    padding: 10px 15px;
-    border: none;
+
+.text {
     background-color: #F2CB05;
+    border: none;
+    padding: 10px 10px;
 }
-input:focus {
+
+.text:focus {
     outline: none;
     background-color: #ffe979;
 }
+
 .btn {
-    color: #fff;
-    margin: 35px 0 5px 0;
-    padding: 10px 30px;
-    border: none;
-    background-color: #181818;
+    color: #FFF;
+    background-color: #000;
+    padding: 10px;
     transition: 0.3s;
 }
+
 .btn:hover {
     cursor: pointer;
     outline: none;
     background-color: #3f3f3f;
     scale: 1.1;
 }
-h1 {
-    margin-bottom: 20px;
-}
-p {
-    font-size: 12px;
-    margin-top: 20px;
+
+.erro {
+    color: crimson;
 }
 
 .endereco {
-    /* border: 3px solid red; */
     display: flex;
     flex-direction: row;
-    width: 279.69px;
-}
-
-.endereco .metade2 label {
-    /* border: 3px solid rgb(0, 81, 255); */
-    display: flex;
-    margin-right: 46%;
-}
-
-.endereco input {
-    width: auto;
+    width: 100%;
+    justify-content: space-between;
 }
 
 .metade1 {
-    /* border: 3px solid rgb(0, 13, 255); */
     display: flex;
     flex-direction: column;
-    justify-content: start;
 }
 
 .metade2 {
     display: flex;
-    justify-content: end;
     flex-direction: column;
+}
+
+.tipo_campo {
+    margin-bottom: 5px;
 }
