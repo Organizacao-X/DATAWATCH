@@ -233,7 +233,7 @@ banner {
     width: 100%;
     height: auto;
     color: #fff;
-    background-image: url(/site/public/assets/imgs/beneficios-do-monitoramento-de-ti\ 1.png);
+    background-image: url(../assets/imgs/beneficios-do-monitoramento-de-ti1.png);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -372,7 +372,7 @@ banner {
     /* border: 3px solid orange; */
     display: flex;
     justify-content: flex-end;
-    background-image: url(/site/public/assets/imgs/7d675566f44b598b1f41851000a6a654.jpg);
+    background-image: url(../assets/imgs/7d675566f44b598b1f41851000a6a654.jpg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -611,7 +611,7 @@ banner {
 /* CARDS SOBRE O GRUPO */
 
 .card-client {
-    background-image: url(/site/public/assets/imgs/Group\ 26.png);
+    background-image: url();
     background-size: 300px;
     background-repeat: no-repeat;
     background-position: center;
@@ -711,7 +711,7 @@ banner {
 }
 
 .card-client2 {
-    background-image: url(/site/public/assets/imgs/Group\ 27.png);
+    background-image: url(../assets/imgs/Group27.png);
     background-size: 300px;
     background-repeat: no-repeat;
     background-position: center;
@@ -735,7 +735,7 @@ banner {
 }
 
 .card-client3 {
-    background-image: url(/site/public/assets/imgs/Group\ );
+    background-image: url();
     background-size: 300px;
     background-repeat: no-repeat;
     background-position: center;
@@ -759,7 +759,7 @@ banner {
 }
 
 .card-client4 {
-    background-image: url(/site/public/assets/imgs/Group\ 28.png);
+    background-image: url(../assets/imgs/Group28.png);
     background-size: 300px;
     background-repeat: no-repeat;
     background-position: center;
@@ -784,7 +784,7 @@ banner {
 
 
 .card-client5 {
-    background-image: url(/site/public/assets/imgs/Group\ 26.png);
+    background-image: url(../assets/imgs/Group26.png);
     background-size: 300px;
     background-repeat: no-repeat;
     background-position: center;
@@ -825,7 +825,7 @@ banner {
     .imagem-empresa {
         display: flex;
         justify-content: flex-end;
-        background-image: url(/site/public/assets/imgs/7d675566f44b598b1f41851000a6a654.jpg);
+        background-image: url(../assets/imgs/7d675566f44b598b1f41851000a6a654.jpg);
         background-size: cover;
         /* background-repeat: no-repeat; */
         margin: 10% 10% 0 10%;

@@ -203,7 +203,7 @@
     }
 
     .imagem-inicial {
-        background-image: url(/site/public/assets/imgs/beneficios-do-monitoramento-de-ti\ 2.png);
+        background-image: url(../assets/imgs/beneficios-do-monitoramento-de-ti2.png);
     }
 
     .titulo {
@@ -428,7 +428,7 @@
     }
 
     .card-client {
-        background-image: url(/site/public/assets/imgs/Group\ 26.png);
+        background-image: url();
         background-size: 300px;
         background-repeat: no-repeat;
         background-position: center;
