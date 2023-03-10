@@ -55,6 +55,7 @@
     .imagem-dois {
         height: 27vh;
         margin-top: 5%;
+        width: 70%;
     }
 
     /* SESSÃO PARTE 3 */
@@ -135,7 +136,7 @@
         padding: 0.3em 1em;
         background: var(--bg);
         transition: 0.2s;
-        font-size: 20px;
+        font-size: 18px;
     }
 
 
@@ -163,7 +164,7 @@
         padding: 0.3em 1em;
         background: var(--bg);
         transition: 0.2s;
-        font-size: 20px;
+        font-size: 18px;
     }
 
 
@@ -324,11 +325,17 @@
 
 
     .texto-sobre .titulo {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         margin: 2% 0% 0% 0%;
         font-size: 20px;
         padding: 0.8rem;
     }
 
+    .texto-sobre .linha {
+        width: 40%;
+    }
 
     .texto-sobre .texto {
         padding: 0.8rem;
@@ -400,7 +407,7 @@
     }
 
     .part-tres .info-um .itens {
-        padding: 0.5rem;
+        padding: 0.3rem;
     }
 
     .itens h3 {
@@ -411,20 +418,26 @@
         font-size: 0.8rem;
     }
 
+    .titulo-time .linha {
+        width: 50%;
+    }
 
     .time {
         display: flex;
         flex-direction: column;
         width: 100%;
         justify-content: center;
+        align-items: center;
     }
 
     .time2 {
         display: flex;
+        align-items: center;
         flex-direction: column;
         width: 100%;
         justify-content: center;
-        margin-bottom: 5%;
+        margin-bottom: 10%;
+        margin-top: 0;
     }
 
     .card-client {
@@ -432,8 +445,8 @@
         background-size: 300px;
         background-repeat: no-repeat;
         background-position: center;
-        width: 10rem;
-        height: 15rem;
+        width: 8rem;
+        height: 12rem;
         padding-top: 25px;
         padding-bottom: 25px;
         padding-left: 20px;
@@ -444,7 +457,7 @@
         color: #ffffff;
         font-family: "Poppins", sans-serif;
         transition: all 0.3s ease;
-        margin: 20% 10% 0% 25%;
+        margin-bottom: 5%;
     }
 
     .card-client:hover {
@@ -454,15 +467,15 @@
 
     .name-client {
         /* border: 3px solid red; */
-        margin-top: 70%;
+        margin-top: 80%;
         font-weight: bolder;
-        font-size: 25px;
+        font-size: 20px;
     }
 
     .name-client span {
         display: block;
         font-weight: bolder;
-        font-size: 20px;
+        font-size: 15px;
     }
 
     .social-media:before {
@@ -483,9 +496,8 @@
     .social-media a:last-child {
         margin-right: 0;
     }
-
     .social-media a svg {
-        width: 1.2rem;
+        width: 1.6rem;
         fill: currentColor;
     }
 
@@ -525,5 +537,105 @@
     .social-media a:hover .tooltip-social {
         opacity: 1;
         transform: translate(-50%, -130%);
+    }
+
+    .card-client2 {
+        background-image: url();
+        background-size: 300px;
+        background-repeat: no-repeat;
+        background-position: center;
+        width: 8rem;
+        height: 12rem;
+        padding-top: 25px;
+        padding-bottom: 25px;
+        padding-left: 20px;
+        padding-right: 20px;
+        border: 4px solid #F2CB05;
+        border-radius: 10px;
+        text-align: center;
+        color: #ffffff;
+        font-family: "Poppins", sans-serif;
+        transition: all 0.3s ease;
+        margin-bottom: 5%;
+    }
+
+    .card-client2:hover {
+        transform: translateY(-20px);
+
+    }
+
+
+    .card-client3 {
+        background-image: url();
+        background-size: 300px;
+        background-repeat: no-repeat;
+        background-position: center;
+        width: 8rem;
+        height: 12rem;
+        padding-top: 25px;
+        padding-bottom: 25px;
+        padding-left: 20px;
+        padding-right: 20px;
+        border: 4px solid #F2CB05;
+        border-radius: 10px;
+        text-align: center;
+        color: #ffffff;
+        font-family: "Poppins", sans-serif;
+        transition: all 0.3s ease;
+        margin-bottom: 5%;
+    }
+
+    .card-client3:hover {
+        transform: translateY(-20px);
+
+    }
+
+    .card-client4 {
+        background-image: url();
+        background-size: 300px;
+        background-repeat: no-repeat;
+        background-position: center;
+        width: 8rem;
+        height: 12rem;
+        padding-top: 25px;
+        padding-bottom: 25px;
+        padding-left: 20px;
+        padding-right: 20px;
+        border: 4px solid #F2CB05;
+        border-radius: 10px;
+        text-align: center;
+        color: #ffffff;
+        font-family: "Poppins", sans-serif;
+        transition: all 0.3s ease;
+        margin-bottom: 5%;
+    }
+
+    .card-client4:hover {
+        transform: translateY(-20px);
+    }
+
+    .card-client5 {
+        background-image: url();
+        background-size: 300px;
+        background-repeat: no-repeat;
+        background-position: center;
+        width: 8rem;
+        height: 12rem;
+        padding-top: 25px;
+        padding-bottom: 25px;
+        padding-left: 20px;
+        padding-right: 20px;
+        border: 4px solid #F2CB05;
+        border-radius: 10px;
+        text-align: center;
+        color: #ffffff;
+        font-family: "Poppins", sans-serif;
+        transition: all 0.3s ease;
+        margin-bottom: 5%;
+    }
+
+    .card-client5:hover {
+        transform: translateY(-20px);
+
     }
 }

@@ -1,12 +1,14 @@
+@import 'https://fonts.googleapis.com/css2?family=Nunito:wght@500&display=swap%27';
+
+
 * {
     padding: 0;
     margin: 0;
-    /* font-family: Georgia, 'Times New Roman', Times, serif; */
 }
 
 html {
     scroll-behavior: smooth;
-  }
+}
 
 /* Navbar */
 
@@ -109,7 +111,7 @@ header {
     padding: 0.3em 1em;
     background: var(--bg);
     transition: 0.2s;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 
@@ -136,7 +138,7 @@ header {
     padding: 0.3em 1em;
     background: var(--bg);
     transition: 0.2s;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 
@@ -351,6 +353,9 @@ banner {
 
 
 /* sessão um do site */
+banner{
+    font-family: 'Nunito', sans-serif;
+}
 .part-um {
     /* border: 3px solid red; */
     display: flex;
@@ -361,6 +366,7 @@ banner {
 
 .sobre-nos {
     /* border: 3px solid blue; */
+
     background-color: #181818;
     flex-direction: column;
     margin: 0% 0% 5% 0%;
@@ -390,10 +396,16 @@ banner {
     width: 60%;
 }
 
+.texto-sobre .linha {
+    width: 40%;
+}
+
 .texto-sobre .titulo {
     /* border: 3px solid orange; */
     display: flex;
     justify-content: center;
+    flex-direction: column;
+    align-items: center;
     margin: 5% 0% 0% 0%;
     width: 80%;
     font-size: 40px;
@@ -435,6 +447,7 @@ banner {
 .imagem-um {
     /* border: 3px solid rgb(255, 115, 0); */
     width: 70%;
+    height: 20rem;
     background-color: #181818;
     border-radius: 15px;
 }
@@ -442,6 +455,7 @@ banner {
 .info-um .texto {
     /* border: 3px solid rgb(255, 0, 217); */
     display: flex;
+    width: 90%;
     flex-direction: column;
     padding: 2rem;
 }
@@ -488,7 +502,8 @@ banner {
 
 .imagem-dois {
     /* border: 3px solid rgb(255, 115, 0); */
-    width: 70%;
+    width: 80%;
+    height: 20rem;
     background-color: #181818;
     border-radius: 15px;
 }
@@ -531,37 +546,40 @@ banner {
     /* border: 3px solid rgb(255, 0, 0); */
     display: flex;
     justify-content: center;
-    margin: 5% 15% 5% 15%;
+    /* margin: 5% 15% 5% 15%; */
 }
 
 .part-tres .info-um .itens {
     /* border: 3px solid rgb(0, 17, 255); */
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    padding: 1rem;
-    height: auto;
-    background-color: #F2CB05;
-    margin: 2%;
+    align-items: center;
+    text-align: center;
+    height: 15rem;
+    width: 50%;
+    padding: 2rem;
     border-radius: 15px;
+    /* margin-top: 3%; */
 }
 
 .itens h3 {
     /* border: 3px solid rgb(255, 0, 149); */
     display: flex;
-    justify-content: center;
-    padding: 0.5rem;
+    /* justify-content: center; */
+    align-items: center;
+    padding: 0.1rem;
     font-size: 1.5rem;
-    color: #000000;
+    color: #ffffff;
+    margin-top: 5%;
 }
 
 .itens p {
     /* border: 3px solid rgb(255, 0, 0); */
     display: flex;
     justify-content: center;
-    padding: 1rem;
+    /* padding: 1rem; */
     font-size: 1.1rem;
-    color: #000000;
+    color: #ffffff;
 }
 
 /* sessão quatro */
@@ -807,6 +825,99 @@ banner {
     transform: translateY(-40px);
 }
 
+
+footer{
+    border: 3px solid rgb(255, 230, 0);
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.fundo{
+    border: 3px solid rgb(25, 0, 255);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+}
+
+.info-footer{
+    border: 3px solid rgb(255, 0, 166);
+    display: flex;
+    margin: 0% 20% 0% 20% ;
+}
+
+
+.contato-dados{
+    border: 3px solid red;
+    display: flex;
+    width: 80%;
+}
+
+.contact-form {
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  .contact-form label {
+    color: black;
+  }
+  
+  .contact-form .heading {
+    font-size: 24px;
+    color: black;
+    ;
+    margin-bottom: 12px;
+    font-weight: bold;
+    display: block;
+  }
+  
+  .contact-form form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .contact-form label {
+    margin-bottom: 10px;
+  }
+  
+  textarea {
+    resize: none;
+    height: 80px;
+    width: 200px;
+  }
+  
+  .contact-form input, .contact-form textarea {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+  
+  .contact-form input:focus, .contact-form textarea:focus {
+    outline: none;
+    box-shadow: 0 0 5px #ff6384;
+    transform: scale(1.05);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .contact-form button[type="submit"] {
+    background-color: #ff6384;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .contact-form button[type="submit"]:hover {
+    transform: scale(1.1);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+
 @media screen and (max-width: 1500px) {
 
     /* sessão um do site */
@@ -864,6 +975,15 @@ banner {
 
     .vantagem {
         margin: 5% 5% 0% 5%;
+    }
+
+    .part-tres .info-um .itens {
+        /* border: 3px solid rgb(0, 17, 255); */
+        height: 10rem;
+        width: 3    0%;
+        padding: 3rem;
+        border-radius: 15px;
+        /* margin-top: 3%; */
     }
 
 }
