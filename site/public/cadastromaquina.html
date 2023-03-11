@@ -111,11 +111,11 @@
         body: JSON.stringify({
             // crie um atributo que recebe o valor recuperado aqui
             // Agora vá para o arquivo routes/usuario.js
-            nomeServer: nomeVar,
-            serieServer: serieVar,
-            dataServer: dataVar,
-            especificacaoServer: especificacaoVar,
-            setorServer: setorVar
+            nomeServer: inputs[0].value,
+            serieServer: inputs[1].value,
+            dataServer: inputs[2].value,
+            especificacaoServer: inputs[3].value,
+            setorServer: inputs[4].value
         })
     }).then(function (resposta) {
 

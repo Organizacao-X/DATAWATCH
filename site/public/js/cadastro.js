@@ -28,10 +28,10 @@ function cadastrar() {
         },
         body: JSON.stringify({
             // crie um atributo que recebe o valor recuperado aqui
-            nomeServer: nomeVar,
-            emailServer: emailVar,
-            cpfServer: cpfVar,
-            senhaServer: senhaVar
+            nomeServer: inputs[0].value,
+            emailServer: inputs[1].value,
+            cpfServer: inputs[2].value,
+            senhaServer: inputs[3].value
         })
     }).then(function (resposta) {
 

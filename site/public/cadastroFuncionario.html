@@ -43,7 +43,7 @@
                 <input id="email_input" type="text" placeholder="meuemail@provedor.com" onchange="limparBorda(this)">
 
                 <label class="tipo_campo">CPF:</label>
-                <input id="cpf_input" type="text" placeholder="000.000.000-00" maxlength="9" onchange="limparBorda(this)">
+                <input id="cpf_input" type="text" placeholder="000.000.000-00" onchange="limparBorda(this)">
 
                 <label class="tipo_campo">Senha:</label>
                 <input id="senha_input" type="password" placeholder="******" onchange="limparBorda(this)">
@@ -108,10 +108,10 @@ function cadastroFuncionario() {
         },
         body: JSON.stringify({
             // crie um atributo que recebe o valor recuperado aqui
-            nomeServer: nomeVar,
-            emailServer: emailVar,
-            cpfServer: cpfVar,
-            senhaServer: senhaVar
+            nomeServer: inputs[0].value,
+            emailServer: inputs[1].value,
+            cpfServer: inputs[2].value,
+            senhaServer: inputs[3].value
         })
     }).then(function (resposta) {
 
