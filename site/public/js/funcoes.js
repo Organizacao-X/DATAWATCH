@@ -53,11 +53,14 @@ function fecharModal() {
 }
 
 function mostrarBordaVazio(input, valorInput) {
+    var semErro = true;
     if (valorInput.length == 0) {
+        semErro = false;
         input.style.borderBottom = "solid 4px red"
     } else {
         limparBorda(input)
     }
+    return semErro;
 }
 
 function limparBorda(input) {

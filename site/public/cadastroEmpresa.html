@@ -13,6 +13,7 @@
     <link rel="icon" href="./assets/imgs/LOGOV2.png">
     <link rel="stylesheet" href="./css/cadastroEmpresa.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
+    <script src="js/funcoes.js"></script>
 </head>
 
 <body onload="tamanho()">
@@ -26,53 +27,54 @@
     </nav>
 
     <!-- SESSAO 1 -->
-    <div class="main">        
-        <div class="sideA">    
+    <div class="main">
+        <div class="sideA">
         </div>
-        <div class="sideB">           
+        <div class="sideB">
             <div class="container">
                 <h1>Cadastro de empresa</h1>
-                <div class="box">                    
+                <div class="box">
                     <label class="tipo_campo">Nome da empresa:</label>
-                    <input class="text" id="nome_empresa_input" type="text" placeholder="Nome da empresa">
-        
+                    <input class="text" id="nome_empresa_input" type="text" placeholder="Nome da empresa" onchange="limparBorda(this)">
+
                     <label class="tipo_campo">Ramo de atividade:</label>
-                    <input class="text" id="ramo_atividade_input" type="text" placeholder="">
-        
+                    <input class="text" id="ramo_atividade_input" type="text" placeholder="" onchange="limparBorda(this)">
+
                     <label class="tipo_campo">CNPJ:</label>
-                    <input class="text"  id="cnpj_input" type="text" placeholder="">
-        
+                    <input class="text" id="cnpj_input" type="text" maxlength="14" placeholder="" onchange="limparBorda(this)">
+
                     <div class="endereco">
-                        <div class="metade1">                        
+                        <div class="metade1">
                             <label class="tipo_campo">CEP:</label>
-                            <input class="text" id="cep_input" type="text" placeholder="000000-000" onblur="buscarCEP()">
-            
+                            <input class="text" id="cep_input" type="text" maxlength="9" placeholder="000000-000"
+                                onblur="buscarCEP()" onchange="limparBorda(this)">
+
                             <label class="tipo_campo">Rua/Av:</label>
-                            <input class="text" id="rua_input" type="text" placeholder="">
-            
+                            <input class="text" id="rua_input" type="text" placeholder="" onchange="limparBorda(this)">
+
                             <label class="tipo_campo">Número:</label>
-                            <input class="text" id="numero_input" type="text" placeholder="">
+                            <input class="text" id="numero_input" type="text" placeholder="" onchange="limparBorda(this)">
                         </div>
-        
-                        <div class="metade2">                        
+
+                        <div class="metade2">
                             <label class="tipo_campo">Bairro:&nbsp;&nbsp;</label>
-                            <input class="text" id="bairro_input" type="text" placeholder="">
-            
+                            <input class="text" id="bairro_input" type="text" placeholder="" onchange="limparBorda(this)">
+
                             <label class="tipo_campo">Cidade:</label>
-                            <input class="text" id="cidade_input" type="text" placeholder="">
-            
+                            <input class="text" id="cidade_input" type="text" placeholder="" onchange="limparBorda(this)">
+
                             <label class="tipo_campo">Estado:</label>
-                            <input class="text" id="estado_input" type="text" placeholder="">
-                        </div>    
+                            <input class="text" id="estado_input" type="text" placeholder="" onchange="limparBorda(this)">
+                        </div>
                     </div>
-        
+
                     <label class="tipo_campo">E-mail:</label>
-                    <input class="text" id="email_input" type="text" placeholder="meuemail@provedor.com">
-        
+                    <input class="text" id="email_input" type="text" placeholder="meuemail@provedor.com" onchange="limparBorda(this)">
+
                     <label class="tipo_campo">Número de telefone:</label>
-                    <input class="text" id="telefone_input" type="text" placeholder="(00) 0000-0000">
+                    <input class="text" id="telefone_input" type="text" placeholder="(00) 0000-0000" onchange="limparBorda(this)">
                 </div>
-    
+
                 <button class="btn" onclick="cadastrarEmpresa()">CADASTRAR</button>
             </div>
         </div>
@@ -84,13 +86,13 @@
 
     function tamanho() {
         // Atalhos 
-        $ = document.querySelector.bind(document); 
-        $$ = document.querySelectorAll.bind(document); 
+        $ = document.querySelector.bind(document);
+        $$ = document.querySelectorAll.bind(document);
         print = console.log.bind(console)
-        
+
         // selecionando o elemento
         let elemento = "#cnpj_input";
-        
+
         let largura = $(elemento).clientWidth;
 
         document.getElementsByClass(endereco).style.width = largura;
@@ -129,117 +131,51 @@
     }
 
     function cadastrarEmpresa() {
-        var nomeEmpresa = nome_empresa_input.value
-        var ramoAtividade = ramo_atividade_input.value
-        var cnpj = cnpj_input.value
-        var cep = cep_input.value
-        var rua_av = rua_input.value
-        var numero = numero_input.value
-        var bairro = bairro_input.value
-        var cidade = cidade_input.value
-        var estado = estado_input.value
-        var email = email_input.value
-        var telefone = telefone_input.value
+        var inputs = document.querySelectorAll("input");
 
-        if (nomeEmpresa == "" || ramoAtividade == "" || cnpj == "" || cep == "" || rua_av == "" ||
-            bairro == "" || cidade == "" || estado == "" || email == "" || telefone == "") {
-            alert("Preencha todos os campos!");
-            return false;
-        }
+        var semErro = true;
 
-        fetch("/datawatch/cadastrarEmpresa", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                nomeEmpresaServer: nomeEmpresa,
-                ramoAtividadeServer: ramoAtividade,
-                cnpjServer: cnpj,
-                cepServer: cep,
-                rua_avServer: rua_av,
-                numeroServer: numero,
-                bairroServer: bairro,
-                cidadeServer: cidade,
-                estadoServer: estado,
-                emailServer: email,
-                telefoneServer: telefone
-            })
-        }).then(function (resposta) {
-            console.log("resposta", resposta)
-
-            if (resposta.ok) {
-                alert("Empresa cadastrada com sucesso");
-
-            }
-            else {
-                throw ("Houve um erro ao tentar cadastrar a empresa")
-            }
-        }).catch(function (resposta) {
-            console.log(`ERRO: ${resposta}`);
-        })
-
-        return false
-    }
-
-    function cadastroFuncionario() {
-        /* aguardar(); */
-
-        //Recupere o valor da nova input pelo nome do id
-        // Agora vá para o método fetch logo abaixo
-        var nomeVar = nome_input.value;
-        var emailVar = email_input.value;
-        var cpfVar = cpf_input.value;
-        var senhaVar = senha_input.value;
-        var confirmacaoSenhaVar = confirmacao_senha_input.value;
-
-        if (nomeVar == "" || emailVar == "" || senhaVar == "" || confirmacaoSenhaVar == "" || cpfVar == "") {
-            /* cardErro.style.display = "block"
-            mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)"; */
-
-            /* finalizarAguardar(); */
-            return false;
-        }
-        else {
-            /* setInterval(sumirMensagem, 5000) */
-        }
-
-        // Enviando o valor da nova input
-        fetch("/datawatch/cadastrarFuncionario", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                // crie um atributo que recebe o valor recuperado aqui
-                nomeServer: nomeVar,
-                emailServer: emailVar,
-                cpfServer: cpfVar,
-                senhaServer: senhaVar
-            })
-        }).then(function (resposta) {
-
-            console.log("resposta: ", resposta);
-
-            if (resposta.ok) {
-                /* cardErro.style.display = "block"; */
-
-                /* mensagem_erro.innerHTML = "Cadastro de funcionário realizado com sucesso!"; */
-
-                setTimeout(() => {
-                    window.location = "areaADM.html";
-                }, "2000")
-
-                limparFormulario();
-                /* finalizarAguardar(); */
-            } else {
-                throw ("Houve um erro ao tentar realizar o cadastro!");
-            }
-        }).catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`);
-            /* finalizarAguardar(); */
+        inputs.forEach(input => {
+            semErro = mostrarBordaVazio(input, input.value);
         });
 
-        return false;
+        if (semErro) {
+
+            fetch("/datawatch/cadastrarEmpresa", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    nomeEmpresaServer: inputs[0].value,
+                    ramoAtividadeServer: inputs[1].value,
+                    cnpjServer: inputs[2].value,
+                    cepServer: inputs[3].value,
+                    rua_avServer: inputs[4].value,
+                    numeroServer: inputs[5].value,
+                    bairroServer: inputs[6].value,
+                    cidadeServer: inputs[7].value,
+                    estadoServer: inputs[8].value,
+                    emailServer: inputs[9].value,
+                    telefoneServer: inputs[10].value
+                })
+            }).then(function (resposta) {
+                console.log("resposta", resposta)
+
+                if (resposta.ok) {
+                    alert("Empresa cadastrada com sucesso");
+
+                }
+                else {
+                    throw ("Houve um erro ao tentar cadastrar a empresa")
+                }
+            }).catch(function (resposta) {
+                console.log(`ERRO: ${resposta}`);
+            })
+        } else {
+            alert('Preencha todos os campos')
+        }
+
+        return false
     }
 </script>
