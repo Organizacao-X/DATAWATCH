@@ -1,5 +1,6 @@
 @import 'https://fonts.googleapis.com/css2?family=Nunito:wght@500&display=swap%27';
-
+@import url('https://fonts.googleapis.com/css2?family=Sofia+Sans+Semi+Condensed:ital,wght@0,1;0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;0,1000;1,1;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900;1,1000&display=swap%27%27');
+@import url('https://fonts.googleapis.com/css2?family= Ubuntu :wght@700 & display=swap');
 
 * {
     padding: 0;
@@ -369,6 +370,8 @@ banner {
     height: auto;
     margin-top: 5%;
     margin-bottom: 10%;
+    margin-left: 10%;
+    margin-right: 10%;
 }
 
 .missao {
@@ -412,7 +415,8 @@ banner {
 }
 
 .missao span{
-    font-size: 1.5rem;
+    font-size: 1.2rem;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 .visao {
@@ -457,7 +461,8 @@ banner {
 }
 
 .visao span{
-    font-size: 1.5rem;
+    font-size: 1.2rem;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 .valores {
@@ -500,7 +505,8 @@ banner {
 }
 
 .valores span{
-    font-size: 1.5rem;
+    font-size: 1.2rem;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 /* SESSÃO 2 */
@@ -531,7 +537,7 @@ banner {
     /* border: 3px solid orange; */
     display: flex;
     justify-content: flex-end;
-    background-image: url(../assets/imgs/7d675566f44b598b1f41851000a6a654.jpg);
+    background-image: url(../assets/imgs/monitoramentoAtendimentos.png);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -564,6 +570,7 @@ banner {
     font-size: 40px;
     padding: 2rem;
     color: #fff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .texto-sobre .texto {
@@ -573,6 +580,7 @@ banner {
     color: #fff;
     margin-bottom: 10%;
     font-size: 25px;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 
@@ -599,7 +607,7 @@ banner {
 
 .imagem-um {
     /* border: 3px solid rgb(255, 115, 0); */
-    width: 70%;
+    width: 55%;
     height: 20rem;
     background-color: #181818;
     border-radius: 15px;
@@ -618,12 +626,14 @@ banner {
     display: flex;
     padding: 1rem;
     font-size: 40px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .info-um .texto p {
     /* border: 3px solid rgb(255, 0, 0); */
     display: flex;
     font-size: 20px;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 .info-dois {
@@ -645,12 +655,14 @@ banner {
     display: flex;
     padding: 1rem;
     font-size: 40px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .info-dois .texto p {
     /* border: 3px solid rgb(255, 0, 0); */
     display: flex;
     font-size: 20px;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 .imagem-dois {
@@ -683,22 +695,19 @@ banner {
     /* border: 3px solid rgb(255, 115, 0); */
     display: flex;
     justify-content: center;
-    font-size: 40px;
-    padding: 0.8rem;
-}
-
-.vantagem p {
-    /* border: 3px solid rgb(13, 255, 0); */
-    display: flex;
-    font-size: 1.2rem;
-    padding: 1rem;
+    font-size: 60px;
+    margin-bottom: 20%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .part-quatro .info-um {
     /* border: 3px solid rgb(255, 0, 0); */
     display: flex;
-    justify-content: center;
-    /* margin: 5% 15% 5% 15%; */
+    background-color: #232323;
+    height: auto;
+    border-radius: 15px;
+    margin-bottom: 5%;
+    
 }
 
 .part-quatro .info-um .itens {
@@ -713,6 +722,12 @@ banner {
     border-radius: 15px;
 }
 
+.part-quatro .info-um .itens img{
+    height: 90px;
+    width: 90px;
+    margin-bottom: 5%;
+}
+
 .itens .linha2 {
     border: 1px solid #F2CB05;
     width: 50%;
@@ -724,8 +739,10 @@ banner {
     align-items: center;
     padding: 0.1rem;
     font-size: 1.5rem;
+    margin-bottom: 2%;
     color: #ffffff;
     margin-top: 5%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .itens p {
@@ -735,6 +752,7 @@ banner {
     margin-top: 5%;
     font-size: 1.1rem;
     color: #ffffff;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 /* sessão quatro */
@@ -756,9 +774,10 @@ banner {
     align-items: center;
     width: 50%;
     padding: 1.5rem;
-    font-size: 30px;
-    margin: 5% 0% 0% 0%;
+    font-size: 50px;
+    margin: 2% 0% 0% 0%;
     color: #fff;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 .linha {
@@ -798,7 +817,6 @@ banner {
     border-radius: 10px;
     text-align: center;
     color: #ffffff;
-    font-family: "Poppins", sans-serif;
     transition: all 0.3s ease;
     margin: 5% 5% 0% 5%;
 }
@@ -813,6 +831,7 @@ banner {
     margin-bottom: -13%;
     font-weight: bolder;
     font-size: 22px;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 .name-client span {
@@ -1015,10 +1034,12 @@ footer {
     width: 30rem;
     gap: 10rem;
     font-size: 20px;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 .info-footer .email {
     font-size: 20px;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 
@@ -1035,7 +1056,7 @@ footer {
     justify-content: center;
     width: auto;
     height: 3rem;
-    margin: 10% 25% 5% 30%;
+    margin: 10% 25% 5% 25%;
 }
 
 .contato-dados .logo img {
@@ -1043,7 +1064,7 @@ footer {
     justify-content: center;
     width: auto;
     height: 3rem;
-    margin: 5% 50% 5% 50%;
+    margin: 5% 0% 5% 0%;
 }
 
 .contact-form {
@@ -1055,6 +1076,7 @@ footer {
 
 .contact-form label {
     color: rgb(0, 0, 0);
+    font-family: 'Ubuntu', sans-serif;
 }
 
 .contact-form .heading {
@@ -1064,6 +1086,7 @@ footer {
     margin-bottom: 12px;
     font-weight: bold;
     display: block;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 .contact-form form {
@@ -1107,6 +1130,7 @@ textarea {
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 .contact-form button[type="submit"]:hover {
@@ -1257,7 +1281,7 @@ textarea {
 }
 
 .valores h3 {
-    font-size: 2=1.5rem;
+    font-size: 1.5rem;
     margin-bottom: 5%;
 }
 
@@ -1281,7 +1305,7 @@ textarea {
     .imagem-empresa {
         display: flex;
         justify-content: flex-end;
-        background-image: url(../assets/imgs/7d675566f44b598b1f41851000a6a654.jpg);
+        background-image: url(../assets/imgs/monitoramentoAtendimentos.1.png);
         background-size: cover;
         /* background-repeat: no-repeat; */
         margin: 10% 10% 0 10%;
@@ -1328,6 +1352,7 @@ textarea {
         width: 3 0%;
         padding: 3rem;
         border-radius: 15px;
+        margin-bottom: 10%;
         /* margin-top: 3%; */
     }
 

@@ -64,9 +64,13 @@
         margin: 5% 10% 0% 10%;
     }
 
+    .part-quatro .info-um{
+        height: auto;
+        margin: 2% 20% 0% 20%;
+    }
 
     .part-quatro .info-um .itens {
-        margin: 5% 20% 0% 20%;
+        margin: 0% 20% 10% 20%;
     }
 
 
@@ -119,30 +123,30 @@
     }
 
     .missao h3 {
-        font-size: 1rem;
+        font-size: 1.5rem;
         margin-bottom: 5%;
     }
 
     .missao span {
-        font-size: 0.9rem;
+        font-size: 1rem;
     }
 
     .visao h3 {
-        font-size: 1rem;
+        font-size: 1.5rem;
         margin-bottom: 5%;
     }
 
     .visao span {
-        font-size: 0.9rem;
+        font-size: 1rem;
     }
 
     .valores h3 {
-        font-size: 1rem;
+        font-size: 1.5rem;
         margin-bottom: 5%;
     }
 
     .valores span {
-        font-size: 0.9rem;
+        font-size: 1rem;
     }
 
     .time {
@@ -617,8 +621,7 @@
     }
 
     .vantagem h2 {
-        font-size: 1.5rem;
-        padding: 0.5rem;
+        font-size: 2.5rem;
     }
 
     .vantagem p {
@@ -627,11 +630,12 @@
     }
 
     .part-quatro .info-um {
-        margin: 5% 0% 10% 0%;
+        margin: 2% 15% 10% 15%;
     }
 
     .part-quatro .info-um .itens {
         padding: 1rem;
+        height: 18rem;
     }
 
     .itens .linha2 {
@@ -652,6 +656,10 @@
 
     .titulo-time .linha {
         width: 50%;
+    }
+
+    .titulo-time h3{
+        font-size: 2.5rem;
     }
 
     .time {
