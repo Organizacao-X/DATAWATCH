@@ -38,19 +38,19 @@
             <div class="alinhamentoInputs">
                 <h1>Cadastre-se:</h1>
                 <label class="tipo_campo">Nome:</label>
-                <input id="nome_input" type="text" placeholder="Nome da máquina">
+                <input id="nome_input" type="text" placeholder="Nome da máquina" onchange="limparBorda(this)">
 
                 <label class="tipo_campo">número de série da máquina:</label>
-                <input id="serie_input" type="text" placeholder="Número de série">
+                <input id="serie_input" type="text" placeholder="Número de série" onchange="limparBorda(this)">
 
                 <label class="tipo_campo">Data de chegada da máquina:</label>
-                <input id="data_input" type="text" placeholder="**/**/****">
+                <input id="data_input" type="text" placeholder="**/**/****" onchange="limparBorda(this)">
 
                 <label class="tipo_campo">Especificações da máquina:</label>
-                <input id="especificacao_input" type="text" placeholder="Especificações">
+                <input id="especificacao_input" type="text" placeholder="Especificações" onchange="limparBorda(this)">
 
                 <label class="tipo_campo">Setor atribuído:</label>
-                <input id="setor_input" type="text" placeholder="Setor">
+                <input id="setor_input" type="text" placeholder="Setor" onchange="limparBorda(this)">
 
 
                 <button class="btn" onclick="cadastrarMaquina()">CADASTRAR</button>
@@ -73,6 +73,17 @@
 
     //Recupere o valor da nova input pelo nome do id
     // Agora vá para o método fetch logo abaixo
+        var inputs = document.querySelectorAll("input")
+        var erro = false
+
+        inputs.forEach(input => {
+            mostrarBordaVazio(input, input.value)
+        });
+
+        if (inputs[3].value != inputs[4].value) {
+            inputs[3].style.borderBottom = "solid 4px red"
+            inputs[4].style.borderBottom = "solid 4px red"
+        }
     var nomeVar = nome_input.value;
     var serieVar = serie_input.value;
     var dataVar = data_input.value;
