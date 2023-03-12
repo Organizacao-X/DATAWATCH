@@ -64,7 +64,7 @@
         margin: 5% 10% 0% 10%;
     }
 
-    .part-quatro .info-um{
+    .part-quatro .info-um {
         height: auto;
         margin: 2% 20% 0% 20%;
     }
@@ -118,8 +118,14 @@
         justify-content: center;
         align-items: center;
         height: auto;
+        margin-left: 10%;
+        margin-right: 10%;
         margin-top: 5%;
         margin-bottom: 10%;
+    }
+
+    .missao {
+        margin: 5% 0% 10% 0%;
     }
 
     .missao h3 {
@@ -131,6 +137,10 @@
         font-size: 1rem;
     }
 
+    .visao {
+        margin: 0% 0% 5% 0%;
+    }
+
     .visao h3 {
         font-size: 1.5rem;
         margin-bottom: 5%;
@@ -138,6 +148,10 @@
 
     .visao span {
         font-size: 1rem;
+    }
+
+    .valores {
+        margin: 5% 0% 10% 0%;
     }
 
     .valores h3 {
@@ -152,19 +166,40 @@
     .time {
         display: flex;
         flex-direction: column;
-        width: 100%;
+        width: 70%;
         justify-content: center;
         align-items: center;
+        
     }
 
     .time2 {
         display: flex;
         align-items: center;
         flex-direction: column;
-        width: 100%;
+        width: 70%;
         justify-content: center;
         margin-bottom: 10%;
-        margin-top: 0;
+        margin-top: 0%;
+    }
+
+    .card-client{
+        margin: 10% 5% 0% 5%;
+    }
+
+    .card-client2{
+        margin: 10% 5% 0% 5%;
+    }
+
+    .card-client3 {
+        margin: 10% 5% 0% 5%;
+    }
+
+    .card-client4 {
+        margin: 10% 5% 0% 5%;
+    }
+
+    .card-client5 {
+        margin: 10% 5% 10% 5%;
     }
 
     .contato-dados {
@@ -474,7 +509,7 @@
     }
 
 
-/* SESSÃO UM */
+    /* SESSÃO UM */
 
     .container {
         width: 100%;
@@ -487,11 +522,12 @@
         display: flex;
         justify-content: center;
         height: auto;
-        margin: 5% 0% 10% 0%;
+        margin: 5% 5% 10% 5%;
     }
 
     .missao {
         width: 10rem;
+        margin: 10% 0% 0% 0%;
     }
 
     .missao img {
@@ -508,8 +544,9 @@
         font-size: 0.79rem;
     }
 
-    .visao{
+    .visao {
         width: 10rem;
+        margin: 10% 0% 0% 0%;
     }
 
     .visao img {
@@ -526,8 +563,9 @@
         font-size: 0.79rem;
     }
 
-    .valores{
+    .valores {
         width: 10.5rem;
+        margin: 10% 0% 10% 0%;
     }
 
     .valores img {
@@ -658,14 +696,14 @@
         width: 50%;
     }
 
-    .titulo-time h3{
+    .titulo-time h3 {
         font-size: 2.5rem;
     }
 
     .time {
         display: flex;
         flex-direction: column;
-        width: 100%;
+        width: 75%;
         justify-content: center;
         align-items: center;
     }
@@ -674,15 +712,15 @@
         display: flex;
         align-items: center;
         flex-direction: column;
-        width: 100%;
+        width: 75%;
         justify-content: center;
         margin-bottom: 10%;
         margin-top: 0;
     }
 
     .card-client {
-        background-image: url();
-        background-size: 300px;
+        background-image: url(../assets/imgs/Group\ 29-1.png);
+        background-size: 170px;
         background-repeat: no-repeat;
         background-position: center;
         width: 8rem;
@@ -706,7 +744,7 @@
 
     .name-client {
         /* border: 3px solid red; */
-        margin-top: 80%;
+        margin-top: 100%;
         font-weight: bolder;
         font-size: 20px;
     }
@@ -722,7 +760,7 @@
         display: block;
         width: 100%;
         height: 2px;
-        margin: 20px 0;
+        margin: 10px 0;
     }
 
     .social-media a {
@@ -778,10 +816,11 @@
         opacity: 1;
         transform: translate(-50%, -130%);
     }
+    
 
     .card-client2 {
-        background-image: url();
-        background-size: 300px;
+        background-image: url(../assets/imgs/Group\ 27-1.png);
+        background-size: 170px;
         background-repeat: no-repeat;
         background-position: center;
         width: 8rem;
@@ -805,8 +844,8 @@
     }
 
     .card-client3 {
-        background-image: url();
-        background-size: 300px;
+        background-image: url(../assets/imgs/Group\ 30-1.png);
+        background-size: 170px;
         background-repeat: no-repeat;
         background-position: center;
         width: 8rem;
@@ -829,8 +868,8 @@
     }
 
     .card-client4 {
-        background-image: url();
-        background-size: 300px;
+        background-image: url(../assets/imgs/Group\ 28-1.png);
+        background-size: 175px;
         background-repeat: no-repeat;
         background-position: center;
         width: 8rem;
@@ -853,8 +892,8 @@
     }
 
     .card-client5 {
-        background-image: url();
-        background-size: 300px;
+        background-image: url(../assets/imgs/Group\ 26-1.png);
+        background-size: 175px;
         background-repeat: no-repeat;
         background-position: center;
         width: 8rem;
@@ -869,7 +908,7 @@
         color: #ffffff;
         font-family: "Poppins", sans-serif;
         transition: all 0.3s ease;
-        margin-bottom: 5%;
+        margin-bottom: 10%;
     }
 
     .card-client5:hover {
