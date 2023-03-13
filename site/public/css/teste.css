@@ -1,7 +1,6 @@
 @media screen and (max-width: 1290px) {
     .part-tres {
         display: flex;
-        background-color: #F2CB05;
     }
 
     .o-que-fazemos {
@@ -21,7 +20,6 @@
     .imagem-um {
         width: 70%;
         height: 27vh;
-        background-color: #181818;
         border-radius: 15px;
     }
 
