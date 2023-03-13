@@ -591,7 +591,7 @@ banner {
 .part-tres {
     /* border: 3px solid red; */
     display: flex;
-    background-color: #F2CB05;
+    background-color: #1c1c1c;
 }
 
 .o-que-fazemos {
@@ -612,7 +612,7 @@ banner {
     /* border: 3px solid rgb(255, 115, 0); */
     width: 55%;
     height: 20rem;
-    background-color: #181818;
+    background-color: #F2CB05;
     border-radius: 15px;
 }
 
@@ -630,6 +630,7 @@ banner {
     padding: 1rem;
     font-size: 40px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #ffffff;
 }
 
 .info-um .texto p {
@@ -637,6 +638,7 @@ banner {
     display: flex;
     font-size: 20px;
     font-family: 'Ubuntu', sans-serif;
+    color: #ffffff;
 }
 
 .info-dois {
@@ -659,6 +661,7 @@ banner {
     padding: 1rem;
     font-size: 40px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #ffffff;
 }
 
 .info-dois .texto p {
@@ -666,13 +669,14 @@ banner {
     display: flex;
     font-size: 20px;
     font-family: 'Ubuntu', sans-serif;
+    color: #ffffff;
 }
 
 .imagem-dois {
     /* border: 3px solid rgb(255, 115, 0); */
     width: 80%;
     height: 20rem;
-    background-color: #181818;
+    background-color: #F2CB05;
     border-radius: 15px;
 }
 
