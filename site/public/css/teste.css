@@ -56,6 +56,10 @@
         width: 70%;
     }
 
+    .imagem-um {
+        background-size: cover;
+    }
+
     /* SESSÃO PARTE 3 */
 
     .vantagem {
@@ -167,7 +171,7 @@
         width: 70%;
         justify-content: center;
         align-items: center;
-        
+
     }
 
     .time2 {
@@ -180,11 +184,11 @@
         margin-top: 0%;
     }
 
-    .card-client{
+    .card-client {
         margin: 10% 5% 0% 5%;
     }
 
-    .card-client2{
+    .card-client2 {
         margin: 10% 5% 0% 5%;
     }
 
@@ -283,6 +287,14 @@
 
     .mobile-menu-icon {
         display: block;
+    }
+
+    .mobile-menu .linha{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 5%;
+        width: 100%;
     }
 
     .mobile-menu-icon button {
@@ -613,6 +625,8 @@
     .imagem-um {
         width: 80%;
         height: 18vh;
+        background-size: 22rem;
+        background-size: cover;
     }
 
     .info-um .texto {
@@ -814,7 +828,7 @@
         opacity: 1;
         transform: translate(-50%, -130%);
     }
-    
+
 
     .card-client2 {
         background-image: url(../assets/imgs/Group\ 27-1.png);

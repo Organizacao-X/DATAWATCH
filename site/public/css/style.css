@@ -274,6 +274,7 @@ banner {
     margin-bottom: 6%;
 }
 
+
 .saber-mais button.learn-more {
     width: 12rem;
     height: auto;
@@ -611,9 +612,13 @@ banner {
 .imagem-um {
     /* border: 3px solid rgb(255, 115, 0); */
     width: 55%;
+    background-image: url(../assets/imgs/Tecnologia-De-Ponta-2.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
     height: 20rem;
     background-color: #F2CB05;
     border-radius: 15px;
+    margin-top: 2%;
 }
 
 .info-um .texto {
@@ -674,6 +679,10 @@ banner {
 
 .imagem-dois {
     /* border: 3px solid rgb(255, 115, 0); */
+    background-image: url(../assets/imgs/a-importancia-do-dashboard-em-ferramentas-de-business-intelligence.jpeg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
     width: 80%;
     height: 20rem;
     background-color: #F2CB05;
