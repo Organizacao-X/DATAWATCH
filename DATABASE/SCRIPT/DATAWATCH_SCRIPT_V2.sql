@@ -10,3 +10,19 @@ CREATE TABLE Usuarios(
     adm int,
     CONSTRAINT FOREIGN KEY (adm) REFERENCES Usuarios (idUsuario)
 );
+
+CREATE TABLE Empresas (
+idEmpresa INT PRIMARY KEY AUTO_INCREMENT,
+razaoSocial VARCHAR(45) NOT NULL,
+cnpj CHAR(14) NOT NULL,
+cep CHAR(8) NOT NULL,
+logradouro VARCHAR(100) NOT NULL,
+numero INT NOT NULL,
+complemento VARCHAR(45) NOT NULL,
+bairro VARCHAR(45) NOT NULL,
+cidade VARCHAR(45) NOT NULL,
+estado CHAR(2),
+verificado TINYINT(1),
+fkUsuario INT,
+CONSTRAINT FOREIGN KEY (fkUsuario) REFERENCES Usuarios (idUsuario)
+);
