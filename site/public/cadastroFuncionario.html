@@ -84,12 +84,13 @@ function cadastroFuncionario() {
             inputs[4].style.borderBottom = "solid 4px red"
         }
 
-    var admVar = Number(sessionStorage.ID_USUARIO);
+    
     var nomeVar = nome_input.value;
     var emailVar = email_input.value;
     var cpfVar = cpf_input.value;
     var senhaVar = senha_input.value;
     var confirmacaoSenhaVar = confirmacao_senha_input.value;
+    var admVar = sessionStorage.ID_USUARIO;
 
     if (nomeVar == "" || emailVar == "" || senhaVar == "" || confirmacaoSenhaVar == "" || cpfVar == "") {
         /* cardErro.style.display = "block"

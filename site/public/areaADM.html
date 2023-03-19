@@ -29,13 +29,13 @@
     <div class="container">
         <div class="colunas">
             <h2>Empresa</h2>
-            <button>Cadastrar</button>
+            <a href="./cadastroEmpresa.html"><button>Cadastrar</button></a>
         </div>
-        <div class="colunas">
+        <div class="colunas" id="funcionario">
             <h2>Funcionários</h2>
-            <button>Cadastrar</button>
+            <a href="./cadastroFuncionario.html"><button>Cadastrar</button></a>
         </div>
-        <div class="colunas">
+        <div class="colunas" id="maquina">
             <h2>Máquinas</h2>
             <a href="./cadastroMaquina.html"><button>Cadastrar</button></a>
         </div>
@@ -48,4 +48,10 @@
 </body>
 <script>
     nomeUsuario.innerHTML = `<p>${sessionStorage.NOME_USUARIO}</p>`
+
+    if (sessionStorage.ID_EMPRESA != undefined) {
+        funcionario.style.visibility = 'visible'
+        maquina.style.visibility = 'visible'
+    }
+
 </script>

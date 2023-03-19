@@ -44,7 +44,7 @@
                 <input id="serie_input" type="text" placeholder="Número de série" onchange="limparBorda(this)">
 
                 <label class="tipo_campo">Data de chegada da máquina:</label>
-                <input id="data_input" type="text" placeholder="**/**/****" onchange="limparBorda(this)">
+                <input id="data_input" type="date" placeholder="**/**/****" onchange="limparBorda(this)">
 
                 <label class="tipo_campo">Especificações da máquina:</label>
                 <input id="especificacao_input" type="text" placeholder="Especificações" onchange="limparBorda(this)">
@@ -89,6 +89,7 @@
     var dataVar = data_input.value;
     var especificacaoVar = especificacao_input.value;
     var setorVar = setor_input.value;
+    
 
     if (nomeVar == "" || serieVar == "" || dataVar == "" || especificacaoVar == "" || setorVar == "") {
         /* cardErro.style.display = "block"
