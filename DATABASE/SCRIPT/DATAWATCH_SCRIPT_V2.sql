@@ -26,3 +26,5 @@ verificado TINYINT(1),
 fkUsuario INT,
 CONSTRAINT FOREIGN KEY (fkUsuario) REFERENCES Usuarios (idUsuario)
 );
+
+

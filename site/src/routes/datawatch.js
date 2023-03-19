@@ -25,4 +25,8 @@ router.post("/cadastrarMaquina", function (req, res) {
     datawatchController.cadastrarMaquina(req, res);
 })
 
+router.post("/autenticar", function (req, res) {
+    datawatchController.entrar(req, res);
+});
+
 module.exports = router;

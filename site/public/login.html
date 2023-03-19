@@ -32,10 +32,10 @@
             <div class="alinhamentoInputs">
                 <h1>Login</h1>
                 <label class="tipo_campo">E-mail:</label>
-                <input id="email_input" type="email" placeholder="Login">
+                <input id="email_input" type="email" placeholder="Login" onchange="limparBorda(this)">
 
                 <label class="tipo_campo">Senha:</label>
-                <input id="senha_input" type="password" placeholder="******">
+                <input id="senha_input" type="password" placeholder="******" onchange="limparBorda(this)">
 <!--                 <div class="checkboxDiv">
                     <div class="alinhamentoCheckBox">
                         <input type="checkbox" id="rememberMe"> <label for="rememberMe">Lembrar de mim</label>
@@ -61,7 +61,7 @@
 
 <script>
     var remember = document.getElementById('rememberMe');
-
+    
     function verificarLembrarMe() {
         if (localStorage.getItem('username') && localStorage.getItem('password')) {
             document.getElementById('email_input').value = localStorage.getItem('username');
@@ -70,7 +70,64 @@
         }
     }
 
+    
+    
     function entrar() {
+        // var inputs = document.querySelectorAll("input")
+        
+        // inputs.forEach(input => {
+        //     mostrarBordaVazio(input, input.value)
+        // });
+        
+
+    console.log("FORM LOGIN: ", email_input.value);
+    console.log("FORM SENHA: ", senha_input.value);
+
+    fetch("/datawatch/autenticar", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            emailServer: email_input.value,
+            senhaServer: senha_input.value
+        })
+    }).then(function (resposta) {
+        console.log("ESTOU NO THEN DO entrar()!")
+
+        if (resposta.ok) {
+            console.log(resposta);
+
+            resposta.json().then(json => {
+                console.log(json);
+                console.log(JSON.stringify(json));
+
+                sessionStorage.EMAIL_USUARIO = json.email;
+                sessionStorage.NOME_USUARIO = json.nomeUsuario;
+                sessionStorage.ID_USUARIO = json.idUsuario;
+
+                setTimeout(function () {
+                    window.location = "./areaADM.html";
+                }, 1000); // apenas para exibir o loading
+
+            });
+
+        } else {
+
+            console.log("Houve um erro ao tentar realizar o login!");
+
+            resposta.text().then(texto => {
+                console.error(texto);
+                /* finalizarAguardar(texto); */
+            });
+        }
+
+    }).catch(function (erro) {
+        console.log(erro);
+    })
+
+    return false;
+
         if (remember.checked) {
             salvarCredenciais();
         }
