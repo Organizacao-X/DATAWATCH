@@ -60,14 +60,6 @@ nav {
     color: #fff;
 }
 
-.colunas #funcionario {
-    visibility: "hidden"
-}
-
-.colunas #maquina {
-    visibility: "hidden"
-}
-
 .colunas button {
     color: #fff;
     margin: 35px 0 5px 0;
