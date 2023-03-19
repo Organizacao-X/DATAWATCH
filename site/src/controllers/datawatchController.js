@@ -138,6 +138,7 @@ function cadastrarEmpresa(req, res) {
         var email = req.body.emailServer;
         var cpf = req.body.cpfServer;
         var senha = req.body.senhaServer;
+        var adm = req.body.admServer;
 
         // Faça as validações dos valores
         if (nome == undefined) {
@@ -148,10 +149,12 @@ function cadastrarEmpresa(req, res) {
             res.status(400).send("Seu cpf está undefined!");
         } else if (senha == undefined) {
             res.status(400).send("Sua senha está undefined!");
+        } else if (adm == undefined) {
+            res.status(400).send("Funcionário não vinculado a um gerente(undefined)");
         } else {
 
             // Passe os valores como parâmetro e vá para o arquivo datawatchModel.js
-            datawatchModel.cadastrarFuncionario(nome, email, cpf, senha)
+            datawatchModel.cadastrarFuncionario(nome, email, cpf, senha, adm)
                 .then(
                     function (resultado) {
                         res.json(resultado);

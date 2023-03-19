@@ -83,6 +83,8 @@ function cadastroFuncionario() {
             inputs[3].style.borderBottom = "solid 4px red"
             inputs[4].style.borderBottom = "solid 4px red"
         }
+
+    var admVar = Number(sessionStorage.ID_USUARIO);
     var nomeVar = nome_input.value;
     var emailVar = email_input.value;
     var cpfVar = cpf_input.value;
@@ -111,7 +113,9 @@ function cadastroFuncionario() {
             nomeServer: inputs[0].value,
             emailServer: inputs[1].value,
             cpfServer: inputs[2].value,
-            senhaServer: inputs[3].value
+            senhaServer: inputs[3].value,
+            admServer: admVar
+
         })
     }).then(function (resposta) {
 
