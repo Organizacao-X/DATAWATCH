@@ -49,7 +49,7 @@
 <script>
     nomeUsuario.innerHTML = `<p>${sessionStorage.NOME_USUARIO}</p>`
 
-    if (sessionStorage.ID_EMPRESA != undefined) {
+    if (sessionStorage.ID_EMPRESA == undefined || sessionStorage.ID_EMPRESA == null || sessionStorage.ID_EMPRESA == 0) {
         funcionario.style.visibility = 'visible'
         maquina.style.visibility = 'visible'
     }

@@ -8,17 +8,18 @@ function cadastrar(nome, email, cpf, senha) {
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
     var instrucao = `
-        INSERT INTO Usuarios (nomeUsuario, email, cpf, senha, adm) VALUES ('${nome}', '${email}', '${cpf}', '${senha}', null);
+        INSERT INTO Usuarios (nomeUsuario, email, cpf, senha, adm, fkEmpresa) VALUES ('${nome}', '${email}', '${cpf}', '${senha}', null, null);
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
 }
 
 // CADASTRO DE EMPRESAS
-function cadastrarEmpresa(nomeEmpresa, ramoAtividade, cnpj, cep, rua_av, numero, bairro, cidade, estado, email, telefone) {
-    console.log("ACESSEI O DATAWATCH MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrarEmpresa():", nomeEmpresa, ramoAtividade, cnpj, cep, rua_av, numero, bairro, cidade, estado, email, telefone);
+function cadastrarEmpresa(razaoSocial, cnpj, cep, rua_av, numero, complemento, bairro, cidade, estado, email, telefone) {
+    console.log("ACESSEI O DATAWATCH MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrarEmpresa():", razaoSocial, cnpj, cep, rua_av, numero, complemento, bairro, cidade, estado, email, telefone);
     var instrucao = `
-        INSERT INTO Empresas (nomeEmpresa, ramoAtividade, CNPJ, CEP, ruaAvenida, numero, bairro, cidade, estado, email, telefone, verificado) VALUES ('${nomeEmpresa}', '${ramoAtividade}','${cnpj}', '${cep}', '${rua_av}','${numero}', '${bairro}', '${cidade}','${estado}', '${email}', '${telefone}', 'no');
+        INSERT INTO Empresas (razaoSocial, ramoAtividade, CNPJ, CEP, ruaAvenida, numero, bairro, cidade, estado, email, telefone, verificado) VALUES ('${razaoSocial}','${cnpj}', '${cep}', '${rua_av}','${numero}', '${complemento}' '${bairro}', '${cidade}','${estado}', '${email}', '${telefone}');
+        UPDATE usuarios set fkEmpresa =  ${}
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);

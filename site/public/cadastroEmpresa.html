@@ -16,7 +16,7 @@
     <script src="js/funcoes.js"></script>
 </head>
 
-<body onload="tamanho()">
+<body>
     <!-- NAVBAR -->
     <nav>
         <ul class="nav-list">
@@ -37,9 +37,6 @@
                     <label class="tipo_campo">Nome da empresa:</label>
                     <input class="text" id="nome_empresa_input" type="text" placeholder="Nome da empresa" onchange="limparBorda(this)">
 
-                    <label class="tipo_campo">Ramo de atividade:</label>
-                    <input class="text" id="ramo_atividade_input" type="text" placeholder="" onchange="limparBorda(this)">
-
                     <label class="tipo_campo">CNPJ:</label>
                     <input class="text" id="cnpj_input" type="text" maxlength="14" placeholder="" onchange="limparBorda(this)">
 
@@ -54,7 +51,13 @@
 
                             <label class="tipo_campo">Número:</label>
                             <input class="text" id="numero_input" type="text" placeholder="" onchange="limparBorda(this)">
+                            
+                            <label class="tipo_campo">Complemento:</label>
+                            <input class="text" id="complemento_input" type="text" placeholder="Andar" style="width: 200%" onchange="limparBorda(this)">
                         </div>
+                        
+                       
+                       
 
                         <div class="metade2">
                             <label class="tipo_campo">Bairro:&nbsp;&nbsp;</label>
@@ -68,6 +71,7 @@
                         </div>
                     </div>
 
+                    
                     <label class="tipo_campo">E-mail:</label>
                     <input class="text" id="email_input" type="text" placeholder="meuemail@provedor.com" onchange="limparBorda(this)">
 
@@ -84,19 +88,19 @@
 </html>
 <script>
 
-    function tamanho() {
-        // Atalhos 
-        $ = document.querySelector.bind(document);
-        $$ = document.querySelectorAll.bind(document);
-        print = console.log.bind(console)
+    // function tamanho() {
+    //     // Atalhos 
+    //     $ = document.querySelector.bind(document);
+    //     $$ = document.querySelectorAll.bind(document);
+    //     print = console.log.bind(console)
 
-        // selecionando o elemento
-        let elemento = "#cnpj_input";
+    //     // selecionando o elemento
+    //     let elemento = "#cnpj_input";
 
-        let largura = $(elemento).clientWidth;
+    //     let largura = $(elemento).clientWidth;
 
-        document.getElementsByClass(endereco).style.width = largura;
-    }
+    //     document.getElementsByClass(endereco).style.width = largura;
+    // }
 
     function buscarCEP() {
         let cep1 = document.getElementById("cep_input")
@@ -147,12 +151,12 @@
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    nomeEmpresaServer: inputs[0].value,
-                    ramoAtividadeServer: inputs[1].value,
-                    cnpjServer: inputs[2].value,
-                    cepServer: inputs[3].value,
-                    rua_avServer: inputs[4].value,
-                    numeroServer: inputs[5].value,
+                    razaoSocialServer: inputs[0].value,
+                    cnpjServer: inputs[1].value,
+                    cepServer: inputs[2].value,
+                    rua_avServer: inputs[3].value,
+                    numeroServer: inputs[4].value,
+                    complementoServer: inputs[5].value,
                     bairroServer: inputs[6].value,
                     cidadeServer: inputs[7].value,
                     estadoServer: inputs[8].value,

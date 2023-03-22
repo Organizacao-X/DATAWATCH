@@ -83,11 +83,12 @@ function cadastrarMaquina(req, res) {
 
 function cadastrarEmpresa(req, res) {
     var nomeEmpresa = req.body.nomeEmpresaServer;
-    var ramoAtividade = req.body.ramoAtividadeServer;
+    var razaoSocial = req.body.razaoSocialServer;
     var cnpj = req.body.cnpjServer;
     var cep = req.body.cepServer;
     var rua_av = req.body.rua_avServer
     var numero = req.body.numeroServer;
+    var complemento = req.body.complementoServer;
     var bairro = req.body.bairroServer;
     var cidade = req.body.cidadeServer;
     var estado = req.body.estadoServer;
@@ -96,7 +97,7 @@ function cadastrarEmpresa(req, res) {
 
     if (nomeEmpresa == undefined) {
         res.status(400).send("Seu nomeEmpresa está undefined!");
-    } else if (ramoAtividade == undefined) {
+    } else if (razaoSocial == undefined) {
         res.status(400).send("Seu ramoAtividade está undefined!");
     } else if (cnpj == undefined) {
         res.status(400).send("Seu cnpj está undefined!");
@@ -105,6 +106,8 @@ function cadastrarEmpresa(req, res) {
     } else if (rua_av == undefined) {
         res.status(400).send("Sua rua_av está undefined!");
     } else if (numero == undefined) {
+        res.status(400).send("Seu numero está undefined!");
+    } else if (complemento == undefined) {
         res.status(400).send("Seu numero está undefined!");
     } else if (bairro == undefined) {
         res.status(400).send("Seu bairro está undefined!");
@@ -118,7 +121,7 @@ function cadastrarEmpresa(req, res) {
         res.status(400).send("Seu telefone está undefined!");
     } else {
 
-        datawatchModel.cadastrarEmpresa(nomeEmpresa, ramoAtividade, cnpj, cep, rua_av, numero, bairro, cidade, estado, email, telefone).then(
+        datawatchModel.cadastrarEmpresa(razaoSocial, cnpj, cep, rua_av, numero, complemento, bairro, cidade, estado, email, telefone).then(
             function (resultado) {
                 res.json(resultado);
             }
