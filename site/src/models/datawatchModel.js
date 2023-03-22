@@ -4,7 +4,7 @@ var database = require("../database/config");
 // CADASTRO INICIAL
 function cadastrar(nome, email, cpf, senha) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", nome, email, senha);
-    
+
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
     var instrucao = `
@@ -15,11 +15,12 @@ function cadastrar(nome, email, cpf, senha) {
 }
 
 // CADASTRO DE EMPRESAS
-function cadastrarEmpresa(razaoSocial, cnpj, cep, rua_av, numero, complemento, bairro, cidade, estado, email, telefone) {
-    console.log("ACESSEI O DATAWATCH MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrarEmpresa():", razaoSocial, cnpj, cep, rua_av, numero, complemento, bairro, cidade, estado, email, telefone);
+function cadastrarEmpresa(razaoSocial, cnpj, cep, rua_av, numero, complemento, bairro, cidade, estado, email, telefone, idusuario) {
+    console.log("ACESSEI O DATAWATCH MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrarEmpresa():", razaoSocial, cnpj, cep, rua_av, numero, complemento, bairro, cidade, estado, email, telefone, idusuario);
     var instrucao = `
-        INSERT INTO Empresas (razaoSocial, ramoAtividade, CNPJ, CEP, ruaAvenida, numero, bairro, cidade, estado, email, telefone, verificado) VALUES ('${razaoSocial}','${cnpj}', '${cep}', '${rua_av}','${numero}', '${complemento}' '${bairro}', '${cidade}','${estado}', '${email}', '${telefone}');
-        UPDATE usuarios set fkEmpresa =  ${}
+        INSERT INTO Empresas (razaoSocial, ramoAtividade, CNPJ, CEP, ruaAvenida, numero, bairro, cidade, estado, verificado) VALUES ('${razaoSocial}','${cnpj}', '${cep}', '${rua_av}','${numero}', '${complemento}' '${bairro}', '${cidade}','${estado}');
+        INSERT INTO Contato (fkEmpresa, email, telefone) VALUES ('${idusuario}', '${email}', '${telefone}');
+        UPDATE Usuarios set FkEmpresa = ${idusuario} where idUsuario = ${idusuario};
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
@@ -42,7 +43,7 @@ function cadastrarMaquina(nome, serie, data, especificacao, setor) {
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
     var instrucao = `
-        INSERT INTO Maquinas (nomeMaquina, serie, dtChegada, descricao) VALUES 
+        INSERT INTO Maquinas (nomeMaquina, serie, dtChegada, descricao) VALUES
         ('${nome}', '${serie}','${data}', '${especificacao}', '${setor}');
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);

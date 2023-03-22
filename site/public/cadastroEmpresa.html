@@ -136,13 +136,15 @@
 
     function cadastrarEmpresa() {
         var inputs = document.querySelectorAll("input");
-
         var semErro = true;
-
+        
         inputs.forEach(input => {
             semErro = mostrarBordaVazio(input, input.value);
         });
-
+        
+        var fkIdVar = sessionStorage.ID_USUARIO;
+        
+        
         if (semErro) {
 
             fetch("/datawatch/cadastrarEmpresa", {
@@ -161,10 +163,13 @@
                     cidadeServer: inputs[7].value,
                     estadoServer: inputs[8].value,
                     emailServer: inputs[9].value,
-                    telefoneServer: inputs[10].value
+                    telefoneServer: inputs[10].value,
+                    fkIdServer: fkIdVar,
+
                 })
             }).then(function (resposta) {
-                console.log("resposta", resposta)
+                // console.log("resposta", resposta)
+                console.log("teste!!!!!!!!!!!!!!!!!!!!!!!")
 
                 if (resposta.ok) {
                     alert("Empresa cadastrada com sucesso");

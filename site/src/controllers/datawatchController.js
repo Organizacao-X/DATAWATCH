@@ -94,6 +94,7 @@ function cadastrarEmpresa(req, res) {
     var estado = req.body.estadoServer;
     var email = req.body.emailServer;
     var telefone = req.body.telefoneServer;
+    var idusuario = req.body.fkIdServer;
 
     if (nomeEmpresa == undefined) {
         res.status(400).send("Seu nomeEmpresa está undefined!");
@@ -121,7 +122,7 @@ function cadastrarEmpresa(req, res) {
         res.status(400).send("Seu telefone está undefined!");
     } else {
 
-        datawatchModel.cadastrarEmpresa(razaoSocial, cnpj, cep, rua_av, numero, complemento, bairro, cidade, estado, email, telefone).then(
+        datawatchModel.cadastrarEmpresa(razaoSocial, cnpj, cep, rua_av, numero, complemento, bairro, cidade, estado, email, telefone, idusuario).then(
             function (resultado) {
                 res.json(resultado);
             }
