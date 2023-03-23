@@ -12,7 +12,7 @@ complemento VARCHAR(45) NOT NULL,
 bairro VARCHAR(45) NOT NULL,
 cidade VARCHAR(45) NOT NULL,
 estado CHAR(2) NOT NULL,
-verificado TINYINT(1),
+verificado TINYINT(1)
 );
 
 CREATE TABLE IF NOT EXISTS Usuarios (
@@ -22,7 +22,7 @@ email VARCHAR(45) NOT NULL, CONSTRAINT chkEmailUsuario CHECK (email LIKE '%@%'),
 cpf CHAR(11) NOT NULL,
 senha VARCHAR(25) NOT NULL, CONSTRAINT chkSenha CHECK (length(senha) >= 8),
 adm int,
-CONSTRAINT FOREIGN KEY (adm) REFERENCES Usuarios (idUsuario)
+CONSTRAINT FOREIGN KEY (adm) REFERENCES Usuarios (idUsuario),
 fkEmpresa INT,
 CONSTRAINT FOREIGN KEY (fkEmpresa) REFERENCES Empresas (idEmpresa)
 );
