@@ -15,7 +15,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
 </head>
 
-<body>
+<body onload="cadastrosvisiveis()">
     <!-- NAVBAR -->
     <nav>
         <ul class="nav-list">
@@ -49,9 +49,12 @@
 <script>
     nomeUsuario.innerHTML = `<p>${sessionStorage.NOME_USUARIO}</p>`
 
-    if (sessionStorage.ID_EMPRESA == undefined || sessionStorage.ID_EMPRESA == null || sessionStorage.ID_EMPRESA == 0) {
-        funcionario.style.visibility = 'visible'
-        maquina.style.visibility = 'visible'
+    function cadastrosvisiveis() {
+
+        if (sessionStorage.ID_EMPRESA == 0 || sessionStorage.ID_EMPRESA == undefined || sessionStorage.ID_EMPRESA == null) {
+            funcionario.style.visibility = 'visible'
+            maquina.style.visibility = 'visible'
+        }
     }
 
 </script>

@@ -81,24 +81,17 @@ function cadastrarMaquina(req, res) {
     }
 }
 
-function cadastrarEmpresa(req, res) {
-    var nomeEmpresa = req.body.nomeEmpresaServer;
+function cadastrarEmpresa1(req, res) {
     var razaoSocial = req.body.razaoSocialServer;
     var cnpj = req.body.cnpjServer;
     var cep = req.body.cepServer;
-    var rua_av = req.body.rua_avServer
+    var rua_av = req.body.rua_avServer;
     var numero = req.body.numeroServer;
-    var complemento = req.body.complementoServer;
     var bairro = req.body.bairroServer;
+    var complemento = req.body.complementoServer;
     var cidade = req.body.cidadeServer;
     var estado = req.body.estadoServer;
-    var email = req.body.emailServer;
-    var telefone = req.body.telefoneServer;
-    var idusuario = req.body.fkIdServer;
-
-    if (nomeEmpresa == undefined) {
-        res.status(400).send("Seu nomeEmpresa está undefined!");
-    } else if (razaoSocial == undefined) {
+    if (razaoSocial == undefined) {
         res.status(400).send("Seu ramoAtividade está undefined!");
     } else if (cnpj == undefined) {
         res.status(400).send("Seu cnpj está undefined!");
@@ -116,13 +109,53 @@ function cadastrarEmpresa(req, res) {
         res.status(400).send("Sua cidade está undefined!");
     } else if (estado == undefined) {
         res.status(400).send("Seu estado está undefined!");
-    } else if (email == undefined) {
+    } else {
+        datawatchModel.cadastrarEmpresa1(razaoSocial, cnpj, cep, rua_av, numero, complemento, bairro, cidade, estado).then(
+            function (resultado) {
+                res.json(resultado);
+            }
+            ).catch(
+                function (erro) {
+                console.log(erro);
+                console.log("\nHouve um erro ao realizar o cadastro de empresa! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+    }
+}
+function cadastrarEmpresa2(req, res) {
+    var email = req.body.emailServer;
+    var telefone = req.body.telefoneServer;
+    var idusuario = req.body.fkIdServer;
+
+    if (email == undefined) {
         res.status(400).send("Seu email está undefined!");
     } else if (telefone == undefined) {
         res.status(400).send("Seu telefone está undefined!");
     } else {
+        
+        datawatchModel.cadastrarEmpresa2(email, telefone, idusuario).then(
+            function (resultado) {
+                res.json(resultado);
+            }
+            ).catch(
+                function (erro) {
+                console.log(erro);
+                console.log("\nHouve um erro ao realizar o cadastro de empresa! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+    }
+}
 
-        datawatchModel.cadastrarEmpresa(razaoSocial, cnpj, cep, rua_av, numero, complemento, bairro, cidade, estado, email, telefone, idusuario).then(
+function cadastrarEmpresa3(req, res) {
+    var idusuario = req.body.fkIdServer;
+
+    if (idusuario == undefined) {
+        res.status(400).send(`Nao ta puxando o ID`)
+    } else {
+
+        datawatchModel.cadastrarEmpresa3(idusuario).then(
             function (resultado) {
                 res.json(resultado);
             }
@@ -217,5 +250,7 @@ function cadastrarEmpresa(req, res) {
         cadastrar,
         cadastrarFuncionario,
         cadastrarMaquina,
-        cadastrarEmpresa
+        cadastrarEmpresa1,
+        cadastrarEmpresa2,
+        cadastrarEmpresa3
     }

@@ -35,10 +35,12 @@
                 <h1>Cadastro de empresa</h1>
                 <div class="box">
                     <label class="tipo_campo">Nome da empresa:</label>
-                    <input class="text" id="nome_empresa_input" type="text" placeholder="Nome da empresa" onchange="limparBorda(this)">
+                    <input class="text" id="nome_empresa_input" type="text" placeholder="Nome da empresa"
+                        onchange="limparBorda(this)">
 
                     <label class="tipo_campo">CNPJ:</label>
-                    <input class="text" id="cnpj_input" type="text" maxlength="14" placeholder="" onchange="limparBorda(this)">
+                    <input class="text" id="cnpj_input" type="text" maxlength="14" placeholder=""
+                        onchange="limparBorda(this)">
 
                     <div class="endereco">
                         <div class="metade1">
@@ -50,33 +52,40 @@
                             <input class="text" id="rua_input" type="text" placeholder="" onchange="limparBorda(this)">
 
                             <label class="tipo_campo">Número:</label>
-                            <input class="text" id="numero_input" type="text" placeholder="" onchange="limparBorda(this)">
-                            
+                            <input class="text" id="numero_input" type="text" placeholder=""
+                                onchange="limparBorda(this)">
+
                             <label class="tipo_campo">Complemento:</label>
-                            <input class="text" id="complemento_input" type="text" placeholder="Andar" style="width: 200%" onchange="limparBorda(this)">
+                            <input class="text" id="complemento_input" type="text" placeholder="Andar"
+                                style="width: 200%" onchange="limparBorda(this)">
                         </div>
-                        
-                       
-                       
+
+
+
 
                         <div class="metade2">
                             <label class="tipo_campo">Bairro:&nbsp;&nbsp;</label>
-                            <input class="text" id="bairro_input" type="text" placeholder="" onchange="limparBorda(this)">
+                            <input class="text" id="bairro_input" type="text" placeholder=""
+                                onchange="limparBorda(this)">
 
                             <label class="tipo_campo">Cidade:</label>
-                            <input class="text" id="cidade_input" type="text" placeholder="" onchange="limparBorda(this)">
+                            <input class="text" id="cidade_input" type="text" placeholder=""
+                                onchange="limparBorda(this)">
 
                             <label class="tipo_campo">Estado:</label>
-                            <input class="text" id="estado_input" type="text" placeholder="" onchange="limparBorda(this)">
+                            <input class="text" id="estado_input" type="text" placeholder=""
+                                onchange="limparBorda(this)">
                         </div>
                     </div>
 
-                    
+
                     <label class="tipo_campo">E-mail:</label>
-                    <input class="text" id="email_input" type="text" placeholder="meuemail@provedor.com" onchange="limparBorda(this)">
+                    <input class="text" id="email_input" type="text" placeholder="meuemail@provedor.com"
+                        onchange="limparBorda(this)">
 
                     <label class="tipo_campo">Número de telefone:</label>
-                    <input class="text" id="telefone_input" type="text" placeholder="(00) 0000-0000" onchange="limparBorda(this)">
+                    <input class="text" id="telefone_input" type="text" placeholder="(00) 0000-0000"
+                        onchange="limparBorda(this)">
                 </div>
 
                 <button class="btn" onclick="cadastrarEmpresa()">CADASTRAR</button>
@@ -101,7 +110,8 @@
 
     //     document.getElementsByClass(endereco).style.width = largura;
     // }
-
+    var fkIdVar = sessionStorage.ID_USUARIO;
+    console.log(`${fkIdVar}`);
     function buscarCEP() {
         let cep1 = document.getElementById("cep_input")
         let cep = cep1.value.replace(/\D/g, '')
@@ -137,17 +147,17 @@
     function cadastrarEmpresa() {
         var inputs = document.querySelectorAll("input");
         var semErro = true;
-        
+
         inputs.forEach(input => {
             semErro = mostrarBordaVazio(input, input.value);
         });
-        
+
         var fkIdVar = sessionStorage.ID_USUARIO;
-        
-        
+
+
         if (semErro) {
 
-            fetch("/datawatch/cadastrarEmpresa", {
+            fetch("/datawatch/cadastrarEmpresa1", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -162,6 +172,56 @@
                     bairroServer: inputs[6].value,
                     cidadeServer: inputs[7].value,
                     estadoServer: inputs[8].value,
+
+                })
+            }).then(function (resposta) {
+                // console.log("resposta", resposta)
+                console.log("teste!!!!!!!!!!!!!!!!!!!!!!!")
+                console.log(inputs[0].value);
+                console.log(inputs[1].value);
+                console.log(inputs[2].value);
+                console.log(inputs[3].value);
+                console.log(inputs[4].value);
+                console.log(inputs[5].value);
+                console.log(inputs[6].value);
+                console.log(inputs[7].value);
+                console.log(inputs[8].value);
+
+                if (resposta.ok) {
+
+
+                }
+                else {
+                    throw ("Houve um erro ao tentar cadastrar a empresa")
+                }
+            }).catch(function (resposta) {
+                console.log(`ERRO: ${resposta}`);
+            })
+        } else {
+            alert('Preencha todos os campos')
+        }
+        cadastrarEmpresa2();
+        return false
+    }
+    function cadastrarEmpresa2() {
+        var inputs = document.querySelectorAll("input");
+        var semErro = true;
+
+        inputs.forEach(input => {
+            semErro = mostrarBordaVazio(input, input.value);
+        });
+
+
+
+
+        if (semErro) {
+
+            fetch("/datawatch/cadastrarEmpresa2", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
                     emailServer: inputs[9].value,
                     telefoneServer: inputs[10].value,
                     fkIdServer: fkIdVar,
@@ -172,7 +232,51 @@
                 console.log("teste!!!!!!!!!!!!!!!!!!!!!!!")
 
                 if (resposta.ok) {
-                    alert("Empresa cadastrada com sucesso");
+
+
+                }
+                else {
+                    throw ("Houve um erro ao tentar cadastrar a empresa")
+                }
+            }).catch(function (resposta) {
+                console.log(`ERRO: ${resposta}`);
+            })
+        } else {
+            alert('Preencha todos os campos')
+        }
+        cadastrarEmpresa3();
+        return false
+    }
+    function cadastrarEmpresa3() {
+        var inputs = document.querySelectorAll("input");
+        var semErro = true;
+
+        inputs.forEach(input => {
+            semErro = mostrarBordaVazio(input, input.value);
+        });
+
+        var fkIdVar = sessionStorage.ID_USUARIO;
+
+
+        if (semErro) {
+
+            fetch("/datawatch/cadastrarEmpresa3", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    fkIdServer: fkIdVar,
+
+                })
+            }).then(function (resposta) {
+                // console.log("resposta", resposta)
+                console.log("teste!!!!!!!!!!!!!!!!!!!!!!!")
+
+                if (resposta.ok) {
+                    setTimeout(() => {
+                        window.location = "areaADM.html";
+                    }, "2000")
 
                 }
                 else {

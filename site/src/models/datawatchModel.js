@@ -15,11 +15,27 @@ function cadastrar(nome, email, cpf, senha) {
 }
 
 // CADASTRO DE EMPRESAS
-function cadastrarEmpresa(razaoSocial, cnpj, cep, rua_av, numero, complemento, bairro, cidade, estado, email, telefone, idusuario) {
-    console.log("ACESSEI O DATAWATCH MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrarEmpresa():", razaoSocial, cnpj, cep, rua_av, numero, complemento, bairro, cidade, estado, email, telefone, idusuario);
+function cadastrarEmpresa1(razaoSocial, cnpj, cep, rua_av, numero, complemento, bairro, cidade, estado) {
+    console.log("ACESSEI O DATAWATCH MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrarEmpresa1():", razaoSocial, cnpj, cep, rua_av, numero, complemento, bairro, cidade, estado);
     var instrucao = `
-        INSERT INTO Empresas (razaoSocial, ramoAtividade, CNPJ, CEP, ruaAvenida, numero, bairro, cidade, estado, verificado) VALUES ('${razaoSocial}','${cnpj}', '${cep}', '${rua_av}','${numero}', '${complemento}' '${bairro}', '${cidade}','${estado}');
+        INSERT INTO Empresas (razaoSocial, cnpj, cep, logradouro, numero, complemento, bairro, cidade, estado, verificado) VALUES ('${razaoSocial}','${cnpj}', '${cep}', '${rua_av}', ${numero}, '${complemento}','${bairro}', '${cidade}','${estado}', 1);
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+// CADASTRO DE EMPRESAS
+function cadastrarEmpresa2(email, telefone, idusuario) {
+    console.log("ACESSEI O DATAWATCH MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrarEmpresa2():", email, telefone, idusuario);
+    var instrucao = `
         INSERT INTO Contato (fkEmpresa, email, telefone) VALUES ('${idusuario}', '${email}', '${telefone}');
+        `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+// CADASTRO DE EMPRESAS
+function cadastrarEmpresa3(idusuario) {
+    console.log("ACESSEI O DATAWATCH MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrarEmpresa3():", idusuario);
+    var instrucao = `
         UPDATE Usuarios set FkEmpresa = ${idusuario} where idUsuario = ${idusuario};
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
@@ -64,5 +80,7 @@ module.exports = {
     cadastrar,
     cadastrarFuncionario,
     cadastrarMaquina,
-    cadastrarEmpresa
+    cadastrarEmpresa1,
+    cadastrarEmpresa2,
+    cadastrarEmpresa3
 };

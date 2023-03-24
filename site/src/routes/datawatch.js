@@ -16,8 +16,18 @@ router.post("/cadastrarFuncionario", function (req, res) {
 })
 
 //Recebendo os dados do html cadastroEmpresa
-router.post("/cadastrarEmpresa", function (req, res) {
-    datawatchController.cadastrarEmpresa(req, res);
+router.post("/cadastrarEmpresa1", function (req, res) {
+    datawatchController.cadastrarEmpresa1(req, res);
+})
+
+//Recebendo os dados do html cadastroEmpresa
+router.post("/cadastrarEmpresa2", function (req, res) {
+    datawatchController.cadastrarEmpresa2(req, res);
+})
+
+//Recebendo os dados do html cadastroEmpresa
+router.post("/cadastrarEmpresa3", function (req, res) {
+    datawatchController.cadastrarEmpresa3(req, res);
 })
 
 // Recebendo os dados do html cadastroMaquina
