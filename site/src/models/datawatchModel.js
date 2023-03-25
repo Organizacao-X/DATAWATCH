@@ -43,24 +43,24 @@ function cadastrarEmpresa3(idusuario) {
 }
 
 // CADASTRO DE FUNCIONARIOS
-function cadastrarFuncionario(nome, email, cpf, senha, adm) {
+function cadastrarFuncionario(nome, email, cpf, senha, adm, FkEmpresa) {
     console.log("ACESSEI O DATAWATCH MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrarFuncionario():", nome, email, cpf, senha, adm);
     var instrucao = `
-        INSERT INTO Usuarios (nomeUsuario, email, cpf, senha, adm) VALUES ('${nome}', '${email}','${cpf}', '${senha}', '${adm}');
+        INSERT INTO Usuarios (nomeUsuario, email, cpf, senha, adm, fkEmpresa) VALUES ('${nome}', '${email}','${cpf}', '${senha}', ${adm}, ${FkEmpresa});
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
 }
 
 // CADASTRO DE MAQUINAS
-function cadastrarMaquina(nome, serie, data, especificacao, setor) {
-    console.log("ACESSEI O DATAWATCH MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrarMaquina():", nome, serie, data, especificacao, setor);
+function cadastrarMaquina(fkEmpresa, nome, serie, data, especificacao) {
+    console.log("ACESSEI O DATAWATCH MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrarMaquina():",fkEmpresa, nome, serie, data, especificacao);
 
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
     var instrucao = `
-        INSERT INTO Maquinas (nomeMaquina, serie, dtChegada, descricao) VALUES
-        ('${nome}', '${serie}','${data}', '${especificacao}', '${setor}');
+        INSERT INTO Maquinas (fkEmpresa, nomeMaquina, serie, dtChegada, descricao, ip) VALUES
+        (${FkEmpresa},'${nome}', '${serie}','${data}', '${especificacao}');
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);

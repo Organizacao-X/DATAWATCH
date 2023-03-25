@@ -43,11 +43,11 @@ function cadastrar(req, res) {
 // CADASTRO DE MAQUINA
 function cadastrarMaquina(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
+    var fkEmpresa = req.body.fkEmpresaServer;
     var nome = req.body.nomeServer;
     var serie = req.body.serieServer;
     var data = req.body.dataServer;
     var especificacao = req.body.especificacaoServer;
-    var setor = req.body.setorServer
 
     // Faça as validações dos valores
     if (nome == undefined) {
@@ -58,12 +58,10 @@ function cadastrarMaquina(req, res) {
         res.status(400).send("Sua data está undefined!");
     } else if (especificacao == undefined) {
         res.status(400).send("sua especificação está undefined!");
-    } else if (setor == undefined) {
-        res.status(400).send("seu setor está undefined!");
     } else {
 
         // Passe os valores como parâmetro e vá para o arquivo datawatchModel.js
-        datawatchModel.cadastrarMaquina(nome, serie, data, especificacao, setor)
+        datawatchModel.cadastrarMaquina(fkEmpresa, nome, serie, data, especificacao)
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -176,6 +174,7 @@ function cadastrarEmpresa3(req, res) {
         var cpf = req.body.cpfServer;
         var senha = req.body.senhaServer;
         var adm = req.body.admServer;
+        var fkEmpresa = req.body.fkEmpresaServer
 
         // Faça as validações dos valores
         if (nome == undefined) {
@@ -188,10 +187,12 @@ function cadastrarEmpresa3(req, res) {
             res.status(400).send("Sua senha está undefined!");
         } else if (adm == undefined) {
             res.status(400).send("Funcionário não vinculado a um gerente(undefined)");
+        } else if (fkEmpresa == undefined) {
+            res.status(400).send("Funcionário não vinculado a uma empresa   (undefined)");
         } else {
 
             // Passe os valores como parâmetro e vá para o arquivo datawatchModel.js
-            datawatchModel.cadastrarFuncionario(nome, email, cpf, senha, adm)
+            datawatchModel.cadastrarFuncionario(nome, email, cpf, senha, adm, fkEmpresa)
                 .then(
                     function (resultado) {
                         res.json(resultado);

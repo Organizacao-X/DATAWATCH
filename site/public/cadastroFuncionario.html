@@ -79,11 +79,6 @@ function cadastroFuncionario() {
             mostrarBordaVazio(input, input.value)
         });
 
-        if (inputs[3].value != inputs[4].value) {
-            inputs[3].style.borderBottom = "solid 4px red"
-            inputs[4].style.borderBottom = "solid 4px red"
-        }
-
     
     var nomeVar = nome_input.value;
     var emailVar = email_input.value;
@@ -91,6 +86,7 @@ function cadastroFuncionario() {
     var senhaVar = senha_input.value;
     var confirmacaoSenhaVar = confirmacao_senha_input.value;
     var admVar = sessionStorage.ID_USUARIO;
+    var fkEmpresa = sessionStorage.ID_EMPRESA;
 
     if (nomeVar == "" || emailVar == "" || senhaVar == "" || confirmacaoSenhaVar == "" || cpfVar == "") {
         /* cardErro.style.display = "block"
@@ -115,7 +111,8 @@ function cadastroFuncionario() {
             emailServer: inputs[1].value,
             cpfServer: inputs[2].value,
             senhaServer: inputs[3].value,
-            admServer: admVar
+            admServer: admVar,
+            fkEmpresaServer: fkEmpresa
 
         })
     }).then(function (resposta) {

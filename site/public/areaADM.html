@@ -51,7 +51,7 @@
 
     function cadastrosvisiveis() {
 
-        if (sessionStorage.ID_EMPRESA == 0 || sessionStorage.ID_EMPRESA == undefined || sessionStorage.ID_EMPRESA == null) {
+        if (sessionStorage.ID_EMPRESA != 0 || sessionStorage.ID_EMPRESA == undefined || sessionStorage.ID_EMPRESA == null) {
             funcionario.style.visibility = 'visible'
             maquina.style.visibility = 'visible'
         }

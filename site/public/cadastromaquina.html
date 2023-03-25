@@ -48,11 +48,7 @@
 
                 <label class="tipo_campo">Especificações da máquina:</label>
                 <input id="especificacao_input" type="text" placeholder="Especificações" onchange="limparBorda(this)">
-
-                <label class="tipo_campo">Setor atribuído:</label>
-                <input id="setor_input" type="text" placeholder="Setor" onchange="limparBorda(this)">
-
-
+                
                 <button class="btn" onclick="cadastrarMaquina()">CADASTRAR</button>
             </div>
         </div>
@@ -73,6 +69,9 @@
 
     //Recupere o valor da nova input pelo nome do id
     // Agora vá para o método fetch logo abaixo
+
+        var fkEmpresa = sessionStorage.ID_EMPRESA;
+        
         var inputs = document.querySelectorAll("input")
         var erro = false
 
@@ -80,27 +79,8 @@
             mostrarBordaVazio(input, input.value)
         });
 
-        if (inputs[3].value != inputs[4].value) {
-            inputs[3].style.borderBottom = "solid 4px red"
-            inputs[4].style.borderBottom = "solid 4px red"
-        }
-    var nomeVar = nome_input.value;
-    var serieVar = serie_input.value;
-    var dataVar = data_input.value;
-    var especificacaoVar = especificacao_input.value;
-    var setorVar = setor_input.value;
     
 
-    if (nomeVar == "" || serieVar == "" || dataVar == "" || especificacaoVar == "" || setorVar == "") {
-        /* cardErro.style.display = "block"
-        mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)"; */
-
-        // finalizarAguardar();
-        return false;
-    }
-    else {
-        /* setInterval(sumirMensagem, 5000) */
-    }
 
     // Enviando o valor da nova input
     fetch("/datawatch/cadastrarMaquina", {
@@ -116,7 +96,7 @@
             serieServer: inputs[1].value,
             dataServer: inputs[2].value,
             especificacaoServer: inputs[3].value,
-            setorServer: inputs[4].value
+            fkEmpresaServer: fkEmpresa
         })
     }).then(function (resposta) {
 
