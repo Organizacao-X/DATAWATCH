@@ -147,13 +147,14 @@ function cadastrarEmpresa2(req, res) {
 }
 
 function cadastrarEmpresa3(req, res) {
-    var idusuario = req.body.fkIdServer;
+    var idempresa = req.body.fkIdServer;
+    var idusuario = req.body.idUsuarioServer;
 
-    if (idusuario == undefined) {
+    if (idempresa == undefined) {
         res.status(400).send(`Nao ta puxando o ID`)
     } else {
 
-        datawatchModel.cadastrarEmpresa3(idusuario).then(
+        datawatchModel.cadastrarEmpresa3(idempresa, idusuario).then(
             function (resultado) {
                 res.json(resultado);
             }

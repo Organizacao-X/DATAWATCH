@@ -23,6 +23,7 @@ function cadastrarEmpresa1(razaoSocial, cnpj, cep, rua_av, numero, complemento, 
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
 }
+
 // CADASTRO DE EMPRESAS
 function cadastrarEmpresa2(email, telefone, idusuario) {
     console.log("ACESSEI O DATAWATCH MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrarEmpresa2():", email, telefone, idusuario);
@@ -32,11 +33,12 @@ function cadastrarEmpresa2(email, telefone, idusuario) {
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
 }
+
 // CADASTRO DE EMPRESAS
-function cadastrarEmpresa3(idusuario) {
+function cadastrarEmpresa3(idempresa, idusuario) {
     console.log("ACESSEI O DATAWATCH MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrarEmpresa3():", idusuario);
     var instrucao = `
-        UPDATE Usuarios set FkEmpresa = ${idusuario} where idUsuario = ${idusuario};
+        UPDATE Usuarios set FkEmpresa = ${idempresa} where idUsuario = ${idusuario};
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
@@ -69,7 +71,7 @@ function cadastrarMaquina(fkEmpresa, nome, serie, data, especificacao) {
 function entrar(email, senha) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", email, senha)
     var instrucao = `
-        SELECT * FROM usuarios WHERE email = '${email}' AND senha = '${senha}';
+        SELECT * FROM Usuarios WHERE email = '${email}' AND senha = '${senha}';
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);

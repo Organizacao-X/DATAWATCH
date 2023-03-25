@@ -177,19 +177,23 @@
             }).then(function (resposta) {
                 // console.log("resposta", resposta)
                 console.log("teste!!!!!!!!!!!!!!!!!!!!!!!")
-                console.log(inputs[0].value);
-                console.log(inputs[1].value);
-                console.log(inputs[2].value);
-                console.log(inputs[3].value);
-                console.log(inputs[4].value);
-                console.log(inputs[5].value);
-                console.log(inputs[6].value);
-                console.log(inputs[7].value);
-                console.log(inputs[8].value);
+                console.log(resposta)
+                // console.log(inputs[0].value);
+                // console.log(inputs[1].value);
+                // console.log(inputs[2].value);
+                // console.log(inputs[3].value);
+                // console.log(inputs[4].value);
+                // console.log(inputs[5].value);
+                // console.log(inputs[6].value);
+                // console.log(inputs[7].value);
+                // console.log(inputs[8].value);
 
                 if (resposta.ok) {
-
-
+                    resposta.json().then(json => {
+                        var idEmpresa = json.insertId
+                        cadastrarEmpresa2(idEmpresa);
+                        cadastrarEmpresa3(idEmpresa);
+                    })
                 }
                 else {
                     throw ("Houve um erro ao tentar cadastrar a empresa")
@@ -200,10 +204,10 @@
         } else {
             alert('Preencha todos os campos')
         }
-        cadastrarEmpresa2();
         return false
     }
-    function cadastrarEmpresa2() {
+
+    function cadastrarEmpresa2(idEmpresa) {
         var inputs = document.querySelectorAll("input");
         var semErro = true;
 
@@ -224,7 +228,7 @@
                 body: JSON.stringify({
                     emailServer: inputs[9].value,
                     telefoneServer: inputs[10].value,
-                    fkIdServer: fkIdVar,
+                    fkIdServer: idEmpresa,
 
                 })
             }).then(function (resposta) {
@@ -244,10 +248,10 @@
         } else {
             alert('Preencha todos os campos')
         }
-        cadastrarEmpresa3();
+
         return false
     }
-    function cadastrarEmpresa3() {
+    function cadastrarEmpresa3(idEmpresa) {
         var inputs = document.querySelectorAll("input");
         var semErro = true;
 
@@ -255,18 +259,16 @@
             semErro = mostrarBordaVazio(input, input.value);
         });
 
-        var fkIdVar = sessionStorage.ID_USUARIO;
-
-
         if (semErro) {
-
+            var idUsuario = sessionStorage.ID_USUARIO
             fetch("/datawatch/cadastrarEmpresa3", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    fkIdServer: fkIdVar,
+                    fkIdServer: idEmpresa,
+                    idUsuarioServer: idUsuario
 
                 })
             }).then(function (resposta) {
