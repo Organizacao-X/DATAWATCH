@@ -61,8 +61,8 @@ function cadastrarMaquina(fkEmpresa, nome, serie, data, especificacao) {
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
     var instrucao = `
-        INSERT INTO Maquinas (fkEmpresa, nomeMaquina, serie, dtChegada, descricao, ip) VALUES
-        (${FkEmpresa},'${nome}', '${serie}','${data}', '${especificacao}');
+        INSERT INTO Maquinas (fkEmpresa, nomeMaquina, serie, dtChegada, descricao, ip, statusSistema) VALUES
+        (${FkEmpresa},'${nome}', '${serie}','${data}', '${especificacao}', 0);
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);

@@ -44,7 +44,8 @@ serie VARCHAR(45) NOT NULL,
 dtChegada DATE,
 descricao VARCHAR(100),
 ip VARCHAR(45),
-PRIMARY KEY (idMaquina, fkEmpresa)
+PRIMARY KEY (idMaquina, fkEmpresa),
+statusSistema TINYINT(1)
 );
 
 
