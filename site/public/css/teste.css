@@ -328,75 +328,7 @@
         display: block;
     }
 
-    .button1 {
-        --bg: ##181818;
-        --hover-bg: #F2CB05;
-        --hover-text: #000;
-        color: #fff;
-        margin: 0% 35% 0% 35%;
-        margin-top: 1rem;
-        border: 1px solid var(--bg);
-        border-radius: 4px;
-        padding: 0.3em 1em;
-        background: var(--bg);
-        transition: 0.2s;
-        font-size: 18px;
-    }
 
-    .button1:hover {
-        color: var(--hover-text);
-        transform: translate(-0.25rem, -0.25rem);
-        background: var(--hover-bg);
-        box-shadow: 0.25rem 0.25rem var(--bg);
-    }
-
-    .button1:active {
-        transform: translate(0);
-        box-shadow: none;
-    }
-
-    .button2 {
-        --bg: #181818;
-        --hover-bg: #F2CB05;
-        --hover-text: #000;
-        margin: 0% 35% 0% 35%;
-        margin-top: 0.8rem;
-        color: #fff;
-        border: 1px solid var(--bg);
-        border-radius: 4px;
-        padding: 0.3em 1em;
-        background: var(--bg);
-        transition: 0.2s;
-        font-size: 18px;
-    }
-
-    .button2:hover {
-        color: var(--hover-text);
-        transform: translate(-0.25rem, -0.25rem);
-        background: var(--hover-bg);
-        box-shadow: 0.25rem 0.25rem var(--bg);
-    }
-
-    .button2:active {
-        transform: translate(0);
-        box-shadow: none;
-    }
-
-    .button1 a {
-        display: flex;
-        justify-content: center;
-        list-style: none;
-        text-decoration: none;
-        color: #fff;
-    }
-
-    .button2 a {
-        display: flex;
-        justify-content: center;
-        list-style: none;
-        text-decoration: none;
-        color: #fff;
-    }
 
     /* banner */
 
@@ -407,11 +339,12 @@
 
     .imagem-inicial {
         background-image: url(../assets/imgs/beneficios-do-monitoramento-de-ti2.png);
+        margin-top: 10%;
     }
 
     .titulo {
         font-size: 1.03rem;
-        margin: 10% 5% 2% 5%;
+        margin: 18% 5% 2% 5%;
         padding: 0;
     }
 

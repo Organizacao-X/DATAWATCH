@@ -18,17 +18,45 @@
 
 <body>
     <!-- NAVBAR -->
-    <nav>
-        <ul class="nav-list">
-            <li><a href="./index.html">Home</a></li>
-            <li><a href="\">Sobre</a></li>
-            <li><a href="\">Serviços</a></li>
-        </ul>
-    </nav>
+    <header>
+        <nav class="nav-bar">
+            <div class="hamburger-menu">
+                <input id="menu__toggle" type="checkbox" />
+                <label class="menu__btn" for="menu__toggle">
+                    <span></span>
+                </label>
+
+
+
+                <ul class="menu__box">
+                    <div class="image">
+                        <img src="../public/assets/imgs/imagem-do-usuario-com-fundo-preto.png" alt=""
+                            style="height: 200px; width: 200px; border-radius: 50%; ">
+                    </div>
+                    <div class="nomeUser">
+                        <span>Nome Usuario</span>
+                    </div>
+                    <li><a class="menu__item" href="../public/cadastroEmpresa.html">Cadastro da empresa</a></li>
+                    <li><a class="menu__item" href="../public/areaADM.html">Home</a></li>
+                    <li><a class="menu__item" href="../public/cadastromaquina.html">Cadastrar maquina</a></li>
+                    <li><a class="menu__item" href="../public/cadastroFuncionario.html">Cadastrar funcionário</a></li>
+                    <li><a class="menu__item" href="#">Logout</a></li>
+                </ul>
+            </div>
+
+
+
+            <div class="logo">
+                <img src="assets/imgs/LOGOcomTextoV2.png" alt="" width="150px">
+            </div>
+        </nav>
+
+    </header>
 
     <!-- SESSAO 1 -->
     <div class="main">
         <div class="sideA">
+            <div class="ladoACor"></div>
         </div>
         <div class="sideB">
             <div class="container">
@@ -90,6 +118,9 @@
 
                 <button class="btn" onclick="cadastrarEmpresa()">CADASTRAR</button>
             </div>
+        </div>
+        <div class="sideA">
+            <div class="ladoACor"></div>
         </div>
     </div>
 </body>
