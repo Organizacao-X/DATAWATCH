@@ -1,0 +1,62 @@
+<html>
+
+<head>
+</head>
+
+<body>
+    <div id="piechart" style="width: 900px; height: 500px;"></div>
+
+    <div id="curve_chart" style="width: 900px; height: 500px"></div>
+</body>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChartRede);
+
+      function drawChartRede() {
+        var data = google.visualization.arrayToDataTable([
+          ['Segundos', 'Upload', 'Download'],
+          ['',  0, 64],
+          ['',  88, 8],
+          ['',  144, 64],
+          ['',  0, 72],
+          ['',  32, 16]
+        ]);
+
+        var options = {
+          title: 'Internet em kbps',
+          curveType: 'function',
+          legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+        chart.draw(data, options);
+      }
+    google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(drawChartRam);
+
+    var total = 8; // 
+    var emUso = 6.5;
+    var livre = total - emUso;
+
+    function drawChartRam() {
+
+        var data = google.visualization.arrayToDataTable([
+            ['', ''],
+            ['Em uso', emUso],
+            ['Livre', livre]
+        ]);
+
+        var options = {
+            title: 'Uso de RAM'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+    }
+</script>
+
+</html>
