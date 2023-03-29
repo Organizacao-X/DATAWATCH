@@ -10,7 +10,7 @@
     <title>Document</title>
 </head>
 
-<body onload="visibilidadeGraficos()">
+<body>
     <header>
         <nav class="nav-bar">
             <div class="hamburger-menu">
@@ -50,19 +50,21 @@
     <section>
         <div class="containerSessao1">
             <div class="ladoA">
-                <div class="bloco"><button onclick="exibirGraficoCpu()"><h1>Processador</h1>exibir</button></div>
-                <div class="bloco"><button onclick="exibirGraficoMemoria()"><h1>Memória</h1>exibir</button></div>
-                <div class="bloco"><button onclick="exibirGraficoDisco()"><h1>Disco</h1>exibir</button></div>
-                <div class="bloco"><button onclick="exibirGraficoRede()"><h1>Rede</h1>exibir</button></div>
-                <div class="bloco"><button onclick="exibirGraficoXxxx()"><h1>Xxxxx</h1>exibir</button></div>
+                <div class="bloco"><button><h1>Processador</h1>exibir</button></div>
+                <div class="bloco"><button><h1>Memória</h1>exibir</button></div>
+                <div class="bloco"><button><h1>Disco</h1>exibir</button></div>
+                <div class="bloco"><button><h1>Rede</h1>exibir</button></div>
+                <div class="bloco"><button><h1>Xxxxx</h1>exibir</button></div>
             </div>
             <div class="ladoB">
-                <div class="containerGrafico" id="telaCpu">CPU<div class="telaGrafico">cpu</div></div>
-                <div class="containerGrafico" id="telaMemoria">MEMORIA<div class="telaGrafico">memoria</div></div>
-                <div class="containerGrafico" id="telaDisco">DISCO<div class="telaGrafico">disco</div></div>
-                <div class="containerGrafico" id="telaRede">REDE<div class="telaGrafico">rede</div></div>
-                <div class="containerGrafico" id="telaXxxx">XXXX<div class="telaGrafico">xxxx</div></div>
-            </div>
+                <div class="containerGrafico">
+                    <div class="telaGrafico">
+                        
+                    </div>
+                    <div class="metricasGrafico">
+
+                    </div>
+                </div>
         </div>
     </section>
 
@@ -112,48 +114,4 @@
 </html>
 <script>
 
-function visibilidadeGraficos() {
-    telaCpu.style.display = 'flex'
-    telaMemoria.style.display = 'none'
-    telaDisco.style.display = 'none'
-    telaRede.style.display = 'none'
-    telaXxxx.style.display = 'none'
-}
-    // ALTERAR PARA FOR COM TEMPO
-
-function exibirGraficoCpu() {
-    telaCpu.style.display = 'flex'
-    telaMemoria.style.display = 'none'
-    telaDisco.style.display = 'none'
-    telaRede.style.display = 'none'
-    telaXxxx.style.display = 'none'
-}
-function exibirGraficoMemoria() {
-    telaCpu.style.display = 'none'
-    telaMemoria.style.display = 'flex'
-    telaDisco.style.display = 'none'
-    telaRede.style.display = 'none'
-    telaXxxx.style.display = 'none'
-}
-function exibirGraficoDisco() {
-    telaCpu.style.display = 'none'
-    telaMemoria.style.display = 'none'
-    telaDisco.style.display = 'flex'
-    telaRede.style.display = 'none'
-    telaXxxx.style.display = 'none'
-}
-function exibirGraficoRede() {
-    telaCpu.style.display = 'none'
-    telaMemoria.style.display = 'none'
-    telaDisco.style.display = 'none'
-    telaRede.style.display = 'flex'
-    telaXxxx.style.display = 'none'
-}
-function exibirGraficoXxxx() {
-    telaCpu.style.display = 'none'
-    telaMemoria.style.display = 'none'
-    telaDisco.style.display = 'none'
-    telaRede.style.display = 'none'
-    telaXxxx.style.display = 'flex'
-}
 </script>

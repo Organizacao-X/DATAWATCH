@@ -167,7 +167,7 @@ header {
 .containerSessao1 {
     display: flex;
     width: 100%;
-    height: 90vh;
+    height: 100vh;
 }
 .ladoA {
     margin: 130px 0 0 200px;
@@ -205,23 +205,30 @@ header {
 .ladoB {
     margin-top: 130px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     width: 70%;
     height: 80%;
     background-color: aqua;
 }
+
 .containerGrafico {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    justify-content: start;
+    align-items: start;
     width: 100%;
     height: 100%;
 }
 .telaGrafico {
     background-color: #ffffff;
-    width: 90%;
-    height: 90%;
+    width: 100%;
+    height: 75%;
+}
+.metricasGrafico {
+    width: 100%;
+    height: 25%;
+    background-color: #a5a5a5;
 }
 #telaCpu, #telaDisco, #telaXxxx, #telaMemoria, #telaRede {
     width: 100%;
