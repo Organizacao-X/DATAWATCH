@@ -15,7 +15,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
 </head>
 
-<body onload="cadastrosvisiveis()">
+<body onload="mostrarConteudo()">
     <!-- NAVBAR -->
     <header>
         <nav class="nav-bar">
@@ -52,60 +52,61 @@
 
     </header>
 
+    <div class="teste" id="conteudo_maquinas_funcionarios">
     <section>
-        <div class="usuario">
-            <span>Seja bem vindo Gerentente </span>
-        </div>
-
-        <div class="bg">
-            <div class="container">
-                <h2>Maquina</h2>
-                <ul class="cards">
-                    <li class="card">
-                        <div>
-                            <h3 class="card-title">Maquina 1</h3>
-
-                        </div>
-                        <div class="card-link-wrapper">
-                            <div class="status"></div><span>Ativa</span>
-                        </div>
-                    </li>
-                    <li class="card">
-                        <div>
-                            <h3 class="card-title">Maquina 2</h3>
-                            <div class="card-content">
-
-                            </div>
-                        </div>
-                        <div class="card-link-wrapper">
-                            <div class="status"></div><span>Ativa</span>
-                        </div>
-                    </li>
-                    <li class="card">
-                        <div>
-                            <h3 class="card-title">Maquina 3</h3>
-                            <div class="card-content">
-
-                            </div>
-                        </div>
-                        <div class="card-link-wrapper">
-                            <div class="status"></div><span>Ativa</span>
-                        </div>
-                    </li>
-                    <li class="card">
-                        <div>
-                            <h3 class="card-title">Maquina 4</h3>
-                            <div class="card-content">
-
-                            </div>
-                        </div>
-                        <div class="card-link-wrapper">
-                            <div class="status"></div><span>Ativa</span>
-                        </div>
-                    </li>
-                </ul>
+            <div class="usuario">
+                <span>Seja bem vindo <span id="nome_usuario"></span> </span>
             </div>
-        </div>
+
+            <div class="bg">
+                <div class="container">
+                    <h2>Maquina</h2>
+                    <ul class="cards">
+                        <li class="card">
+                            <div>
+                                <h3 class="card-title">Maquina 1</h3>
+
+                            </div>
+                            <div class="card-link-wrapper">
+                                <div class="status"></div><span>Ativa</span>
+                            </div>
+                        </li>
+                        <li class="card">
+                            <div>
+                                <h3 class="card-title">Maquina 2</h3>
+                                <div class="card-content">
+
+                                </div>
+                            </div>
+                            <div class="card-link-wrapper">
+                                <div class="status"></div><span>Ativa</span>
+                            </div>
+                        </li>
+                        <li class="card">
+                            <div>
+                                <h3 class="card-title">Maquina 3</h3>
+                                <div class="card-content">
+
+                                </div>
+                            </div>
+                            <div class="card-link-wrapper">
+                                <div class="status"></div><span>Ativa</span>
+                            </div>
+                        </li>
+                        <li class="card">
+                            <div>
+                                <h3 class="card-title">Maquina 4</h3>
+                                <div class="card-content">
+
+                                </div>
+                            </div>
+                            <div class="card-link-wrapper">
+                                <div class="status"></div><span>Ativa</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
     </section>
 
 
@@ -160,13 +161,14 @@
             </div>
         </div>
     </section>
+</div>
 
 
 
 </body>
 <script>
 
-    nomeUsuario.innerHTML = `<p>${sessionStorage.NOME_USUARIO}</p>`
+    // nomeUsuario.innerHTML = `<p>${sessionStorage.NOME_USUARIO}</p>`
 
     function cadastrosvisiveis() {
 
@@ -176,4 +178,44 @@
         }
     }
 
+    function mostrarConteudo() {
+        fetch("/datawatch/consultarStatusEmpresa", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idUsuarioServer: sessionStorage.ID_USUARIO
+            })
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+                resposta.json().then(dados => {
+                    console.log(dados)
+                    // verifica se existe alguma empresa relacionada com esse usuário no banco de dados
+                    // mostra o conteúdo da tela caso exista, não mostra caso não exista
+                    if (dados.length == 0) {
+                        alert("Nenhuma empresa cadastrada")
+                    } else if (dados[0].verificado == 0) {
+                        alert("Empresa ainda nao foi verificada")
+                        conteudo_maquinas_funcionarios.style.display = "none"
+                    } else {
+                        var idEmpresa = dados[0].fkEmpresa;
+                        conteudo_maquinas_funcionarios.style.display = "block"
+                        nome_usuario.innerHTML = dados[0].nomeUsuario
+                        // TODO:
+                        // function para colocar os cards de máquinas e de funcionários nas respectivas divs
+                        // responsável: Victor?
+                        mostrarMaquinasFuncionarios(idEmpresa);
+                    }
+                })
+            }
+            else {
+                throw (JSON.stringify(resposta))
+            }
+        }).catch(function (resposta) {
+            console.log(`ERRO: ${resposta}`);
+        })
+        return false
+    }
 </script>

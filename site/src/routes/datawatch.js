@@ -39,4 +39,7 @@ router.post("/autenticar", function (req, res) {
     datawatchController.entrar(req, res);
 });
 
+router.post("/consultarStatusEmpresa", function (req, res) {
+    datawatchController.consultarStatusEmpresa(req, res);
+});
 module.exports = router;
