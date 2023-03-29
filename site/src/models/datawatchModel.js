@@ -77,6 +77,21 @@ function entrar(email, senha) {
     return database.executar(instrucao);
 }
 
+// CONSULTANDO SE EMPRESA ESTÁ VERIFICADA
+function consultarStatusEmpresa(idUsuario) {
+    var instrucao = `SELECT Usuarios.idUsuario,
+                            Usuarios.nomeUsuario,
+                            Usuarios.adm,
+                            Usuarios.fkEmpresa,
+                            Empresas.verificado
+                     FROM Usuarios
+                     JOIN Empresas
+                     ON Usuarios.fkEmpresa = Empresas.idEmpresa
+                     WHERE Usuarios.idUsuario = ${idUsuario};`
+
+    return database.executar(instrucao);
+}
+
 module.exports = {
     entrar,
     cadastrar,
@@ -84,5 +99,6 @@ module.exports = {
     cadastrarMaquina,
     cadastrarEmpresa1,
     cadastrarEmpresa2,
-    cadastrarEmpresa3
+    cadastrarEmpresa3,
+    consultarStatusEmpresa
 };

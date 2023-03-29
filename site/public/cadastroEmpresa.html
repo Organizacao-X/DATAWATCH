@@ -177,7 +177,7 @@
     }
 
     function cadastrarEmpresa() {
-        var inputs = document.querySelectorAll("input");
+        var inputs = document.querySelectorAll("input.text");
         var semErro = true;
 
         inputs.forEach(input => {
@@ -188,7 +188,6 @@
 
 
         if (semErro) {
-
             fetch("/datawatch/cadastrarEmpresa1", {
                 method: "POST",
                 headers: {

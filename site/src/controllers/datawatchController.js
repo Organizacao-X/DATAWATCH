@@ -247,6 +247,34 @@ function cadastrarEmpresa3(req, res) {
     
     }
 
+    // CONSULTANDO SE EMPRESA ESTÁ VERIFICADA
+    function consultarStatusEmpresa(req, res) {
+        var idUsuario = req.body.idUsuarioServer;
+    
+        if (idUsuario == undefined) {
+            res.status(400).send("Seu ID de usuário está undefined!");
+        } else {
+            datawatchModel.consultarStatusEmpresa(idUsuario)
+                .then(
+                    function (resultado) {
+                        console.log(`Resultados: ${JSON.stringify(resultado)}`); // transforma JSON em String
+                        if (resultado.length == 1 || resultado.length == 0) {
+                            console.log(resultado);
+                            res.json(resultado);
+                        } else {
+                            res.status(403).send("Usuário com mais de uma empresa cadastrada!");
+                        }
+                    }
+                ).catch(
+                    function (erro) {
+                        console.log(erro);
+                        console.log("\nHouve um erro ao realizar o login! Erro: ", erro.sqlMessage);
+                        res.status(500).json(erro.sqlMessage);
+                    }
+                );
+        }
+    }
+
     module.exports = {
         entrar,
         cadastrar,
@@ -254,5 +282,6 @@ function cadastrarEmpresa3(req, res) {
         cadastrarMaquina,
         cadastrarEmpresa1,
         cadastrarEmpresa2,
-        cadastrarEmpresa3
+        cadastrarEmpresa3,
+        consultarStatusEmpresa
     }
