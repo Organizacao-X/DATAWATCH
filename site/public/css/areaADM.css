@@ -202,7 +202,7 @@ header {
     background: #ffffff;
     border-radius: 12px;
     box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
-    height: 10rem;
+    height: 15rem;
     margin-left: 2%;
     cursor: pointer;
   }
@@ -211,10 +211,10 @@ header {
     margin-right: 10px;
   }
   
-  .card:hover {
+  /* .card:hover {
     color: #ffffff;
     background: #181818;
-  }
+  } */
   
   .card .card-title {
     font-size: 20px;
@@ -227,6 +227,7 @@ header {
   
   .card .card-link-wrapper {
     margin-top: auto;
+    flex-direction: column;
   }
 
   .card-link-wrapper{
@@ -246,12 +247,17 @@ header {
     }
 }
 
+  .content{
+    display: flex;
+    margin-top: 5%;
+    gap: 0.5rem;
+  }
 
   .status{
     background-color: rgb(4, 255, 0);
-    width: 5%;
+    width: 4%;
     border-radius: 50%;
-    height: 15px;
+    height: 13.8px;
     animation: animation 1.5s linear infinite;
   }
 

@@ -10,7 +10,7 @@
 
     <script src="./js/funcoes.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    
+
 
     <link rel="icon" href="./assets/imgs/LOGOV2.png">
     <link rel="stylesheet" href="./css/areaADM.css">
@@ -55,7 +55,7 @@
     </header>
 
     <div class="teste" id="conteudo_maquinas_funcionarios">
-    <section>
+        <section>
             <div class="usuario">
                 <span>Seja bem vindo <span id="nome_usuario"></span> </span>
             </div>
@@ -67,14 +67,17 @@
                         <li class="card">
                             <div>
                                 <h3 class="card-title">Maquina 1</h3>
-                                
+
 
                             </div>
                             <div class="card-link-wrapper">
-                                
-                                <div id="piechart" style="width: 150px; height: 150px;"></div>
-                                
-                                <div class="status"></div><span>Ativa</span>
+
+                                <div id="piechart" style="width: 400px; height: 150px;"></div>
+
+                                <div class="content">
+                                    <div class="status" id=""></div><span id="">Ativa</span>
+                                </div>
+
                             </div>
                         </li>
                         <li class="card">
@@ -113,61 +116,61 @@
                     </ul>
                 </div>
             </div>
-    </section>
+        </section>
 
 
-    <section>
-        <div class="bg">
-            <div class="container">
-                <h2>Funcionário</h2>
-                <ul class="cards">
-                    <li class="card">
-                        <div>
-                            <h3 class="card-title">Funcionário 1</h3>
-
-                        </div>
-                        <div class="card-link-wrapper">
-                            <div class="status"></div><span>Online</span>
-                        </div>
-                    </li>
-                    <li class="card">
-                        <div>
-                            <h3 class="card-title">Funcionário 2</h3>
-                            <div class="card-content">
+        <section>
+            <div class="bg">
+                <div class="container">
+                    <h2>Funcionário</h2>
+                    <ul class="cards">
+                        <li class="card">
+                            <div>
+                                <h3 class="card-title">Funcionário 1</h3>
 
                             </div>
-                        </div>
-                        <div class="card-link-wrapper">
-                            <div class="status2"></div><span>Offline</span>
-                        </div>
-                    </li>
-                    <li class="card">
-                        <div>
-                            <h3 class="card-title">Funcionário 3</h3>
-                            <div class="card-content">
-
+                            <div class="card-link-wrapper">
+                                <div class="status"></div><span>Online</span>
                             </div>
-                        </div>
-                        <div class="card-link-wrapper">
-                            <div class="status2"></div><span>Offline</span>
-                        </div>
-                    </li>
-                    <li class="card">
-                        <div>
-                            <h3 class="card-title">Funcionário 4</h3>
-                            <div class="card-content">
+                        </li>
+                        <li class="card">
+                            <div>
+                                <h3 class="card-title">Funcionário 2</h3>
+                                <div class="card-content">
 
+                                </div>
                             </div>
-                        </div>
-                        <div class="card-link-wrapper">
-                            <div class="status"></div><span>Online</span>
-                        </div>
-                    </li>
-                </ul>
+                            <div class="card-link-wrapper">
+                                <div class="status2"></div><span>Offline</span>
+                            </div>
+                        </li>
+                        <li class="card">
+                            <div>
+                                <h3 class="card-title">Funcionário 3</h3>
+                                <div class="card-content">
+
+                                </div>
+                            </div>
+                            <div class="card-link-wrapper">
+                                <div class="status2"></div><span>Offline</span>
+                            </div>
+                        </li>
+                        <li class="card">
+                            <div>
+                                <h3 class="card-title">Funcionário 4</h3>
+                                <div class="card-content">
+
+                                </div>
+                            </div>
+                            <div class="card-link-wrapper">
+                                <div class="status"></div><span>Online</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </section>
-</div>
+        </section>
+    </div>
 
 
 
@@ -224,32 +227,32 @@
         })
         return false
     }
-    
+
     // Gráficos 
-    
+
     google.charts.load('current', { 'packages': ['corechart'] });
-  google.charts.setOnLoadCallback(drawChartRede);
+    google.charts.setOnLoadCallback(drawChartRede);
 
-  function drawChartRede() {
-    var data = google.visualization.arrayToDataTable([
-      ['Minutos', 'Tempo em Atividade'],
-      ['', 0],
-      ['', 88],
-      ['', 144],
-      ['', 0],
-      ['', 32]
-    ]);
+    function drawChartRede() {
+        var data = google.visualization.arrayToDataTable([
+            ['Minutos', 'Tempo em Atividade'],
+            ['', 0],
+            ['', 88],
+            ['', 144],
+            ['', 0],
+            ['', 32]
+        ]);
 
-    var options = {
-      title: 'Internet em kbps',
-      curveType: 'function',
-      legend: { position: 'bottom' }
-    };
+        var options = {
+            title: 'Internet em kbps',
+            curveType: 'function',
+            legend: { position: 'bottom' }
+        };
 
-    var chart = new google.visualization.LineChart(document.getElementById('piechart'));
-    // confidencial = document.getElementById("RedeTitulo");
-    
+        var chart = new google.visualization.LineChart(document.getElementById('piechart'));
+        // confidencial = document.getElementById("RedeTitulo");
 
-    chart.draw(data, options);
-  }
+
+        chart.draw(data, options);
+    }
 </script>
