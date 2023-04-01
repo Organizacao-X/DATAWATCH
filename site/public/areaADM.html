@@ -9,13 +9,15 @@
     <title>DATAWATCH | Administração</title>
 
     <script src="./js/funcoes.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    
 
     <link rel="icon" href="./assets/imgs/LOGOV2.png">
     <link rel="stylesheet" href="./css/areaADM.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
 </head>
 
-<body onload="mostrarConteudo()">
+<body onload="mostrarConteudo()" onload="drawChart()">
     <!-- NAVBAR -->
     <header>
         <nav class="nav-bar">
@@ -65,9 +67,13 @@
                         <li class="card">
                             <div>
                                 <h3 class="card-title">Maquina 1</h3>
+                                
 
                             </div>
                             <div class="card-link-wrapper">
+                                
+                                <div id="piechart" style="width: 150px; height: 150px;"></div>
+                                
                                 <div class="status"></div><span>Ativa</span>
                             </div>
                         </li>
@@ -166,7 +172,7 @@
 
 
 </body>
-<script>
+<script type="text/javascript">
 
     // nomeUsuario.innerHTML = `<p>${sessionStorage.NOME_USUARIO}</p>`
 
@@ -218,4 +224,32 @@
         })
         return false
     }
+    
+    // Gráficos 
+    
+    google.charts.load('current', { 'packages': ['corechart'] });
+  google.charts.setOnLoadCallback(drawChartRede);
+
+  function drawChartRede() {
+    var data = google.visualization.arrayToDataTable([
+      ['Minutos', 'Tempo em Atividade'],
+      ['', 0],
+      ['', 88],
+      ['', 144],
+      ['', 0],
+      ['', 32]
+    ]);
+
+    var options = {
+      title: 'Internet em kbps',
+      curveType: 'function',
+      legend: { position: 'bottom' }
+    };
+
+    var chart = new google.visualization.LineChart(document.getElementById('piechart'));
+    // confidencial = document.getElementById("RedeTitulo");
+    
+
+    chart.draw(data, options);
+  }
 </script>
