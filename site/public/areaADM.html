@@ -33,8 +33,8 @@
 
                 <ul class="menu__box">
                     <div class="image">
-                        <!-- <img src="../public/assets/imgs/imagem-do-usuario-com-fundo-preto.png" alt=""
-                            style="height: 200px; width: 200px; border-radius: 50%; "> -->
+                        <img src="../public/assets/imgs/imagem-do-usuario-com-fundo-preto.png" alt=""
+                            style="height: 200px; width: 200px; border-radius: 50%; ">
                     </div>
                     <div class="nomeUser">
                         <span>Nome adm</span>
@@ -135,14 +135,134 @@
             </div>
         </section>
 
+        <section>
+            <div class="bg-funcionario">
+                <div class="titulo-funcionario">
+                    <span><b>Funcionários</b></span>
+                </div>
+                <div class="lista-funcionario">
+                    <ul>
+                        <li class="funcionario">
+                            <div class="info-funcionario">
+                                <span>Fernando</span>
+                                <div class="content-funcionario">
+                                    <div class="conexao">
+                                        <div class="status-funcionario" id=""></div>
+                                        <span id="">Online</span>
+                                    </div>
+                                    <div class="mostrar">
+                                        <div class="excluir">
+                                            <button onclick="verificar()">
+                                                <div class="botao">
+                                                    <div class="x"></div>
+                                                </div>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
 
-        
+                        <li class="funcionario">
+                            <div class="info-funcionario">
+                                <span>Lucas</span>
+                                <div class="content-funcionario">
+                                    <div class="conexao">
+                                        <div class="status-funcionario2" id=""></div>
+                                        <span id="">Offline</span>
+                                    </div>
+                                    <div class="mostrar">
+                                        <div class="excluir">
+                                            <button onclick="verificar()">
+                                                <div class="botao">
+                                                    <div class="x"></div>
+                                                </div>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="funcionario">
+                            <div class="info-funcionario">
+                                <span>André</span>
+                                <div class="content-funcionario">
+                                    <div class="conexao">
+                                        <div class="status-funcionario" id=""></div>
+                                        <span id="">Online</span>
+                                    </div>
+                                    <div class="mostrar">
+                                        <div class="excluir">
+                                            <button onclick="verificar()">
+                                                <div class="botao">
+                                                    <div class="x"></div>
+                                                </div>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="funcionario">
+                            <div class="info-funcionario">
+                                <span>Sara</span>
+                                <div class="content-funcionario">
+                                    <div class="conexao">
+                                        <div class="status-funcionario" id=""></div>
+                                        <span id="">Online</span>
+                                    </div>
+                                    <div class="mostrar">
+                                        <div class="excluir">
+                                            <button onclick="verificar()">
+                                                <div class="botao">
+                                                    <div class="x"></div>
+                                                </div>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="funcionario">
+                            <div class="info-funcionario">
+                                <span>Mateus</span>
+                                <div class="content-funcionario">
+                                    <div class="conexao">
+                                        <div class="status-funcionario2" id=""></div>
+                                        <span id="">Offline</span>
+                                    </div>
+                                    <div class="mostrar">
+                                        <div class="excluir">
+                                            <button onclick="verificar()">
+                                                <div class="botao">
+                                                    <div class="x"></div>
+                                                </div>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </section>
+
     </div>
 
 
 
 </body>
 <script type="text/javascript">
+
+    function verificar() {
+        alert("teste funcionou")
+
+    }
 
     // nomeUsuario.innerHTML = `<p>${sessionStorage.NOME_USUARIO}</p>`
 
@@ -195,114 +315,114 @@
     //     return false
     // }
 
-    // Gráficos 
+    // Gráficos
 
-    google.charts.load('current', { 'packages': ['corechart'] });
-    google.charts.setOnLoadCallback(drawChart1);
+    // google.charts.load('current', { 'packages': ['corechart'] });
+    // google.charts.setOnLoadCallback(drawChart1);
 
-    function drawChart1() {
+    // function drawChart1() {
 
-        var data = google.visualization.arrayToDataTable([
-            ['Minutos', 'Tempo em Atividade'],
-            ['', 0],
-            ['', 88],
-            ['', 144],
-            ['', 0],
-            ['', 32]
-        ]);
+    //     var data = google.visualization.arrayToDataTable([
+    //         ['Minutos', 'Tempo em Atividade'],
+    //         ['', 0],
+    //         ['', 88],
+    //         ['', 144],
+    //         ['', 0],
+    //         ['', 32]
+    //     ]);
 
-        var options = {
-            title: 'Internet em kbps',
-            curveType: 'function',
-            legend: { position: 'bottom' }
-        };
+    //     var options = {
+    //         title: 'Tempo de funcionamento',
+    //         curveType: 'function',
+    //         legend: { position: 'bottom' }
+    //     };
 
-        var chart = new google.visualization.LineChart(document.getElementById('piechart1'));
-        // confidencial = document.getElementById("RedeTitulo");
-
-
-        chart.draw(data, options);
-    }
-
-    google.charts.load('current', { 'packages': ['corechart'] });
-    google.charts.setOnLoadCallback(drawChart2);
-
-    function drawChart2() {
-
-        var data = google.visualization.arrayToDataTable([
-            ['Minutos', 'Tempo em Atividade'],
-            ['', 4],
-            ['', 99],
-            ['', 200],
-            ['', 78],
-            ['', 0]
-        ]);
-
-        var options = {
-            title: 'Internet em kbps',
-            curveType: 'function',
-            legend: { position: 'bottom' }
-        };
-
-        var chart = new google.visualization.LineChart(document.getElementById('piechart2'));
-        // confidencial = document.getElementById("RedeTitulo");
+    //     var chart = new google.visualization.LineChart(document.getElementById('piechart1'));
+    //     // confidencial = document.getElementById("RedeTitulo");
 
 
-        chart.draw(data, options);
-    }
+    //     chart.draw(data, options);
+    // }
 
-    google.charts.load('current', { 'packages': ['corechart'] });
-    google.charts.setOnLoadCallback(drawChart3);
+    // google.charts.load('current', { 'packages': ['corechart'] });
+    // google.charts.setOnLoadCallback(drawChart2);
 
-    function drawChart3() {
+    // function drawChart2() {
 
-        var data = google.visualization.arrayToDataTable([
-            ['Minutos', 'Tempo em Atividade'],
-            ['', 42],
-            ['', 444],
-            ['', 25],
-            ['', 75],
-            ['', 65]
-        ]);
+    //     var data = google.visualization.arrayToDataTable([
+    //         ['Minutos', 'Tempo em Atividade'],
+    //         ['', 4],
+    //         ['', 99],
+    //         ['', 200],
+    //         ['', 78],
+    //         ['', 0]
+    //     ]);
 
-        var options = {
-            title: 'Internet em kbps',
-            curveType: 'function',
-            legend: { position: 'bottom' }
-        };
+    //     var options = {
+    //         title: 'Internet em kbps',
+    //         curveType: 'function',
+    //         legend: { position: 'bottom' }
+    //     };
 
-        var chart = new google.visualization.LineChart(document.getElementById('piechart3'));
-        // confidencial = document.getElementById("RedeTitulo");
-
-
-        chart.draw(data, options);
-    }
-
-    google.charts.load('current', { 'packages': ['corechart'] });
-    google.charts.setOnLoadCallback(drawChart4);
-
-    function drawChart4() {
-
-        var data = google.visualization.arrayToDataTable([
-            ['Minutos', 'Tempo em Atividade'],
-            ['', 0],
-            ['', 324],
-            ['', 245],
-            ['', 75],
-            ['', 86]
-        ]);
-
-        var options = {
-            title: 'Internet em kbps',
-            curveType: 'function',
-            legend: { position: 'bottom' }
-        };
-
-        var chart = new google.visualization.LineChart(document.getElementById('piechart4'));
-        // confidencial = document.getElementById("RedeTitulo");
+    //     var chart = new google.visualization.LineChart(document.getElementById('piechart2'));
+    //     // confidencial = document.getElementById("RedeTitulo");
 
 
-        chart.draw(data, options);
-    }
+    //     chart.draw(data, options);
+    // }
+
+    // google.charts.load('current', { 'packages': ['corechart'] });
+    // google.charts.setOnLoadCallback(drawChart3);
+
+    // function drawChart3() {
+
+    //     var data = google.visualization.arrayToDataTable([
+    //         ['Minutos', 'Tempo em Atividade'],
+    //         ['', 42],
+    //         ['', 444],
+    //         ['', 25],
+    //         ['', 75],
+    //         ['', 65]
+    //     ]);
+
+    //     var options = {
+    //         title: 'Internet em kbps',
+    //         curveType: 'function',
+    //         legend: { position: 'bottom' }
+    //     };
+
+    //     var chart = new google.visualization.LineChart(document.getElementById('piechart3'));
+    //     // confidencial = document.getElementById("RedeTitulo");
+
+
+    //     chart.draw(data, options);
+    // }
+
+    // google.charts.load('current', { 'packages': ['corechart'] });
+    // google.charts.setOnLoadCallback(drawChart4);
+
+    // function drawChart4() {
+
+    //     var data = google.visualization.arrayToDataTable([
+    //         ['Minutos', 'Tempo em Atividade'],
+    //         ['', 0],
+    //         ['', 324],
+    //         ['', 245],
+    //         ['', 75],
+    //         ['', 86]
+    //     ]);
+
+    //     var options = {
+    //         title: 'Internet em kbps',
+    //         curveType: 'function',
+    //         legend: { position: 'bottom' }
+    //     };
+
+    //     var chart = new google.visualization.LineChart(document.getElementById('piechart4'));
+    //     // confidencial = document.getElementById("RedeTitulo");
+
+
+    //     chart.draw(data, options);
+    // }
 
 </script>
