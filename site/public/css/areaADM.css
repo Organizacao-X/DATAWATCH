@@ -7,7 +7,7 @@
 
 /* Navbar */
 body {
-  background-color: #FFE252;
+  background-color: #ffffff;
 }
 
 header {
@@ -169,11 +169,11 @@ header {
 
 
 .bg {
-  background-color: #ffffff58;
+  background-color: #F2CB05;
   margin: 5%;
   border-radius: 10px;
   padding: 3rem;
-  box-shadow: #FFE252 0px 1px 1px 0px inset, rgba(0, 0, 0, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+  box-shadow: rgba(0, 0, 0, 0.17) 0px 1px 1px 0px inset, rgba(0, 0, 0, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
 
 }
 
@@ -319,7 +319,7 @@ h2 {
 .bg-funcionario {
   display: flex;
   flex-direction: column;
-  background-color: #ffffff58;
+  background-color: #F2CB05;
   margin: 10% 20% 5% 20%;
   border-radius: 10px;
   padding: 3rem;

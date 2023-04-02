@@ -151,7 +151,7 @@ header {
     justify-content: center;
     align-items: center;
     width: 25%;
-    height: 90vh;
+    height: 91vh;
     background-color: #F2CB05;
 }
 .ladoACor {
@@ -171,14 +171,7 @@ header {
     width: 50%;
     height: 90vh;
 }
-.ladoC {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 25%;
-    height: 90vh;
-    background-color: #F2CB05;
-}
+
 
 .alinhamentoInputs {
     display: flex;
