@@ -165,31 +165,21 @@ header {
     height: 90vh;
 }
 
-.divisoria {
-    height: 84.15px;
-    width: 100vw;
-}
-
-.containerSessao1 {
-    display: flex;
-    height: 100vh;
-    width: 100vw;
-    flex-direction: row;
-    justify-content: center;
-}
+/* .espaco {
+    height: 12vh;
+} */
 
 .main {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    height: 100vh;
+    align-items: center;
 }
 
-.ladoA {
+.btnNav {
     display: flex;
     flex-direction: column;
-    background-color: rgb(150, 255, 255);
-    width: 200px;
-    height: 80%;
 }
 
 .bloco {
@@ -197,8 +187,7 @@ header {
     flex-direction: column;
     align-items: center;
     width: 100%;
-    height: 20%;
-    background-color: #c28e8e;
+    height: 15%;
 }
 
 .bloco h1 {
@@ -223,19 +212,11 @@ header {
 
 .ladoB {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 70%;
-    height: 80%;
 }
 
 .containerGrafico {
     display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: start;
-    width: 100%;
-    height: 100%;
+
 }
 
 .telaGrafico {
