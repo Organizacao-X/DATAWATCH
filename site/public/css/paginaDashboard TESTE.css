@@ -167,10 +167,14 @@ header {
 
 .main {
     display: flex;
-    flex-direction: row;
     justify-content: center;
-    height: 100vh;
-    align-items: center;
+    
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    margin-top: 145px;
 }
 
 .btnNav {
@@ -207,11 +211,27 @@ header {
 }
 
 .cpu {
-    background-image: url(../assets/imgs/cpu-icon.png);
+    /* background-image: url(../assets/imgs/cpu-icon.png); */
+    display: flex;
+
+}
+
+.container-image{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border: 3px solid red;
+    width: 100%;
 }
 
 .ram {
     background-image: url(../assets/imgs/ram-memory-icon.png);
+}
+
+.gear {
+    background-image: url(../assets/imgs/gear-icon.png);
+
 }
 
 .ladoB {
@@ -257,10 +277,7 @@ header {
     color: #181818;
 }
 
-.container {
-    display: flex;
-    justify-content: center;
-}
+
 
 .especificacao {
     border: 3px solid red;
