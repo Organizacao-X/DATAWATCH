@@ -16,7 +16,7 @@
     <script src="js/funcoes.js"></script>
 </head>
 
-<body>
+<body onload="mostrarNomeUsuario()">
     <!-- NAVBAR -->
     <header>
         <nav class="nav-bar">
@@ -34,12 +34,12 @@
                             style="height: 200px; width: 200px; border-radius: 50%; ">
                     </div>
                     <div class="nomeUser">
-                        <span>Nome Usuario</span>
+                        <span id="span_nome_usuario">Nome Usuario</span>
                     </div>
-                    <li><a class="menu__item" href="../public/cadastroEmpresa.html">Cadastro da empresa</a></li>
-                    <li><a class="menu__item" href="../public/areaADM.html">Home</a></li>
-                    <li><a class="menu__item" href="../public/cadastromaquina.html">Cadastrar maquina</a></li>
-                    <li><a class="menu__item" href="../public/cadastroFuncionario.html">Cadastrar funcionário</a></li>
+                    <!-- <li><a class="menu__item" href="../public/cadastroEmpresa.html">Cadastro da empresa</a></li> -->
+                    <li><a class="menu__item" href="./areaADM.html">Home</a></li>
+                    <!-- <li><a class="menu__item" href="../public/cadastromaquina.html">Cadastrar maquina</a></li> -->
+                    <!-- <li><a class="menu__item" href="../public/cadastroFuncionario.html">Cadastrar funcionário</a></li> -->
                     <li><a class="menu__item" href="#">Logout</a></li>
                 </ul>
             </div>
@@ -129,6 +129,10 @@
 </html>
 <script>
 
+    function mostrarNomeUsuario() {
+        span_nome_usuario.innerHTML = `Bem-vindo, ${sessionStorage.NOME_USUARIO}!`;
+    }
+
     // function tamanho() {
     //     // Atalhos 
     //     $ = document.querySelector.bind(document);
@@ -199,10 +203,10 @@
                     cepServer: inputs[2].value,
                     rua_avServer: inputs[3].value,
                     numeroServer: inputs[4].value,
-                    complementoServer: inputs[5].value,
-                    bairroServer: inputs[6].value,
-                    cidadeServer: inputs[7].value,
-                    estadoServer: inputs[8].value,
+                    bairroServer: inputs[5].value,
+                    cidadeServer: inputs[6].value,
+                    estadoServer: inputs[7].value,
+                    complementoServer: inputs[8].value,
 
                 })
             }).then(function (resposta) {

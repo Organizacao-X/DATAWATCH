@@ -89,6 +89,8 @@ function cadastrarEmpresa1(req, res) {
     var complemento = req.body.complementoServer;
     var cidade = req.body.cidadeServer;
     var estado = req.body.estadoServer;
+
+    console.log(req.body)
     if (razaoSocial == undefined) {
         res.status(400).send("Seu ramoAtividade está undefined!");
     } else if (cnpj == undefined) {

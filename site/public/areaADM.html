@@ -19,7 +19,7 @@
 
 <!-- <body onload="mostrarConteudo()" onload="drawChart()"> -->
 
-<body>
+<body onload="mostrarConteudo()">
     <!-- NAVBAR -->
     <header>
         <nav class="nav-bar">
@@ -37,12 +37,16 @@
                             style="height: 200px; width: 200px; border-radius: 50%; ">
                     </div>
                     <div class="nomeUser">
-                        <span>Nome adm</span>
+                        <span id="lateral_menu_adm_name"></span>
                     </div>
-                    <li><a class="menu__item" href="../public/cadastroEmpresa.html">Cadastro da empresa</a></li>
-                    <li><a class="menu__item" href="../public/areaADM.html">Home</a></li>
-                    <li><a class="menu__item" href="../public/cadastromaquina.html">Cadastrar maquina</a></li>
-                    <li><a class="menu__item" href="../public/cadastroFuncionario.html">Cadastrar funcionário</a></li>
+                    <li id="lateral_menu_cad_empresa" style="display: none;"><a class="menu__item"
+                            href="./cadastroEmpresa.html">Cadastrar
+                            empresa</a></li>
+                    <li><a class="menu__item" href="./areaADM.html">Home</a></li>
+                    <li id="lateral_menu_cad_maquina"><a class="menu__item" href="./cadastromaquina.html">Cadastrar
+                            maquina</a></li>
+                    <li id="lateral_menu_cad_funcionario"><a class="menu__item"
+                            href="./cadastroFuncionario.html">Cadastrar funcionário</a></li>
                     <li><a class="menu__item" href="#">Logout</a></li>
                 </ul>
             </div>
@@ -56,203 +60,214 @@
 
     </header>
 
-    <div class="teste" id="conteudo_maquinas_funcionarios">
-        <section>
-            <div class="usuario">
-                <span>Seja bem vindo <span id="nome_usuario"></span> </span>
+    <section>
+        <div class="usuario">
+            <span>Seja bem-vindo, <span id="nome_usuario"></span> </span>
+        </div>
+
+        <!-- TODO: ESTILIZAR ESSA DIV -->
+        <div id="esperando_verificacao" style="display: none; text-align: center;">
+            <br>
+            Estamos no processo de verificação da sua empresa!
+        </div>
+
+        <div id="empresa_a_cadastrar" style="display: none; text-align: center;">
+            <br>
+            Você ainda não cadastrou nenhuma empresa. <a href="./cadastroEmpresa.html">Cadastre sua empresa
+                agora!</a>
+        </div>
+
+
+        <div id="div_maquinas" class="bg" style="display: none;">
+            <div class="container">
+                <h2>Maquina</h2>
+                <ul class="cards">
+                    <li class="card">
+                        <div>
+                            <h3 class="card-title">Maquina 1</h3>
+
+
+                        </div>
+                        <div class="card-link-wrapper">
+
+                            <div id="piechart1" style="width: 400px; height: 150px;"></div>
+
+                            <div class="content">
+                                <div class="status" id=""></div><span id="">Ativa</span>
+                            </div>
+
+                        </div>
+                    </li>
+                    <li class="card">
+                        <div>
+                            <h3 class="card-title">Maquina 2</h3>
+
+
+                        </div>
+                        <div class="card-link-wrapper">
+
+                            <div id="piechart2" style="width: 400px; height: 150px;"></div>
+
+                            <div class="content">
+                                <div class="status" id=""></div><span id="">Ativa</span>
+                            </div>
+
+                        </div>
+                    </li>
+                    <li class="card">
+                        <div>
+                            <h3 class="card-title">Maquina 3</h3>
+
+
+                        </div>
+                        <div class="card-link-wrapper">
+
+                            <div id="piechart3" style="width: 400px; height: 150px;"></div>
+
+                            <div class="content">
+                                <div class="status" id=""></div><span id="">Ativa</span>
+                            </div>
+
+                        </div>
+                    </li>
+                    <li class="card">
+                        <div>
+                            <h3 class="card-title">Maquina 4</h3>
+
+
+                        </div>
+                        <div class="card-link-wrapper">
+
+                            <div id="piechart4" style="width: 400px; height: 150px;"></div>
+
+                            <div class="content">
+                                <div class="status" id=""></div><span id="">Ativa</span>
+                            </div>
+
+                        </div>
+                    </li>
+                </ul>
             </div>
+        </div>
+    </section>
 
-            <div class="bg">
-                <div class="container">
-                    <h2>Maquina</h2>
-                    <ul class="cards">
-                        <li class="card">
-                            <div>
-                                <h3 class="card-title">Maquina 1</h3>
-
-
-                            </div>
-                            <div class="card-link-wrapper">
-
-                                <div id="piechart1" style="width: 400px; height: 150px;"></div>
-
-                                <div class="content">
-                                    <div class="status" id=""></div><span id="">Ativa</span>
-                                </div>
-
-                            </div>
-                        </li>
-                        <li class="card">
-                            <div>
-                                <h3 class="card-title">Maquina 2</h3>
-
-
-                            </div>
-                            <div class="card-link-wrapper">
-
-                                <div id="piechart2" style="width: 400px; height: 150px;"></div>
-
-                                <div class="content">
-                                    <div class="status" id=""></div><span id="">Ativa</span>
-                                </div>
-
-                            </div>
-                        </li>
-                        <li class="card">
-                            <div>
-                                <h3 class="card-title">Maquina 3</h3>
-
-
-                            </div>
-                            <div class="card-link-wrapper">
-
-                                <div id="piechart3" style="width: 400px; height: 150px;"></div>
-
-                                <div class="content">
-                                    <div class="status" id=""></div><span id="">Ativa</span>
-                                </div>
-
-                            </div>
-                        </li>
-                        <li class="card">
-                            <div>
-                                <h3 class="card-title">Maquina 4</h3>
-
-
-                            </div>
-                            <div class="card-link-wrapper">
-
-                                <div id="piechart4" style="width: 400px; height: 150px;"></div>
-
-                                <div class="content">
-                                    <div class="status" id=""></div><span id="">Ativa</span>
-                                </div>
-
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+    <section>
+        <div id="div_funcionarios" class="bg-funcionario" style="display: none;">
+            <div class="titulo-funcionario">
+                <span><b>Funcionários</b></span>
             </div>
-        </section>
-
-        <section>
-            <div class="bg-funcionario">
-                <div class="titulo-funcionario">
-                    <span><b>Funcionários</b></span>
-                </div>
-                <div class="lista-funcionario">
-                    <ul>
-                        <li class="funcionario">
-                            <div class="info-funcionario">
-                                <span>Fernando</span>
-                                <div class="content-funcionario">
-                                    <div class="conexao">
-                                        <div class="status-funcionario" id=""></div>
-                                        <span id="">Online</span>
-                                    </div>
-                                    <div class="mostrar">
-                                        <div class="excluir">
-                                            <button onclick="verificar()">
-                                                <div class="botao">
-                                                    <div class="x"></div>
-                                                </div>
-                                            </button>
-                                        </div>
+            <div class="lista-funcionario">
+                <ul>
+                    <li class="funcionario">
+                        <div class="info-funcionario">
+                            <span>Fernando</span>
+                            <div class="content-funcionario">
+                                <div class="conexao">
+                                    <div class="status-funcionario" id=""></div>
+                                    <span id="">Online</span>
+                                </div>
+                                <div class="mostrar">
+                                    <div class="excluir">
+                                        <button onclick="verificar()">
+                                            <div class="botao">
+                                                <div class="x"></div>
+                                            </div>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
-                        </li>
+                        </div>
+                    </li>
 
-                        <li class="funcionario">
-                            <div class="info-funcionario">
-                                <span>Lucas</span>
-                                <div class="content-funcionario">
-                                    <div class="conexao">
-                                        <div class="status-funcionario2" id=""></div>
-                                        <span id="">Offline</span>
-                                    </div>
-                                    <div class="mostrar">
-                                        <div class="excluir">
-                                            <button onclick="verificar()">
-                                                <div class="botao">
-                                                    <div class="x"></div>
-                                                </div>
-                                            </button>
-                                        </div>
+                    <li class="funcionario">
+                        <div class="info-funcionario">
+                            <span>Lucas</span>
+                            <div class="content-funcionario">
+                                <div class="conexao">
+                                    <div class="status-funcionario2" id=""></div>
+                                    <span id="">Offline</span>
+                                </div>
+                                <div class="mostrar">
+                                    <div class="excluir">
+                                        <button onclick="verificar()">
+                                            <div class="botao">
+                                                <div class="x"></div>
+                                            </div>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
-                        </li>
+                        </div>
+                    </li>
 
-                        <li class="funcionario">
-                            <div class="info-funcionario">
-                                <span>André</span>
-                                <div class="content-funcionario">
-                                    <div class="conexao">
-                                        <div class="status-funcionario" id=""></div>
-                                        <span id="">Online</span>
-                                    </div>
-                                    <div class="mostrar">
-                                        <div class="excluir">
-                                            <button onclick="verificar()">
-                                                <div class="botao">
-                                                    <div class="x"></div>
-                                                </div>
-                                            </button>
-                                        </div>
+                    <li class="funcionario">
+                        <div class="info-funcionario">
+                            <span>André</span>
+                            <div class="content-funcionario">
+                                <div class="conexao">
+                                    <div class="status-funcionario" id=""></div>
+                                    <span id="">Online</span>
+                                </div>
+                                <div class="mostrar">
+                                    <div class="excluir">
+                                        <button onclick="verificar()">
+                                            <div class="botao">
+                                                <div class="x"></div>
+                                            </div>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
-                        </li>
+                        </div>
+                    </li>
 
-                        <li class="funcionario">
-                            <div class="info-funcionario">
-                                <span>Sara</span>
-                                <div class="content-funcionario">
-                                    <div class="conexao">
-                                        <div class="status-funcionario" id=""></div>
-                                        <span id="">Online</span>
-                                    </div>
-                                    <div class="mostrar">
-                                        <div class="excluir">
-                                            <button onclick="verificar()">
-                                                <div class="botao">
-                                                    <div class="x"></div>
-                                                </div>
-                                            </button>
-                                        </div>
+                    <li class="funcionario">
+                        <div class="info-funcionario">
+                            <span>Sara</span>
+                            <div class="content-funcionario">
+                                <div class="conexao">
+                                    <div class="status-funcionario" id=""></div>
+                                    <span id="">Online</span>
+                                </div>
+                                <div class="mostrar">
+                                    <div class="excluir">
+                                        <button onclick="verificar()">
+                                            <div class="botao">
+                                                <div class="x"></div>
+                                            </div>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
-                        </li>
+                        </div>
+                    </li>
 
-                        <li class="funcionario">
-                            <div class="info-funcionario">
-                                <span>Mateus</span>
-                                <div class="content-funcionario">
-                                    <div class="conexao">
-                                        <div class="status-funcionario2" id=""></div>
-                                        <span id="">Offline</span>
-                                    </div>
-                                    <div class="mostrar">
-                                        <div class="excluir">
-                                            <button onclick="verificar()">
-                                                <div class="botao">
-                                                    <div class="x"></div>
-                                                </div>
-                                            </button>
-                                        </div>
+                    <li class="funcionario">
+                        <div class="info-funcionario">
+                            <span>Mateus</span>
+                            <div class="content-funcionario">
+                                <div class="conexao">
+                                    <div class="status-funcionario2" id=""></div>
+                                    <span id="">Offline</span>
+                                </div>
+                                <div class="mostrar">
+                                    <div class="excluir">
+                                        <button onclick="verificar()">
+                                            <div class="botao">
+                                                <div class="x"></div>
+                                            </div>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
-                        </li>
+                        </div>
+                    </li>
 
-                    </ul>
-                </div>
+                </ul>
             </div>
-        </section>
+        </div>
+    </section>
 
-    </div>
 
 
 
@@ -274,46 +289,64 @@
     //     }
     // }
 
-    // function mostrarConteudo() {
-    //     fetch("/datawatch/consultarStatusEmpresa", {
-    //         method: "POST",
-    //         headers: {
-    //             "Content-Type": "application/json"
-    //         },
-    //         body: JSON.stringify({
-    //             idUsuarioServer: sessionStorage.ID_USUARIO
-    //         })
-    //     }).then(function (resposta) {
+    function mostrarConteudo() {
+        fetch("/datawatch/consultarStatusEmpresa", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idUsuarioServer: sessionStorage.ID_USUARIO
+            })
+        }).then(function (resposta) {
 
-    //         if (resposta.ok) {
-    //             resposta.json().then(dados => {
-    //                 console.log(dados)
-    //                 // verifica se existe alguma empresa relacionada com esse usuário no banco de dados
-    //                 // mostra o conteúdo da tela caso exista, não mostra caso não exista
-    //                 if (dados.length == 0) {
-    //                     alert("Nenhuma empresa cadastrada")
-    //                 } else if (dados[0].verificado == 0) {
-    //                     alert("Empresa ainda nao foi verificada")
-    //                     conteudo_maquinas_funcionarios.style.display = "none"
-    //                 } else {
-    //                     var idEmpresa = dados[0].fkEmpresa;
-    //                     conteudo_maquinas_funcionarios.style.display = "block"
-    //                     nome_usuario.innerHTML = dados[0].nomeUsuario
-    //                     // TODO:
-    //                     // function para colocar os cards de máquinas e de funcionários nas respectivas divs
-    //                     // responsável: Victor?
-    //                     mostrarMaquinasFuncionarios(idEmpresa);
-    //                 }
-    //             })
-    //         }
-    //         else {
-    //             throw (JSON.stringify(resposta))
-    //         }
-    //     }).catch(function (resposta) {
-    //         console.log(`ERRO: ${resposta}`);
-    //     })
-    //     return false
-    // }
+            if (resposta.ok) {
+                resposta.json().then(dados => {
+                    console.log(dados)
+                    // verifica se existe alguma empresa relacionada com esse usuário no banco de dados
+                    // mostra o conteúdo da tela caso exista, não mostra caso não exista
+                    if (dados.length == 0) {
+                        alert("Nenhuma empresa cadastrada")
+                        empresa_a_cadastrar.style = "display: block; text-align: center;"
+                        lateral_menu_cad_maquina.style = "display: none;"
+                        lateral_menu_cad_funcionario.style = "display: none;"
+                        lateral_menu_cad_empresa.style = "display: block;"
+                        div_maquinas.style = "display: none;"
+                        div_funcionarios.style = "display: none;"
+                        nome_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+                        lateral_menu_adm_name.innerHTML = `Bem-vindo, ${sessionStorage.NOME_USUARIO}!`;
+                    } else if (dados[0].verificado == 0) {
+                        var idEmpresa = dados[0].fkEmpresa;
+                        sessionStorage.ID_EMPRESA = idEmpresa
+                        alert("Empresa ainda nao foi verificada")
+                        esperando_verificacao.style = "display: block; text-align: center;"
+                        lateral_menu_cad_maquina.style = "display: none;"
+                        lateral_menu_cad_funcionario.style = "display: none;"
+                        div_maquinas.style = "display: none;"
+                        div_funcionarios.style = "display: none;"
+                        nome_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+                        lateral_menu_adm_name.innerHTML = `Bem-vindo, ${sessionStorage.NOME_USUARIO}!`;
+
+                    } else {
+                        div_maquinas.style = "display: block;"
+                        div_funcionarios.style = "display: block;"
+                        nome_usuario.innerHTML = dados[0].nomeUsuario
+                        var idEmpresa = dados[0].fkEmpresa;
+                        sessionStorage.ID_EMPRESA = idEmpresa
+                        // TODO:
+                        // function para colocar os cards de máquinas e de funcionários nas respectivas divs
+                        mostrarMaquinasFuncionarios(idEmpresa);
+                    }
+                })
+            }
+            else {
+                throw (JSON.stringify(resposta))
+            }
+        }).catch(function (resposta) {
+            console.log(`ERRO: ${resposta}`);
+        })
+        return false
+    }
 
     // Gráficos
 
