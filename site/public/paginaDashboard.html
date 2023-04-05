@@ -2,144 +2,208 @@
 <html lang="pt-br">
 
 <head>
-    
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="./css/paginaDashboard.css">
-    <link rel="icon" href="./assets/imgs/LOGOV2.png">
-    <title>Dashboard</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="./css/paginaDashboard.css">
+  <link rel="icon" href="./assets/imgs/LOGOV2.png">
+  <title>Dashboard</title>
 </head>
 
-<body>
-    
-    <header>
-        <nav class="nav-bar">
-            <div class="hamburger-menu">
-                <input id="menu__toggle" type="checkbox" />
-                <label class="menu__btn" for="menu__toggle">
-                    <span></span>
-                </label>
+<body onload="obterdados(idMaquina)">
+
+  <header>
+    <nav class="nav-bar">
+      <div class="hamburger-menu">
+        <input id="menu__toggle" type="checkbox" />
+        <label class="menu__btn" for="menu__toggle">
+          <span></span>
+        </label>
 
 
 
-                <ul class="menu__box">
-                    <div class="image">
-                        <img src="../public/assets/imgs/imagem-do-usuario-com-fundo-preto.png" alt=""
-                            style="height: 200px; width: 200px; border-radius: 50%; ">
-                    </div>
-                    <div class="nomeUser">
-                        <span>Nome adm</span>
-                    </div>
-                    <li><a class="menu__item" href="../public/cadastroEmpresa.html">Cadastro da empresa</a></li>
-                    <li><a class="menu__item" href="../public/areaADM.html">Home</a></li>
-                    <li><a class="menu__item" href="../public/cadastromaquina.html">Cadastrar maquina</a></li>
-                    <li><a class="menu__item" href="../public/cadastroFuncionario.html">Cadastrar funcionário</a></li>
-                    <li><a class="menu__item" href="#">Logout</a></li>
-                </ul>
-            </div>
+        <ul class="menu__box">
+          <div class="image">
+            <img src="../public/assets/imgs/imagem-do-usuario-com-fundo-preto.png" alt=""
+              style="height: 200px; width: 200px; border-radius: 50%; ">
+          </div>
+          <div class="nomeUser">
+            <span>Nome adm</span>
+          </div>
+          <li><a class="menu__item" href="../public/cadastroEmpresa.html">Cadastro da empresa</a></li>
+          <li><a class="menu__item" href="../public/areaADM.html">Home</a></li>
+          <li><a class="menu__item" href="../public/cadastromaquina.html">Cadastrar maquina</a></li>
+          <li><a class="menu__item" href="../public/cadastroFuncionario.html">Cadastrar funcionário</a></li>
+          <li><a class="menu__item" href="#">Logout</a></li>
+        </ul>
+      </div>
 
 
 
-            <div class="logo">
-                <img src="assets/imgs/LOGOcomTextoV2.png" alt="" width="150px">
-            </div>
-        </nav>
+      <div class="logo">
+        <img src="assets/imgs/LOGOcomTextoV2.png" alt="" width="150px">
+      </div>
+    </nav>
 
-    </header>
+  </header>
 
 
-    <section>
-      <div class="divisoria"></div>
-        <div class="containerSessao1">´
-          <div class="main">
-            <div class="ladoA">
-                <div class="bloco"><button onclick="drawChartCpu()"><h1 id="ProcessadorTitulo">Processador</h1>exibir</button></div>
-                <div class="bloco"><button onclick="drawChartRam()"><h1 id="MemoriaTitulo">Memória</h1>exibir</button></div>
-                <div class="bloco"><button onclick="drawChartDisco()"><h1 id="DiscoTitulo">Disco</h1>exibir</button></div>
-                <div class="bloco"><button onclick="drawChartRede()"><h1 id="RedeTitulo">Rede</h1>exibir</button></div>
-                <div class="bloco"><button><h1>Deletar máquina</h1>exibir</button></div>
-            </div>
-            <div class="ladoB">
-                <div class="containerGrafico">
-                    <div class="telaGrafico">
-                        <div id="piechart" style="width: 900px; height: 500px;"></div>
-
-                       
-                    </div>
-                    <div class="metricasGrafico" id="FraseMétrica">
-                        
-                    </div>
-                </div>
-            </div>
+  <section>
+    <div class="divisoria"></div>
+    <div class="containerSessao1">´
+      <div class="main">
+        <div class="ladoA">
+          <div class="bloco"><button onclick="drawChartCpu()">
+              <h1 id="ProcessadorTitulo">Processador</h1>exibir
+            </button></div>
+          <div class="bloco"><button onclick="drawChartRam()">
+              <h1 id="MemoriaTitulo">Memória</h1>exibir
+            </button></div>
+          <div class="bloco"><button onclick="drawChartDisco()">
+              <h1 id="DiscoTitulo">Disco</h1>exibir
+            </button></div>
+          <div class="bloco"><button onclick="drawChartRede()">
+              <h1 id="RedeTitulo">Rede</h1>exibir
+            </button></div>
+          <div class="bloco"><button>
+              <h1>Deletar máquina</h1>exibir
+            </button></div>
         </div>
-    </section>
+        <div class="ladoB">
+          <div class="containerGrafico">
+            <div class="telaGrafico">
+              <div id="piechart" style="width: 900px; height: 500px;"></div>
 
-    <section>
-        <div class="container">
-            <div class="especificacao">
-                <div class="conteudo">
-                    <span class="titulo">Especificações da maquina
-                        <div class="linha"></div>
-                    </span>
 
-                    <div class="maquina">
-                        <div class="dados">
-                            <span>CPU</span>
-
-                            <span>Processador</span>
-
-                            <span>Memória RAM</span>
-
-                            <span>Memória de disco</span>
-
-                            <span>Placa de rede</span>
-
-                            <span>IP</span>
-                        </div>
-
-                        <div class="dados2">
-                            <span>Usado</span>
-
-                            <span>Usado</span>
-
-                            <span>Usado</span>
-
-                            <span>Usado</span>
-
-                            <span>Usado</span>
-
-                            <span>Usado</span>
-                        </div>
-                    </div>
-                </div>
             </div>
+            <div class="metricasGrafico" id="FraseMétrica">
+
+            </div>
+          </div>
         </div>
-    </section>
+      </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="especificacao">
+        <div class="conteudo">
+          <span class="titulo">Especificações da maquina
+            <div class="linha"></div>
+          </span>
+
+          <div class="maquina">
+            <div class="dados">
+              <span>CPU</span>
+
+              <span>Processador</span>
+
+              <span>Memória RAM</span>
+
+              <span>Memória de disco</span>
+
+              <span>Placa de rede</span>
+
+              <span>IP</span>
+            </div>
+
+            <div class="dados2">
+              <span>Usado</span>
+
+              <span>Usado</span>
+
+              <span>Usado</span>
+
+              <span>Usado</span>
+
+              <span>Usado</span>
+
+              <span>Usado</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </body>
 
 </html>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
-    
-        var confidencial = "";
+  var vetorHoraRede = [];
+  var vetorRedeUpload = [];
+  var vetorRedeDownload = [];
+  var total = 0;
+  var emUso = 0;
+  var livre = total - emUso;
+  var vetorPorcentagemCpu = [];
+  var vetorHorasPorcentagem = [];
+  var capacidadeTotal = 700;
+  var capacidadeLivre = 0;
+  var capacidadeEmUso = capacidadeTotal - capacidadeLivre;
+  var temperatura = 0;
 
+  var idMaquina = sessionStorage.ID_MAQUINA;
+  console.log(idMaquina)
 
+  var confidencial = "";
 
-    // Gráfico Rede
+  function obterdados() {
+    fetch(`/dados/tempo-real/1`)
+      .then(resposta => {
+
+        if (resposta.ok) {
+          resposta.json().then(resposta => {
+
+            console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+            for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+            vetorHoraRede.push(registro.horario);
+            vetorRedeDownload.push(registro.download);
+            vetorRedeUpload.push(registro.upload);
+            vetorHorasPorcentagem.push(registro.horario);
+            vetorPorcentagemCpu.push(registro.cpuuso);
+            capacidadeLivre = registro.discolivre;
+            temperatura = registro.temperatura;
+            console.log(registro)
+            console.log(vetorRedeDownload[0])
+            console.log(vetorHoraRede)
+            }
+          });
+        } else {
+
+          console.error('Nenhum dado encontrado ou erro na API');
+        }
+      })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados do aquario p/ gráfico: ${error.message}`);
+      });
+
+  }
+
+  // Gráfico Rede
   google.charts.load('current', { 'packages': ['corechart'] });
   google.charts.setOnLoadCallback(drawChartRede);
 
+
   function drawChartRede() {
     var data = google.visualization.arrayToDataTable([
-      ['Segundos', 'Upload', 'Download'],
-      ['', 0, 64],
-      ['', 88, 8],
-      ['', 144, 64],
-      ['', 0, 72],
-      ['', 32, 16]
+      ['horário', 'Upload', 'Download'],
+      [vetorHoraRede[0], vetorRedeUpload[0], vetorRedeDownload[0]],
+      [vetorHoraRede[1], vetorRedeUpload[1], vetorRedeDownload[1]],
+      [vetorHoraRede[2], vetorRedeUpload[2], vetorRedeDownload[2]],
+      [vetorHoraRede[3], vetorRedeUpload[3], vetorRedeDownload[3]],
+      [vetorHoraRede[4], vetorRedeUpload[4], vetorRedeDownload[4]],
+      [vetorHoraRede[5], vetorRedeUpload[5], vetorRedeDownload[5]],
+      [vetorHoraRede[6], vetorRedeUpload[6], vetorRedeDownload[6]],
+      [vetorHoraRede[7], vetorRedeUpload[7], vetorRedeDownload[7]],
+      [vetorHoraRede[8], vetorRedeUpload[8], vetorRedeDownload[8]],
+      [vetorHoraRede[9], vetorRedeUpload[9], vetorRedeDownload[9]],
+
     ]);
 
     var options = {
@@ -156,14 +220,13 @@
 
     chart.draw(data, options);
   }
-  
+
   // Gráfico RAM
   google.charts.load('current', { 'packages': ['corechart'] });
   google.charts.setOnLoadCallback(drawChartRam);
 
-  var total = 8; // 
-  var emUso = 6.5;
-  var livre = total - emUso;
+
+
 
   function drawChartRam() {
 
@@ -174,7 +237,7 @@
     ]);
 
     var options = {
-      title: 'Uso de RAM'
+      title: 'Uso de RAM:'
     };
 
     var chart = new google.visualization.PieChart(document.getElementById('piechart'));
@@ -184,17 +247,16 @@
     chart.draw(data, options);
   }
 
-  
+
 
   // Gráfico CPU
   google.charts.load('current', { 'packages': ['corechart'] });
   google.charts.setOnLoadCallback(drawChartCpu);
 
 
+
+
   function drawChartCpu() {
-    var vetorPorcentagemCpu = [];
-    var vetorHorasPorcentagem = [];
-    vetorPorcentagemCpu = [90, 90, 45, 35, 23, 34, 5, 45, 6, 3, 34, 34, 3, 43,];
     vetorHorasPorcentagem = ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00'];
     var data = google.visualization.arrayToDataTable([
       ['Porcentagem %', 'Sales'],
@@ -218,7 +280,7 @@
       legend: { position: 'bottom' }
     };
 
-    
+
     var chart = new google.visualization.LineChart(document.getElementById('piechart'));
     // confidencial = document.getElementById("ProcessadorTitulo");
     FraseMétrica.innerHTML = `Dados Processador 
@@ -229,20 +291,19 @@
 
 
 
-  
+
   //Gráfico Disco
   google.charts.load('current', { 'packages': ['corechart'] });
   google.charts.setOnLoadCallback(drawChartDisco);
 
   function drawChartDisco() {
-
-    var capacidadeTotal = 10000000000000;
-    var capacidadeEmUso = 224934893840;
+    alert('oi')
+    
 
     var data = google.visualization.arrayToDataTable([
       ['DIsco', 'Memória'],
-      ['Capacidade Total', capacidadeTotal],
-      ['Capacidade livre', capacidadeEmUso],
+      ['Capacidade em uso', capacidadeEmUso],
+      ['Capacidade livre', capacidadeLivre],
 
     ]);
 
