@@ -146,13 +146,13 @@
   var capacidadeEmUso = capacidadeTotal - capacidadeLivre;
   var temperatura = 0;
 
-  var idMaquina = sessionStorage.ID_MAQUINA;
-  console.log(idMaquina)
+ // var idMaquina = sessionStorage.ID_MAQUINA;
+    var idMaquina = 1;
 
   var confidencial = "";
 
-  function obterdados() {
-    fetch(`/dados/tempo-real/1`)
+  function obterdados(idMaquina) {
+    fetch(`/dados/tempo-real/${idMaquina}`)
       .then(resposta => {
 
         if (resposta.ok) {
@@ -297,7 +297,7 @@
   google.charts.setOnLoadCallback(drawChartDisco);
 
   function drawChartDisco() {
-    alert('oi')
+    
     
 
     var data = google.visualization.arrayToDataTable([

@@ -4,11 +4,11 @@ function buscarUltimasDados(req, res) {
 
     const limite_linhas = 10;
 
-    // var idMaquina = req.params.idMaquina;
+    var idMaquina = req.params.idMaquina;
 
     console.log(`Recuperando as ultimas ${limite_linhas} medidas`);
 
-    dadosModel.buscarUltimasDados().then(function (resultado) {
+    dadosModel.buscarUltimasDados(idMaquina).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -22,13 +22,14 @@ function buscarUltimasDados(req, res) {
 }
 
 
+
 function buscarDadosEmTempoReal(req, res) {
 
-    // var idMaquina = req.params.idMaquina;
+    var idMaquina = req.params.idMaquina;
 
     console.log(`Recuperando Dados em tempo real`);
 
-    dadosModel.buscarDadosEmTempoReal().then(function (resultado) {
+    dadosModel.buscarDadosEmTempoReal(idMaquina).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {

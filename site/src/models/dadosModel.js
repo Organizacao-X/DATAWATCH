@@ -1,6 +1,6 @@
 var database = require("../database/config");
 
-function buscarUltimasDados() {
+function buscarUltimasDados(idMaquina) {
 
     instrucaoSql = '';
 
@@ -14,7 +14,7 @@ function buscarUltimasDados() {
                     datahora,
                     DATE_FORMAT(datahora,'%H:%i:%s') as horario
                 from capturas
-                where fkMaquina = 1
+                where fkMaquina = ${idMaquina}
                 order by idcaptura desc limit 5;`;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -45,7 +45,7 @@ function buscarDadosEmTempoReal(idMaquina) {
                         datahora,
                         DATE_FORMAT(datahora,'%H:%i:%s') as horario
                     from capturas
-                    where fkMaquina = 1
+                    where fkMaquina = ${idMaquina}
                     order by idcaptura desc limit 5;`;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
