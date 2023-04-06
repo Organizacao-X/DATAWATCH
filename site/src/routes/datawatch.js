@@ -42,4 +42,8 @@ router.post("/autenticar", function (req, res) {
 router.post("/consultarStatusEmpresa", function (req, res) {
     datawatchController.consultarStatusEmpresa(req, res);
 });
+
+router.post("/pegarMaquinas", function (req, res) {
+    datawatchController.pegarMaquinas(req, res);
+})
 module.exports = router;

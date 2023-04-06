@@ -81,72 +81,7 @@
         <div id="div_maquinas" class="bg" style="display: none;">
             <div class="container">
                 <h2>Maquina</h2>
-                <ul class="cards">
-                    <li class="card">
-                        <div>
-                            <h3 class="card-title">Maquina 1</h3>
-
-
-                        </div>
-                        <div class="card-link-wrapper">
-
-                            <div id="piechart1" style="width: 400px; height: 150px;"></div>
-
-                            <div class="content">
-                                <div class="status" id=""></div><span id="">Ativa</span>
-                            </div>
-
-                        </div>
-                    </li>
-                    <li class="card">
-                        <div>
-                            <h3 class="card-title">Maquina 2</h3>
-
-
-                        </div>
-                        <div class="card-link-wrapper">
-
-                            <div id="piechart2" style="width: 400px; height: 150px;"></div>
-
-                            <div class="content">
-                                <div class="status" id=""></div><span id="">Ativa</span>
-                            </div>
-
-                        </div>
-                    </li>
-                    <li class="card">
-                        <div>
-                            <h3 class="card-title">Maquina 3</h3>
-
-
-                        </div>
-                        <div class="card-link-wrapper">
-
-                            <div id="piechart3" style="width: 400px; height: 150px;"></div>
-
-                            <div class="content">
-                                <div class="status" id=""></div><span id="">Ativa</span>
-                            </div>
-
-                        </div>
-                    </li>
-                    <li class="card">
-                        <div>
-                            <h3 class="card-title">Maquina 4</h3>
-
-
-                        </div>
-                        <div class="card-link-wrapper">
-
-                            <div id="piechart4" style="width: 400px; height: 150px;"></div>
-
-                            <div class="content">
-                                <div class="status" id=""></div><span id="">Ativa</span>
-                            </div>
-
-                        </div>
-                    </li>
-                </ul>
+                <ul id="ul_cards_maquinas" class="cards"></ul>
             </div>
         </div>
     </section>
@@ -269,7 +204,71 @@
     </section>
 
 
+<!-- <li class="card">
+                        <div>
+                            <h3 class="card-title">Maquina 1</h3>
 
+
+                        </div>
+                        <div class="card-link-wrapper">
+
+                            <div id="piechart1" style="width: 400px; height: 150px;"></div>
+
+                            <div class="content">
+                                <div class="status" id=""></div><span id="">Ativa</span>
+                            </div>
+
+                        </div>
+                    </li> -->
+                    <!-- <li class="card">
+                        <div>
+                            <h3 class="card-title">Maquina 2</h3>
+
+
+                        </div>
+                        <div class="card-link-wrapper">
+
+                            <div id="piechart2" style="width: 400px; height: 150px;"></div>
+
+                            <div class="content">
+                                <div class="status" id=""></div><span id="">Ativa</span>
+                            </div>
+
+                        </div>
+                    </li> -->
+                    <!-- <li class="card">
+                        <div>
+                            <h3 class="card-title">Maquina 3</h3>
+
+
+                        </div>
+                        <div class="card-link-wrapper">
+
+                            <div id="piechart3" style="width: 400px; height: 150px;"></div>
+
+                            <div class="content">
+                                <div class="status" id=""></div><span id="">Ativa</span>
+                            </div>
+
+                        </div>
+                    </li> -->
+                    <!-- <li class="card">
+                        <div>
+                            <h3 class="card-title">Maquina 4</h3>
+
+
+                        </div>
+                        <div class="card-link-wrapper">
+
+                            <div id="piechart4" style="width: 400px; height: 150px;"></div>
+
+                            <div class="content">
+                                <div class="status" id=""></div><span id="">Ativa</span>
+                            </div>
+
+                        </div>
+                    </li> -->
+                
 
 </body>
 <script type="text/javascript">
@@ -347,6 +346,93 @@
         })
         return false
     }
+
+
+    function mostrarMaquinasFuncionarios(idEmpresa) {
+        fetch("/datawatch/pegarMaquinas", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idEmpresaServer: idEmpresa
+            })
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+                resposta.json().then(dados => {
+                    console.log(dados)
+                    if (dados.length > 0) {
+                        dados.forEach(maquina => {
+                            var lista_maquinas = document.getElementById("ul_cards_maquinas");
+                            
+                            var li = document.createElement("li")
+                            li.setAttribute("class", "card")
+                            
+                            var divTitle = document.createElement("div")
+                            
+                            var h3Title = document.createElement("h3")
+                            h3Title.setAttribute("class", "card-title")
+                            h3Title.innerHTML = "Máquina 1"
+
+                            divTitle.appendChild(h3Title)
+
+                            var divCardLinkWrapper = document.createElement("div")
+                            divCardLinkWrapper.setAttribute("class", "card-link-wrapper")
+
+                            var divPiechart1 = document.createElement("div")
+                            divPiechart1.setAttribute("id", "piechart1")
+                            divPiechart1.style = "width: 400px; height: 150px;"
+
+                            var divContent = document.createElement("div")
+                            divContent.setAttribute("class", "content")
+
+                            var divStatus = document.createElement("div")
+                            divStatus.setAttribute("class", "status")
+
+                            var spanStatus = document.createElement("span")
+                            spanStatus.innerHTML = "Ativa"
+
+                            divContent.appendChild(divStatus)
+                            divContent.appendChild(spanStatus)
+
+                            divCardLinkWrapper.appendChild(divPiechart1)
+                            divCardLinkWrapper.appendChild(divContent)
+
+                            li.appendChild(divTitle)
+                            li.appendChild(divCardLinkWrapper)
+                            
+                            lista_maquinas.appendChild(li)
+                            console.log(lista_maquinas)
+                        });
+                    }
+                    // <li class="card">
+                    //     <div>
+                    //         <h3 class="card-title">Maquina 1</h3>
+
+
+                    //     </div>
+                    //     <div class="card-link-wrapper">
+
+                    //         <div id="piechart1" style="width: 400px; height: 150px;"></div>
+
+                    //         <div class="content">
+                    //             <div class="status" id=""></div><span id="">Ativa</span>
+                    //         </div>
+
+                    //     </div>
+                    // </li>
+                })
+            }
+            else {
+                throw (JSON.stringify(resposta))
+            }
+        }).catch(function (resposta) {
+            console.log(`ERRO: ${resposta}`);
+        })
+        return false
+    }
+
 
     // Gráficos
 

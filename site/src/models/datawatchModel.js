@@ -92,6 +92,12 @@ function consultarStatusEmpresa(idUsuario) {
     return database.executar(instrucao);
 }
 
+function pegarMaquinas(idEmpresa) {
+    var instrucao = `SELECT * FROM Maquinas WHERE fkEmpresa = ${idEmpresa};`
+
+    return database.executar(instrucao);
+}
+
 module.exports = {
     entrar,
     cadastrar,
@@ -100,5 +106,6 @@ module.exports = {
     cadastrarEmpresa1,
     cadastrarEmpresa2,
     cadastrarEmpresa3,
-    consultarStatusEmpresa
+    consultarStatusEmpresa,
+    pegarMaquinas
 };

@@ -246,7 +246,6 @@ function cadastrarEmpresa3(req, res) {
                     }
                 );
         }
-    
     }
 
     // CONSULTANDO SE EMPRESA ESTÁ VERIFICADA
@@ -277,6 +276,39 @@ function cadastrarEmpresa3(req, res) {
         }
     }
 
+    // PEGANDO AS MÁQUINAS DA EMRPESA X
+    function pegarMaquinas(req, res) {
+        var idEmpresa = req.body.idEmpresaServer;
+    
+        if (idEmpresa == undefined) {
+            res.status(400).send("Sua idEmpresa está undefined");
+        } else {
+            datawatchModel.pegarMaquinas(idEmpresa)
+                .then(
+                    function (resultado) {
+                        console.log(`\nResultados encontrados: ${resultado.length}`);
+                        console.log(`Resultados: ${JSON.stringify(resultado)}`);
+    
+                        if (resultado.length > 0) {
+                            console.log(resultado);
+                            res.json(resultado);
+                        } else if (resultado.length == 0) {
+                            console.log("Nenhuma máquina cadastrada nesta empresa")
+                            res.status(403).send("Nenhuma máquina cadastrada");
+                        } else {
+                            res.status(403).send("Erro");
+                        }
+                    }
+                ).catch(
+                    function (erro) {
+                        console.log(erro);
+                        console.log("\nHouve um erro ao puxar as máquinas cadastradas! Erro: ", erro.sqlMessage);
+                        res.status(500).json(erro.sqlMessage);
+                    }
+                );
+        }
+    }
+
     module.exports = {
         entrar,
         cadastrar,
@@ -285,5 +317,6 @@ function cadastrarEmpresa3(req, res) {
         cadastrarEmpresa1,
         cadastrarEmpresa2,
         cadastrarEmpresa3,
-        consultarStatusEmpresa
+        consultarStatusEmpresa,
+        pegarMaquinas
     }
