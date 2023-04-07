@@ -92,8 +92,12 @@
                 <span><b>Funcionários</b></span>
             </div>
             <div class="lista-funcionario">
-                <ul>
-                    <li class="funcionario">
+                <ul id="ul_lista_funcionario"></ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- <li class="funcionario">
                         <div class="info-funcionario">
                             <span>Fernando</span>
                             <div class="content-funcionario">
@@ -196,15 +200,10 @@
                                 </div>
                             </div>
                         </div>
-                    </li>
-
-                </ul>
-            </div>
-        </div>
-    </section>
+                    </li> -->
 
 
-<!-- <li class="card">
+    <!-- <li class="card">
                         <div>
                             <h3 class="card-title">Maquina 1</h3>
 
@@ -220,7 +219,7 @@
 
                         </div>
                     </li> -->
-                    <!-- <li class="card">
+    <!-- <li class="card">
                         <div>
                             <h3 class="card-title">Maquina 2</h3>
 
@@ -236,7 +235,7 @@
 
                         </div>
                     </li> -->
-                    <!-- <li class="card">
+    <!-- <li class="card">
                         <div>
                             <h3 class="card-title">Maquina 3</h3>
 
@@ -252,7 +251,7 @@
 
                         </div>
                     </li> -->
-                    <!-- <li class="card">
+    <!-- <li class="card">
                         <div>
                             <h3 class="card-title">Maquina 4</h3>
 
@@ -268,10 +267,12 @@
 
                         </div>
                     </li> -->
-                
+
+                    
 
 </body>
 <script type="text/javascript">
+    var lista_maquinas = document.getElementById("ul_cards_maquinas");
 
     function verificar() {
         alert("teste funcionou")
@@ -332,9 +333,9 @@
                         nome_usuario.innerHTML = dados[0].nomeUsuario
                         var idEmpresa = dados[0].fkEmpresa;
                         sessionStorage.ID_EMPRESA = idEmpresa
-                        // TODO:
-                        // function para colocar os cards de máquinas e de funcionários nas respectivas divs
-                        mostrarMaquinasFuncionarios(idEmpresa);
+
+                        mostrarMaquinas(idEmpresa);
+                        mostrarFuncionarios(idEmpresa);
                     }
                 })
             }
@@ -348,7 +349,7 @@
     }
 
 
-    function mostrarMaquinasFuncionarios(idEmpresa) {
+    function mostrarMaquinas(idEmpresa) {
         fetch("/datawatch/pegarMaquinas", {
             method: "POST",
             headers: {
@@ -364,64 +365,10 @@
                     console.log(dados)
                     if (dados.length > 0) {
                         dados.forEach(maquina => {
-                            var lista_maquinas = document.getElementById("ul_cards_maquinas");
-                            
-                            var li = document.createElement("li")
-                            li.setAttribute("class", "card")
-                            
-                            var divTitle = document.createElement("div")
-                            
-                            var h3Title = document.createElement("h3")
-                            h3Title.setAttribute("class", "card-title")
-                            h3Title.innerHTML = "Máquina 1"
-
-                            divTitle.appendChild(h3Title)
-
-                            var divCardLinkWrapper = document.createElement("div")
-                            divCardLinkWrapper.setAttribute("class", "card-link-wrapper")
-
-                            var divPiechart1 = document.createElement("div")
-                            divPiechart1.setAttribute("id", "piechart1")
-                            divPiechart1.style = "width: 400px; height: 150px;"
-
-                            var divContent = document.createElement("div")
-                            divContent.setAttribute("class", "content")
-
-                            var divStatus = document.createElement("div")
-                            divStatus.setAttribute("class", "status")
-
-                            var spanStatus = document.createElement("span")
-                            spanStatus.innerHTML = "Ativa"
-
-                            divContent.appendChild(divStatus)
-                            divContent.appendChild(spanStatus)
-
-                            divCardLinkWrapper.appendChild(divPiechart1)
-                            divCardLinkWrapper.appendChild(divContent)
-
-                            li.appendChild(divTitle)
-                            li.appendChild(divCardLinkWrapper)
-                            
-                            lista_maquinas.appendChild(li)
+                            carregarMaquinaTela(maquina)
                             console.log(lista_maquinas)
                         });
                     }
-                    // <li class="card">
-                    //     <div>
-                    //         <h3 class="card-title">Maquina 1</h3>
-
-
-                    //     </div>
-                    //     <div class="card-link-wrapper">
-
-                    //         <div id="piechart1" style="width: 400px; height: 150px;"></div>
-
-                    //         <div class="content">
-                    //             <div class="status" id=""></div><span id="">Ativa</span>
-                    //         </div>
-
-                    //     </div>
-                    // </li>
                 })
             }
             else {
@@ -433,6 +380,142 @@
         return false
     }
 
+    function mostrarFuncionarios(idEmpresa) {
+        fetch("/datawatch/pegarFuncionarios", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idEmpresaServer: idEmpresa
+            })
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+                resposta.json().then(dados => {
+                    console.log(dados)
+                    if (dados.length > 0) {
+                        dados.forEach(funcionario => {
+                            carregarFuncionarioTela(funcionario)
+
+                        });
+                    }
+                })
+            }
+            else {
+                throw (JSON.stringify(resposta))
+            }
+        }).catch(function (resposta) {
+            console.log(`ERRO: ${resposta}`);
+        })
+        return false
+    }
+
+    function carregarFuncionarioTela(funcionario) {
+        var li = document.createElement("li")
+        li.setAttribute("class", "funcionario")
+
+        var divInfoFuncionario = document.createElement("div")
+        divInfoFuncionario.setAttribute("class", "info-funcionario")
+
+        var spanNome = document.createElement("span")
+        spanNome.innerHTML = funcionario.nomeUsuario
+
+        var divContentFuncionario = document.createElement("div")
+        divContentFuncionario.setAttribute("class", "content-funcionario")
+
+        var divConexao = document.createElement("div")
+        divConexao.setAttribute("class", "conexao")
+
+        var divStatusFuncionario = document.createElement("div")
+        var spanStatus = document.createElement("span")
+
+        if (funcionario.statusUsuario == 1) {
+            divStatusFuncionario.setAttribute("class", "status-funcionario")
+            spanStatus.innerHTML = "Online"
+        } else {
+            divStatusFuncionario.setAttribute("class", "status-funcionario2")
+            spanStatus.innerHTML = "Offline"
+        }
+        
+        var divMostrar = document.createElement("div")
+        divMostrar.setAttribute("class", "mostrar")
+
+        var divExcluir = document.createElement("div")
+        divExcluir.setAttribute("class", "excluir")
+
+        var btnExcluir = document.createElement("button")
+        
+        var divBotao = document.createElement("div")
+        divBotao.setAttribute("class", "botao")
+
+        var divBotaoX = document.createElement("div")
+        divBotaoX.setAttribute("class", "x")
+
+        divBotao.appendChild(divBotaoX)
+        btnExcluir.appendChild(divBotao)
+        divExcluir.appendChild(divBotao)
+        divMostrar.appendChild(divExcluir)
+
+        divConexao.appendChild(divStatusFuncionario)
+        divConexao.appendChild(spanStatus)
+
+        divContentFuncionario.appendChild(divConexao)
+        divContentFuncionario.appendChild(divMostrar)
+
+        divInfoFuncionario.appendChild(spanNome)
+        divInfoFuncionario.appendChild(divContentFuncionario)
+
+        li.appendChild(divInfoFuncionario)
+        
+        ul_lista_funcionario.appendChild(li)
+    }
+    
+    function carregarMaquinaTela(maquina) {
+        var li = document.createElement("li")
+        li.setAttribute("class", "card")
+
+        var divTitle = document.createElement("div")
+
+        var h3Title = document.createElement("h3")
+        h3Title.setAttribute("class", "card-title")
+        h3Title.innerHTML = maquina.nomeMaquina
+
+        divTitle.appendChild(h3Title)
+
+        var divCardLinkWrapper = document.createElement("div")
+        divCardLinkWrapper.setAttribute("class", "card-link-wrapper")
+
+        var divPiechart1 = document.createElement("div")
+        divPiechart1.setAttribute("id", "piechart1")
+        divPiechart1.style = "width: 400px; height: 150px;"
+
+        var divContent = document.createElement("div")
+        divContent.setAttribute("class", "content")
+
+        var divStatus = document.createElement("div")
+        var spanStatus = document.createElement("span")
+
+        if (maquina.statusSistema == 1) {
+            divStatus.setAttribute("class", "status")
+            spanStatus.innerHTML = "Online"
+        } else {
+            divStatus.setAttribute("class", "status2")
+            spanStatus.innerHTML = "Offline"
+        }
+
+
+        divContent.appendChild(divStatus)
+        divContent.appendChild(spanStatus)
+
+        divCardLinkWrapper.appendChild(divPiechart1)
+        divCardLinkWrapper.appendChild(divContent)
+
+        li.appendChild(divTitle)
+        li.appendChild(divCardLinkWrapper)
+
+        lista_maquinas.appendChild(li)
+    }
 
     // Gráficos
 

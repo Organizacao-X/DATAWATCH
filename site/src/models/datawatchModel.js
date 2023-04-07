@@ -98,6 +98,12 @@ function pegarMaquinas(idEmpresa) {
     return database.executar(instrucao);
 }
 
+function pegarFuncionarios(idEmpresa) {
+    var instrucao = `SELECT * FROM Usuarios WHERE fkEmpresa = ${idEmpresa} AND adm IS NOT NULL;`
+
+    return database.executar(instrucao);
+}
+
 module.exports = {
     entrar,
     cadastrar,
@@ -107,5 +113,6 @@ module.exports = {
     cadastrarEmpresa2,
     cadastrarEmpresa3,
     consultarStatusEmpresa,
-    pegarMaquinas
+    pegarMaquinas,
+    pegarFuncionarios
 };

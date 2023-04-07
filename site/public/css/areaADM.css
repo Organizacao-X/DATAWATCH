@@ -268,9 +268,9 @@ h2 {
 
 .status2 {
   background-color: rgb(255, 0, 0);
-  width: 5%;
+  width: 4%;
   border-radius: 50%;
-  height: 15px;
+  height: 13.8px;
   animation: animation 1.5s linear infinite;
 }
 

@@ -308,6 +308,38 @@ function cadastrarEmpresa3(req, res) {
                 );
         }
     }
+    
+    function pegarFuncionarios(req, res) {
+        var idEmpresa = req.body.idEmpresaServer;
+    
+        if (idEmpresa == undefined) {
+            res.status(400).send("Sua idEmpresa está undefined");
+        } else {
+            datawatchModel.pegarFuncionarios(idEmpresa)
+                .then(
+                    function (resultado) {
+                        console.log(`\nResultados encontrados: ${resultado.length}`);
+                        console.log(`Resultados: ${JSON.stringify(resultado)}`);
+    
+                        if (resultado.length > 0) {
+                            console.log(resultado);
+                            res.json(resultado);
+                        } else if (resultado.length == 0) {
+                            console.log("Nenhum funcionário cadastrado nesta empresa")
+                            res.status(403).send("Nenhum funcionário cadastrado");
+                        } else {
+                            res.status(403).send("Erro");
+                        }
+                    }
+                ).catch(
+                    function (erro) {
+                        console.log(erro);
+                        console.log("\nHouve um erro ao puxar os funcionários cadastrados! Erro: ", erro.sqlMessage);
+                        res.status(500).json(erro.sqlMessage);
+                    }
+                );
+        }
+    }
 
     module.exports = {
         entrar,
@@ -318,5 +350,6 @@ function cadastrarEmpresa3(req, res) {
         cadastrarEmpresa2,
         cadastrarEmpresa3,
         consultarStatusEmpresa,
-        pegarMaquinas
+        pegarMaquinas,
+        pegarFuncionarios
     }
