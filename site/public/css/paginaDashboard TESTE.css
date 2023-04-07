@@ -125,14 +125,12 @@ header {
 }
 
 .image {
-    /* border: 3px solid red; */
     display: flex;
     justify-content: center;
     height: auto;
 }
 
 .nomeUser {
-    /* border: 3px solid rgb(0, 255, 85); */
     display: flex;
     justify-content: center;
     padding: 2vh;
@@ -150,7 +148,6 @@ header {
 .usuario {
     display: flex;
     justify-content: center;
-    /* margin-top: 5%; */
     font-size: 30px;
 }
 
@@ -158,36 +155,29 @@ header {
     margin-top: 10%;
 }
 
-.boxMaquinas {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    height: 90vh;
-}
-
 .main {
     display: flex;
-    justify-content: center;
-    
+    justify-content: center;    
 }
 
 .container {
     display: flex;
     justify-content: center;
-    margin-top: 145px;
+    margin-top: 7.5%;
 }
 
 .btnNav {
     display: flex;
     flex-direction: column;
     width: 160px;
+    height: 100%;
 }
 
 .bloco {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100%;
+    height: 120px;
 }
 
 .bloco h1 {
@@ -205,42 +195,31 @@ header {
     height: 100%;
 }
 
-.bloco button:hover {
+.bloco button:hover, h1:hover {
     cursor: pointer;
-    background-color: #F2CB05;
+    background-color: #181818;
+    color: #F2CB05;
 }
 
-.cpu {
-    /* background-image: url(../assets/imgs/cpu-icon.png); */
+.container-image {
     display: flex;
-
-}
-
-.container-image{
-    display: flex;
+    width: 100%;
+    height: 100%;
     justify-content: center;
     align-items: center;
-    padding: 10px;
-    border: 3px solid red;
-    width: 100%;
 }
 
-.ram {
-    background-image: url(../assets/imgs/ram-memory-icon.png);
-}
-
-.gear {
-    background-image: url(../assets/imgs/gear-icon.png);
-
+.container-image img {
+    padding: 10px 0;
 }
 
 .ladoB {
     display: flex;
+    flex-direction: column;
 }
 
 .containerGrafico {
     display: flex;
-
 }
 
 .telaGrafico {
@@ -250,14 +229,21 @@ header {
 }
 
 .metricasGrafico {
-    width: 100%;
-    height: 25%;
-    background-color: #a5a5a5;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    background-color: #181818;
+    
+}
+
+#fraseMetrica {
+    margin-left: 10px;
+    color: #F2CB05;
+    padding: 10px 0;
 }
 
 #telaCpu,
 #telaDisco,
-#telaXxxx,
 #telaMemoria,
 #telaRede {
     width: 100%;
