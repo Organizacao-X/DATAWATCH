@@ -55,14 +55,14 @@ function cadastrarFuncionario(nome, email, cpf, senha, adm, FkEmpresa) {
 }
 
 // CADASTRO DE MAQUINAS
-function cadastrarMaquina(fkEmpresa, nome, serie, data, especificacao) {
-    console.log("ACESSEI O DATAWATCH MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrarMaquina():",fkEmpresa, nome, serie, data, especificacao);
+function cadastrarMaquina(fkEmpresa, nome, serie, data, processador, memoriaRam, discoMemoria, ipMaquina) {
+    console.log("ACESSEI O DATAWATCH MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrarMaquina():",fkEmpresa, nome, serie, data, processador, memoriaRam, discoMemoria, ipMaquina);
 
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
     var instrucao = `
-        INSERT INTO Maquinas (fkEmpresa, nomeMaquina, serie, dtChegada, descricao, ip, statusSistema) VALUES
-        (${FkEmpresa},'${nome}', '${serie}','${data}', '${especificacao}', 0);
+        INSERT INTO Maquinas (fkEmpresa, nomeMaquina, serie, dtChegada, processador, ram, discoMemoria, ip, statusSistema) VALUES
+        (${FkEmpresa},'${nome}', '${serie}','${data}', '${processador}','${ram}', '${discoMemoria}', '${ipMaquina}',0);
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);

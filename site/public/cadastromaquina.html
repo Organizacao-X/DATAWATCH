@@ -72,8 +72,14 @@
                 <label class="tipo_campo">Data de chegada da máquina:</label>
                 <input id="data_input" type="date" placeholder="**/**/****" onchange="limparBorda(this)">
 
-                <label class="tipo_campo">Descrição:</label>
-                <input id="descricao_input" type="text" placeholder="Descrição" onchange="limparBorda(this)">
+                <label class="tipo_campo">processador:</label>
+                <input id="processador_input" type="text" placeholder="Intel xxx" onchange="limparBorda(this)">
+                
+                <label class="tipo_campo">Memória Ram:</label>
+                <input id="memoria_input" type="text" placeholder="XX gb" onchange="limparBorda(this)">
+                
+                <label class="tipo_campo">disco:</label>
+                <input id="disco_input" type="text" placeholder="HD ou SSD" onchange="limparBorda(this)">
                 
                 <label class="tipo_campo">IP:</label>
                 <input id="ip_input" type="text" placeholder="IP" onchange="limparBorda(this)">
@@ -124,7 +130,10 @@
             nomeServer: inputs[0].value,
             serieServer: inputs[1].value,
             dataServer: inputs[2].value,
-            especificacaoServer: inputs[3].value,
+            processadorServer: inputs[3].value,
+            memoriaRamServer: inputs[4].value,
+            discoMemoria: inputs[5].value,
+            ipServer: inputs[6].value,
             fkEmpresaServer: fkEmpresa
         })
     }).then(function (resposta) {
