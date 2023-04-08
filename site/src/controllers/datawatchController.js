@@ -58,7 +58,7 @@ function cadastrarMaquina(req, res) {
     } else {
 
         // Passe os valores como parâmetro e vá para o arquivo datawatchModel.js
-        datawatchModel.cadastrarMaquina(fkEmpresa, nome, serie, data,)
+        datawatchModel.cadastrarMaquina(fkEmpresa, nome, serie, data)
             .then(
                 function (resultado) {
                     res.json(resultado);
