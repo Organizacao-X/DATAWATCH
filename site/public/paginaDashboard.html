@@ -56,7 +56,7 @@
         <div class="btnNav">
           <div class="bloco">
             <button onclick="drawChartCpu()" class="cpu" onmouseover="cpuIn()" onmouseout="cpuOut()">
-              <h1 id="ProcessadorTitulo">Processador</h1>
+              <h1 id="processadorTitulo">Processador</h1>
               <div class="container-image">
                 <img src="./assets/imgs/cpu-normal.png" id="cpu_normal" width="75px" height="75px">
                 <img src="./assets/imgs/cpu-hover.png" id="cpu_yellow" width="75px" style="display: none;">
@@ -65,7 +65,7 @@
           </div>
           <div class="bloco">
             <button onclick="drawChartRam()" class="ram" onmouseover="ramIn()" onmouseout="ramOut()">
-              <h1 id="MemoriaTitulo">Memória</h1>
+              <h1 id="memoriaTitulo">Memória</h1>
               <div class="container-image">
                 <img src="./assets/imgs/ram-normal.png" id="ram_normal" width="75px" height="75px">
                 <img src="./assets/imgs/ram-hover.png" id="ram_yellow" width="75px" height="75px"
@@ -75,7 +75,7 @@
           </div>
           <div class="bloco">
             <button onclick="drawChartDisco()" onmouseover="discoIn()" onmouseout="discoOut()">
-              <h1 id="DiscoTitulo">Disco</h1>
+              <h1 id="discoTitulo">Disco</h1>
               <div class="container-image">
                 <div class="container-image">
                   <img src="./assets/imgs/disk-normal.png" id="disco_normal" width="75px" height="75px">
@@ -87,7 +87,7 @@
           </div>
           <div class="bloco">
             <button onclick="drawChartRede()" onmouseover="redeIn()" onmouseout="redeOut()">
-              <h1 id="RedeTitulo">Rede</h1>
+              <h1 id="redeTitulo">Rede</h1>
               <div class="container-image">
                 <div class="container-image">
                   <img src="./assets/imgs/rede-normal.png" id="rede_normal" width="75px" height="75px">
@@ -99,7 +99,7 @@
           </div>
           <div class="bloco">
             <button class="gear" onmouseover="confIn()" onmouseout="confOut()">
-              <h1>Configurações</h1>
+              <h1 id="confTitulo">Configurações</h1>
               <div class="container-image">
                 <img src="./assets/imgs/conf-normal.png" id="conf_normal" width="75px" height="75px">
                 <img src="./assets/imgs/conf-hover.png" id="conf_yellow" width="75px" height="75px"
@@ -168,51 +168,61 @@
   function cpuIn() {
     cpu_normal.style.display = 'none';
     cpu_yellow.style.display = 'block';
+    processadorTitulo.style.color = '#F2CB05';
   }
 
   function cpuOut() {
     cpu_yellow.style.display = 'none';
     cpu_normal.style.display = 'block ';
+    processadorTitulo.style.color = '#FFFFFF';
   }
 
   function ramIn() {
     ram_normal.style.display = 'none';
     ram_yellow.style.display = 'block';
+    memoriaTitulo.style.color = '#F2CB05';
   }
 
   function ramOut() {
     ram_yellow.style.display = 'none';
     ram_normal.style.display = 'block ';
+    memoriaTitulo.style.color = '#FFFFFF';
   }
 
   function discoIn() {
     disco_normal.style.display = 'none';
     disco_yellow.style.display = 'block';
+    discoTitulo.style.color = '#F2CB05';
   }
 
   function discoOut() {
     disco_yellow.style.display = 'none';
     disco_normal.style.display = 'block ';
+    discoTitulo.style.color = '#FFFFFF';
   }
 
   function redeIn() {
     rede_normal.style.display = 'none';
     rede_yellow.style.display = 'block';
+    redeTitulo.style.color = '#F2CB05';
   }
 
   function redeOut() {
     rede_yellow.style.display = 'none';
     rede_normal.style.display = 'block ';
+    redeTitulo.style.color = '#FFFFFF';
   }
 
   function confIn() {
     conf_normal.style.display = 'none';
     conf_yellow.style.display = 'block';
+    confTitulo.style.color = '#F2CB05';
   }
 
   function confOut() {
     conf_yellow.style.display = 'none';
     conf_normal.style.display = 'block ';
+    confTitulo.style.color = '#FFFFFF';
   }
 </script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -298,7 +308,7 @@
     };
 
     var chart = new google.visualization.LineChart(document.getElementById('piechart'));
-    // confidencial = document.getElementById("RedeTitulo");
+    // confidencial = document.getElementById("redeTitulo");
     fraseMetrica.innerHTML = `Dados Rede 
     <br>Enviar: 
     <br>Receber: `;
@@ -367,7 +377,7 @@
 
 
     var chart = new google.visualization.LineChart(document.getElementById('piechart'));
-    // confidencial = document.getElementById("ProcessadorTitulo");
+    // confidencial = document.getElementById("processadorTitulo");
     fraseMetrica.innerHTML = `Dados Processador 
     <br>Utilização: `;
 

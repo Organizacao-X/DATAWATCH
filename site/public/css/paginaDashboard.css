@@ -198,10 +198,9 @@ header {
     height: 100%;
 }
 
-.bloco button:hover, h1:hover {
+.bloco button:hover {
     cursor: pointer;
     background-color: #181818;
-    color: #F2CB05;
 }
 
 .container-image {
