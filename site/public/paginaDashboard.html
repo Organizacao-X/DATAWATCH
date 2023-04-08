@@ -54,7 +54,7 @@
     <div class="main">
       <div class="container">
         <div class="btnNav">
-          <div class="bloco">
+          <div class="bloco" id="cantoTopLeft">
             <button onclick="drawChartCpu()" class="cpu" onmouseover="cpuIn()" onmouseout="cpuOut()">
               <h1 id="processadorTitulo">Processador</h1>
               <div class="container-image">
@@ -97,7 +97,7 @@
               </div>
             </button>
           </div>
-          <div class="bloco">
+          <div class="bloco" id="cantoBotLeft">
             <button class="gear" onmouseover="confIn()" onmouseout="confOut()">
               <h1 id="confTitulo">Configurações</h1>
               <div class="container-image">
@@ -109,10 +109,10 @@
           </div>
         </div>
         <div class="ladoB">
-          <div class="containerGrafico">
+          <div class="containerGrafico" id="cantoTopRight">
             <div id="piechart" style="width: 900px; height: 500px;"></div>
           </div>
-          <div class="metricasGrafico">
+          <div class="metricasGrafico" id="cantoBotRight">
             <div id="fraseMetrica"></div>
           </div>
         </div>
