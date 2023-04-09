@@ -125,19 +125,19 @@ header {
     height: auto;
 }
 
-.nomeUser{
+.nomeUser {
     /* border: 3px solid rgb(0, 255, 85); */
     display: flex;
     justify-content: center;
     padding: 2vh;
 }
 
-.nomeUser span{
+.nomeUser span {
     color: #ffffff;
     font-size: 40px;
 }
 
-.menu__box li{
+.menu__box li {
     margin-top: 5%;
 }
 
@@ -145,7 +145,7 @@ header {
 .main {
     display: flex;
     flex-direction: row;
-    height: 90vh;
+    height: 100%;
 }
 
 .sideA {
@@ -153,7 +153,7 @@ header {
     justify-content: center;
     align-items: center;
     width: 25%;
-    height: 90vh;
+    height: auto;
     background-color: #F2CB05;
 }
 
@@ -173,6 +173,7 @@ header {
     justify-content: center;
     align-items: center;
     width: 50vw;
+    height: 90.6vh;
 }
 
 .container {
@@ -180,7 +181,7 @@ header {
     flex-direction: column;
     align-items: center;
     width: 50%;
-    height: 90vh;
+    height: auto;
 }
 
 .box {
@@ -191,11 +192,12 @@ header {
     align-items: stretch;
     width: 100%;
 }
-.box label{
+
+.box label {
     margin-top: 3%;
 }
 
-.sideB h1{
+.sideB h1 {
     margin-top: 10%;
 }
 
@@ -228,8 +230,66 @@ header {
     scale: 1.1;
 }
 
-input{
+input {
     border-radius: 10px;
+}
+
+@media screen and (max-width: 1420px) {
+
+    #cep_input {
+        width: 83%;
+    }
+
+    #rua_input {
+        width: 83%;
+    }
+
+    #numero_input {
+        width: 83%;
+    }
+
+    #bairro_input {
+        width: 83%;
+    }
+
+    #cidade_input {
+        width: 83%;
+    }
+
+    #estado_input {
+        width: 83%;
+    }
+    
+    .endereco{
+        gap: 2rem;
+    }
+}
+
+@media screen and (max-width: 1560px){
+
+    #cep_input {
+        width: 85%;
+    }
+
+    #rua_input {
+        width: 85%;
+    }
+
+    #numero_input {
+        width: 85%;
+    }
+
+    #bairro_input {
+        width: 85%;
+    }
+
+    #cidade_input {
+        width: 85%;
+    }
+
+    #estado_input {
+        width: 85%;
+    }
 }
 
 .erro {
@@ -239,18 +299,20 @@ input{
 .endereco {
     display: flex;
     flex-direction: row;
-    width: 100%;
     justify-content: space-between;
+    gap: 3rem;
 }
 
 .metade1 {
     display: flex;
     flex-direction: column;
+    max-width: 100%;
 }
 
 .metade2 {
     display: flex;
     flex-direction: column;
+    max-width: 100%;
 }
 
 .tipo_campo {
