@@ -65,19 +65,19 @@
             <div class="alinhamentoInputs">
                 <h1>Cadastro de funcionários</h1>
                 <label class="tipo_campo">Nome:</label>
-                <input id="nome_input" type="text" placeholder="Seu nome" onchange="limparBorda(this)">
+                <input class="dados" id="nome_input" type="text" placeholder="Seu nome" onchange="limparBorda(this)">
 
                 <label class="tipo_campo">E-mail:</label>
-                <input id="email_input" type="text" placeholder="meuemail@provedor.com" onchange="limparBorda(this)">
+                <input class="dados" id="email_input" type="text" placeholder="meuemail@provedor.com" onchange="limparBorda(this)">
 
                 <label class="tipo_campo">CPF:</label>
-                <input id="cpf_input" type="text" placeholder="000.000.000-00" onchange="limparBorda(this)">
+                <input class="dados" id="cpf_input" type="text" placeholder="000.000.000-00" onchange="limparBorda(this)">
 
                 <label class="tipo_campo">Senha:</label>
-                <input id="senha_input" type="password" placeholder="******" onchange="limparBorda(this)">
+                <input class="dados" id="senha_input" type="password" placeholder="******" onchange="limparBorda(this)">
 
                 <label class="tipo_campo">Confirmação da Senha:</label>
-                <input id="confirmacao_senha_input" type="password" placeholder="******" onchange="limparBorda(this)">
+                <input class="dados" id="confirmacao_senha_input" type="password" placeholder="******" onchange="limparBorda(this)">
 
                 <button class="btn" onclick="cadastroFuncionario()">CADASTRAR</button>
 
@@ -100,7 +100,7 @@ function cadastroFuncionario() {
 
     //Recupere o valor da nova input pelo nome do id
     // Agora vá para o método fetch logo abaixo
-        var inputs = document.querySelectorAll("input")
+        var inputs = document.querySelectorAll("input.dados")
         var erro = false
 
         inputs.forEach(input => {

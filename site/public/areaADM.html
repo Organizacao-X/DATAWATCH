@@ -47,6 +47,8 @@
                             maquina</a></li>
                     <li id="lateral_menu_cad_funcionario"><a class="menu__item"
                             href="./cadastroFuncionario.html">Cadastrar funcionário</a></li>
+                    <li id="lateral_menu_cad_download"><a class="menu__item"
+                            href="../public/assets/icon/lapis.png" download="DataWatch_app">Baixar aplicatico</a></li>
                     <li><a class="menu__item" href="#">Logout</a></li>
                 </ul>
             </div>
@@ -60,9 +62,9 @@
 
     </header>
 
-    <section>
+    <section class="parte1">
         <div class="usuario">
-            <span>Seja bem-vindo, <span id="nome_usuario"></span> </span>
+            <span>Seja bem-vindo(a), <b>Gerente <span id="nome_usuario"></span></b> </span>
         </div>
 
         <!-- TODO: ESTILIZAR ESSA DIV -->
@@ -81,126 +83,121 @@
         <div id="div_maquinas" class="bg" style="display: none;">
             <div class="container">
                 <h2>Maquina</h2>
+                <div id="av_maquinas" class="aviso_maquinas" style="display: none; text-align: center;">
+                    <span><b>Abra o menu lateral para adicionar uma maquina</b> </span>
+                </div>
+
                 <ul id="ul_cards_maquinas" class="cards"></ul>
             </div>
         </div>
     </section>
 
-    <section>
-        <div id="div_funcionarios" class="bg-funcionario" style="display: none;">
+    <section class="parte2">
+        <div id="div_funcionarios" class="bg-funcionario">
             <div class="titulo-funcionario">
                 <span><b>Funcionários</b></span>
             </div>
+            <div id="av_funcionarios" class="aviso_funcionarios" style="display: none;">
+                <span><b>Abra o menu lateral para adicionar um funcionário</b></span>
+            </div>
+
+
             <div class="lista-funcionario">
-                <ul id="ul_lista_funcionario"></ul>
+                <ul id="ul_lista_funcionario">
+
+                    <li class="funcionario">
+                        <div class="info-funcionario">
+                            <div class="nome">
+                                <span>Fernando</span>
+                            </div>
+
+                            <div class="content-funcionario">
+                                <div class="conexao">
+                                    <div class="status-funcionario" id=""></div>
+                                    <span id=""><b>Online</b></span>
+                                </div>
+                                <div class="mostrar">
+                                    <div class="editar">
+                                        <button class="abrir-editar">
+                                            <div class="image-icon">
+                                                <img src="../public/assets/icon/lapis.png" alt="" style="height: 28px;">
+                                            </div>
+                                        </button>
+                                    </div>
+
+                                    <div class="excluir">
+                                        <button class="abrir-excluir">
+                                            <div class="botao">
+                                                <div class="x"></div>
+                                            </div>
+                                        </button>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
     </section>
 
-    <!-- <li class="funcionario">
-                        <div class="info-funcionario">
-                            <span>Fernando</span>
-                            <div class="content-funcionario">
-                                <div class="conexao">
-                                    <div class="status-funcionario" id=""></div>
-                                    <span id="">Online</span>
-                                </div>
-                                <div class="mostrar">
-                                    <div class="excluir">
-                                        <button onclick="verificar()">
-                                            <div class="botao">
-                                                <div class="x"></div>
-                                            </div>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
+    <div class="modal-parent1" style="display: none;">
+        <div class="modal">
+            <div class="edit">
+                <div class="titulo-edit">
+                    <span><b>Editar funcionário</b></span>
+                </div>
+                <div class="div">
+                    <label><b>Nome</b></label>
+                    <input type="text">
+                </div>
 
-                    <li class="funcionario">
-                        <div class="info-funcionario">
-                            <span>Lucas</span>
-                            <div class="content-funcionario">
-                                <div class="conexao">
-                                    <div class="status-funcionario2" id=""></div>
-                                    <span id="">Offline</span>
-                                </div>
-                                <div class="mostrar">
-                                    <div class="excluir">
-                                        <button onclick="verificar()">
-                                            <div class="botao">
-                                                <div class="x"></div>
-                                            </div>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
+                <div class="div">
+                    <label><b>Email</b></label>
+                    <input type="text">
+                </div>
 
-                    <li class="funcionario">
-                        <div class="info-funcionario">
-                            <span>André</span>
-                            <div class="content-funcionario">
-                                <div class="conexao">
-                                    <div class="status-funcionario" id=""></div>
-                                    <span id="">Online</span>
-                                </div>
-                                <div class="mostrar">
-                                    <div class="excluir">
-                                        <button onclick="verificar()">
-                                            <div class="botao">
-                                                <div class="x"></div>
-                                            </div>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
 
-                    <li class="funcionario">
-                        <div class="info-funcionario">
-                            <span>Sara</span>
-                            <div class="content-funcionario">
-                                <div class="conexao">
-                                    <div class="status-funcionario" id=""></div>
-                                    <span id="">Online</span>
-                                </div>
-                                <div class="mostrar">
-                                    <div class="excluir">
-                                        <button onclick="verificar()">
-                                            <div class="botao">
-                                                <div class="x"></div>
-                                            </div>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
+                <div class="div">
+                    <label><b>CPF</b></label>
+                    <input type="text">
+                </div>
 
-                    <li class="funcionario">
-                        <div class="info-funcionario">
-                            <span>Mateus</span>
-                            <div class="content-funcionario">
-                                <div class="conexao">
-                                    <div class="status-funcionario2" id=""></div>
-                                    <span id="">Offline</span>
-                                </div>
-                                <div class="mostrar">
-                                    <div class="excluir">
-                                        <button onclick="verificar()">
-                                            <div class="botao">
-                                                <div class="x"></div>
-                                            </div>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li> -->
+                <div class="div">
+                    <label><b>Senha</b></label>
+                    <input type="text">
+                </div>
+
+                <div class="texto-alerta" style="display: none;">
+                    <span><b>Alterações salvas com sucesso</b></span>
+                </div>
+
+                <div class="opcao">
+                    <button class="btnS" id="save_edit"><b>Salvar</b></button>
+                    <button class="btnN" id="cancel_edit"><b>Cancelar</b></button>
+                </div>
+            </div>
+            <span class="X">&times;</span>
+        </div>
+    </div>
+
+    <div class="modal-parent2" style="display: none;">
+        <div class="modal-excluir">
+            <div class="excluir">
+                <div class="texto-excluir">
+                    <span><b>Você deseja realmente excluir esse funcionário?</b></span>
+                </div>
+                <div class="options">
+                    <button class="btnS" id="save_delete"><b>Sim</b></button>
+                    <button class="btnN" id="cancel_delete"><b>Não</b></button>
+                </div>
+            </div>
+            <span class="exit">&times;</span>
+        </div>
+    </div>
+
 
 
     <!-- <li class="card">
@@ -268,16 +265,14 @@
                         </div>
                     </li> -->
 
-                    
 
+    <script src="js/modal.js"></script>
+    <script src="js/excluir.js"></script>
 </body>
+
 <script type="text/javascript">
+
     var lista_maquinas = document.getElementById("ul_cards_maquinas");
-
-    function verificar() {
-        alert("teste funcionou")
-
-    }
 
     // nomeUsuario.innerHTML = `<p>${sessionStorage.NOME_USUARIO}</p>`
 
@@ -437,7 +432,7 @@
             divStatusFuncionario.setAttribute("class", "status-funcionario2")
             spanStatus.innerHTML = "Offline"
         }
-        
+
         var divMostrar = document.createElement("div")
         divMostrar.setAttribute("class", "mostrar")
 
@@ -445,7 +440,7 @@
         divExcluir.setAttribute("class", "excluir")
 
         var btnExcluir = document.createElement("button")
-        
+
         var divBotao = document.createElement("div")
         divBotao.setAttribute("class", "botao")
 
@@ -467,10 +462,10 @@
         divInfoFuncionario.appendChild(divContentFuncionario)
 
         li.appendChild(divInfoFuncionario)
-        
+
         ul_lista_funcionario.appendChild(li)
     }
-    
+
     function carregarMaquinaTela(maquina) {
         var li = document.createElement("li")
         li.setAttribute("class", "card")

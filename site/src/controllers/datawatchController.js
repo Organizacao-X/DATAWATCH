@@ -47,10 +47,6 @@ function cadastrarMaquina(req, res) {
     var nome = req.body.nomeServer;
     var serie = req.body.serieServer;
     var data = req.body.dataServer;
-    var processador = req.body.processadorServer;
-    var memoriaRam = req.body.memoriaRamServer;
-    var discoMemoria = req.body.discoMemoriaServer;
-    var ipMaquina = req.body.ipServer;
 
     // Faça as validações dos valores
     if (nome == undefined) {
@@ -59,18 +55,10 @@ function cadastrarMaquina(req, res) {
         res.status(400).send("Sua série está undefined!");
     } else if (data == undefined) {
         res.status(400).send("Sua data está undefined!");
-    } else if (processador == undefined) {
-        res.status(400).send("sua especificação está undefined!");
-    } else if (memoriaRam == undefined) {
-        res.status(400).send("sua especificação está undefined!");
-    } else if (discoMemoria == undefined) {
-        res.status(400).send("sua especificação está undefined!");
-    } else if (ipMaquina == undefined) {
-        res.status(400).send("sua especificação está undefined!");
     } else {
 
         // Passe os valores como parâmetro e vá para o arquivo datawatchModel.js
-        datawatchModel.cadastrarMaquina(fkEmpresa, nome, serie, data, processador, memoriaRam, discoMemoria, ipMaquina)
+        datawatchModel.cadastrarMaquina(fkEmpresa, nome, serie, data)
             .then(
                 function (resultado) {
                     res.json(resultado);
