@@ -5,15 +5,18 @@ function buscarUltimasDados(idMaquina) {
     instrucaoSql = '';
 
     instrucaoSql = `select 
-    redeUpload as upload, 
-    redeDownload as download,
-    cpuUso as cpuuso,
-    temperatura as temperatura,
-    ramUso as ramuso,
-    discoLivre as discolivre,
-                    datahora,
-                    DATE_FORMAT(datahora,'%H:%i:%s') as horario
-                from capturas
+    c.redeUpload as upload, 
+    c.redeDownload as download,
+    c.cpuUso as cpuuso,
+    c.temperatura as temperatura,
+    c.ramUso as ramuso,
+    c.discoLivre as discolivre,
+    m.discoTotal as discoTotal,
+                    c.datahora,
+                    DATE_FORMAT(c.datahora,'%H:%i:%s') as horario
+                from capturas as c
+                join maquinas as m
+                ON c.fkmaquina = m.idmaquina
                 where fkMaquina = ${idMaquina}
                 order by idcaptura desc limit 5;`;
 
@@ -36,15 +39,18 @@ function buscarDadosEmTempoReal(idMaquina) {
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `select 
-        redeUpload as upload, 
-        redeDownload as download,
-        cpuUso as cpuuso,
-        temperatura as temperatura,
-        ramUso as ramuso,
-        discoLivre as discolivre,
-                        datahora,
-                        DATE_FORMAT(datahora,'%H:%i:%s') as horario
-                    from capturas
+        c.redeUpload as upload, 
+        c.redeDownload as download,
+        c.cpuUso as cpuuso,
+        c.temperatura as temperatura,
+        c.ramUso as ramuso,
+        c.discoLivre as discolivre,
+        m.discoTotal as discoTotal,
+                        c.datahora,
+                        DATE_FORMAT(c.datahora,'%H:%i:%s') as horario
+                    from capturas as c
+                    join maquinas as m
+                    ON c.fkmaquina = m.idmaquina
                     where fkMaquina = ${idMaquina}
                     order by idcaptura desc limit 5;`;
     } else {

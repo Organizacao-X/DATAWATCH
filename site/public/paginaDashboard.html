@@ -194,9 +194,8 @@
   var livre = total - emUso;
   var vetorPorcentagemCpu = [];
   var vetorHorasPorcentagem = [];
-  var capacidadeTotal = 700;
+  var capacidadeTotal = 0;
   var capacidadeLivre = 0;
-  var capacidadeEmUso = capacidadeTotal - capacidadeLivre;
   var temperatura = 0;
 
   // var idMaquina = sessionStorage.ID_MAQUINA;
@@ -221,10 +220,13 @@
               vetorHorasPorcentagem.push(registro.horario);
               vetorPorcentagemCpu.push(registro.cpuuso);
               capacidadeLivre = registro.discolivre;
+              capacidadeTotal = registro.discoTotal;
               temperatura = registro.temperatura;
               console.log(registro)
               console.log(vetorRedeDownload[0])
               console.log(vetorHoraRede)
+              console.log(capacidadeLivre);
+              console.log(capacidadeTotal);
             }
           });
         } else {
@@ -350,12 +352,14 @@
   google.charts.setOnLoadCallback(drawChartDisco);
 
   function drawChartDisco() {
-
+    console.log("AQUI Ó")
+    console.log(capacidadeLivre);
+    console.log(capacidadeTotal);
 
 
     var data = google.visualization.arrayToDataTable([
-      ['DIsco', 'Memória'],
-      ['Capacidade em uso', capacidadeEmUso],
+      ['Disco', 'Memória'],
+      ['Capacidade em uso', capacidadeTotal],
       ['Capacidade livre', capacidadeLivre],
 
     ]);
@@ -366,8 +370,8 @@
 
     var chart = new google.visualization.PieChart(document.getElementById('piechart'));
     fraseMetrica.innerHTML = `Dados Disco 
-    <br> Capacidade Total:
-    <br> Capacidade em uso:`;
+    <br> Capacidade Total: ${capacidadeTotal}
+    <br> Capacidade em uso: ${capacidadeLivre}`;
     chart.draw(data, options);
   } 
 </script>
