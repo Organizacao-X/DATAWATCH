@@ -52,9 +52,9 @@ discoMemoria varchar(45),
 ip VARCHAR(45),
 PRIMARY KEY (idMaquina, fkEmpresa),
 statusSistema TINYINT(1),
-cpuFrequencia BIGINT,
-ramTotal BIGINT,
-discoTotal BIGINT
+cpuFrequencia DOUBLE,
+ramTotal DOUBLE,
+discoTotal DOUBLE
 );
 
 
@@ -85,7 +85,7 @@ INSERT INTO Contato VALUES
 (1, 'novae@gmail.com', '11 989898989');
 INSERT INTO Maquinas (idMaquina, fkEmpresa, nomeMaquina, serie, dtChegada, processador, ram, discoMemoria, ip, statusSistema, cpuFrequencia, ramTotal, discoTotal) 
 VALUES
-(1, 1, 'maquina01', 'GFT56', '2023-03-03', 'I5', '16 GB', 'HD 1 TB', '192.08.92.12', 1,2400000, 1600000, 100000000);
+(1, 1, 'maquina01', 'GFT56', '2023-03-03', 'I5', '16 GB', 'HD 1 TB', '192.08.92.12', 1,24.0, 15.75, 697.45);
 INSERT INTO Capturas VALUES 
 (1, 1, 1, '2023-04-04 12:00:00', 3.4, 56.88, 4.5, 10.0, 25.5, 580.4);  
 
