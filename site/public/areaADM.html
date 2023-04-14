@@ -47,103 +47,223 @@
                             maquina</a></li>
                     <li id="lateral_menu_cad_funcionario"><a class="menu__item"
                             href="./cadastroFuncionario.html">Cadastrar funcionário</a></li>
-                    <li id="lateral_menu_cad_download"><a class="menu__item" href=""
-                            download="DataWatch App">Baixar aplicatico</a></li>
-                    <li><a class="menu__item" href="./login.html" onclick="logout()">Logout</a></li>
+                    <li id="lateral_menu_cad_download"><a class="menu__item" href="../public/assets/icon/lapis.png"
+                            download="DataWatch_app">Baixar aplicativo</a></li>
+                    <li><a class="menu__item" href="#">Logout</a></li>
                 </ul>
             </div>
 
-
+            <div class="usuario">
+                <span>Seja bem-vindo(a), <b>Gerente Geraldo Garcia <span id="nome_usuario"></span></b>
+                </span>
+            </div>
 
             <div class="logo">
-                <a href="./areaADM.html"><img src="assets/imgs/LOGOcomTextoV2.png" alt="" width="150px"></a>
+                <img src="assets/imgs/LOGOcomTextoV2.png" alt="" width="150px">
             </div>
         </nav>
 
     </header>
 
-    <section class="parte1">
-        <div class="usuario">
-            <span>Seja bem-vindo(a), <b>Gerente <span id="nome_usuario"></span></b> </span>
-        </div>
-
-        <!-- TODO: ESTILIZAR ESSA DIV -->
-        <div id="esperando_verificacao" style="display: none; text-align: center;">
-            <br>
-            Estamos no processo de verificação da sua empresa!
-        </div>
-
-        <div id="empresa_a_cadastrar" style="display: none; text-align: center;">
-            <br>
-            Você ainda não cadastrou nenhuma empresa. <a href="./cadastroEmpresa.html">Cadastre sua empresa
-                agora!</a>
-        </div>
 
 
-        <div id="div_maquinas" class="bg" style="display: none;">
-            <div class="container">
-                <h2>Maquina</h2>
-                <div id="av_maquinas" class="aviso_maquinas" style="display: none; text-align: center;">
-                    <span><b>Abra o menu lateral para adicionar uma maquina</b> </span>
-                </div>
 
-                <a href="./paginaDashboard.html">
-                    <ul id="ul_cards_maquinas" class="cards"></ul>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <section class="parte2">
-        <div id="div_funcionarios" class="bg-funcionario">
-            <div class="titulo-funcionario">
-                <span><b>Funcionários</b></span>
-            </div>
-            <div id="av_funcionarios" class="aviso_funcionarios" style="display: none;">
-                <span><b>Abra o menu lateral para adicionar um funcionário</b></span>
-            </div>
+    <!-- <section class="parte1"> -->
 
 
-            <div class="lista-funcionario">
-                <ul id="ul_lista_funcionario">
-
-                    <li class="funcionario">
-                        <div class="info-funcionario">
-                            <div class="nome">
-                                <span>Fernando</span>
-                            </div>
-
-                            <div class="content-funcionario">
-                                <div class="conexao">
-                                    <div class="status-funcionario" id=""></div>
-                                    <span id=""><b>Online</b></span>
-                                </div>
-                                <div class="mostrar">
-                                    <div class="editar">
-                                        <button class="abrir-editar">
-                                            <div class="image-icon">
-                                                <img src="../public/assets/icon/lapis.png" alt="" style="height: 28px;">
-                                            </div>
-                                        </button>
-                                    </div>
-
-                                    <div class="excluir">
-                                        <button class="abrir-excluir">
-                                            <div class="botao">
-                                                <div class="x"></div>
-                                            </div>
-                                        </button>
-                                    </div>
-
-
-                                </div>
+    <section>
+        <div class="container-um">
+            <div class="bloco-um">
+                <div class="maquinas">
+                    <div class="titulo-off">
+                        <span><b>Maquinas ligadas</b></span>
+                    </div>
+                    <div class="info-maquinas">
+                        <div class="separar">
+                            <img src="./assets/icon/desligar(1).png" alt="" style="width: 150px;">
+                            <div class="dados-off">
+                                <span>30%</span>
+                                <img src="./assets/icon/exclamacao.png" alt="" style="width: 70px;">
                             </div>
                         </div>
-                    </li>
-                </ul>
+                        <div class="expandir"><button class="mais">Mostrar mais</button></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bloco-dois">
+                <div id="div_funcionarios" class="bg-funcionario">
+                    <div class="titulo-funcionario">
+                        <span><b>Funcionários</b></span>
+                    </div>
+                    <div id="av_funcionarios" class="aviso_funcionarios" style="display: none;">
+                        <span><b>Abra o menu lateral para adicionar um funcionário</b></span>
+                    </div>
+
+
+                    <div class="lista-funcionario">
+                        <ul id="ul_lista_funcionario">
+
+                            <li class="funcionario">
+                                <div class="info-funcionario">
+                                    <div class="conexao">
+                                        <div class="status-funcionario" id=""><img src="./assets/icon/circulo(1).png"
+                                                alt="" style="width: 20px;">
+                                        </div>
+                                        <span id=""><b>Online</b></span>
+                                    </div>
+                                    <div class="nome">
+                                        <span>Fernando Brandão</span>
+                                    </div>
+
+                                    <div class="content-funcionario">
+
+                                        <div class="mostrar">
+                                            <div class="editar">
+                                                <button class="abrir-editar">
+                                                    <div class="image-icon">
+                                                        <img src="../public/assets/icon/lapis.png" alt=""
+                                                            style="height: 28px;">
+                                                    </div>
+                                                </button>
+                                            </div>
+
+                                            <div class="excluir">
+                                                <button class="abrir-excluir">
+                                                    <div class="botao">
+                                                        <div class="x"></div>
+                                                    </div>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="funcionario">
+                                <div class="info-funcionario">
+                                    <div class="conexao">
+                                        <div class="status-funcionario" id=""><img src="./assets/icon/circulo.png"
+                                                alt="" style="width: 20px;"></div>
+                                        <span id=""><b>Offline</b></span>
+                                    </div>
+                                    <div class="nome">
+                                        <span>Fernando</span>
+                                    </div>
+
+                                    <div class="content-funcionario">
+
+                                        <div class="mostrar">
+                                            <div class="editar">
+                                                <button class="abrir-editar">
+                                                    <div class="image-icon">
+                                                        <img src="../public/assets/icon/lapis.png" alt=""
+                                                            style="height: 28px;">
+                                                    </div>
+                                                </button>
+                                            </div>
+
+                                            <div class="excluir">
+                                                <button class="abrir-excluir">
+                                                    <div class="botao">
+                                                        <div class="x"></div>
+                                                    </div>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="funcionario">
+                                <div class="info-funcionario">
+                                    <div class="conexao">
+                                        <div class="status-funcionario" id=""><img src="./assets/icon/circulo(1).png"
+                                                alt="" style="width: 20px;">
+                                        </div>
+                                        <span id=""><b>Online</b></span>
+                                    </div>
+                                    <div class="nome">
+                                        <span>Fernando</span>
+                                    </div>
+
+                                    <div class="content-funcionario">
+
+                                        <div class="mostrar">
+                                            <div class="editar">
+                                                <button class="abrir-editar">
+                                                    <div class="image-icon">
+                                                        <img src="../public/assets/icon/lapis.png" alt=""
+                                                            style="height: 28px;">
+                                                    </div>
+                                                </button>
+                                            </div>
+
+                                            <div class="excluir">
+                                                <button class="abrir-excluir">
+                                                    <div class="botao">
+                                                        <div class="x"></div>
+                                                    </div>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
+        <div class="container-dois">
+            <div class="bloco-tres">
+                <div class="titulo-execucao">
+                    <span><b>Maquinas em tempo de execução</b></span>
+                </div>
+                <div class="time-container">
+                    <div class="info-reloader">
+                        <span><b>Próxima reinicialização:</b> 5 dias</span>
+                        <button>Editar data</button>
+                    </div>
+                </div>
+                <div class="temp-yes">
+                    <div class="info-maquinas">
+                        <div class="nome-maquina">
+                            <span>Nome maquina</span>
+                        </div>
+                        <div class="time-reloader">
+                            <span>1:10:26</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="temp-no"></div>
+            </div>
+            <div class="bloco-quatro"></div>
+        </div>
     </section>
+
+    <!-- TODO: ESTILIZAR ESSA DIV -->
+    <!-- <div id="esperando_verificacao" style="display: none; text-align: center;">
+        <br>
+        Estamos no processo de verificação da sua empresa!
+    </div>
+
+    <div id="empresa_a_cadastrar" style="display: none; text-align: center;">
+        <br>
+        Você ainda não cadastrou nenhuma empresa. <a href="./cadastroEmpresa.html">Cadastre sua empresa
+            agora!</a>
+    </div> -->
+
+
+    <!-- <div id="div_maquinas" class="bg" style="display: none;">
+        <div class="container">
+            <h2>Maquina</h2>
+            <div id="av_maquinas" class="aviso_maquinas" style="display: none; text-align: center;">
+                <span><b>Abra o menu lateral para adicionar uma maquina</b> </span>
+            </div>
+
+            <ul id="ul_cards_maquinas" class="cards"></ul>
+        </div>
+    </div>
+    </section> -->
 
     <div class="modal-parent1" style="display: none;">
         <div class="modal">
@@ -189,7 +309,7 @@
         <div class="modal-excluir">
             <div class="excluir">
                 <div class="texto-excluir">
-                    <span><b>Você deseja realmente excluir esse funcionário?</b></span>
+                    <span><b>Você deseja realmente desativar esse funcionário?</b></span>
                 </div>
                 <div class="options">
                     <button class="btnS" id="save_delete"><b>Sim</b></button>
@@ -271,12 +391,7 @@
     <script src="js/modal.js"></script>
     <script src="js/excluir.js"></script>
 </body>
-<script>
-    // Limpar a seção
-    function logout() {
-        localStorage.clear();
-    }
-</script>
+
 <script type="text/javascript">
 
     var lista_maquinas = document.getElementById("ul_cards_maquinas");
