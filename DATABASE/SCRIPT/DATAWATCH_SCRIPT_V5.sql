@@ -1,8 +1,6 @@
 CREATE DATABASE IF NOT EXISTS datawatch;
 USE datawatch;
 
-
-
 CREATE TABLE IF NOT EXISTS Empresas (
 idEmpresa INT PRIMARY KEY AUTO_INCREMENT,
 razaoSocial VARCHAR(45) NOT NULL,
@@ -43,6 +41,8 @@ CREATE TABLE IF NOT EXISTS Maquinas (
 idMaquina INT AUTO_INCREMENT,
 fkEmpresa INT,
 CONSTRAINT FOREIGN KEY (fkEmpresa) REFERENCES Empresas (idEmpresa),
+fkUsuario int,
+CONSTRAINT FOREIGN KEY (fkUsuario) REFERENCES Usuarios (idUsuario),
 nomeMaquina VARCHAR(45) NOT NULL,
 serie VARCHAR(45) NOT NULL,
 dtChegada DATE,
@@ -56,7 +56,6 @@ cpuFrequencia DOUBLE,
 ramTotal DOUBLE,
 discoTotal DOUBLE
 );
-
 
 CREATE TABLE IF NOT EXISTS Capturas (
 idCaptura INT AUTO_INCREMENT,
@@ -94,4 +93,4 @@ INSERT INTO Capturas VALUES
 (3, 1, 1, '2023-04-04 12:02:00', 45.4, 57.88, 4.5, 10.0, 26.5, 580.3), 
 (4, 1, 1, '2023-04-04 12:03:00', 76.4, 58.88, 5.5, 12.0, 27.5, 580.2),  
 (5, 1, 1, '2023-04-04 12:04:00', 20.4, 59.88, 7.5, 11.0, 26.5, 579.6),  
-(6, 1, 1, '2023-04-04 12:05:00', 14.4, 56.88, 4.3, 9.0, 25.5, 579.3);  
+(6, 1, 1, '2023-04-04 12:05:00', 14.4, 56.88, 4.3, 9.0, 25.5, 579.3);

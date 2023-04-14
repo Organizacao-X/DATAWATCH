@@ -22,7 +22,7 @@ var mySqlConfig = {
     host: "localhost",
     database: "datawatch",
     user: "root",
-    password: "LsA147504",
+    password: "sptech",
 };
 
 function executar(instrucao) {
