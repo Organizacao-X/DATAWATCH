@@ -54,7 +54,7 @@ statusSistema TINYINT(1),
 cpuFrequencia DOUBLE,
 ramTotal DOUBLE,
 discoTotal DOUBLE,
-tempoAtividade VARCHAR(25)
+tempoAtividade INT
 );
 
 
@@ -95,10 +95,10 @@ INSERT INTO Usuarios VALUES
 (5, 'Souza', 'souza@gmail.com', 12312312673, '12345678', 1, 'IMAGEM', 1, 1),
 (6, 'Narcisista', 'narcisista@gmail.com', 12312312561, '12345678', 1, 'IMAGEM', 1, 1);
 
-INSERT INTO Maquinas (idMaquina, fkEmpresa, nomeMaquina, serie, dtChegada, processador, ram, discoMemoria, ip, statusSistema, cpuFrequencia, ramTotal, discoTotal) 
+INSERT INTO Maquinas (idMaquina, fkEmpresa, nomeMaquina, serie, dtChegada, processador, ram, discoMemoria, ip, statusSistema, cpuFrequencia, ramTotal, discoTotal, tempoAtividade) 
 VALUES
-(1, 1, 'maquina01', 'GFT56', '2023-03-03', 'I5', '16 GB', 'HD 1 TB', '192.08.92.12', 1,24.0, 15.75, 697.45),
-(2, 1, 'maquina02', 'GFT56', '2023-03-03', 'I5', '16 GB', 'HD 1 TB', '192.08.92.12', 1,24.0, 15.75, 697.45);
+(1, 1, 'maquina01', 'GFT56', '2023-03-03', 'I5', '16 GB', 'HD 1 TB', '192.08.92.12', 1,24.0, 15.75, 697.45,2500751),
+(2, 1, 'maquina02', 'GFT56', '2023-03-03', 'I5', '16 GB', 'HD 1 TB', '192.08.92.12', 1,24.0, 15.75, 697.45,2500778);
 INSERT INTO Capturas VALUES 
 (1, 1, 1, '2023-04-04 12:00:00', 3.4, 56.88, 4.5, 10.0, 25.5, 580.4);  
 
@@ -152,15 +152,16 @@ INSERT INTO Capturas
 (45, 1, 2, '2023-04-04 10:05:00', 13.4, 56.88, 6.3, 9.0, 25.5, 594.3), 
 (46, 1, 2, '2023-04-05 10:05:00', 13.4, 56.88, 6.3, 9.0, 25.5, 594.3);  
 
--- drop database datawatch;
+ -- drop database datawatch;
 
 -- GRAFICO DE BARRA EMPILHADA
 SELECT 
-fkmaquina as Maquina, Sum(ramuso), TIME_FORMAT(dataHora, '%H : 00') AS HoraFormata 
+fkmaquina as Maquina, Sum(ramuso), 
+TIME_FORMAT(dataHora, '%H : 00') AS HoraFormata 
 from Capturas 
 where dataHora >= SUBDATE(CURDATE(), INTERVAL 30 DAY) 
 and fkempresa = 2 
-group by fkmaquina, HORA_FORMATADA
+group by fkmaquina, HoraFormata
 order by dataHora;
 
 
@@ -172,6 +173,15 @@ nomeUsuario as Nome,
 statusUsuario as Status
 from Usuarios
 where fkempresa = 1;
+
+-- TEMPO DE ATIVIDADE
+
+SELECT idmaquina as Id,
+	SEC_TO_TIME(tempoAtividade) AS tempo_total,
+       CONCAT(FLOOR(tempoAtividade / 86400), ' dias, ',
+              SEC_TO_TIME(tempoAtividade % 86400)) AS tempo_formatado
+              FROM maquinas 
+              where fkempresa = 1;
 
 
 
