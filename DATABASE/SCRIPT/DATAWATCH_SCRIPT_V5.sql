@@ -75,6 +75,24 @@ discoLivre DOUBLE,
 PRIMARY KEY (idCaptura, fkMaquina, fkEmpresa)
 );
 
+CREATE TABLE Alertas (
+	idAlerta INT PRIMARY KEY AUTO_INCREMENT,
+    nomeAlerta VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE Possuem (
+	idPosse INT PRIMARY KEY AUTO_INCREMENT,
+    fkEmpresa INT,
+    CONSTRAINT FOREIGN KEY (fkEmpresa) REFERENCES Empresas (idEmpresa),
+    fkUsuario INT,
+    CONSTRAINT FOREIGN KEY (fkUsuario) REFERENCES Usuarios (idUsuario),
+    fkAlerta INT,
+    CONSTRAINT FOREIGN KEY (fkAlerta) REFERENCES Alertas (idAlerta),
+    fkMaquina INT,
+    CONSTRAINT FOREIGN KEY (fkMaquina) REFERENCES Maquinas (idMaquina),
+    dataHora DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
 INSERT INTO Usuarios VALUES
 (1, 'lele', 'lele@gmail.com', 12312312312, '12345678', 1, 'IMAGEM', null, null),
 (2, 'Lucas', 'lucas@gmail.com', 12312312444, '12345678', 1, 'IMAGEM', null, null);
@@ -184,5 +202,16 @@ SELECT idmaquina as Id,
               where fkempresa = 1 
               order by tempoAtividade desc;
 
+-- INSERTS E SELECTS PARA TESTE DAS DUAS TABELAS
+INSERT INTO Alertas (nomeAlerta) VALUES ("Timeout");
 
+select * from Possuem;
 
+INSERT INTO Possuem (fkEmpresa, fkUsuario, fkAlerta, fkMaquina) VALUES (1, 6, 1, 1);
+
+select Maquinas.nomeMaquina as 'Nome da maquina', Alertas.nomeAlerta as 'Alerta', Possuem.dataHora as 'Momento'
+	from Possuem
+		JOIN Maquinas
+			ON Possuem.fkMaquina = Maquinas.idMaquina
+		JOIN Alertas
+			ON Possuem.fkAlerta = Alertas.idAlerta;
