@@ -73,142 +73,244 @@
 
     <section>
         <div class="container-um">
-            <div class="bloco-um">
-                <div class="maquinas">
-                    <div class="titulo-off">
-                        <span><b>Maquinas ligadas</b></span>
-                    </div>
-                    <div class="info-maquinas">
-                        <div class="separar">
-                            <img src="./assets/icon/desligar(1).png" alt="" style="width: 150px;">
-                            <div class="dados-off">
-                                <span>30%</span>
-                                <img src="./assets/icon/exclamacao.png" alt="" style="width: 70px;">
-                            </div>
+            <div class="sessao">
+                <div class="bloco-um">
+                    <div class="maquinas">
+                        <div class="titulo-off">
+                            <span><b>Maquinas ligadas</b></span>
                         </div>
-                        <div class="expandir"><button class="mais">Mostrar mais</button></div>
+                        <div class="info-maquinas">
+                            <div class="separar">
+                                <img src="./assets/icon/desligar(1).png" alt="" style="width: 150px;">
+                                <div class="dados-off">
+                                    <span>30%</span>
+                                    <img src="./assets/icon/exclamacao.png" alt="" style="width: 70px;">
+                                </div>
+                            </div>
+                            <div class="expandir"><button class="mais">Mostrar mais</button></div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="bloco-dois">
-                <div id="div_funcionarios" class="bg-funcionario">
-                    <div class="titulo-funcionario">
-                        <span><b>Funcionários</b></span>
-                    </div>
-                    <div id="av_funcionarios" class="aviso_funcionarios" style="display: none;">
+                <div class="bloco-dois">
+                    <div id="div_funcionarios" class="bg-funcionario">
+                        <div class="titulo-funcionario">
+                            <span><b>Funcionários</b></span>
+                        </div>
+                        <!-- <div id="av_funcionarios" class="aviso_funcionarios" style="display: none;">
                         <span><b>Abra o menu lateral para adicionar um funcionário</b></span>
-                    </div>
+                    </div> -->
 
 
-                    <div class="lista-funcionario">
-                        <ul id="ul_lista_funcionario">
+                        <div class="lista-funcionario">
+                            <ul id="ul_lista_funcionario">
 
-                            <li class="funcionario">
-                                <div class="info-funcionario">
-                                    <div class="conexao">
-                                        <div class="status-funcionario" id=""><img src="./assets/icon/circulo(1).png"
-                                                alt="" style="width: 20px;">
+                                <li class="funcionario">
+                                    <div class="info-funcionario">
+                                        <div class="conexao">
+                                            <div class="status-funcionario" id=""><img
+                                                    src="./assets/icon/circulo(1).png" alt="" style="width: 18px;">
+                                            </div>
+                                            <span id=""><b>Online</b> <b>desde ás 5h</b></span>
                                         </div>
-                                        <span id=""><b>Online</b></span>
-                                    </div>
-                                    <div class="nome">
-                                        <span>Fernando Brandão</span>
-                                    </div>
-
-                                    <div class="content-funcionario">
-
-                                        <div class="mostrar">
-                                            <div class="editar">
-                                                <button class="abrir-editar">
-                                                    <div class="image-icon">
-                                                        <img src="../public/assets/icon/lapis.png" alt=""
-                                                            style="height: 28px;">
-                                                    </div>
-                                                </button>
-                                            </div>
-
-                                            <div class="excluir">
-                                                <button class="abrir-excluir">
-                                                    <div class="botao">
-                                                        <div class="x"></div>
-                                                    </div>
-                                                </button>
-                                            </div>
+                                        <div class="nome">
+                                            <span>Fernando Brandão</span>
                                         </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="funcionario">
-                                <div class="info-funcionario">
-                                    <div class="conexao">
-                                        <div class="status-funcionario" id=""><img src="./assets/icon/circulo.png"
-                                                alt="" style="width: 20px;"></div>
-                                        <span id=""><b>Offline</b></span>
-                                    </div>
-                                    <div class="nome">
-                                        <span>Fernando</span>
-                                    </div>
 
-                                    <div class="content-funcionario">
+                                        <div class="content-funcionario">
+                                            <div class="mostrar">
+                                                <div class="editar">
+                                                    <button class="abrir-editar">
+                                                        <div class="image-icon">
+                                                            <img src="../public/assets/icon/lapis.png" alt=""
+                                                                style="height: 22px;">
+                                                        </div>
+                                                    </button>
+                                                </div>
 
-                                        <div class="mostrar">
-                                            <div class="editar">
-                                                <button class="abrir-editar">
-                                                    <div class="image-icon">
-                                                        <img src="../public/assets/icon/lapis.png" alt=""
-                                                            style="height: 28px;">
-                                                    </div>
-                                                </button>
-                                            </div>
-
-                                            <div class="excluir">
-                                                <button class="abrir-excluir">
-                                                    <div class="botao">
-                                                        <div class="x"></div>
-                                                    </div>
-                                                </button>
+                                                <div class="excluir">
+                                                    <button class="abrir-excluir">
+                                                        <div class="botao">
+                                                            <div class="x"></div>
+                                                        </div>
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </li>
-                            <li class="funcionario">
-                                <div class="info-funcionario">
-                                    <div class="conexao">
-                                        <div class="status-funcionario" id=""><img src="./assets/icon/circulo(1).png"
-                                                alt="" style="width: 20px;">
+                                </li>
+                                <li class="funcionario">
+                                    <div class="info-funcionario">
+                                        <div class="conexao">
+                                            <div class="status-funcionario" id=""><img src="./assets/icon/circulo.png"
+                                                    alt="" style="width: 18px;"></div>
+                                            <span id=""><b>Offline</b></span>
                                         </div>
-                                        <span id=""><b>Online</b></span>
-                                    </div>
-                                    <div class="nome">
-                                        <span>Fernando</span>
-                                    </div>
+                                        <div class="nome">
+                                            <span>Fernando</span>
+                                        </div>
 
-                                    <div class="content-funcionario">
+                                        <div class="content-funcionario">
 
-                                        <div class="mostrar">
-                                            <div class="editar">
-                                                <button class="abrir-editar">
-                                                    <div class="image-icon">
-                                                        <img src="../public/assets/icon/lapis.png" alt=""
-                                                            style="height: 28px;">
-                                                    </div>
-                                                </button>
-                                            </div>
+                                            <div class="mostrar">
+                                                <div class="editar">
+                                                    <button class="abrir-editar">
+                                                        <div class="image-icon">
+                                                            <img src="../public/assets/icon/lapis.png" alt=""
+                                                                style="height: 22px;">
+                                                        </div>
+                                                    </button>
+                                                </div>
 
-                                            <div class="excluir">
-                                                <button class="abrir-excluir">
-                                                    <div class="botao">
-                                                        <div class="x"></div>
-                                                    </div>
-                                                </button>
+                                                <div class="excluir">
+                                                    <button class="abrir-excluir">
+                                                        <div class="botao">
+                                                            <div class="x"></div>
+                                                        </div>
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </li>
-                        </ul>
+                                </li>
+                                <li class="funcionario">
+                                    <div class="info-funcionario">
+                                        <div class="conexao">
+                                            <div class="status-funcionario" id=""><img src="./assets/icon/circulo.png"
+                                                    alt="" style="width: 18px;"></div>
+                                            <span id=""><b>Offline</b></span>
+                                        </div>
+                                        <div class="nome">
+                                            <span>Fernando</span>
+                                        </div>
+
+                                        <div class="content-funcionario">
+
+                                            <div class="mostrar">
+                                                <div class="editar">
+                                                    <button class="abrir-editar">
+                                                        <div class="image-icon">
+                                                            <img src="../public/assets/icon/lapis.png" alt=""
+                                                                style="height: 22px;">
+                                                        </div>
+                                                    </button>
+                                                </div>
+
+                                                <div class="excluir">
+                                                    <button class="abrir-excluir">
+                                                        <div class="botao">
+                                                            <div class="x"></div>
+                                                        </div>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="funcionario">
+                                    <div class="info-funcionario">
+                                        <div class="conexao">
+                                            <div class="status-funcionario" id=""><img src="./assets/icon/circulo.png"
+                                                    alt="" style="width: 18px;"></div>
+                                            <span id=""><b>Offline</b></span>
+                                        </div>
+                                        <div class="nome">
+                                            <span>Fernando</span>
+                                        </div>
+
+                                        <div class="content-funcionario">
+
+                                            <div class="mostrar">
+                                                <div class="editar">
+                                                    <button class="abrir-editar">
+                                                        <div class="image-icon">
+                                                            <img src="../public/assets/icon/lapis.png" alt=""
+                                                                style="height: 22px;">
+                                                        </div>
+                                                    </button>
+                                                </div>
+
+                                                <div class="excluir">
+                                                    <button class="abrir-excluir">
+                                                        <div class="botao">
+                                                            <div class="x"></div>
+                                                        </div>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="funcionario">
+                                    <div class="info-funcionario">
+                                        <div class="conexao">
+                                            <div class="status-funcionario" id=""><img src="./assets/icon/circulo.png"
+                                                    alt="" style="width: 18px;"></div>
+                                            <span id=""><b>Offline</b></span>
+                                        </div>
+                                        <div class="nome">
+                                            <span>Fernando</span>
+                                        </div>
+
+                                        <div class="content-funcionario">
+
+                                            <div class="mostrar">
+                                                <div class="editar">
+                                                    <button class="abrir-editar">
+                                                        <div class="image-icon">
+                                                            <img src="../public/assets/icon/lapis.png" alt=""
+                                                                style="height: 22px;">
+                                                        </div>
+                                                    </button>
+                                                </div>
+
+                                                <div class="excluir">
+                                                    <button class="abrir-excluir">
+                                                        <div class="botao">
+                                                            <div class="x"></div>
+                                                        </div>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="funcionario">
+                                    <div class="info-funcionario">
+                                        <div class="conexao">
+                                            <div class="status-funcionario" id=""><img src="./assets/icon/circulo.png"
+                                                    alt="" style="width: 18px;"></div>
+                                            <span id=""><b>Offline</b></span>
+                                        </div>
+                                        <div class="nome">
+                                            <span>Fernando</span>
+                                        </div>
+
+                                        <div class="content-funcionario">
+
+                                            <div class="mostrar">
+                                                <div class="editar">
+                                                    <button class="abrir-editar">
+                                                        <div class="image-icon">
+                                                            <img src="../public/assets/icon/lapis.png" alt=""
+                                                                style="height: 22px;">
+                                                        </div>
+                                                    </button>
+                                                </div>
+
+                                                <div class="excluir">
+                                                    <button class="abrir-excluir">
+                                                        <div class="botao">
+                                                            <div class="x"></div>
+                                                        </div>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -221,22 +323,162 @@
                 <div class="time-container">
                     <div class="info-reloader">
                         <span><b>Próxima reinicialização:</b> 5 dias</span>
-                        <button>Editar data</button>
+                        <button class="edit-date">Editar data</button>
                     </div>
                 </div>
                 <div class="temp-yes">
-                    <div class="info-maquinas">
-                        <div class="nome-maquina">
-                            <span>Nome maquina</span>
-                        </div>
-                        <div class="time-reloader">
-                            <span>1:10:26</span>
-                        </div>
+                    <ul class="lista-maquina">
+                        <li>
+                            <div class="info-time">
+                                <div class="sei-la">
+                                    <div class="conexao-maquina">
+                                        <div class="status-maquina" id=""><img src="./assets/icon/circulo.png" alt=""
+                                                style="width: 18px;"></div>
+                                        <span id=""><b>Offline</b></span>
+                                    </div>
+                                    <div class="nome-maquina">
+                                        <span>Nome maquina</span>
+                                    </div>
+                                </div>
+                                <button class="reload">Reiniciar</button>
+                                <div class="time-reloader">
+                                    <span><b>1d 10h 26min</b></span>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="info-time">
+                                <div class="sei-la">
+                                    <div class="conexao-maquina">
+                                        <div class="status-maquina" id=""><img src="./assets/icon/circulo.png" alt=""
+                                                style="width: 18px;"></div>
+                                        <span id=""><b>Offline</b></span>
+                                    </div>
+                                    <div class="nome-maquina">
+                                        <span>Nome maquina</span>
+                                    </div>
+                                </div>
+                                <div class="time-reloader">
+                                    <span><b>1d 10h 26min</b></span>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="info-time">
+                                <div class="sei-la">
+                                    <div class="conexao-maquina">
+                                        <div class="status-maquina" id=""><img src="./assets/icon/circulo.png" alt=""
+                                                style="width: 18px;"></div>
+                                        <span id=""><b>Offline</b></span>
+                                    </div>
+                                    <div class="nome-maquina">
+                                        <span>Nome maquina</span>
+                                    </div>
+                                </div>
+                                <div class="time-reloader">
+                                    <span><b>1d 10h 26min</b></span>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="info-time">
+                                <div class="sei-la">
+                                    <div class="conexao-maquina">
+                                        <div class="status-maquina" id=""><img src="./assets/icon/circulo.png" alt=""
+                                                style="width: 18px;"></div>
+                                        <span id=""><b>Offline</b></span>
+                                    </div>
+                                    <div class="nome-maquina">
+                                        <span>Nome maquina</span>
+                                    </div>
+                                </div>
+                                <div class="time-reloader">
+                                    <span><b>1d 10h 26min</b></span>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="info-time">
+                                <div class="sei-la">
+                                    <div class="conexao-maquina">
+                                        <div class="status-maquina" id=""><img src="./assets/icon/circulo.png" alt=""
+                                                style="width: 18px;"></div>
+                                        <span id=""><b>Offline</b></span>
+                                    </div>
+                                    <div class="nome-maquina">
+                                        <span>Nome maquina</span>
+                                    </div>
+                                </div>
+                                <div class="time-reloader">
+                                    <span><b>1d 10h 26min</b></span>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="info-time">
+                                <div class="sei-la">
+                                    <div class="conexao-maquina">
+                                        <div class="status-maquina" id=""><img src="./assets/icon/circulo.png" alt=""
+                                                style="width: 18px;"></div>
+                                        <span id=""><b>Offline</b></span>
+                                    </div>
+                                    <div class="nome-maquina">
+                                        <span>Nome maquina</span>
+                                    </div>
+                                </div>
+                                <div class="time-reloader">
+                                    <span><b>1d 10h 26min</b></span>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="info-time">
+                                <div class="sei-la">
+                                    <div class="conexao-maquina">
+                                        <div class="status-maquina" id=""><img src="./assets/icon/circulo.png" alt=""
+                                                style="width: 18px;"></div>
+                                        <span id=""><b>Offline</b></span>
+                                    </div>
+                                    <div class="nome-maquina">
+                                        <span>Nome maquina</span>
+                                    </div>
+                                </div>
+                                <div class="time-reloader">
+                                    <span><b>1d 10h 26min</b></span>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="info-time">
+                                <div class="sei-la">
+                                    <div class="conexao-maquina">
+                                        <div class="status-maquina" id=""><img src="./assets/icon/circulo.png" alt=""
+                                                style="width: 18px;"></div>
+                                        <span id=""><b>Offline</b></span>
+                                    </div>
+                                    <div class="nome-maquina">
+                                        <span>Nome maquina</span>
+                                    </div>
+                                </div>
+                                <div class="time-reloader">
+                                    <span><b>1d 10h 26min</b></span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="temp-no"></div>
+                </div>
+            </div>
+            <div class="bloco-quatro">
+                <div class="grafico">
+                    <div class="titulo-grafico">
+                        <span><b>Horários de pico de consulmo de ram</b></span>
+                    </div>
+                    <div class="content-grafico">
+
                     </div>
                 </div>
-                <div class="temp-no"></div>
             </div>
-            <div class="bloco-quatro"></div>
         </div>
     </section>
 
