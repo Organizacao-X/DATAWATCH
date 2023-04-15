@@ -53,7 +53,8 @@ PRIMARY KEY (idMaquina, fkEmpresa),
 statusSistema TINYINT(1),
 cpuFrequencia DOUBLE,
 ramTotal DOUBLE,
-discoTotal DOUBLE
+discoTotal DOUBLE,
+tempoAtividade VARCHAR(25)
 );
 
 
@@ -89,7 +90,6 @@ INSERT INTO Contato VALUES
 (1, 'novae@gmail.com', '11 989898989');
 
 INSERT INTO Usuarios VALUES
-(2, 'gege', 'gege@gmail.com', 12312312345, '12345678', 1, 'IMAGEM', 1, 1),
 (3, 'gaga', 'gaga@gmail.com', 12312312453, '12345678', 1, 'IMAGEM', 1, 1),
 (4, 'Lucas', 'lucas@gmail.com', 12312312234, '12345678', 1, 'IMAGEM', 1, 1),
 (5, 'Souza', 'souza@gmail.com', 12312312673, '12345678', 1, 'IMAGEM', 1, 1),
@@ -147,13 +147,31 @@ INSERT INTO Capturas
 (40, 2, 2, '2023-04-04 14:04:00', 18.4, 59.88, 4.5, 11.0, 26.5, 594.6),  
 (41, 2, 2, '2023-04-04 13:05:00', 13.4, 56.88, 6.3, 9.0, 25.5, 594.3),  
 (42, 1, 2, '2023-04-04 14:05:00', 13.4, 56.88, 6.3, 9.0, 25.5, 594.3),  
-(43, 1, 2, '2023-04-04 13:05:00', 13.4, 56.88, 6.3, 9.0, 25.5, 594.3);  
+(43, 1, 2, '2023-04-04 13:05:00', 13.4, 56.88, 6.3, 9.0, 25.5, 594.3), 
+(44, 1, 2, '2023-04-04 10:05:00', 13.4, 56.88, 6.3, 9.0, 25.5, 594.3), 
+(45, 1, 2, '2023-04-04 10:05:00', 13.4, 56.88, 6.3, 9.0, 25.5, 594.3), 
+(46, 1, 2, '2023-04-05 10:05:00', 13.4, 56.88, 6.3, 9.0, 25.5, 594.3);  
 
-SELECT fkmaquina, Sum(ramuso), TIME_FORMAT(dataHora, '%H : 00') AS HORA_FORMATADA 
+-- drop database datawatch;
+
+-- GRAFICO DE BARRA EMPILHADA
+SELECT 
+fkmaquina as Maquina, Sum(ramuso), TIME_FORMAT(dataHora, '%H : 00') AS HoraFormata 
 from Capturas 
 where dataHora >= SUBDATE(CURDATE(), INTERVAL 30 DAY) 
-and fkempresa = 1 
-group by fkmaquina, TIME_FORMAT(dataHora, '%H') 
+and fkempresa = 2 
+group by fkmaquina, HORA_FORMATADA
 order by dataHora;
+
+
+-- MOSTRAR FUNCIONARIOS
+
+SELECT 
+idUsuario as Id,
+nomeUsuario as Nome,
+statusUsuario as Status
+from Usuarios
+where fkempresa = 1;
+
 
 
