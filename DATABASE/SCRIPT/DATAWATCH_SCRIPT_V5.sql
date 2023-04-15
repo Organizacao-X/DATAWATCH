@@ -181,7 +181,8 @@ SELECT idmaquina as Id,
        CONCAT(FLOOR(tempoAtividade / 86400), ' dias, ',
               SEC_TO_TIME(tempoAtividade % 86400)) AS tempo_formatado
               FROM maquinas 
-              where fkempresa = 1;
+              where fkempresa = 1 
+              order by tempoAtividade desc;
 
 
 
