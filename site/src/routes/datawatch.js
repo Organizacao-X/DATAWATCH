@@ -50,4 +50,13 @@ router.post("/pegarMaquinas", function (req, res) {
 router.post("/pegarFuncionarios", function (req, res) {
     datawatchController.pegarFuncionarios(req, res);
 })
+
+router.get("/pegarTempoAtivMaquinas/:idEmpresa", function (req, res) {
+    datawatchController.pegarTempoAtivMaquinas(req, res);
+})
+
+router.get("/pegarDadosGrafico/:idEmpresa", function (req, res) {
+    datawatchController.pegarDadosGrafico(req, res)
+})
+
 module.exports = router;
