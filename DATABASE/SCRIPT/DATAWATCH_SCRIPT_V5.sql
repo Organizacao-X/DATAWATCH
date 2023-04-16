@@ -1,3 +1,4 @@
+DROP DATABASE IF EXISTS datawatch;
 CREATE DATABASE IF NOT EXISTS datawatch;
 USE datawatch;
 
@@ -116,7 +117,8 @@ INSERT INTO Usuarios VALUES
 INSERT INTO Maquinas (idMaquina, fkEmpresa, nomeMaquina, serie, dtChegada, processador, ram, discoMemoria, ip, statusSistema, cpuFrequencia, ramTotal, discoTotal, tempoAtividade) 
 VALUES
 (1, 1, 'maquina01', 'GFT56', '2023-03-03', 'I5', '16 GB', 'HD 1 TB', '192.08.92.12', 1,24.0, 15.75, 697.45,2500751),
-(2, 1, 'maquina02', 'GFT56', '2023-03-03', 'I5', '16 GB', 'HD 1 TB', '192.08.92.12', 1,24.0, 15.75, 697.45,2500778);
+(2, 1, 'maquina02', 'GFT56', '2023-03-03', 'I5', '16 GB', 'HD 1 TB', '192.08.92.12', 0,24.0, 15.75, 697.45,2500778);
+
 INSERT INTO Capturas VALUES 
 (1, 1, 1, '2023-04-04 12:00:00', 3.4, 56.88, 4.5, 10.0, 25.5, 580.4);  
 
@@ -174,13 +176,16 @@ INSERT INTO Capturas
 
 -- GRAFICO DE BARRA EMPILHADA
 SELECT 
+nomeMaquina,
 fkmaquina as Maquina, Sum(ramuso), 
 TIME_FORMAT(dataHora, '%H : 00') AS HoraFormata 
-from Capturas 
+from Capturas
+JOIN Maquinas
+	ON Maquinas.idMaquina = Capturas.fkMaquina
 where dataHora >= SUBDATE(CURDATE(), INTERVAL 30 DAY) 
-and fkempresa = 2 
-group by fkmaquina, HoraFormata
-order by dataHora;
+and Capturas.fkempresa = 2 
+group by nomeMaquina, fkmaquina, HoraFormata
+order by HoraFormata, fkMaquina;
 
 
 -- MOSTRAR FUNCIONARIOS
@@ -193,12 +198,11 @@ from Usuarios
 where fkempresa = 1;
 
 -- TEMPO DE ATIVIDADE
-
-SELECT idmaquina as Id,
+SELECT idMaquina Id, nomeMaquina, statusSistema,
 	SEC_TO_TIME(tempoAtividade) AS tempo_total,
        CONCAT(FLOOR(tempoAtividade / 86400), ' dias, ',
               SEC_TO_TIME(tempoAtividade % 86400)) AS tempo_formatado
-              FROM maquinas 
+              FROM Maquinas 
               where fkempresa = 1 
               order by tempoAtividade desc;
 

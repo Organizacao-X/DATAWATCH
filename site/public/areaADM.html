@@ -11,7 +11,6 @@
     <script src="./js/funcoes.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
-
     <link rel="icon" href="./assets/imgs/LOGOV2.png">
     <link rel="stylesheet" href="./css/areaADM.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -83,7 +82,7 @@
                             <div class="separar">
                                 <img src="./assets/icon/desligar(1).png" alt="" style="width: 150px;">
                                 <div class="dados-off">
-                                    <span>30%</span>
+                                    <span id="span_porcent_maquinas_ligadas">30%</span>
                                     <img src="./assets/icon/exclamacao.png" alt="" style="width: 70px;">
                                 </div>
                             </div>
@@ -327,7 +326,7 @@
                     </div>
                 </div>
                 <div class="temp-yes">
-                    <ul class="lista-maquina">
+                    <ul id="ul_lista_maquinas" class="lista-maquina">
                         <li>
                             <div class="info-time">
                                 <div class="sei-la">
@@ -474,7 +473,7 @@
                     <div class="titulo-grafico">
                         <span><b>Horários de pico de consulmo de ram</b></span>
                     </div>
-                    <div class="content-grafico">
+                    <div id="div_grafico" class="content-grafico">
 
                     </div>
                 </div>
@@ -638,16 +637,6 @@
 
     var lista_maquinas = document.getElementById("ul_cards_maquinas");
 
-    // nomeUsuario.innerHTML = `<p>${sessionStorage.NOME_USUARIO}</p>`
-
-    // function cadastrosvisiveis() {
-
-    //     if (sessionStorage.ID_EMPRESA != 0 || sessionStorage.ID_EMPRESA == undefined || sessionStorage.ID_EMPRESA == null) {
-    //         funcionario.style.visibility = 'visible'
-    //         maquina.style.visibility = 'visible'
-    //     }
-    // }
-
     function mostrarConteudo() {
         fetch("/datawatch/consultarStatusEmpresa", {
             method: "POST",
@@ -666,35 +655,15 @@
                     // mostra o conteúdo da tela caso exista, não mostra caso não exista
                     if (dados.length == 0) {
                         alert("Nenhuma empresa cadastrada")
-                        empresa_a_cadastrar.style = "display: block; text-align: center;"
-                        lateral_menu_cad_maquina.style = "display: none;"
-                        lateral_menu_cad_funcionario.style = "display: none;"
-                        lateral_menu_cad_empresa.style = "display: block;"
-                        div_maquinas.style = "display: none;"
-                        div_funcionarios.style = "display: none;"
-                        nome_usuario.innerHTML = sessionStorage.NOME_USUARIO;
-                        lateral_menu_adm_name.innerHTML = `Bem-vindo, ${sessionStorage.NOME_USUARIO}!`;
                     } else if (dados[0].verificado == 0) {
                         var idEmpresa = dados[0].fkEmpresa;
-                        sessionStorage.ID_EMPRESA = idEmpresa
-                        alert("Empresa ainda nao foi verificada")
-                        esperando_verificacao.style = "display: block; text-align: center;"
-                        lateral_menu_cad_maquina.style = "display: none;"
-                        lateral_menu_cad_funcionario.style = "display: none;"
-                        div_maquinas.style = "display: none;"
-                        div_funcionarios.style = "display: none;"
-                        nome_usuario.innerHTML = sessionStorage.NOME_USUARIO;
-                        lateral_menu_adm_name.innerHTML = `Bem-vindo, ${sessionStorage.NOME_USUARIO}!`;
 
                     } else {
-                        div_maquinas.style = "display: block;"
-                        div_funcionarios.style = "display: block;"
-                        nome_usuario.innerHTML = dados[0].nomeUsuario
                         var idEmpresa = dados[0].fkEmpresa;
                         sessionStorage.ID_EMPRESA = idEmpresa
-
                         mostrarMaquinas(idEmpresa);
                         mostrarFuncionarios(idEmpresa);
+                        pegarDadosGrafico(idEmpresa)
                     }
                 })
             }
@@ -706,7 +675,6 @@
         })
         return false
     }
-
 
     function mostrarMaquinas(idEmpresa) {
         fetch("/datawatch/pegarMaquinas", {
@@ -722,11 +690,19 @@
             if (resposta.ok) {
                 resposta.json().then(dados => {
                     console.log(dados)
+                    var totalMaquinas = dados.length
+                    var maquinasLigadas = 0
                     if (dados.length > 0) {
+                        for (let i = 0; i < dados.length; i++) {
+                            if (dados[i].statusSistema == 1) {
+                                maquinasLigadas++
+                            }
+                        }
+                        span_porcent_maquinas_ligadas.innerHTML = `${maquinasLigadas * 100 / totalMaquinas}%`
+
                         dados.forEach(maquina => {
-                            carregarMaquinaTela(maquina)
-                            console.log(lista_maquinas)
-                        });
+                            carregarTempoAtivMaquinaTela(maquina)
+                        })
                     }
                 })
             }
@@ -770,110 +746,248 @@
         return false
     }
 
+    function pegarDadosGrafico(idEmpresa) {
+        fetch(`/datawatch/pegarDadosGrafico/${idEmpresa}`, {
+            cache: 'no-store'
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then(dadosMaquinas => {
+                    console.log(dadosMaquinas)
+                    if (dadosMaquinas.length > 0) {
+                        drawChart(dadosMaquinas)
+                    }
+                })
+            }
+            else {
+                throw (JSON.stringify(resposta))
+            }
+        }).catch(function (resposta) {
+            console.log(`ERRO: ${resposta}`);
+        })
+        return false
+
+    }
+
     function carregarFuncionarioTela(funcionario) {
-        var li = document.createElement("li")
-        li.setAttribute("class", "funcionario")
+        var liFuncionario = document.createElement("li")
+        liFuncionario.setAttribute("class", "funcionario")
 
         var divInfoFuncionario = document.createElement("div")
         divInfoFuncionario.setAttribute("class", "info-funcionario")
-
-        var spanNome = document.createElement("span")
-        spanNome.innerHTML = funcionario.nomeUsuario
-
-        var divContentFuncionario = document.createElement("div")
-        divContentFuncionario.setAttribute("class", "content-funcionario")
 
         var divConexao = document.createElement("div")
         divConexao.setAttribute("class", "conexao")
 
         var divStatusFuncionario = document.createElement("div")
+        divStatusFuncionario.setAttribute("class", "status-funcionario")
+
+        var imgStatusFuncionario = document.createElement("img")
+
         var spanStatus = document.createElement("span")
+        var bStatus = document.createElement("b")
+        var bStatusHora = document.createElement("b")
+        spanStatus.appendChild(bStatus)
+        spanStatus.appendChild(bStatusHora)
 
         if (funcionario.statusUsuario == 1) {
-            divStatusFuncionario.setAttribute("class", "status-funcionario")
-            spanStatus.innerHTML = "Online"
+            imgStatusFuncionario.src = "./assets/icon/circulo(1).png"
+            bStatus.innerHTML = "Online"
         } else {
-            divStatusFuncionario.setAttribute("class", "status-funcionario2")
-            spanStatus.innerHTML = "Offline"
+            imgStatusFuncionario.src = "./assets/icon/circulo(1).png"
+            bStatus.innerHTML = "Offline"
         }
+        imgStatusFuncionario.style = "width: 18px"
+
+        var divNome = document.createElement("div")
+        divNome.setAttribute("class", "nome")
+        var spanNome = document.createElement("span")
+        spanNome.innerHTML = funcionario.nomeUsuario
+
+        divNome.appendChild(spanNome)
+
+        var divContentFuncionario = document.createElement("div")
+        divContentFuncionario.setAttribute("class", "content-funcionario")
 
         var divMostrar = document.createElement("div")
         divMostrar.setAttribute("class", "mostrar")
 
+        var divEditar = document.createElement("div")
+        divEditar.setAttribute("class", "editar")
+
+        var btnEditar = document.createElement("button")
+        btnEditar.setAttribute("class", "abrir-editar")
+
+        var divImgEditar = document.createElement("div")
+        divImgEditar.setAttribute("class", "image-icon")
+
+        var imgLapisEditar = document.createElement("img")
+        imgLapisEditar.src = "./assets/icon/lapis.png"
+        imgLapisEditar.style = "height: 22px;"
+
         var divExcluir = document.createElement("div")
         divExcluir.setAttribute("class", "excluir")
 
-        var btnExcluir = document.createElement("button")
-
-        var divBotao = document.createElement("div")
-        divBotao.setAttribute("class", "botao")
+        var btnExcluir = document.createElement("btn")
+        btnExcluir.setAttribute("class", "abrir-excluir")
 
         var divBotaoX = document.createElement("div")
-        divBotaoX.setAttribute("class", "x")
+        divBotaoX.setAttribute("class", "botao")
 
-        divBotao.appendChild(divBotaoX)
-        btnExcluir.appendChild(divBotao)
-        divExcluir.appendChild(divBotao)
+        var divX = document.createElement("div")
+        divX.setAttribute("class", "x")
+
+        divBotaoX.appendChild(divX)
+        btnExcluir.appendChild(divBotaoX)
+        divExcluir.appendChild(btnExcluir)
+
+        divImgEditar.appendChild(imgLapisEditar)
+        btnEditar.appendChild(divImgEditar)
+        divEditar.appendChild(btnEditar)
+
+        divMostrar.appendChild(divEditar)
         divMostrar.appendChild(divExcluir)
 
-        divConexao.appendChild(divStatusFuncionario)
-        divConexao.appendChild(spanStatus)
-
-        divContentFuncionario.appendChild(divConexao)
         divContentFuncionario.appendChild(divMostrar)
 
-        divInfoFuncionario.appendChild(spanNome)
+        divStatusFuncionario.appendChild(imgStatusFuncionario)
+        divStatusFuncionario.appendChild(spanStatus)
+
+        divNome.appendChild(spanNome)
+
+        divConexao.appendChild(divStatusFuncionario)
+
+        divInfoFuncionario.appendChild(divConexao)
+        divInfoFuncionario.appendChild(divNome)
         divInfoFuncionario.appendChild(divContentFuncionario)
 
-        li.appendChild(divInfoFuncionario)
-
-        ul_lista_funcionario.appendChild(li)
+        liFuncionario.appendChild(divInfoFuncionario)
+        ul_lista_funcionario.appendChild(liFuncionario)
     }
 
-    function carregarMaquinaTela(maquina) {
-        var li = document.createElement("li")
-        li.setAttribute("class", "card")
 
-        var divTitle = document.createElement("div")
+    function carregarTempoAtivMaquinaTela(maquina) {
+        var liMaquina = document.createElement("li")
 
-        var h3Title = document.createElement("h3")
-        h3Title.setAttribute("class", "card-title")
-        h3Title.innerHTML = maquina.nomeMaquina
+        var divInfoTime = document.createElement("div")
+        divInfoTime.setAttribute("class", "info-time")
 
-        divTitle.appendChild(h3Title)
+        var divSeiLa = document.createElement("div")
+        divSeiLa.setAttribute("class", "sei-la")
 
-        var divCardLinkWrapper = document.createElement("div")
-        divCardLinkWrapper.setAttribute("class", "card-link-wrapper")
+        var divConexaoMaquina = document.createElement("div")
+        divConexaoMaquina.setAttribute("class", "conexao-maquina")
 
-        var divPiechart1 = document.createElement("div")
-        divPiechart1.setAttribute("id", "piechart1")
-        divPiechart1.style = "width: 400px; height: 150px;"
+        var divStatusMaquina = document.createElement("div")
+        divStatusMaquina.setAttribute("class", "status-maquina")
 
-        var divContent = document.createElement("div")
-        divContent.setAttribute("class", "content")
+        var imgStatusMaquina = document.createElement("img")
 
-        var divStatus = document.createElement("div")
+        imgStatusMaquina.style = "width: 18px"
+
         var spanStatus = document.createElement("span")
+        var bStatus = document.createElement("b")
+        spanStatus.appendChild(bStatus)
 
         if (maquina.statusSistema == 1) {
-            divStatus.setAttribute("class", "status")
             spanStatus.innerHTML = "Online"
+            imgStatusMaquina.src = "./assets/icon/circulo(1).png"
         } else {
-            divStatus.setAttribute("class", "status2")
             spanStatus.innerHTML = "Offline"
+            imgStatusMaquina.src = "./assets/icon/circulo.png"
         }
 
+        var divNomeMaquina = document.createElement("div")
+        divNomeMaquina.setAttribute("class", "nome-maquina")
+        var spanNomeMaquina = document.createElement("span")
+        spanNomeMaquina.innerHTML = maquina.nomeMaquina
+        divNomeMaquina.appendChild(spanNomeMaquina)
 
-        divContent.appendChild(divStatus)
-        divContent.appendChild(spanStatus)
+        var btnReiniciar = document.createElement("button")
+        btnReiniciar.setAttribute("class", "reload")
+        btnReiniciar.innerHTML = "Reiniciar"
 
-        divCardLinkWrapper.appendChild(divPiechart1)
-        divCardLinkWrapper.appendChild(divContent)
+        var divTimeReload = document.createElement("div")
+        divTimeReload.setAttribute("class", "time-reloader")
 
-        li.appendChild(divTitle)
-        li.appendChild(divCardLinkWrapper)
+        var spanTimeReload = document.createElement("span")
+        var bTimeReload = document.createElement("b")
+        bTimeReload.innerHTML = `${maquina.tempo_formatado}`
+        spanTimeReload.appendChild(bTimeReload)
 
-        lista_maquinas.appendChild(li)
+        divTimeReload.appendChild(spanTimeReload)
+
+        divStatusMaquina.appendChild(imgStatusMaquina)
+        divConexaoMaquina.appendChild(divStatusMaquina)
+        divConexaoMaquina.appendChild(spanStatus)
+
+        divSeiLa.appendChild(divConexaoMaquina)
+        divSeiLa.appendChild(divNomeMaquina)
+
+        divInfoTime.appendChild(divSeiLa)
+        divInfoTime.appendChild(btnReiniciar)
+        divInfoTime.appendChild(divTimeReload)
+
+        liMaquina.appendChild(divInfoTime)
+
+        ul_lista_maquinas.appendChild(liMaquina)
+    }
+
+
+
+    google.charts.load("current", { packages: ['corechart'] });
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart(dados) {
+        console.log(dados)
+        var contQtdColunas = 0;
+        var vetorInteiro = [['Nome máquina']]
+
+        for (let i = 0; i < dados.length; i++) {
+            if (vetorInteiro[0].indexOf(dados[i].nomeMaquina) == -1) {
+                vetorInteiro[0].push(dados[i].nomeMaquina)
+                contQtdColunas++
+            }
+        }
+        console.log(contQtdColunas)
+
+        var ultimaHora = ''
+        for (let i = 0; i < dados.length; i++) {
+            if (dados[i].HoraFormata != ultimaHora) {
+                var vetor = [dados[i].HoraFormata]
+                for (let j = 0; j < dados.length; j++) {
+                    if (dados[j].HoraFormata == vetor[0]) {
+                        vetor.push(dados[j].somaRam)
+                    }
+                }
+                vetorInteiro.push(vetor)
+                ultimaHora = dados[i].HoraFormata
+            }
+        }
+
+        var vetorQtdColunas = [];
+        for (let i = 0; i <= contQtdColunas; i++) {
+            vetorQtdColunas.push(i)
+        }
+
+        console.log(vetor)
+
+        console.log(vetorInteiro)
+
+        var data = google.visualization.arrayToDataTable(vetorInteiro);
+
+        var options = {
+            width: "32vh",
+            legend: { position: 'top', maxLines: 3 },
+            bar: { groupWidth: '75%' },
+            isStacked: true,
+        };
+
+        console.log(vetorQtdColunas)
+        
+        var view = new google.visualization.DataView(data);
+        view.setColumns(vetorQtdColunas);
+
+        var chart = new google.visualization.ColumnChart(document.getElementById("div_grafico"));
+        chart.draw(view, options);
     }
 
     // Gráficos

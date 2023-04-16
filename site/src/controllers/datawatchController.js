@@ -338,6 +338,41 @@ function cadastrarEmpresa3(req, res) {
         }
     }
 
+    function pegarTempoAtivMaquinas(req, res) {
+        var idEmpresa = req.params.idEmpresa;
+
+        if (idEmpresa == undefined) {
+            res.status(400).send("Sua empresa está undefined")
+        } else {
+            datawatchModel.pegarTempoAtivMaquinas(idEmpresa).then(function (resultado) {
+                console.log(`Maquinas e tempo de atv encontrado: ${resultado}`)
+                res.json(resultado)
+            }).catch(function (erro) {
+                console.log(erro)
+                console.log("Houve um erro ao pegar as máquinas e seu tempo de atividade! Erro : ", erro.sqlMessage)
+                res.status(500).json(erro.sqlMessage)
+            })
+        }
+
+    }
+
+    function pegarDadosGrafico(req, res) {
+        var idEmpresa = req.params.idEmpresa;
+
+        if (idEmpresa == undefined) {
+            res.status(400).send("Sua empresa está undefined")
+        } else {
+            datawatchModel.pegarDadosGrafico(idEmpresa).then(function (resultado) {
+                console.log(`Dados de máquina encontrados: ${resultado}`)
+                res.json(resultado)
+            }).catch(function (erro) {
+                console.log(erro)
+                console.log("Houve um erro ao pegar os dados das máquinas! Erro: ", erro.sqlMessage)
+                res.status(500).json(erro.sqlMessage)
+            })
+        }
+    }
+
     module.exports = {
         entrar,
         cadastrar,
@@ -348,5 +383,7 @@ function cadastrarEmpresa3(req, res) {
         cadastrarEmpresa3,
         consultarStatusEmpresa,
         pegarMaquinas,
-        pegarFuncionarios
+        pegarFuncionarios,
+        pegarTempoAtivMaquinas,
+        pegarDadosGrafico
     }

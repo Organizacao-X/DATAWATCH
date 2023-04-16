@@ -93,7 +93,13 @@ function consultarStatusEmpresa(idUsuario) {
 }
 
 function pegarMaquinas(idEmpresa) {
-    var instrucao = `SELECT * FROM Maquinas WHERE fkEmpresa = ${idEmpresa};`
+    var instrucao = `SELECT idMaquina Id, nomeMaquina, statusSistema,
+	SEC_TO_TIME(tempoAtividade) AS tempo_total,
+       CONCAT(FLOOR(tempoAtividade / 86400), ' dias, ',
+              SEC_TO_TIME(tempoAtividade % 86400)) AS tempo_formatado
+              FROM Maquinas 
+              where fkempresa = ${idEmpresa}
+              order by tempoAtividade desc;`
 
     return database.executar(instrucao);
 }
@@ -102,6 +108,22 @@ function pegarFuncionarios(idEmpresa) {
     var instrucao = `SELECT * FROM Usuarios WHERE fkEmpresa = ${idEmpresa} AND adm IS NOT NULL;`
 
     return database.executar(instrucao);
+}
+
+function pegarDadosGrafico(idEmpresa) {
+    var instrucao = `SELECT 
+    nomeMaquina,
+    fkmaquina as Maquina, Sum(ramuso) as somaRam, 
+    TIME_FORMAT(dataHora, '%H : 00') AS HoraFormata 
+    from Capturas 
+    JOIN Maquinas
+        ON Maquinas.idMaquina = Capturas.fkMaquina
+    where dataHora >= SUBDATE(CURDATE(), INTERVAL 30 DAY) 
+    and Capturas.fkempresa = ${idEmpresa} 
+    group by nomeMaquina, fkmaquina, HoraFormata
+    order by HoraFormata, fkMaquina;`
+
+    return database.executar(instrucao)
 }
 
 module.exports = {
@@ -114,5 +136,6 @@ module.exports = {
     cadastrarEmpresa3,
     consultarStatusEmpresa,
     pegarMaquinas,
-    pegarFuncionarios
+    pegarFuncionarios,
+    pegarDadosGrafico
 };
