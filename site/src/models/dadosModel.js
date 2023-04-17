@@ -69,9 +69,23 @@ function buscarDadosEmTempoReal(idMaquina) {
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
+function cadastrarDados(cpu, ram, disco, idMaquina) {
+
+    instrucaoSql = '';
+
+    instrucaoSql = `UPDATE maquina 
+    SET cpuMetrica = ${cpu} AND 
+    ramMetrica = ${ram} AND 
+    discoMetrica = ${disco}
+    WHERE idMaquina = ${idMaquina};`;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
 
 
 module.exports = {
     buscarUltimasDados,
-    buscarDadosEmTempoReal
+    buscarDadosEmTempoReal,
+    cadastrarDados
 }

@@ -11,4 +11,8 @@ router.get("/tempo-real/:idMaquina", function (req, res) {
     dadosController.buscarDadosEmTempoReal(req, res);
 })
 
+router.get("/cadastrarDados/:idMaquina", function (req, res) {
+    dadosController.cadastrarDados(req, res);
+})
+
 module.exports = router;

@@ -273,6 +273,60 @@
 
   }
 
+  function metricas() {
+         
+    // CONTAS para MÉTRICAS
+
+    var cpu = 90;
+    var ram = CapacidadeRamTotal*0.85;
+    var disco = capacidadeDiscoTotal*0.70;
+
+    fetch("/datawatch/autenticar", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            cpuMetricaServer: cpu,
+            ramMetricaServer: ram,
+            discoMetrica: disco
+        })
+    }).then(function (resposta) {
+        console.log("ESTOU NO THEN DO entrar()!")
+
+        if (resposta.ok) {
+            console.log(resposta);
+
+            resposta.json().then(json => {
+                console.log(json);
+                console.log(JSON.stringify(json));
+
+                sessionStorage.EMAIL_USUARIO = json.email;
+                sessionStorage.NOME_USUARIO = json.nomeUsuario;
+                sessionStorage.ID_USUARIO = json.idUsuario;
+                sessionStorage.ID_EMPRESA = json.idEmpresa;
+
+               
+
+            });
+
+        } else {
+
+            console.log("Houve um erro ao tentar cadastrar as métricas");
+
+            // resposta.text().then(texto => {
+            //     console.error(texto);
+
+            // });
+        }
+
+    }).catch(function (erro) {
+        console.log(erro);
+    })
+
+    return false;
+    }
+
   // Gráfico Rede
   google.charts.load('current', { 'packages': ['corechart'] });
   google.charts.setOnLoadCallback(drawChartRede);
