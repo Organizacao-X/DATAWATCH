@@ -53,7 +53,7 @@ discoMemoria varchar(45),
 ip VARCHAR(45),
 PRIMARY KEY (idMaquina, fkEmpresa),
 statusSistema TINYINT(1),
-cpuFrequencia DOUBLE,
+cpuPorcentagem DOUBLE,
 ramTotal DOUBLE,
 discoTotal DOUBLE,
 tempoAtividade INT
