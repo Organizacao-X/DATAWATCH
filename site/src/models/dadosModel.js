@@ -73,7 +73,7 @@ function cadastrarDados(cpu, ram, disco, idMaquina) {
 
     instrucaoSql = '';
 
-    instrucaoSql = `UPDATE maquina 
+    instrucaoSql = `UPDATE maquinas 
     SET cpuMetrica = ${cpu} AND 
     ramMetrica = ${ram} AND 
     discoMetrica = ${disco}
