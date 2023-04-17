@@ -186,17 +186,34 @@
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
-  var vetorHoraRede = [];
+  
+  // REDE
+  var vetorHora = [];
   var vetorRedeUpload = [];
   var vetorRedeDownload = [];
-  var total = 0;
-  var emUso = 0;
-  var livre = total - emUso;
+  
+  //PROCESSADOR
   var vetorPorcentagemCpu = [];
   var vetorHorasPorcentagem = [];
-  var capacidadeTotal = 0;
-  var capacidadeLivre = 0;
-  var temperatura = 0;
+  
+  //TEMPERATURA
+  var temperatura = [];
+
+  // DISCO
+  var capacidadeDiscoTotal = 0;
+  var capacidadeDiscoLivre = 0;
+
+  // RAM 
+  var CapacidadeRamTotal = 0;
+  var CapacidadeRamEmUso = 0;
+
+  
+  // MÉTRICA
+  var metrica = {
+      Processador: "",
+      Ram: "",
+      Disco: ""
+  }
 
   // var idMaquina = sessionStorage.ID_MAQUINA;
   var idMaquina = 1;
@@ -214,19 +231,35 @@
 
             for (i = 0; i < resposta.length; i++) {
               var registro = resposta[i];
-              vetorHoraRede.push(registro.horario);
+              
+              // HORÁRIO (Para parametros)
+              vetorHora.push(registro.horario);
+
+              // REDE (Banco)
               vetorRedeDownload.push(registro.download);
               vetorRedeUpload.push(registro.upload);
+              
+              // CPU (Banco)
               vetorHorasPorcentagem.push(registro.horario);
               vetorPorcentagemCpu.push(registro.cpuuso);
-              capacidadeLivre = registro.discolivre;
-              capacidadeTotal = registro.discoTotal;
-              temperatura = registro.temperatura;
-              console.log(registro)
-              console.log(vetorRedeDownload[0])
-              console.log(vetorHoraRede)
-              console.log(capacidadeLivre);
-              console.log(capacidadeTotal);
+              
+              // TEMPERATURA (Banco)
+              temperatura.push(registro.temperatura);
+
+              // DISCO (Banco)
+              capacidadeDiscoLivre = registro.discolivre;
+              capacidadeDiscoTotal = registro.discoTotal;
+              
+              // RAM (Banco)
+              CapacidadeRamTotal = registro.ramTotal;
+              CapacidadeRamEmUso = registro.ramUso;
+              
+              
+              // MÉTRICA (Banco)
+              metrica.Processador = registro.processadorMetrica;
+              metrica.Ram = registro.ramMetrica;
+              metrica.Disco = registro.discoMetrica;
+              
             }
           });
         } else {
@@ -248,16 +281,16 @@
   function drawChartRede() {
     var data = google.visualization.arrayToDataTable([
       ['horário', 'Upload', 'Download'],
-      [vetorHoraRede[0], vetorRedeUpload[0], vetorRedeDownload[0]],
-      [vetorHoraRede[1], vetorRedeUpload[1], vetorRedeDownload[1]],
-      [vetorHoraRede[2], vetorRedeUpload[2], vetorRedeDownload[2]],
-      [vetorHoraRede[3], vetorRedeUpload[3], vetorRedeDownload[3]],
-      [vetorHoraRede[4], vetorRedeUpload[4], vetorRedeDownload[4]],
-      [vetorHoraRede[5], vetorRedeUpload[5], vetorRedeDownload[5]],
-      [vetorHoraRede[6], vetorRedeUpload[6], vetorRedeDownload[6]],
-      [vetorHoraRede[7], vetorRedeUpload[7], vetorRedeDownload[7]],
-      [vetorHoraRede[8], vetorRedeUpload[8], vetorRedeDownload[8]],
-      [vetorHoraRede[9], vetorRedeUpload[9], vetorRedeDownload[9]],
+      [vetorHora[0], vetorRedeUpload[0], vetorRedeDownload[0]],
+      [vetorHora[1], vetorRedeUpload[1], vetorRedeDownload[1]],
+      [vetorHora[2], vetorRedeUpload[2], vetorRedeDownload[2]],
+      [vetorHora[3], vetorRedeUpload[3], vetorRedeDownload[3]],
+      [vetorHora[4], vetorRedeUpload[4], vetorRedeDownload[4]],
+      [vetorHora[5], vetorRedeUpload[5], vetorRedeDownload[5]],
+      [vetorHora[6], vetorRedeUpload[6], vetorRedeDownload[6]],
+      [vetorHora[7], vetorRedeUpload[7], vetorRedeDownload[7]],
+      [vetorHora[8], vetorRedeUpload[8], vetorRedeDownload[8]],
+      [vetorHora[9], vetorRedeUpload[9], vetorRedeDownload[9]],
 
     ]);
 
@@ -287,8 +320,8 @@
 
     var data = google.visualization.arrayToDataTable([
       ['', ''],
-      ['Em uso', emUso],
-      ['Livre', livre]
+      ['Em uso', CapacidadeRamEmUso],
+      ['Total', CapacidadeRamTotal]
     ]);
 
     var options = {
@@ -314,17 +347,17 @@
   function drawChartCpu() {
     vetorHorasPorcentagem = ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00'];
     var data = google.visualization.arrayToDataTable([
-      ['Porcentagem %', 'Sales'],
-      [vetorHorasPorcentagem[0], vetorPorcentagemCpu[0]],
-      [vetorHorasPorcentagem[1], vetorPorcentagemCpu[1]],
-      [vetorHorasPorcentagem[2], vetorPorcentagemCpu[2]],
-      [vetorHorasPorcentagem[3], vetorPorcentagemCpu[3]],
-      [vetorHorasPorcentagem[4], vetorPorcentagemCpu[4]],
-      [vetorHorasPorcentagem[5], vetorPorcentagemCpu[5]],
-      [vetorHorasPorcentagem[6], vetorPorcentagemCpu[6]],
-      [vetorHorasPorcentagem[7], vetorPorcentagemCpu[7]],
-      [vetorHorasPorcentagem[8], vetorPorcentagemCpu[8]],
-      [vetorHorasPorcentagem[9], vetorPorcentagemCpu[9]],
+      ['Horário', 'Porcentagem %', 'Sales'],
+      [vetorHora[0],vetorHorasPorcentagem[0], vetorPorcentagemCpu[0]],
+      [vetorHora[1],vetorHorasPorcentagem[1], vetorPorcentagemCpu[1]],
+      [vetorHora[2],vetorHorasPorcentagem[2], vetorPorcentagemCpu[2]],
+      [vetorHora[3],vetorHorasPorcentagem[3], vetorPorcentagemCpu[3]],
+      [vetorHora[4],vetorHorasPorcentagem[4], vetorPorcentagemCpu[4]],
+      [vetorHora[5],vetorHorasPorcentagem[5], vetorPorcentagemCpu[5]],
+      [vetorHora[6],vetorHorasPorcentagem[6], vetorPorcentagemCpu[6]],
+      [vetorHora[7],vetorHorasPorcentagem[7], vetorPorcentagemCpu[7]],
+      [vetorHora[8],vetorHorasPorcentagem[8], vetorPorcentagemCpu[8]],
+      [vetorHora[9],vetorHorasPorcentagem[9], vetorPorcentagemCpu[9]],
 
 
     ]);
@@ -352,15 +385,11 @@
   google.charts.setOnLoadCallback(drawChartDisco);
 
   function drawChartDisco() {
-    console.log("AQUI Ó")
-    console.log(capacidadeLivre);
-    console.log(capacidadeTotal);
-
 
     var data = google.visualization.arrayToDataTable([
       ['Disco', 'Memória'],
-      ['Capacidade em uso', capacidadeTotal],
-      ['Capacidade livre', capacidadeLivre],
+      ['Capacidade em uso', capacidadeDiscoTotal],
+      ['Capacidade livre', capacidadeDiscoLivre],
 
     ]);
 
@@ -370,8 +399,8 @@
 
     var chart = new google.visualization.PieChart(document.getElementById('piechart'));
     fraseMetrica.innerHTML = `Dados Disco 
-    <br> Capacidade Total: ${capacidadeTotal}
-    <br> Capacidade em uso: ${capacidadeLivre}`;
+    <br> Capacidade Total: ${capacidadeDiscoTotal}
+    <br> Capacidade em uso: ${capacidadeDiscoLivre}`;
     chart.draw(data, options);
   } 
 </script>

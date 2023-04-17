@@ -58,7 +58,7 @@ ramTotal DOUBLE,
 discoTotal DOUBLE,
 cpuMetrica DOUBLE,
 ramMetrica DOUBLE,
-discoMetrica,
+discoMetrica DOUBLE,
 tempoAtividade INT
 );
 
@@ -118,7 +118,7 @@ INSERT INTO Usuarios VALUES
 (5, 'Souza', 'souza@gmail.com', 12312312673, '12345678', 1, 'IMAGEM', 1, 1),
 (6, 'Narcisista', 'narcisista@gmail.com', 12312312561, '12345678', 1, 'IMAGEM', 1, 1);
 
-INSERT INTO Maquinas (idMaquina, fkEmpresa, nomeMaquina, serie, dtChegada, processador, ram, discoMemoria, ip, statusSistema, cpuFrequencia, ramTotal, discoTotal, tempoAtividade) 
+INSERT INTO Maquinas (idMaquina, fkEmpresa, nomeMaquina, serie, dtChegada, processador, ram, discoMemoria, ip, statusSistema, cpuPorcentagem, ramTotal, discoTotal, tempoAtividade) 
 VALUES
 (1, 1, 'maquina01', 'GFT56', '2023-03-03', 'I5', '16 GB', 'HD 1 TB', '192.08.92.12', 1,24.0, 15.75, 697.45,2500751),
 (2, 1, 'maquina02', 'GFT56', '2023-03-03', 'I5', '16 GB', 'HD 1 TB', '192.08.92.12', 0,24.0, 15.75, 697.45,2500778);
@@ -227,3 +227,5 @@ select Maquinas.nomeMaquina as 'Nome da maquina', Alertas.nomeAlerta as 'Alerta'
 			ON Possuem.fkMaquina = Maquinas.idMaquina
 		JOIN Alertas
 			ON Possuem.fkAlerta = Alertas.idAlerta;
+                    
+				

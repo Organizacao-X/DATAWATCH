@@ -12,13 +12,17 @@ function buscarUltimasDados(idMaquina) {
     c.ramUso as ramuso,
     c.discoLivre as discolivre,
     m.discoTotal as discoTotal,
+    m.ramTotal as ramTotal,
+    m.cpuMetrica as processadorMetrica,
+    m.ramMetrica as ramMetrica,
+    m.discoMetrica as discoMetrica,
                     c.datahora,
                     DATE_FORMAT(c.datahora,'%H:%i:%s') as horario
                 from capturas as c
                 join maquinas as m
                 ON c.fkmaquina = m.idmaquina
                 where fkMaquina = ${idMaquina}
-                order by idcaptura desc limit 5;`;
+                order by idcaptura desc limit 10;`;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -46,13 +50,17 @@ function buscarDadosEmTempoReal(idMaquina) {
         c.ramUso as ramuso,
         c.discoLivre as discolivre,
         m.discoTotal as discoTotal,
+        m.ramTotal as ramTotal,
+        m.cpuMetrica as processadorMetrica,
+        m.ramMetrica as ramMetrica,
+        m.discoMetrica as discoMetrica,
                         c.datahora,
                         DATE_FORMAT(c.datahora,'%H:%i:%s') as horario
                     from capturas as c
                     join maquinas as m
                     ON c.fkmaquina = m.idmaquina
                     where fkMaquina = ${idMaquina}
-                    order by idcaptura desc limit 5;`;
+                    order by idcaptura desc limit 10;`;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
         return
