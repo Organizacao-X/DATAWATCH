@@ -829,6 +829,7 @@ banner {
 
 .card-client {
     background-image: url(../assets/imgs/Card\ client\ 1\ Lucas.png);
+    
     background-size: 300px;
     background-repeat: no-repeat;
     background-position: center;
@@ -846,6 +847,25 @@ banner {
     transition: all 0.3s ease;
     margin: 5% 5% 0% 5%;
 }
+
+.invisivel {
+    background-color: #F2CB05;
+    position:relative;
+    
+    width: 20px;
+    height: 20px;
+    opacity: 0;
+  }
+
+  .invisivel button {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }
+
+/*   .invisivel:hover{
+    cursor: pointer;
+  } */
 
 .card-client:hover {
     transform: translateY(-40px);
