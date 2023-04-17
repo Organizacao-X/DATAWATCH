@@ -56,6 +56,9 @@ statusSistema TINYINT(1),
 cpuPorcentagem DOUBLE,
 ramTotal DOUBLE,
 discoTotal DOUBLE,
+cpuMetrica DOUBLE,
+ramMetrica DOUBLE,
+discoMetrica,
 tempoAtividade INT
 );
 
@@ -173,7 +176,13 @@ INSERT INTO Capturas
 (45, 1, 2, '2023-04-04 10:05:00', 13.4, 56.88, 6.3, 9.0, 25.5, 594.3), 
 (46, 1, 2, '2023-04-05 10:05:00', 13.4, 56.88, 6.3, 9.0, 25.5, 594.3);  
 
- -- drop database datawatch;
+INSERT INTO Alertas (idAlerta, nomeAlerta) VALUES
+(1, "Processador"),
+(2, "Ram"),
+(3, "Disco"),
+(4, "Rede");
+
+-- drop database datawatch;
 
 -- GRAFICO DE BARRA EMPILHADA
 SELECT 
@@ -207,8 +216,6 @@ SELECT idMaquina Id, nomeMaquina, statusSistema,
               where fkempresa = 1 
               order by tempoAtividade desc;
 
--- INSERTS E SELECTS PARA TESTE DAS DUAS TABELAS
-INSERT INTO Alertas (nomeAlerta) VALUES ("Timeout");
 
 select * from Possuem;
 
