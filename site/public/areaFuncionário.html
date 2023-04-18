@@ -15,7 +15,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
 </head>
 
-<body onload="cadastrosvisiveis()">
+<body onload="getId()">
     <!-- NAVBAR -->
     <header>
         <nav class="nav-bar">
@@ -43,7 +43,7 @@
 
 
             <div class="logo">
-                <a href="./areaFuncionário.html">                    
+                <a href="./areaFuncionário.html">
                     <img src="assets/imgs/LOGOcomTextoV2.png" alt="" width="150px">
                 </a>
             </div>
@@ -53,72 +53,172 @@
 
     <section>
         <div class="usuario">
-            <span>Seja bem-vindo funcionário</span>
+            <span id="span_usuario"></span>
         </div>
-
-        <div class="bg">
-            <div class="container">
-                <h2>Maquina</h2>
-                <ul class="cards">
-                    <li class="card">
-                        <div>
-                            <h3 class="card-title">Maquina 1</h3>
-
-                        </div>
-                        <div class="card-link-wrapper">
-                            <div class="status2"></div><span><b>Inativo</b></span>
-                        </div>
-                    </li>
-                    <li class="card">
-                        <div>
-                            <h3 class="card-title">Maquina 2</h3>
-                            <div class="card-content">
-
-                            </div>
-                        </div>
-                        <div class="card-link-wrapper">
-                            <div class="status"></div><span><b>Ativo</b></span>
-                        </div>
-                    </li>
-                    <li class="card">
-                        <div>
-                            <h3 class="card-title">Maquina 3</h3>
-                            <div class="card-content">
-
-                            </div>
-                        </div>
-                        <div class="card-link-wrapper">
-                            <div class="status2"></div><span><b>Inativo</b></span>
-                        </div>
-                    </li>
-                    <li class="card">
-                        <div>
-                            <h3 class="card-title">Maquina 4</h3>
-                            <div class="card-content">
-
-                            </div>
-                        </div>
-                        <div class="card-link-wrapper">
-                            <div class="status"></div><span><b>Ativo</b></span>
-                        </div>
-                    </li>
-                </ul>
+        <div class="container">
+        <div class="placa">
+            <div class="legenda">
+                <span class="legendaTexto"><div class="corLegenda"></div><p>estável</p></span>
+                <span class="legendaTexto"><div class="corLegenda2"></div><p>atenção</p></span>
+                <span class="legendaTexto"><div class="corLegenda3"></div><p>urgente</p></span>
             </div>
+
+
+            <ul class="cards" id="ul_cards_maquinas">
+                
+               <!--  <li class="card">
+                    <div>
+                        <h3 class="card-title">Maquina 1</h3>
+
+                    </div>
+                    <div class="card-link-wrapper">
+                        <div class="status2"></div><span><b>Inativo</b></span>
+                    </div>
+                </li>
+                <li class="card">
+                    <div>
+                        <h3 class="card-title">Maquina 2</h3>
+                        <div class="card-content">
+
+                        </div>
+                    </div>
+                    <div class="card-link-wrapper">
+                        <div class="status"></div><span><b>Ativo</b></span>
+                    </div>
+                </li>
+                <li class="card">
+                    <div>
+                        <h3 class="card-title">Maquina 3</h3>
+                        <div class="card-content">
+
+                        </div>
+                    </div>
+                    <div class="card-link-wrapper">
+                        <div class="status2"></div><span><b>Inativo</b></span>
+                    </div>
+                </li>
+                <li class="card">
+                    <div>
+                        <h3 class="card-title">Maquina 4</h3>
+                        <div class="card-content">
+
+                        </div>
+                    </div>
+                    <div class="card-link-wrapper">
+                        <div class="status"></div><span><b>Ativo</b></span>
+                    </div>
+                </li>
+                <li class="card">
+                    <div>
+                        <h3 class="card-title">Maquina 4</h3>
+                        <div class="card-content">
+
+                        </div>
+                    </div>
+                    <div class="card-link-wrapper">
+                        <div class="status"></div><span><b>Ativo</b></span>
+                    </div>
+                </li> -->
+            </ul>
+
         </div>
+    </div>
     </section>
 
 
 </body>
 <script>
 
-    nomeUsuario.innerHTML = `<p>${sessionStorage.NOME_USUARIO}</p>`
-
-    function cadastrosvisiveis() {
-
-        if (sessionStorage.ID_EMPRESA != 0 || sessionStorage.ID_EMPRESA == undefined || sessionStorage.ID_EMPRESA == null) {
-            funcionario.style.visibility = 'visible'
-            maquina.style.visibility = 'visible'
-        }
+    /*   nomeUsuario.innerHTML = `<p>${sessionStorage.NOME_USUARIO}</p>`
+  
+      function cadastrosvisiveis() {
+  
+          if (sessionStorage.ID_EMPRESA != 0 || sessionStorage.ID_EMPRESA == undefined || sessionStorage.ID_EMPRESA == null) {
+              funcionario.style.visibility = 'visible'
+              maquina.style.visibility = 'visible'
+          }
+      } */
+    function getId() {
+        var idEmpresa = sessionStorage.ID_EMPRESA;
+        var usuario = sessionStorage.NOME_USUARIO;
+        span_usuario.innerHTML = `Olá, ${usuario}!`
+        mostrarMaquinasFuncionarios(idEmpresa)
     }
 
+    function mostrarMaquinasFuncionarios(idEmpresa) {
+        fetch("/datawatch/pegarMaquinas", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idEmpresaServer: idEmpresa
+            })
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+                resposta.json().then(dados => {
+                    console.log(dados)
+                    if (dados.length > 0) {
+                        dados.forEach(maquina => {
+                            var lista_maquinas = document.getElementById("ul_cards_maquinas");
+
+                            var li = document.createElement("div")
+                            li.setAttribute("class", "card")
+
+                            var divTitle = document.createElement("div")
+
+                            var pTitle = document.createElement("p")
+                            pTitle.innerHTML = maquina.nomeMaquina
+
+                            divTitle.appendChild(pTitle)
+                            li.appendChild(divTitle)
+
+                            var icon = document.createElement("div")
+                            icon.setAttribute("id", "piechart1")
+                            icon.setAttribute("class", "icon")
+                            icon.style = "width: 90%; height: 150px;"
+
+                            var iconAlert = document.createElement("div")
+                            iconAlert.setAttribute("id", "alerta")
+                            iconAlert.setAttribute("class", "iconAlert")
+                            iconAlert.style = "width: 40px; height: 40px;"
+
+                            var divContent = document.createElement("div")
+                            divContent.setAttribute("class", "content")
+
+                            var divStatus = document.createElement("div")
+                            var spanStatus = document.createElement("span")
+                            if (maquina.statusSistema == 1) {
+                                divStatus.setAttribute("class", "status")
+                                spanStatus.innerHTML = " ONLINE"
+                            } else {
+                                divStatus.setAttribute("class", "status2")
+                                spanStatus.innerHTML = " OFFLINE"
+                            }
+
+
+                            divContent.appendChild(divStatus)
+                            divContent.appendChild(spanStatus)
+
+                            li.appendChild(icon)
+                            li.appendChild(iconAlert)
+                            li.appendChild(divContent)
+
+
+                            lista_maquinas.appendChild(li)
+                            console.log(lista_maquinas)
+                        });
+                    }
+            
+                })
+            }
+            else {
+                throw (JSON.stringify(resposta))
+            }
+        }).catch(function (resposta) {
+            console.log(`ERRO: ${resposta}`);
+        })
+        return false
+    }
 </script>

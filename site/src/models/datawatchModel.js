@@ -99,7 +99,7 @@ function pegarMaquinas(idEmpresa) {
               SEC_TO_TIME(tempoAtividade % 86400)) AS tempo_formatado
               FROM Maquinas 
               where fkempresa = ${idEmpresa}
-              order by tempoAtividade desc;`
+              order by tempoAtividade;`
 
     return database.executar(instrucao);
 }

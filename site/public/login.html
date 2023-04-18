@@ -112,10 +112,14 @@
                 sessionStorage.EMAIL_USUARIO = json.email;
                 sessionStorage.NOME_USUARIO = json.nomeUsuario;
                 sessionStorage.ID_USUARIO = json.idUsuario;
-                sessionStorage.ID_EMPRESA = json.idEmpresa;
+                sessionStorage.ID_EMPRESA = json.fkEmpresa;
 
                 setTimeout(function () {
-                    window.location = "./areaADM.html";
+                    if (json.adm == '') {
+                        window.location = "./areaADM.html";
+                    } else {
+                        window.location = "./areaFuncionário.html";
+                    }
                 }, 1000); // apenas para exibir o loading
 
             });
