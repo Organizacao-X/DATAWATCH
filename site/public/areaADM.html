@@ -940,17 +940,13 @@
         console.log(dados)
         var contQtdColunas = 0;
         var vetorInteiro = [['Nome máquina']]
+        var ultimaHora = ''
 
         for (let i = 0; i < dados.length; i++) {
             if (vetorInteiro[0].indexOf(dados[i].nomeMaquina) == -1) {
                 vetorInteiro[0].push(dados[i].nomeMaquina)
                 contQtdColunas++
             }
-        }
-        console.log(contQtdColunas)
-
-        var ultimaHora = ''
-        for (let i = 0; i < dados.length; i++) {
             if (dados[i].HoraFormata != ultimaHora) {
                 var vetor = [dados[i].HoraFormata]
                 for (let j = 0; j < dados.length; j++) {
@@ -962,6 +958,7 @@
                 ultimaHora = dados[i].HoraFormata
             }
         }
+        console.log(contQtdColunas)
 
         var vetorQtdColunas = [];
         for (let i = 0; i <= contQtdColunas; i++) {
@@ -982,7 +979,7 @@
         };
 
         console.log(vetorQtdColunas)
-        
+
         var view = new google.visualization.DataView(data);
         view.setColumns(vetorQtdColunas);
 
