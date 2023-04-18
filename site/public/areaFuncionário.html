@@ -36,7 +36,7 @@
                         <span>Nome funcionario</span>
                     </div>
                     <li><a class="menu__item" href="../public/areaFuncionário.html">Home</a></li>
-                    <li><a class="menu__item" href="#">Logout</a></li>
+                    <li><a class="menu__item" onclick="limparSessao()">Logout</a></li>
                 </ul>
             </div>
 
@@ -141,7 +141,12 @@
     function getId() {
         var idEmpresa = sessionStorage.ID_EMPRESA;
         var usuario = sessionStorage.NOME_USUARIO;
-        span_usuario.innerHTML = `Olá, ${usuario}!`
+        if (usuario == '') {
+            span_usuario.innerHTML = `Olá, visitante!`
+            
+        } else {
+            span_usuario.innerHTML = `Olá, ${usuario}!`
+        }
         mostrarMaquinasFuncionarios(idEmpresa)
     }
 
@@ -175,14 +180,22 @@
                             li.appendChild(divTitle)
 
                             var icon = document.createElement("div")
-                            icon.setAttribute("id", "piechart1")
+                            icon.setAttribute("id", "icon")
                             icon.setAttribute("class", "icon")
-                            icon.style = "width: 90%; height: 150px;"
+                            
 
                             var iconAlert = document.createElement("div")
+                            var textAlert = document.createElement("div")
+                            var pTextAlert = document.createElement("p")
+                            pTextAlert.innerHTML = "3"
+
                             iconAlert.setAttribute("id", "alerta")
+                            textAlert.setAttribute("id", "textAlerta")
+                            pTextAlert.setAttribute("id", "pTextAlert")
+                            
                             iconAlert.setAttribute("class", "iconAlert")
-                            iconAlert.style = "width: 40px; height: 40px;"
+                            textAlert.setAttribute("class", "textAlert")
+                            pTextAlert.setAttribute("class", "pTextAlert")
 
                             var divContent = document.createElement("div")
                             divContent.setAttribute("class", "content")
@@ -197,12 +210,14 @@
                                 spanStatus.innerHTML = " OFFLINE"
                             }
 
-
+                            textAlert.appendChild(pTextAlert)
+                            iconAlert.appendChild(textAlert)
                             divContent.appendChild(divStatus)
                             divContent.appendChild(spanStatus)
 
                             li.appendChild(icon)
                             li.appendChild(iconAlert)
+                            
                             li.appendChild(divContent)
 
 
