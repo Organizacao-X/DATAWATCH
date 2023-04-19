@@ -889,7 +889,7 @@ h2 {
 .temp-yes {
   /* border: 3px solid rgb(68, 0, 255); */
   max-height: 15rem;
-  min-height: 15rem;
+  min-height: 10rem;
   padding: .8rem;
   overflow-x: auto;
 }
