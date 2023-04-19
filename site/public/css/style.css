@@ -911,6 +911,30 @@ banner {
     fill: currentColor;
 }
 
+.social-media-lucas:before {
+    content: " ";
+    display: block;
+    width: 100%;
+    height: 2px;
+    margin: 10px 0;
+}
+
+.social-media-lucas a {
+    position: relative;
+    margin-right: 15px;
+    text-decoration: none;
+    color: inherit;
+}
+
+.social-media-lucas a:last-child {
+    margin-right: 0;
+}
+
+.social-media-lucas a svg {
+    width: 2.2rem;
+    fill: currentColor;
+}
+
 /*-- Tooltip Social Media --*/
 .tooltip-social {
     background: #000000;
@@ -1132,6 +1156,11 @@ footer {
 .contact-form label {
     color: rgb(0, 0, 0);
     font-family: 'Ubuntu', sans-serif;
+}
+
+.centro{
+    display: flex;
+    justify-content: center;
 }
 
 .contact-form .heading {

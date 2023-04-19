@@ -664,7 +664,7 @@
     }
 
     .card-client {
-        background-image: url(../assets/imgs/Group\ 29-1.png);
+        background-image: url(../assets/imgs/Card\ client\ 1\ Lucas.png);
         background-size: 170px;
         background-repeat: no-repeat;
         background-position: center;
@@ -724,6 +724,30 @@
         fill: currentColor;
     }
 
+    .social-media-lucas:before {
+        content: " ";
+        display: block;
+        width: 100%;
+        height: 2px;
+        margin: 0px 0;
+    }
+    
+    .social-media-lucas a {
+        position: relative;
+        margin-right: 15px;
+        text-decoration: none;
+        color: inherit;
+    }
+    
+    .social-media-lucas a:last-child {
+        margin-right: 0;
+    }
+    
+    .social-media-lucas a svg {
+        width: 1.6rem;
+        fill: currentColor;
+    }
+
     /*-- Tooltip Social Media --*/
     .tooltip-social {
         background: #000000;
@@ -764,7 +788,7 @@
 
 
     .card-client2 {
-        background-image: url(../assets/imgs/Group\ 27-1.png);
+        background-image: url(../assets/imgs/Card\ client\ 2\ Leone.png);
         background-size: 170px;
         background-repeat: no-repeat;
         background-position: center;
@@ -789,7 +813,7 @@
     }
 
     .card-client3 {
-        background-image: url(../assets/imgs/Group\ 30-1.png);
+        background-image: url(../assets/imgs/Card\ client\ 3\ Nacchan.png);
         background-size: 170px;
         background-repeat: no-repeat;
         background-position: center;
@@ -813,7 +837,7 @@
     }
 
     .card-client4 {
-        background-image: url(../assets/imgs/Group\ 28-1.png);
+        background-image: url(../assets/imgs/Card\ client\ 4\ Sofia.png);
         background-size: 175px;
         background-repeat: no-repeat;
         background-position: center;
@@ -837,7 +861,7 @@
     }
 
     .card-client5 {
-        background-image: url(../assets/imgs/Group\ 26-1.png);
+        background-image: url(../assets/imgs/Card\ client\ 5\ Victo.png);
         background-size: 175px;
         background-repeat: no-repeat;
         background-position: center;
@@ -938,6 +962,7 @@
         margin-bottom: 5px;
         font-size: 10px;
     }
+
 
     .contact-form .heading {
         font-size: 14px;
