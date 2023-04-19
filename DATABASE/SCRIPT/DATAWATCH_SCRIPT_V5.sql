@@ -85,8 +85,8 @@ CREATE TABLE Alertas (
     nomeAlerta VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE Chamados (
-	idChamado INT AUTO_INCREMENT,
+CREATE TABLE Possuem (
+	idPosse INT AUTO_INCREMENT,
     fkAlerta INT,
     CONSTRAINT FOREIGN KEY (fkAlerta) REFERENCES Alertas (idAlerta),
     fkMaquina INT,
@@ -214,9 +214,7 @@ SELECT idMaquina Id, nomeMaquina, statusSistema,
               order by tempoAtividade desc;
 
 
-select * from Possuem;
 
-INSERT INTO Possuem (fkEmpresa, fkUsuario, fkAlerta, fkMaquina) VALUES (1, 6, 1, 1);
 
 select Maquinas.nomeMaquina as 'Nome da maquina', Alertas.nomeAlerta as 'Alerta', Possuem.dataHora as 'Momento'
 	from Possuem
@@ -224,3 +222,36 @@ select Maquinas.nomeMaquina as 'Nome da maquina', Alertas.nomeAlerta as 'Alerta'
 			ON Possuem.fkMaquina = Maquinas.idMaquina
 		JOIN Alertas
 			ON Possuem.fkAlerta = Alertas.idAlerta;				
+            
+	select * from chamados;
+    
+    SELECT maquinas.idMaquina Id, maquinas.nomeMaquina, maquinas.statusSistema,
+	SEC_TO_TIME(maquinas.tempoAtividade) AS tempo_total,
+       CONCAT(FLOOR(maquinas.tempoAtividade / 86400), ' dias, ',
+              SEC_TO_TIME(maquinas.tempoAtividade % 86400)) AS tempo_formatado,
+              count(chamados.fkmaquina) AS contagemChamados
+              FROM Maquinas
+              JOIN chamados
+              ON maquinas.idmaquina = chamados.fkmaquina
+              where maquinas.fkempresa = 1
+              order by tempoAtividade;
+              
+              SELECT idMaquina Id, nomeMaquina, statusSistema,
+	SEC_TO_TIME(tempoAtividade) AS tempo_total,
+       CONCAT(FLOOR(tempoAtividade / 86400), ' dias, ',
+              SEC_TO_TIME(tempoAtividade % 86400)) AS tempo_formatado
+              FROM Maquinas 
+              where fkempresa = 1
+              order by tempoAtividade;
+              
+              select m.idmaquina as id,
+              m.nomeMaquina as nomeMaquina,
+              m.statusSistema as statusSistema,
+              SEC_TO_TIME(m.tempoAtividade) AS tempo_total,
+       CONCAT(FLOOR(m.tempoAtividade / 86400), ' dias, ',
+              SEC_TO_TIME(m.tempoAtividade % 86400)) AS tempo_formatado,
+              count(c.fkmaquina) as contagemChamados
+              From Maquinas AS m
+              join Possuem AS c
+              ON m.idmaquina = c.fkmaquina
+              where fkempresa

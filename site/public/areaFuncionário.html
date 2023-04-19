@@ -56,17 +56,26 @@
             <span id="span_usuario"></span>
         </div>
         <div class="container">
-        <div class="placa">
-            <div class="legenda">
-                <span class="legendaTexto"><div class="corLegenda"></div><p>estável</p></span>
-                <span class="legendaTexto"><div class="corLegenda2"></div><p>atenção</p></span>
-                <span class="legendaTexto"><div class="corLegenda3"></div><p>urgente</p></span>
-            </div>
+            <div class="placa">
+                <div class="legenda">
+                    <span class="legendaTexto">
+                        <div class="corLegenda"></div>
+                        <p>estável</p>
+                    </span>
+                    <span class="legendaTexto">
+                        <div class="corLegenda2"></div>
+                        <p>atenção</p>
+                    </span>
+                    <span class="legendaTexto">
+                        <div class="corLegenda3"></div>
+                        <p>urgente</p>
+                    </span>
+                </div>
 
 
-            <ul class="cards" id="ul_cards_maquinas">
-                
-               <!--  <li class="card">
+                <ul class="cards" id="ul_cards_maquinas">
+
+                    <!--  <li class="card">
                     <div>
                         <h3 class="card-title">Maquina 1</h3>
 
@@ -119,10 +128,10 @@
                         <div class="status"></div><span><b>Ativo</b></span>
                     </div>
                 </li> -->
-            </ul>
+                </ul>
 
+            </div>
         </div>
-    </div>
     </section>
 
 
@@ -143,7 +152,7 @@
         var usuario = sessionStorage.NOME_USUARIO;
         if (usuario == '') {
             span_usuario.innerHTML = `Olá, visitante!`
-            
+
         } else {
             span_usuario.innerHTML = `Olá, ${usuario}!`
         }
@@ -182,17 +191,17 @@
                             var icon = document.createElement("div")
                             icon.setAttribute("id", "icon")
                             icon.setAttribute("class", "icon")
-                            
+
 
                             var iconAlert = document.createElement("div")
                             var textAlert = document.createElement("div")
                             var pTextAlert = document.createElement("p")
-                            pTextAlert.innerHTML = "3"
+                            pTextAlert.innerHTML = maquina.contagemChamados;
 
                             iconAlert.setAttribute("id", "alerta")
                             textAlert.setAttribute("id", "textAlerta")
                             pTextAlert.setAttribute("id", "pTextAlert")
-                            
+
                             iconAlert.setAttribute("class", "iconAlert")
                             textAlert.setAttribute("class", "textAlert")
                             pTextAlert.setAttribute("class", "pTextAlert")
@@ -217,15 +226,25 @@
 
                             li.appendChild(icon)
                             li.appendChild(iconAlert)
-                            
+
                             li.appendChild(divContent)
+
+                            li.style = "background-color: rgb(255, 179, 179)"
+
+                            if (maquina.contagemChamados == 0) {
+                                li.style = "background-color: rgb(189, 255, 188)"
+                            } else if (maquina.contagemChamados >= 1 && maquina.contagemChamados <= 3) {
+                                li.style = "background-color: rgb(255, 254, 167)"
+                            } else {
+                                li.style = "background-color: rgb(255, 179, 179)"
+                            }
 
 
                             lista_maquinas.appendChild(li)
                             console.log(lista_maquinas)
                         });
                     }
-            
+
                 })
             }
             else {
