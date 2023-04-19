@@ -85,17 +85,14 @@ CREATE TABLE Alertas (
     nomeAlerta VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE Possuem (
-	idPosse INT PRIMARY KEY AUTO_INCREMENT,
-    fkEmpresa INT,
-    CONSTRAINT FOREIGN KEY (fkEmpresa) REFERENCES Empresas (idEmpresa),
-    fkUsuario INT,
-    CONSTRAINT FOREIGN KEY (fkUsuario) REFERENCES Usuarios (idUsuario),
+CREATE TABLE Chamados (
+	idChamado INT AUTO_INCREMENT,
     fkAlerta INT,
     CONSTRAINT FOREIGN KEY (fkAlerta) REFERENCES Alertas (idAlerta),
     fkMaquina INT,
     CONSTRAINT FOREIGN KEY (fkMaquina) REFERENCES Maquinas (idMaquina),
-    dataHora DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+    dataHora DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (idChamado, fkAlerta, fkMaquina)
 );
 
 INSERT INTO Usuarios VALUES
@@ -226,6 +223,4 @@ select Maquinas.nomeMaquina as 'Nome da maquina', Alertas.nomeAlerta as 'Alerta'
 		JOIN Maquinas
 			ON Possuem.fkMaquina = Maquinas.idMaquina
 		JOIN Alertas
-			ON Possuem.fkAlerta = Alertas.idAlerta;
-                    
-				
+			ON Possuem.fkAlerta = Alertas.idAlerta;				
