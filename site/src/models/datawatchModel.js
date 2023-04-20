@@ -54,7 +54,7 @@ function cadastrarFuncionario(nome, email, cpf, senha, adm, FkEmpresa) {
     return database.executar(instrucao);
 }
 
-// CADASTRO DE MAQUINAS
+// CADASTRO DE Maquinas
 function cadastrarMaquina(fkEmpresa, nome, serie, data,) {
     console.log("ACESSEI O DATAWATCH MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrarMaquina():",fkEmpresa, nome, serie, data);
 
@@ -93,16 +93,16 @@ function consultarStatusEmpresa(idUsuario) {
 }
 
 function pegarMaquinas(idEmpresa) {
-    var instrucao = `SELECT maquinas.idMaquina Id, maquinas.nomeMaquina, maquinas.statusSistema,
-	SEC_TO_TIME(maquinas.tempoAtividade) AS tempo_total,
-       CONCAT(FLOOR(maquinas.tempoAtividade / 86400), ' dias, ',
-              SEC_TO_TIME(maquinas.tempoAtividade % 86400)) AS tempo_formatado,
+    var instrucao = `SELECT Maquinas.idMaquina Id, Maquinas.nomeMaquina, Maquinas.statusSistema,
+	SEC_TO_TIME(Maquinas.tempoAtividade) AS tempo_total,
+       CONCAT(FLOOR(Maquinas.tempoAtividade / 86400), ' dias, ',
+              SEC_TO_TIME(Maquinas.tempoAtividade % 86400)) AS tempo_formatado,
               COUNT(Possuem.idPosse) AS contagemChamados
               FROM Maquinas
               LEFT JOIN Possuem
-              ON maquinas.idmaquina = Possuem.fkmaquina
-              where maquinas.fkempresa = ${idEmpresa}
-              group by maquinas.idmaquina;`
+              ON Maquinas.idmaquina = Possuem.fkmaquina
+              where Maquinas.fkempresa = ${idEmpresa}
+              group by Maquinas.idmaquina;`
 
     return database.executar(instrucao);
 }
