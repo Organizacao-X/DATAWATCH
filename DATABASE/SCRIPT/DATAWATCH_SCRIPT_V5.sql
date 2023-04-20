@@ -236,22 +236,3 @@ select Maquinas.nomeMaquina as 'Nome da maquina', Alertas.nomeAlerta as 'Alerta'
               where maquinas.fkempresa = 1
               order by tempoAtividade;
               
-              SELECT idMaquina Id, nomeMaquina, statusSistema,
-	SEC_TO_TIME(tempoAtividade) AS tempo_total,
-       CONCAT(FLOOR(tempoAtividade / 86400), ' dias, ',
-              SEC_TO_TIME(tempoAtividade % 86400)) AS tempo_formatado
-              FROM Maquinas 
-              where fkempresa = 1
-              order by tempoAtividade;
-              
-              select m.idmaquina as id,
-              m.nomeMaquina as nomeMaquina,
-              m.statusSistema as statusSistema,
-              SEC_TO_TIME(m.tempoAtividade) AS tempo_total,
-       CONCAT(FLOOR(m.tempoAtividade / 86400), ' dias, ',
-              SEC_TO_TIME(m.tempoAtividade % 86400)) AS tempo_formatado,
-              count(c.fkmaquina) as contagemChamados
-              From Maquinas AS m
-              join Possuem AS c
-              ON m.idmaquina = c.fkmaquina
-              where fkempresa
