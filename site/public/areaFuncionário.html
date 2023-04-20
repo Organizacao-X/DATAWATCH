@@ -13,6 +13,7 @@
     <link rel="icon" href="./assets/imgs/LOGOV2.png">
     <link rel="stylesheet" href="./css/areaFuncionario.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 
 <body onload="cadastrosvisiveis()">
@@ -51,7 +52,7 @@
 
     </header>
 
-    <section>
+    <section style="border: solid 4px black;">
         <div class="usuario">
             <span>Seja bem-vindo funcionário</span>
         </div>
@@ -103,6 +104,46 @@
                         </div>
                     </li>
                 </ul>
+<<<<<<< Updated upstream
+=======
+<<<<<<< Updated upstream
+
+=======
+
+>>>>>>> Stashed changes
+            </div>
+        </div>
+        <div id="div_modal" class="modal-inteiro" style="display: none">
+            <ul class="menus-geral">
+                <li class="menu1">
+                    <span>Gráfico</span>
+                </li>
+                <li class="menu1">
+                    <span>Alertas</span>
+                </li>
+                <li class="menu1">
+                    <span>Informações Máquina</span>
+                </li>
+            </ul>
+            <ul class="menus-graficos">
+                <li class="menu2" onclick="drawChartCpu()">
+                    <span>CPU</span>
+                </li>
+                <li class="menu2" onclick="drawChartRam()">
+                    <span>RAM</span>
+                </li>
+                <li class="menu2" onclick="drawChartDisco()">
+                    <span>DISCO</span>
+                </li>
+                <li class="menu2" onclick="drawChartRede()">
+                    <span>REDE</span>
+                </li>
+            </ul>
+            <div class="modal-conteudo">
+                <div id="div_grafico_modal" class="grafico-conteudo">
+
+                </div>
+>>>>>>> Stashed changes
             </div>
         </div>
     </section>
@@ -121,4 +162,400 @@
         }
     }
 
+<<<<<<< Updated upstream
+=======
+    function mostrarMaquinasFuncionarios(idEmpresa) {
+        fetch("/datawatch/pegarMaquinas", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idEmpresaServer: idEmpresa
+            })
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+                resposta.json().then(dados => {
+                    console.log(dados)
+                    if (dados.length > 0) {
+                        dados.forEach(maquina => {
+                            var lista_maquinas = document.getElementById("ul_cards_maquinas");
+
+                            var li = document.createElement("div")
+                            li.setAttribute("class", "card")
+
+                            var divTitle = document.createElement("div")
+
+                            var pTitle = document.createElement("p")
+                            pTitle.innerHTML = maquina.nomeMaquina
+
+                            divTitle.appendChild(pTitle)
+                            li.appendChild(divTitle)
+
+                            var icon = document.createElement("div")
+                            icon.setAttribute("id", "icon")
+                            icon.setAttribute("class", "icon")
+
+
+                            var iconAlert = document.createElement("div")
+                            var textAlert = document.createElement("div")
+                            var pTextAlert = document.createElement("p")
+                            pTextAlert.innerHTML = maquina.contagemChamados;
+
+                            iconAlert.setAttribute("id", "alerta")
+                            textAlert.setAttribute("id", "textAlerta")
+                            pTextAlert.setAttribute("id", "pTextAlert")
+
+                            iconAlert.setAttribute("class", "iconAlert")
+                            textAlert.setAttribute("class", "textAlert")
+                            pTextAlert.setAttribute("class", "pTextAlert")
+
+                            var divContent = document.createElement("div")
+                            divContent.setAttribute("class", "content")
+
+                            var divStatus = document.createElement("div")
+                            var spanStatus = document.createElement("span")
+                            if (maquina.statusSistema == 1) {
+                                divStatus.setAttribute("class", "status")
+                                spanStatus.innerHTML = " ONLINE"
+                            } else {
+                                divStatus.setAttribute("class", "status2")
+                                spanStatus.innerHTML = " OFFLINE"
+                            }
+
+                            textAlert.appendChild(pTextAlert)
+                            iconAlert.appendChild(textAlert)
+                            divContent.appendChild(divStatus)
+                            divContent.appendChild(spanStatus)
+
+                            li.appendChild(icon)
+                            li.appendChild(iconAlert)
+<<<<<<< Updated upstream
+
+                            li.appendChild(divContent)
+
+                            li.style = "background-color: rgb(255, 179, 179)"
+
+                            if (maquina.contagemChamados == 0) {
+                                li.style = "background-color: rgb(189, 255, 188)"
+                            } else if (maquina.contagemChamados >= 1 && maquina.contagemChamados <= 3) {
+                                li.style = "background-color: rgb(255, 254, 167)"
+                            } else {
+                                li.style = "background-color: rgb(255, 179, 179)"
+                            }
+
+=======
+
+                            li.appendChild(divContent)
+>>>>>>> Stashed changes
+
+                            li.setAttribute("value", `${maquina.Id}`)
+                            li.addEventListener('click', function() {
+                                var maquinaId = maquina.Id
+                                abrirModal(maquinaId)
+                            })
+                            lista_maquinas.appendChild(li)
+                            console.log(lista_maquinas)
+                        });
+                    }
+
+                })
+            }
+            else {
+                throw (JSON.stringify(resposta))
+            }
+        }).catch(function (resposta) {
+            console.log(`ERRO: ${resposta}`);
+        })
+        return false
+    }
+
+
+
+    function abrirModal(idMaquina) {
+        console.log(idMaquina)
+        var modal = document.getElementById("div_modal")
+        modal.style = "display: flex;"
+        obterdados(idMaquina)
+    }
+
+
+</script>
+
+<script>
+    // script dos gráficos
+    // REDE
+    var vetorHora = [];
+    var vetorRedeUpload = [];
+    var vetorRedeDownload = [];
+
+    //PROCESSADOR
+    var vetorPorcentagemCpu = [];
+    var vetorHorasPorcentagem = [];
+
+    //TEMPERATURA
+    var temperatura = [];
+
+    // DISCO
+    var capacidadeDiscoTotal = 0;
+    var capacidadeDiscoLivre = 0;
+
+    // RAM 
+    var CapacidadeRamTotal = 0;
+    var CapacidadeRamEmUso = 0;
+
+
+    // MÉTRICA
+    var metrica = {
+        Processador: "",
+        Ram: "",
+        Disco: ""
+    }
+
+    // var idMaquina = sessionStorage.ID_MAQUINA;
+
+    var confidencial = "";
+
+    function obterdados(idMaquina) {
+        // console.log("ID MAQUINA: ", idMaquina)
+        fetch(`/dados/tempo-real/${idMaquina}`)
+            .then(resposta => {
+
+                if (resposta.ok) {
+                    resposta.json().then(resposta => {
+
+                        // console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+                        for (i = 0; i < resposta.length; i++) {
+                            var registro = resposta[i];
+
+                            // HORÁRIO (Para parametros)
+                            vetorHora.push(registro.horario);
+
+                            // REDE (Banco)
+                            vetorRedeDownload.push(registro.download);
+                            vetorRedeUpload.push(registro.upload);
+
+                            // CPU (Banco)
+                            vetorHorasPorcentagem.push(registro.horario);
+                            vetorPorcentagemCpu.push(registro.cpuuso);
+
+                            // TEMPERATURA (Banco)
+                            temperatura.push(registro.temperatura);
+
+                            // DISCO (Banco)
+                            capacidadeDiscoLivre = registro.discolivre;
+                            capacidadeDiscoTotal = registro.discoTotal;
+
+                            // RAM (Banco)
+                            CapacidadeRamTotal = registro.ramTotal;
+                            CapacidadeRamEmUso = registro.ramUso;
+
+
+                            // MÉTRICA (Banco)
+                            metrica.Processador = registro.processadorMetrica;
+                            metrica.Ram = registro.ramMetrica;
+                            metrica.Disco = registro.discoMetrica;
+
+                        }
+                    });
+                } else {
+
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados do aquario p/ gráfico: ${error.message}`);
+            });
+
+    }
+
+    // function metricas() {
+
+    //     // CONTAS para MÉTRICAS
+
+    //     var cpu = 90;
+    //     var ram = CapacidadeRamTotal * 0.85;
+    //     var disco = capacidadeDiscoTotal * 0.70;
+
+    //     fetch("/datawatch/autenticar", {
+    //         method: "POST",
+    //         headers: {
+    //             "Content-Type": "application/json"
+    //         },
+    //         body: JSON.stringify({
+    //             cpuMetricaServer: cpu,
+    //             ramMetricaServer: ram,
+    //             discoMetrica: disco
+    //         })
+    //     }).then(function (resposta) {
+    //         console.log("ESTOU NO THEN DO entrar()!")
+
+    //         if (resposta.ok) {
+    //             console.log(resposta);
+
+    //             resposta.json().then(json => {
+    //                 console.log(json);
+    //                 console.log(JSON.stringify(json));
+
+    //                 sessionStorage.EMAIL_USUARIO = json.email;
+    //                 sessionStorage.NOME_USUARIO = json.nomeUsuario;
+    //                 sessionStorage.ID_USUARIO = json.idUsuario;
+    //                 sessionStorage.ID_EMPRESA = json.idEmpresa;
+
+
+
+    //             });
+
+    //         } else {
+
+    //             console.log("Houve um erro ao tentar cadastrar as métricas");
+
+    //             // resposta.text().then(texto => {
+    //             //     console.error(texto);
+
+    //             // });
+    //         }
+
+    //     }).catch(function (erro) {
+    //         console.log(erro);
+    //     })
+
+    //     return false;
+    // }
+
+    // Gráfico Rede
+    google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(drawChartRede);
+
+
+    function drawChartRede() {
+        var data = google.visualization.arrayToDataTable([
+            ['horário', 'Upload', 'Download'],
+            [vetorHora[0], vetorRedeUpload[0], vetorRedeDownload[0]],
+            [vetorHora[1], vetorRedeUpload[1], vetorRedeDownload[1]],
+            [vetorHora[2], vetorRedeUpload[2], vetorRedeDownload[2]],
+            [vetorHora[3], vetorRedeUpload[3], vetorRedeDownload[3]],
+            [vetorHora[4], vetorRedeUpload[4], vetorRedeDownload[4]],
+            [vetorHora[5], vetorRedeUpload[5], vetorRedeDownload[5]],
+            [vetorHora[6], vetorRedeUpload[6], vetorRedeDownload[6]],
+            [vetorHora[7], vetorRedeUpload[7], vetorRedeDownload[7]],
+            [vetorHora[8], vetorRedeUpload[8], vetorRedeDownload[8]],
+            [vetorHora[9], vetorRedeUpload[9], vetorRedeDownload[9]],
+
+        ]);
+
+        var options = {
+            title: 'Internet em kbps',
+            curveType: 'function',
+            legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('div_grafico_modal'));
+        // confidencial = document.getElementById("redeTitulo");
+    //     fraseMetrica.innerHTML = `Dados Rede 
+    // <br>Enviar: 
+    // <br>Receber: `;
+
+        chart.draw(data, options);
+    }
+
+    // Gráfico RAM
+    google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(drawChartRam);
+
+
+
+
+    function drawChartRam() {
+
+        var data = google.visualization.arrayToDataTable([
+            ['', ''],
+            ['Em uso', CapacidadeRamEmUso],
+            ['Total', CapacidadeRamTotal]
+        ]);
+
+        var options = {
+            title: 'Uso de RAM:'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('div_grafico_modal'));
+    //     fraseMetrica.innerHTML = `Dados RAM 
+    // <br>Em uso: 
+    // <br>Disponível:`;
+        chart.draw(data, options);
+    }
+
+
+
+    // Gráfico CPU
+    google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(drawChartCpu);
+
+
+
+
+    function drawChartCpu() {
+        // vetorHorasPorcentagem = ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00'];
+        var data = google.visualization.arrayToDataTable([
+            ['Horário', 'Porcentagem %', 'Sales'],
+            [vetorHora[0], vetorHorasPorcentagem[0], vetorPorcentagemCpu[0]],
+            [vetorHora[1], vetorHorasPorcentagem[1], vetorPorcentagemCpu[1]],
+            [vetorHora[2], vetorHorasPorcentagem[2], vetorPorcentagemCpu[2]],
+            [vetorHora[3], vetorHorasPorcentagem[3], vetorPorcentagemCpu[3]],
+            [vetorHora[4], vetorHorasPorcentagem[4], vetorPorcentagemCpu[4]],
+            [vetorHora[5], vetorHorasPorcentagem[5], vetorPorcentagemCpu[5]],
+            [vetorHora[6], vetorHorasPorcentagem[6], vetorPorcentagemCpu[6]],
+            [vetorHora[7], vetorHorasPorcentagem[7], vetorPorcentagemCpu[7]],
+            [vetorHora[8], vetorHorasPorcentagem[8], vetorPorcentagemCpu[8]],
+            [vetorHora[9], vetorHorasPorcentagem[9], vetorPorcentagemCpu[9]],
+        ]);
+
+        console.log(vetorHora)
+        console.log(vetorHorasPorcentagem)
+        console.log(vetorPorcentagemCpu)
+        
+        var options = {
+            title: 'Company Performance',
+            curveType: 'function',
+            legend: { position: 'bottom' }
+        };
+
+
+        var chart = new google.visualization.LineChart(document.getElementById('div_grafico_modal'));
+        // confidencial = document.getElementById("processadorTitulo");
+    //     fraseMetrica.innerHTML = `Dados Processador 
+    // <br>Utilização: `;
+
+        chart.draw(data, options);
+    }
+
+
+
+
+    //Gráfico Disco
+    google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(drawChartDisco);
+
+    function drawChartDisco() {
+
+        var data = google.visualization.arrayToDataTable([
+            ['Disco', 'Memória'],
+            ['Capacidade em uso', capacidadeDiscoTotal],
+            ['Capacidade livre', capacidadeDiscoLivre],
+
+        ]);
+
+        var options = {
+            title: 'Disco:'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('div_grafico_modal'));
+    //     fraseMetrica.innerHTML = `Dados Disco 
+    // <br> Capacidade Total: ${capacidadeDiscoTotal}
+    // <br> Capacidade em uso: ${capacidadeDiscoLivre}`;
+        chart.draw(data, options);
+    } 
+>>>>>>> Stashed changes
 </script>

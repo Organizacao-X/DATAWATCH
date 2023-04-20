@@ -14,8 +14,8 @@ function buscarUltimasDados(idMaquina) {
     m.discoTotal as discoTotal,
                     c.datahora,
                     DATE_FORMAT(c.datahora,'%H:%i:%s') as horario
-                from capturas as c
-                join maquinas as m
+                from Capturas as c
+                join Maquinas as m
                 ON c.fkmaquina = m.idmaquina
                 where fkMaquina = ${idMaquina}
                 order by idcaptura desc limit 5;`;
@@ -48,8 +48,8 @@ function buscarDadosEmTempoReal(idMaquina) {
         m.discoTotal as discoTotal,
                         c.datahora,
                         DATE_FORMAT(c.datahora,'%H:%i:%s') as horario
-                    from capturas as c
-                    join maquinas as m
+                    from Capturas as c
+                    join Maquinas as m
                     ON c.fkmaquina = m.idmaquina
                     where fkMaquina = ${idMaquina}
                     order by idcaptura desc limit 5;`;
@@ -61,6 +61,22 @@ function buscarDadosEmTempoReal(idMaquina) {
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
+<<<<<<< Updated upstream
+=======
+function cadastrarDados(cpu, ram, disco, idMaquina) {
+
+    instrucaoSql = '';
+
+    instrucaoSql = `UPDATE Maquinas 
+    SET cpuMetrica = ${cpu} AND 
+    ramMetrica = ${ram} AND 
+    discoMetrica = ${disco}
+    WHERE idMaquina = ${idMaquina};`;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+>>>>>>> Stashed changes
 
 
 module.exports = {

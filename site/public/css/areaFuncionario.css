@@ -261,6 +261,7 @@ header {
     height: 15px;
     animation: animation 1.5s linear infinite;
   }
+<<<<<<< Updated upstream
   
   .card .card-link {
     display: inline-block;
@@ -303,3 +304,78 @@ header {
       margin-right: 40px;
     }
 }
+=======
+}
+
+/* MODAL */
+
+.modal-inteiro {
+  /* border: solid 2px blue; */
+  width: 95%;
+  margin-top: 7.5%;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+.menus-geral {
+  display: flex;
+  border-radius: 10px 10px 0 0;
+  background-color: #181818;
+  /* border: solid 6px purple; */
+  width: 100%;
+  height: 6%;
+  margin: 0;
+  padding: 0;
+  justify-content: space-around;
+}
+
+li {
+  list-style: none;
+  margin: none;
+}
+
+.menu1 {
+  /* border: solid 2px cadetblue; */
+  /* background-color: #181818; */
+  width: 100%;
+  height: 30px;
+  font-size: 20px;
+  color: white;
+  align-self: center;
+  text-align: center;
+}
+
+.menus-graficos {
+  display: flex;
+  /* border: solid 4px aqua; */
+  width: 100%;
+  height: 6%;
+  margin: 0;
+  padding: 0;
+  justify-content: space-around;
+}
+
+.menu2 {
+  /* border: solid 2px black; */
+  width: 100%;
+  font-size: 20px;
+  align-self: center;
+  text-align: center;
+}
+
+.modal-conteudo {
+  /* border: solid 5px maroon; */
+  background-color: #a2913b3f;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.grafico-conteudo {
+  /* border: solid 4px teal; */
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+>>>>>>> Stashed changes

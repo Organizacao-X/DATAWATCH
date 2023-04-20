@@ -27,7 +27,7 @@ function buscarDadosEmTempoReal(req, res) {
 
     var idMaquina = req.params.idMaquina;
 
-    console.log(`Recuperando Dados em tempo real`);
+    console.log(`Recuperando Dados em tempo real. ID MAQUINA: ${idMaquina}`);
 
     dadosModel.buscarDadosEmTempoReal(idMaquina).then(function (resultado) {
         if (resultado.length > 0) {

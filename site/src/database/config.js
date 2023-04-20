@@ -21,8 +21,18 @@ var sqlServerConfig = {
 var mySqlConfig = {
     host: "localhost",
     database: "datawatch",
+<<<<<<< Updated upstream
     user: "datawatch",
     password: "datawatch",
+=======
+<<<<<<< Updated upstream
+    user: "root",
+    password: "LsA147504",
+=======
+    user: "datawatch",
+    password: "datawatch",
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
 };
 
 function executar(instrucao) {
