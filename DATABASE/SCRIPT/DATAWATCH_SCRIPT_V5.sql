@@ -92,7 +92,7 @@ CREATE TABLE Possuem (
     fkMaquina INT,
     CONSTRAINT FOREIGN KEY (fkMaquina) REFERENCES Maquinas (idMaquina),
     dataHora DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (idChamado, fkAlerta, fkMaquina)
+    PRIMARY KEY (idPosse, fkAlerta, fkMaquina)
 );
 
 INSERT INTO Usuarios VALUES
