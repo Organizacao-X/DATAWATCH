@@ -36,10 +36,13 @@
                     <div class="nomeUser">
                         <span>Nome Usuario</span>
                     </div>
-                    <li id="lateral_menu_cad_empresa" style="display: none;"><a class="menu__item" href="./cadastroEmpresa.html">Cadastro da empresa</a></li>
+                    <li id="lateral_menu_cad_empresa" style="display: none;"><a class="menu__item"
+                            href="./cadastroEmpresa.html">Cadastro da empresa</a></li>
                     <li><a class="menu__item" href="./areaADM.html">Home</a></li>
-                    <li id="lateral_menu_cad_maquina"><a class="menu__item" href="./cadastromaquina.html">Cadastrar maquina</a></li>
-                    <li id="lateral_menu_cad_funcionario" style="display: none;"><a class="menu__item" href="cadastroFuncionario.html">Cadastrar funcionário</a></li>
+                    <li id="lateral_menu_cad_maquina"><a class="menu__item" href="./cadastromaquina.html">Cadastrar
+                            maquina</a></li>
+                    <li id="lateral_menu_cad_funcionario" style="display: none;"><a class="menu__item"
+                            href="cadastroFuncionario.html">Cadastrar funcionário</a></li>
                     <li><a class="menu__item" href="#">Logout</a></li>
                 </ul>
             </div>
@@ -68,16 +71,19 @@
                 <input class="dados" id="nome_input" type="text" placeholder="Seu nome" onchange="limparBorda(this)">
 
                 <label class="tipo_campo">E-mail:</label>
-                <input class="dados" id="email_input" type="text" placeholder="meuemail@provedor.com" onchange="limparBorda(this)">
+                <input class="dados" id="email_input" type="text" placeholder="meuemail@provedor.com"
+                    onchange="limparBorda(this)">
 
                 <label class="tipo_campo">CPF:</label>
-                <input class="dados" id="cpf_input" type="text" placeholder="000.000.000-00" onchange="limparBorda(this)">
+                <input class="dados" id="cpf_input" type="text" placeholder="000.000.000-00"
+                    onchange="limparBorda(this)">
 
                 <label class="tipo_campo">Senha:</label>
                 <input class="dados" id="senha_input" type="password" placeholder="******" onchange="limparBorda(this)">
 
                 <label class="tipo_campo">Confirmação da Senha:</label>
-                <input class="dados" id="confirmacao_senha_input" type="password" placeholder="******" onchange="limparBorda(this)">
+                <input class="dados" id="confirmacao_senha_input" type="password" placeholder="******"
+                    onchange="limparBorda(this)">
 
                 <button class="btn" onclick="cadastroFuncionario()">CADASTRAR</button>
 
@@ -87,19 +93,27 @@
         <div class="ladoA">
             <div class="ladoACor">
 
-                </div>
             </div>
         </div>
+    </div>
     </div>
 </body>
 
 </html>
-<script>
-function cadastroFuncionario() {
-    /* aguardar(); */
 
-    //Recupere o valor da nova input pelo nome do id
-    // Agora vá para o método fetch logo abaixo
+<!-- Máscaras -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"></script>
+<script>
+    $('#cpf_input').mask('000.000.000-00', { reverse: false });
+</script>
+
+<script>
+    function cadastroFuncionario() {
+        /* aguardar(); */
+
+        //Recupere o valor da nova input pelo nome do id
+        // Agora vá para o método fetch logo abaixo
         var inputs = document.querySelectorAll("input.dados")
         var erro = false
 
@@ -107,65 +121,65 @@ function cadastroFuncionario() {
             mostrarBordaVazio(input, input.value)
         });
 
-    
-    var nomeVar = nome_input.value;
-    var emailVar = email_input.value;
-    var cpfVar = cpf_input.value;
-    var senhaVar = senha_input.value;
-    var confirmacaoSenhaVar = confirmacao_senha_input.value;
-    var admVar = sessionStorage.ID_USUARIO;
-    var fkEmpresa = sessionStorage.ID_EMPRESA;
 
-    if (nomeVar == "" || emailVar == "" || senhaVar == "" || confirmacaoSenhaVar == "" || cpfVar == "") {
-        /* cardErro.style.display = "block"
-        mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)"; */
+        var nomeVar = nome_input.value;
+        var emailVar = email_input.value;
+        var cpfVar = cpf_input.value;
+        var senhaVar = senha_input.value;
+        var confirmacaoSenhaVar = confirmacao_senha_input.value;
+        var admVar = sessionStorage.ID_USUARIO;
+        var fkEmpresa = sessionStorage.ID_EMPRESA;
 
-        /* finalizarAguardar(); */
+        if (nomeVar == "" || emailVar == "" || senhaVar == "" || confirmacaoSenhaVar == "" || cpfVar == "") {
+            /* cardErro.style.display = "block"
+            mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)"; */
+
+            /* finalizarAguardar(); */
+            return false;
+        }
+        else {
+            /* setInterval(sumirMensagem, 5000) */
+        }
+
+        // Enviando o valor da nova input
+        fetch("/datawatch/cadastrarFuncionario", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                nomeServer: inputs[0].value,
+                emailServer: inputs[1].value,
+                cpfServer: inputs[2].value,
+                senhaServer: inputs[3].value,
+                admServer: admVar,
+                fkEmpresaServer: fkEmpresa
+
+            })
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                /* cardErro.style.display = "block"; */
+
+                /* mensagem_erro.innerHTML = "Cadastro de funcionário realizado com sucesso!"; */
+
+                setTimeout(() => {
+                    window.location = "areaADM.html";
+                }, "2000")
+
+                limparFormulario();
+                /* finalizarAguardar(); */
+            } else {
+                throw ("Houve um erro ao tentar realizar o cadastro!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            /* finalizarAguardar(); */
+        });
+
         return false;
     }
-    else {
-        /* setInterval(sumirMensagem, 5000) */
-    }
-
-    // Enviando o valor da nova input
-    fetch("/datawatch/cadastrarFuncionario", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            // crie um atributo que recebe o valor recuperado aqui
-            nomeServer: inputs[0].value,
-            emailServer: inputs[1].value,
-            cpfServer: inputs[2].value,
-            senhaServer: inputs[3].value,
-            admServer: admVar,
-            fkEmpresaServer: fkEmpresa
-
-        })
-    }).then(function (resposta) {
-
-        console.log("resposta: ", resposta);
-
-        if (resposta.ok) {
-            /* cardErro.style.display = "block"; */
-
-            /* mensagem_erro.innerHTML = "Cadastro de funcionário realizado com sucesso!"; */
-
-            setTimeout(() => {
-                window.location = "areaADM.html";
-            }, "2000")
-            
-            limparFormulario();
-            /* finalizarAguardar(); */
-        } else {
-            throw ("Houve um erro ao tentar realizar o cadastro!");
-        }
-    }).catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-        /* finalizarAguardar(); */
-    });
-
-    return false;
-}
 </script>

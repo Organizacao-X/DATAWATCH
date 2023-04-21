@@ -67,7 +67,7 @@
                         onchange="limparBorda(this)">
 
                     <label class="tipo_campo">CNPJ:</label>
-                    <input class="text" id="cnpj_input" type="text" maxlength="14" placeholder=""
+                    <input class="text" id="cnpj_input" type="text" maxlength="14" placeholder="00.000.000/0000-00"
                         onchange="limparBorda(this)">
 
                     <div class="endereco">
@@ -127,7 +127,31 @@
 </body>
 
 </html>
+
+<!-- Máscaras -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"></script>
 <script>
+    $('#cnpj_input').mask('00.000.000/0000-00', {reverse: false});
+    $('#cep_input').mask('00000-000');
+    $('#telefone_input').mask('(00) 0000-00000');
+</script>
+
+<script>
+    function formatarCampoCnpj(string) {
+        // Retira os caracteres especiais:
+        return string.replace(/[.-/]/g, "");
+    }
+    
+    function formatarCampoCep(string) {
+        // Retira os caracteres especiais:
+        return string.replace(/[-]/g, "");
+    }
+    
+    function formatarCampoCep(string) {
+        // Retira os caracteres especiais:
+        return string.replace(/[-]/g, "");
+    }
 
     function mostrarNomeUsuario() {
         span_nome_usuario.innerHTML = `Bem-vindo, ${sessionStorage.NOME_USUARIO}!`;
@@ -153,7 +177,7 @@
         let cep = cep1.value.replace(/\D/g, '')
 
         if (cep != '') {
-            let url = "https://brasilapi.com.br/api/cep/v1/" + cep
+            let url = "https://brasilapi.com.br/api/cep/v1/" + cep;
             let req = new XMLHttpRequest();
             req.open("GET", url);
             req.send();
@@ -199,8 +223,8 @@
                 },
                 body: JSON.stringify({
                     razaoSocialServer: inputs[0].value,
-                    cnpjServer: inputs[1].value,
-                    cepServer: inputs[2].value,
+                    cnpjServer: formatarCampoCnpj(inputs[1].value),
+                    cepServer: formatarCampoCep(inputs[2].value),
                     rua_avServer: inputs[3].value,
                     numeroServer: inputs[4].value,
                     bairroServer: inputs[5].value,

@@ -40,9 +40,11 @@
                 <h1>Login</h1>
                 <label class="tipo_campo">E-mail:</label>
                 <input id="email_input" type="email" placeholder="Login" onchange="limparBorda(this)">
+                <div class="erro" id="erro_email" style="display: none;"><b>E-mail inválido</b></div>
 
                 <label class="tipo_campo">Senha:</label>
                 <input id="senha_input" type="password" placeholder="******" onchange="limparBorda(this)">
+                <div class="erro" id="erro_senha" style="display: none;"><b>Senha inválida</b></div>
 <!--                 <div class="checkboxDiv">
                     <div class="alinhamentoCheckBox">
                         <input type="checkbox" id="rememberMe"> <label for="rememberMe">Lembrar de mim</label>
