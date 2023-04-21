@@ -399,9 +399,8 @@
 
 
   function drawChartCpu() {
-    vetorHorasPorcentagem = ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00'];
     var data = google.visualization.arrayToDataTable([
-      ['Horário', 'Porcentagem %', 'Sales'],
+      ['Horário', 'Porcentagem %'],
       [vetorHora[0],vetorPorcentagemCpu[0]],
       [vetorHora[1],vetorPorcentagemCpu[1]],
       [vetorHora[2],vetorPorcentagemCpu[2]],
@@ -412,8 +411,6 @@
       [vetorHora[7],vetorPorcentagemCpu[7]],
       [vetorHora[8],vetorPorcentagemCpu[8]],
       [vetorHora[9],vetorPorcentagemCpu[9]],
-
-
     ]);
 
     var options = {
