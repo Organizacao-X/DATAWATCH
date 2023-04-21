@@ -18,8 +18,8 @@ function buscarUltimasDados(idMaquina) {
     m.discoMetrica as discoMetrica,
                     c.datahora,
                     DATE_FORMAT(c.datahora,'%H:%i:%s') as horario
-                from capturas as c
-                join maquinas as m
+                from Capturas as c
+                join Maquinas as m
                 ON c.fkmaquina = m.idmaquina
                 where fkMaquina = ${idMaquina}
                 order by idcaptura desc limit 10;`;
@@ -56,8 +56,8 @@ function buscarDadosEmTempoReal(idMaquina) {
         m.discoMetrica as discoMetrica,
                         c.datahora,
                         DATE_FORMAT(c.datahora,'%H:%i:%s') as horario
-                    from capturas as c
-                    join maquinas as m
+                    from Capturas as c
+                    join Maquinas as m
                     ON c.fkmaquina = m.idmaquina
                     where fkMaquina = ${idMaquina}
                     order by idcaptura desc limit 10;`;
@@ -73,7 +73,7 @@ function cadastrarDados(cpu, ram, disco, idMaquina) {
 
     instrucaoSql = '';
 
-    instrucaoSql = `UPDATE maquinas 
+    instrucaoSql = `UPDATE Maquinas 
     SET cpuMetrica = ${cpu} AND 
     ramMetrica = ${ram} AND 
     discoMetrica = ${disco}

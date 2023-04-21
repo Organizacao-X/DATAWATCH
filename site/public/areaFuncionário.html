@@ -13,6 +13,8 @@
     <link rel="icon" href="./assets/imgs/LOGOV2.png">
     <link rel="stylesheet" href="./css/areaFuncionario.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
 </head>
 
 <body onload="getId()">
@@ -74,7 +76,7 @@
 
 
                 <ul class="cards" id="ul_cards_maquinas">
-
+                    <button id="popup_botao">OI</button>
                     <!--  <li class="card">
                     <div>
                         <h3 class="card-title">Maquina 1</h3>
@@ -133,10 +135,137 @@
             </div>
         </div>
     </section>
+    <!-- <div id="div_container_modal" class="container-modal" style="display: none;">
+        <div class="modal-inteiro">
+            <ul class="menus-geral">
+                <li class="menu1" onclick="showGraphs()">
+                    <span>Gráfico</span>
+                </li>
+                <li class="menu1" onclick="showAlerts()">
+                    <span>Alertas</span>
+                </li>
+                <li class="menu1" onclick="showInfos()">
+                    <span>Informações Máquina</span>
+                </li>
+            </ul>
+            <ul class="menus-graficos">
+                <li class="menu2" onclick="drawChartCpu()">
+                    <span>CPU</span>
+                </li>
+                <li class="menu2" onclick="drawChartRam()">
+                    <span>RAM</span>
+                </li>
+                <li class="menu2" onclick="drawChartDisco()">
+                    <span>DISCO</span>
+                </li>
+                <li class="menu2" onclick="drawChartRede()">
+                    <span>REDE</span>
+                </li>
+            </ul>
+            <div class="modal-conteudo">
+                <div id="div_grafico_modal" class="grafico-conteudo" style="border: solid 2px black; height: 600px;">
 
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <div id="popup_fundo" class="popup">
+        <div class="popup_conteudo">
+            <div class="telaCadastro">
+                <div class="modal-inteiro">
+                    <ul class="menus-geral">
+                        <li class="menu1" onclick="showGraphs()">
+                            <span>Gráfico</span>
+                        </li>
+                        <li class="menu1" onclick="showAlerts()">
+                            <span>Alertas</span>
+                        </li>
+                        <li class="menu1" onclick="showInfos()">
+                            <span>Informações Máquina</span>
+                        </li>
+                    </ul>
+                    <ul class="menus-graficos">
+                        <li class="menu2" onclick="drawChartCpu()">
+                            <span>CPU</span>
+                        </li>
+                        <li class="menu2" onclick="drawChartRam()">
+                            <span>RAM</span>
+                        </li>
+                        <li class="menu2" onclick="drawChartDisco()">
+                            <span>DISCO</span>
+                        </li>
+                        <li class="menu2" onclick="drawChartRede()">
+                            <span>REDE</span>
+                        </li>
+                    </ul>
+                    <div class="modal-conteudo">
+                        <div id="div_grafico_modal" class="grafico-conteudo" style="border: solid 2px black; height: 600px;">
+        
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="formularioCadastro">
+                    <div class="conteudoCadastro">
+                        <h1>Cadastre sua Conta</h1>
+                        <div id="alerta_erro"></div>
+                        <div class="inputCadastro">
+                            <input type="text" id="inp_nome" placeholder="Nome" onchange="sem_borda(1)">
+                            <input type="text" id="inp_sobrenome" placeholder="Sobrenome" onchange="sem_borda(2)">
+                            <input type="text" id="inp_email" placeholder="E-mail" onchange="sem_borda(3)">
+                            <input type="password" id="inp_senha" placeholder="Senha" onchange="sem_borda(4)">
+                            <input type="password" id="inp_confirmacao" placeholder="Confirmação de Senha"
+                                onchange="sem_borda(5)">
+                        </div>
+                        <button class="botaoCadastrar" onclick="cadastrar()">Cadastrar</button>
+                        <p>Já tem uma conta? <b><a onclick="abrirLogin()"><u>Clique
+                                        aqui</u></a></b> para Entrar</p>
+                    </div>
+                </div>
+                <div class="imgCadastro">
+                </div> -->
+                <!-- <span class="popup_fechar">&times;</span> -->
+            </div>
+        </div>
+    </div>
 
 </body>
 <script>
+
+    // popup
+    var popup = document.getElementById('popup_fundo');
+    // abrir o popup
+    var botao = document.getElementById('popup_botao');
+    // botao fechar
+    // var popup_fechar = document.getElementsByClassName('popup_fechar')[0];
+
+    // abrir com clique
+    botao.addEventListener('click', abrirPopup);
+
+    // fechar com clique no botao
+    // popup_fechar.addEventListener('click', fecharPopup);
+
+    // fechar com clique fora do popup
+    window.addEventListener('click', fecharFora);
+
+    // função para abrir com o clique
+    function abrirPopup(idMaquina) {
+        popup.style.display = 'block';
+        obterdados(idMaquina)
+    }
+
+    // função para fechar popup com o clique no botão
+    // function fecharPopup() {
+    //     popup.style.display = 'none';
+    // }
+
+    // função para fechar popup se clicar fora
+    function fecharFora(e) {
+        if (e.target == popup) {
+            popup.style.display = 'none';
+        }
+    }
+
 
     function getId() {
         var idEmpresa = sessionStorage.ID_EMPRESA;
@@ -229,8 +358,10 @@
                             } else {
                                 li.style = "background-color: rgb(255, 179, 179)"
                             }
-
-
+                            li.setAttribute('value', maquina.Id)
+                            li.addEventListener('click', function() {
+                                abrirPopup(li.getAttribute('value'))
+                            })
                             lista_maquinas.appendChild(li)
                             console.log(lista_maquinas)
                         });
@@ -245,5 +376,244 @@
             console.log(`ERRO: ${resposta}`);
         })
         return false
+    }
+
+    var vetorHora = [];
+    var vetorRedeUpload = [];
+    var vetorRedeDownload = [];
+
+    //PROCESSADOR
+    var vetorPorcentagemCpu = [];
+    var vetorHorasPorcentagem = [];
+
+    //TEMPERATURA
+    var temperatura = [];
+
+    // DISCO
+    var capacidadeDiscoTotal = 0;
+    var capacidadeDiscoLivre = 0;
+
+    // RAM 
+    var CapacidadeRamTotal = 0;
+    var CapacidadeRamEmUso = 0;
+
+
+    // MÉTRICA
+    var metrica = {
+        Processador: "",
+        Ram: "",
+        Disco: ""
+    }
+
+    function obterdados(idMaquina) {
+        // div_container_modal.style = "display: block;"
+        fetch(`/dados/tempo-real/${idMaquina}`)
+            .then(resposta => {
+
+                if (resposta.ok) {
+                    resposta.json().then(resposta => {
+
+                        // console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+                        vetorHora = [];
+                        vetorRedeUpload = [];
+                        vetorRedeDownload = [];
+
+                        //PROCESSADOR
+                        vetorPorcentagemCpu = [];
+                        vetorHorasPorcentagem = [];
+
+                        //TEMPERATURA
+                        temperatura = [];
+
+                        // DISCO
+                        capacidadeDiscoTotal = 0;
+                        capacidadeDiscoLivre = 0;
+
+                        // RAM 
+                        CapacidadeRamTotal = 0;
+                        CapacidadeRamEmUso = 0;
+
+
+                        // MÉTRICA
+                        metrica = {
+                            Processador: "",
+                            Ram: "",
+                            Disco: ""
+                        }
+
+                        for (i = 0; i < resposta.length; i++) {
+                            var registro = resposta[i];
+
+                            // HORÁRIO (Para parametros)
+                            vetorHora.push(registro.horario);
+
+                            // REDE (Banco)
+                            vetorRedeDownload.push(registro.download);
+                            vetorRedeUpload.push(registro.upload);
+
+                            // CPU (Banco)
+                            vetorHorasPorcentagem.push(registro.horario);
+                            vetorPorcentagemCpu.push(registro.cpuuso);
+
+                            // TEMPERATURA (Banco)
+                            temperatura.push(registro.temperatura);
+
+                            // DISCO (Banco)
+                            capacidadeDiscoLivre = registro.discolivre;
+                            capacidadeDiscoTotal = registro.discoTotal;
+
+                            // RAM (Banco)
+                            CapacidadeRamTotal = registro.ramTotal;
+                            CapacidadeRamEmUso = registro.ramUso;
+
+
+                            // MÉTRICA (Banco)
+                            metrica.Processador = registro.processadorMetrica;
+                            metrica.Ram = registro.ramMetrica;
+                            metrica.Disco = registro.discoMetrica;
+
+                            drawChartCpu()
+
+                        }
+                    });
+                } else {
+
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados do aquario p/ gráfico: ${error.message}`);
+            });
+    }
+
+    // Gráfico RAM
+    google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(drawChartRam);
+
+
+    function drawChartRam() {
+
+        var data = google.visualization.arrayToDataTable([
+            ['', ''],
+            ['Em uso', CapacidadeRamEmUso],
+            ['Total', CapacidadeRamTotal]
+        ]);
+
+        var options = {
+            title: 'Uso de RAM:'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('div_grafico_modal'));
+        //     fraseMetrica.innerHTML = `Dados RAM 
+        // <br>Em uso: 
+        // <br>Disponível:`;
+        chart.draw(data, options);
+    }
+
+
+    // Gráfico CPU
+    google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(drawChartCpu);
+
+    function drawChartCpu() {
+        // vetorHorasPorcentagem = ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00'];
+        vetorHorasPorcentagem = [14, 80, 70, 53, 59, 49.2, 23, 96, 33, 40]
+        var data = google.visualization.arrayToDataTable([
+            ['Horário', 'Porcentagem %', 'Sales'],
+            [vetorHora[0], vetorHorasPorcentagem[0], vetorPorcentagemCpu[0]],
+            [vetorHora[1], vetorHorasPorcentagem[1], vetorPorcentagemCpu[1]],
+            [vetorHora[2], vetorHorasPorcentagem[2], vetorPorcentagemCpu[2]],
+            [vetorHora[3], vetorHorasPorcentagem[3], vetorPorcentagemCpu[3]],
+            [vetorHora[4], vetorHorasPorcentagem[4], vetorPorcentagemCpu[4]],
+            [vetorHora[5], vetorHorasPorcentagem[5], vetorPorcentagemCpu[5]],
+            [vetorHora[6], vetorHorasPorcentagem[6], vetorPorcentagemCpu[6]],
+            [vetorHora[7], vetorHorasPorcentagem[7], vetorPorcentagemCpu[7]],
+            [vetorHora[8], vetorHorasPorcentagem[8], vetorPorcentagemCpu[8]],
+            [vetorHora[9], vetorHorasPorcentagem[9], vetorPorcentagemCpu[9]],
+        ]);
+
+        // console.log(vetorHora, vetorHorasPorcentagem, vetorPorcentagemCpu)
+
+        var options = {
+            title: 'Company Performance',
+            curveType: 'function',
+            legend: { position: 'bottom' }
+        };
+
+
+        var chart = new google.visualization.LineChart(document.getElementById('div_grafico_modal'));
+        // confidencial = document.getElementById("processadorTitulo");
+        //     fraseMetrica.innerHTML = `Dados Processador 
+        // <br>Utilização: `;
+
+        chart.draw(data, options);
+    }
+
+    // Gráfico Disco
+    google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(drawChartDisco);
+
+    function drawChartDisco() {
+
+        var data = google.visualization.arrayToDataTable([
+            ['Disco', 'Memória'],
+            ['Capacidade em uso', capacidadeDiscoTotal],
+            ['Capacidade livre', capacidadeDiscoLivre],
+
+        ]);
+
+        var options = {
+            title: 'Disco:'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('div_grafico_modal'));
+        //     fraseMetrica.innerHTML = `Dados Disco 
+        // <br> Capacidade Total: ${capacidadeDiscoTotal}
+        // <br> Capacidade em uso: ${capacidadeDiscoLivre}`;
+        chart.draw(data, options);
+    }
+
+    // Gráfico Rede
+    google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(drawChartRede);
+
+
+    function drawChartRede() {
+        var data = google.visualization.arrayToDataTable([
+            ['horário', 'Upload', 'Download'],
+            [vetorHora[0], vetorRedeUpload[0], vetorRedeDownload[0]],
+            [vetorHora[1], vetorRedeUpload[1], vetorRedeDownload[1]],
+            [vetorHora[2], vetorRedeUpload[2], vetorRedeDownload[2]],
+            [vetorHora[3], vetorRedeUpload[3], vetorRedeDownload[3]],
+            [vetorHora[4], vetorRedeUpload[4], vetorRedeDownload[4]],
+            [vetorHora[5], vetorRedeUpload[5], vetorRedeDownload[5]],
+            [vetorHora[6], vetorRedeUpload[6], vetorRedeDownload[6]],
+            [vetorHora[7], vetorRedeUpload[7], vetorRedeDownload[7]],
+            [vetorHora[8], vetorRedeUpload[8], vetorRedeDownload[8]],
+            [vetorHora[9], vetorRedeUpload[9], vetorRedeDownload[9]],
+
+        ]);
+
+        var options = {
+            title: 'Internet em kbps',
+            curveType: 'function',
+            legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('div_grafico_modal'));
+        // confidencial = document.getElementById("redeTitulo");
+        // fraseMetrica.innerHTML = `Dados Rede 
+        // <br>Enviar: 
+        // <br>Receber: `;
+
+        chart.draw(data, options);
+    }
+
+
+
+
+    function showGraphs() {
+        drawChartCpu()
     }
 </script>
