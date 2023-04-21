@@ -111,6 +111,14 @@
 </body>
 
 </html>
+
+<!-- Máscaras -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"></script>
+<script>
+    $('#cpf_input').mask('000.000.000-00', { reverse: false });
+</script>
+
 <script>
     function cadastroFuncionario() {
         /* aguardar(); */
@@ -169,9 +177,6 @@
 
                 /* mensagem_erro.innerHTML = "Cadastro de funcionário realizado com sucesso!"; */
 
-                cadastrandoFuncionario.style.display = "none"
-                load.style.display = "block"
-
                 setTimeout(() => {
                     window.location = "areaADM.html";
                 }, "2000")
@@ -179,9 +184,6 @@
                 limparFormulario();
                 /* finalizarAguardar(); */
             } else {
-                cadastrandoFuncionario.style.display = "block"
-                load.style.display = "none"
-
                 throw ("Houve um erro ao tentar realizar o cadastro!");
             }
         }).catch(function (resposta) {
