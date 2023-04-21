@@ -108,6 +108,9 @@ const buttonReiniciar = $.querySelector('.reload');
 const buttonConfirmReiniciar = $.querySelector('#confirm_reiniciar')
 const buttonCancelarReiniciar = $.querySelector('#cancel_reiniciar')
 
+const buttonSalvarEditDate = $.querySelector('#save_date')
+const buttonCancelarEditDate = $.querySelector('#cancel_date')
+
 const x4 = $.querySelector('.X-4');
 const x5 = $.querySelector('.X-5');
 
@@ -132,6 +135,9 @@ function fecharModalEditarDateReiniciarComEsc(event) {
 buttonEditarDateReiniciar.addEventListener('click', abrirModalEditarDateReiniciar)
 x4.addEventListener('click', fecharModalEditarDateReiniciarComX)
 document.body.addEventListener('keyup', fecharModalEditarDateReiniciarComEsc)
+
+buttonSalvarEditDate.addEventListener('click', fecharModalEditarDateReiniciarComX)
+buttonCancelarEditDate.addEventListener('click', fecharModalEditarDateReiniciarComX)
 
 function abrirModalReiniciar() {
     modalReiniciar.style.display = 'block'
