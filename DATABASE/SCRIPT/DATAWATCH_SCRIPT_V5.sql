@@ -235,4 +235,3 @@ select Maquinas.nomeMaquina as 'Nome da maquina', Alertas.nomeAlerta as 'Alerta'
               ON maquinas.idmaquina = chamados.fkmaquina
               where maquinas.fkempresa = 1
               order by tempoAtividade;
-              
