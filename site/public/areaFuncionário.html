@@ -453,7 +453,6 @@
                             vetorRedeUpload.push(registro.upload);
 
                             // CPU (Banco)
-                            vetorHorasPorcentagem.push(registro.horario);
                             vetorPorcentagemCpu.push(registro.cpuuso);
 
                             // TEMPERATURA (Banco)
@@ -517,20 +516,18 @@
     google.charts.setOnLoadCallback(drawChartCpu);
 
     function drawChartCpu() {
-        // vetorHorasPorcentagem = ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00'];
-        vetorHorasPorcentagem = [14, 80, 70, 53, 59, 49.2, 23, 96, 33, 40]
         var data = google.visualization.arrayToDataTable([
             ['Horário', 'Porcentagem %', 'Sales'],
-            [vetorHora[0], vetorHorasPorcentagem[0], vetorPorcentagemCpu[0]],
-            [vetorHora[1], vetorHorasPorcentagem[1], vetorPorcentagemCpu[1]],
-            [vetorHora[2], vetorHorasPorcentagem[2], vetorPorcentagemCpu[2]],
-            [vetorHora[3], vetorHorasPorcentagem[3], vetorPorcentagemCpu[3]],
-            [vetorHora[4], vetorHorasPorcentagem[4], vetorPorcentagemCpu[4]],
-            [vetorHora[5], vetorHorasPorcentagem[5], vetorPorcentagemCpu[5]],
-            [vetorHora[6], vetorHorasPorcentagem[6], vetorPorcentagemCpu[6]],
-            [vetorHora[7], vetorHorasPorcentagem[7], vetorPorcentagemCpu[7]],
-            [vetorHora[8], vetorHorasPorcentagem[8], vetorPorcentagemCpu[8]],
-            [vetorHora[9], vetorHorasPorcentagem[9], vetorPorcentagemCpu[9]],
+            [vetorHora[0],vetorPorcentagemCpu[0]],
+            [vetorHora[1],vetorPorcentagemCpu[1]],
+            [vetorHora[2],vetorPorcentagemCpu[2]],
+            [vetorHora[3],vetorPorcentagemCpu[3]],
+            [vetorHora[4],vetorPorcentagemCpu[4]],
+            [vetorHora[5],vetorPorcentagemCpu[5]],
+            [vetorHora[6],vetorPorcentagemCpu[6]],
+            [vetorHora[7],vetorPorcentagemCpu[7]],
+            [vetorHora[8],vetorPorcentagemCpu[8]],
+            [vetorHora[9],vetorPorcentagemCpu[9]],
         ]);
 
         // console.log(vetorHora, vetorHorasPorcentagem, vetorPorcentagemCpu)
