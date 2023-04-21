@@ -29,15 +29,19 @@
 
                 <ul class="menu__box">
                     <div class="image">
-                        <img src="../public/assets/imgs/imagem-do-usuario-com-fundo-preto.png" alt="" style="height: 200px; width: 200px; border-radius: 50%;" >
+                        <img src="../public/assets/imgs/imagem-do-usuario-com-fundo-preto.png" alt=""
+                            style="height: 200px; width: 200px; border-radius: 50%;">
                     </div>
                     <div class="nomeUser">
                         <span>Nome Usuario</span>
                     </div>
-                    <li id="lateral_menu_cad_empresa" style="display: none;"><a class="menu__item" href="./cadastroEmpresa.html">Cadastrar empresa</a></li>
+                    <li id="lateral_menu_cad_empresa" style="display: none;"><a class="menu__item"
+                            href="./cadastroEmpresa.html">Cadastrar empresa</a></li>
                     <li><a class="menu__item" href="./areaADM.html">Home</a></li>
-                    <li id="lateral_menu_cad_maquina" style="display: none;"><a class="menu__item" href="./cadastromaquina.html">Cadastrar maquina</a></li>
-                    <li id="lateral_menu_cad_funcionario"><a class="menu__item" href="./cadastroFuncionario.html">Cadastrar funcionário</a></li>
+                    <li id="lateral_menu_cad_maquina" style="display: none;"><a class="menu__item"
+                            href="./cadastromaquina.html">Cadastrar maquina</a></li>
+                    <li id="lateral_menu_cad_funcionario"><a class="menu__item"
+                            href="./cadastroFuncionario.html">Cadastrar funcionário</a></li>
                     <li><a class="menu__item" href="#">Logout</a></li>
                 </ul>
             </div>
@@ -71,14 +75,24 @@
 
                 <label class="tipo_campo">Data de chegada da máquina:</label>
                 <input id="data_input" type="date" placeholder="**/**/****" onchange="limparBorda(this)">
-                
-                <button class="btn" onclick="cadastrarMaquina()">CADASTRAR</button>
+
+                <div class="carregamento">
+                    <div class="conter" id="load" style="display: none;">
+                        <div class="newtons-cradle">
+                            <div class="newtons-cradle__dot"></div>
+                            <div class="newtons-cradle__dot"></div>
+                            <div class="newtons-cradle__dot"></div>
+                            <div class="newtons-cradle__dot"></div>
+                        </div>
+                    </div>
+                    <button class="btn" id="cadastrandoMaquina" onclick="cadastrarMaquina()">CADASTRAR</button>
+                </div>
             </div>
         </div>
         <div class="ladoA">
             <div class="ladoACor">
                 <div class="alinhamentoInputs">
-                    
+
                 </div>
             </div>
         </div>
@@ -88,13 +102,13 @@
 </html>
 <script>
     function cadastrarMaquina() {
-    // aguardar();
+        // aguardar();
 
-    //Recupere o valor da nova input pelo nome do id
-    // Agora vá para o método fetch logo abaixo
+        //Recupere o valor da nova input pelo nome do id
+        // Agora vá para o método fetch logo abaixo
 
         var fkEmpresa = sessionStorage.ID_EMPRESA;
-        
+
         var inputs = document.querySelectorAll("input")
         var erro = false
 
@@ -102,53 +116,59 @@
             mostrarBordaVazio(input, input.value)
         });
 
-    
 
 
-    // Enviando o valor da nova input
-    fetch("/datawatch/cadastrarMaquina", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-            // "Access-Control-Allow-Origin": "http://localhost:3333"
-        },
-        body: JSON.stringify({
-            // crie um atributo que recebe o valor recuperado aqui
-            // Agora vá para o arquivo routes/usuario.js
-            nomeServer: inputs[0].value,
-            serieServer: inputs[1].value,
-            dataServer: inputs[2].value,
-            fkEmpresaServer: fkEmpresa
-        })
-    }).then(function (resposta) {
 
-        console.log("resposta: ", resposta);
+        // Enviando o valor da nova input
+        fetch("/datawatch/cadastrarMaquina", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+                // "Access-Control-Allow-Origin": "http://localhost:3333"
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                nomeServer: inputs[0].value,
+                serieServer: inputs[1].value,
+                dataServer: inputs[2].value,
+                fkEmpresaServer: fkEmpresa
+            })
+        }).then(function (resposta) {
 
-        if (resposta.ok) {
-/*             cardErro.style.display = "block";
+            console.log("resposta: ", resposta);
 
-            mensagem_erro.innerHTML = "Cadastro de máquina realizado com sucesso! Redirecionando para tela de Login..."; */
+            if (resposta.ok) {
+                /*cardErro.style.display = "block";
+                
+                mensagem_erro.innerHTML = "Cadastro de máquina realizado com sucesso! Redirecionando para tela de Login..."; */
 
-            setTimeout(() => {
-                window.location = "cadastroMaquina.html";
-            }, "2000")
-            
-            limparFormulario();
-/*             finalizarAguardar(); */
-        } else {
-            throw ("Houve um erro ao tentar realizar o cadastro!");
-        }
-    }).catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-/*         finalizarAguardar();
-        finalizarAguardar();
-        finalizarAguardar(); */
-    });
+                cadastrandoMaquina.style.display = "none"
+                load.style.display = "block"
 
-    return false;
-}
+                setTimeout(() => {
+                    window.location = "cadastroMaquina.html";
+                }, "2000")
 
-/* function sumirMensagem() {
-    cardErro.style.display = "none"
-} */
+                limparFormulario();
+                /*             finalizarAguardar(); */
+            } else {
+                cadastrandoMaquina.style.display = "block"
+                load.style.display = "none"
+                
+                throw ("Houve um erro ao tentar realizar o cadastro!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            /*         finalizarAguardar();
+                    finalizarAguardar();
+                    finalizarAguardar(); */
+        });
+
+        return false;
+    }
+
+    /* function sumirMensagem() {
+        cardErro.style.display = "none"
+    } */
 </script>

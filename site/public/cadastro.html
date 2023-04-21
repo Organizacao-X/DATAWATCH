@@ -63,9 +63,15 @@
                 <input id="confirmacao_senha_input" type="password" placeholder="******" onchange="limparBorda(this)">
 
                 <div class="carregamento">
-                    <span class="loader" style="display: none;"></span>
-                    <button class="btn" onclick="cadastrar()" >CADASTRAR</button>
-                    <span class="aviso" style="display: none;"><b>Não foi possivel realizar o cadastro</b></span>
+                    <div class="conter" id="load" style="display: none;" >
+                        <div class="newtons-cradle">
+                            <div class="newtons-cradle__dot"></div>
+                            <div class="newtons-cradle__dot"></div>
+                            <div class="newtons-cradle__dot"></div>
+                            <div class="newtons-cradle__dot"></div>
+                        </div>
+                    </div>
+                    <button class="btn" id="cadastrando" onclick="cadastrar()" >CADASTRAR</button>
                 </div>
             </div>
         </div>
@@ -112,6 +118,9 @@
 
                 /* mensagem_erro.innerHTML = "Cadastro de funcionário realizado com sucesso!"; */
 
+                load.style.display = "block"
+                cadastrando.style.display = "none"
+                
                 setTimeout(() => {
                     window.location = "login.html";
                 }, "2000")
@@ -119,6 +128,9 @@
                 limparFormulario();
                 /* finalizarAguardar(); */
             } else {
+                cadastrando.style.display = "block"
+                load.style.display = "none"
+
                 throw ("Houve um erro ao tentar realizar o cadastro!");
             }
         }).catch(function (resposta) {

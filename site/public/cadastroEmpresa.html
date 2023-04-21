@@ -117,7 +117,17 @@
                         onchange="limparBorda(this)">
                 </div>
 
-                <button class="btn" onclick="cadastrarEmpresa()">CADASTRAR</button>
+                <div class="carregamento">
+                    <div class="conter" id="load" style="display: none;">
+                        <div class="newtons-cradle">
+                            <div class="newtons-cradle__dot"></div>
+                            <div class="newtons-cradle__dot"></div>
+                            <div class="newtons-cradle__dot"></div>
+                            <div class="newtons-cradle__dot"></div>
+                        </div>
+                    </div>
+                    <button class="btn" id="cadastrandoEmpresa" onclick="cadastrarEmpresa()">CADASTRAR</button>
+                </div>
             </div>
         </div>
         <div class="sideA">
@@ -228,9 +238,22 @@
                         var idEmpresa = json.insertId
                         cadastrarEmpresa2(idEmpresa);
                         cadastrarEmpresa3(idEmpresa);
+
+                        cadastrandoEmpresa.style.display = "none"
+                        load.style.display = "block"
+
+                        setTimeout(function () {
+                            cadastrandoEmpresa.style.display = "block"
+                            load.style.display = "none"
+
+                        }, 2000); // apenas para exibir o loading
                     })
+
                 }
                 else {
+                    cadastrandoEmpresa.style.display = "block"
+                    load.style.display = "none"
+
                     throw ("Houve um erro ao tentar cadastrar a empresa")
                 }
             }).catch(function (resposta) {

@@ -160,55 +160,78 @@ input:focus {
     align-items: center;
 }
 
-.loader {
-    margin-top: 50%;
-    width: 70px;
-    height: 35px;
+.newtons-cradle {
+    --uib-size: 50px;
+    --uib-speed: 1.2s;
+    --uib-color: #181818;
+    margin-top: 2rem;
     position: relative;
-    overflow: hidden;
-  }
-  
-  .loader:before {
-    content: "";
-    width: 70px;
-    height: 70px;
-    position: absolute;
-    left: 0;
-    top: 0;
-    border: 5px solid #0000;
-    border-color: #141313 #050505 #0000 #0000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--uib-size);
+    height: var(--uib-size);
+   }
+   
+   .newtons-cradle__dot {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 25%;
+    transform-origin: center top;
+   }
+   
+   .newtons-cradle__dot::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 25%;
     border-radius: 50%;
-    box-sizing: border-box;
-    animation: rotate_5131 3s ease-in-out infinite;
-    transform: rotate(-200deg);
-  }
-  
-  @keyframes rotate_5131 {
+    background-color: var(--uib-color);
+   }
+   
+   .newtons-cradle__dot:first-child {
+    animation: swing var(--uib-speed) linear infinite;
+   }
+   
+   .newtons-cradle__dot:last-child {
+    animation: swing2 var(--uib-speed) linear infinite;
+   }
+   
+   @keyframes swing {
     0% {
-      border-width: 10px;
+     transform: rotate(0deg);
+     animation-timing-function: ease-out;
     }
-  
+   
     25% {
-      border-width: 3px;
+     transform: rotate(70deg);
+     animation-timing-function: ease-in;
     }
-  
+   
     50% {
-      transform: rotate(115deg);
-      border-width: 10px;
+     transform: rotate(0deg);
+     animation-timing-function: linear;
     }
-  
+   }
+   
+   @keyframes swing2 {
+    0% {
+     transform: rotate(0deg);
+     animation-timing-function: linear;
+    }
+   
+    50% {
+     transform: rotate(0deg);
+     animation-timing-function: ease-out;
+    }
+   
     75% {
-      border-width: 3px;
+     transform: rotate(-70deg);
+     animation-timing-function: ease-in;
     }
-  
-    100% {
-      border-width: 10px;
-    }
-  }
-        
-.aviso{
-    margin-top: 8%;
-}
+   }
 
 @media screen and (max-width: 1536px) {
     .nav-bar {
