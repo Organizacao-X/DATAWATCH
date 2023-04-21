@@ -118,7 +118,8 @@ INSERT INTO Usuarios VALUES
 INSERT INTO Maquinas (idMaquina, fkEmpresa, nomeMaquina, serie, dtChegada, processador, ram, discoMemoria, ip, statusSistema, cpuPorcentagem, ramTotal, discoTotal, tempoAtividade) 
 VALUES
 (1, 1, 'maquina01', 'GFT56', '2023-03-03', 'I5', '16 GB', 'HD 1 TB', '192.08.92.12', 1,24.0, 15.75, 697.45,2500751),
-(2, 1, 'maquina02', 'GFT56', '2023-03-03', 'I5', '16 GB', 'HD 1 TB', '192.08.92.12', 0,24.0, 15.75, 697.45,2500778);
+(2, 1, 'maquina02', 'GFT56', '2023-03-03', 'I5', '16 GB', 'HD 1 TB', '192.08.92.13', 1,24.0, 15.75, 637.45,2500664),
+(3, 1, 'maquina03', 'GFT56', '2023-03-03', 'I5', '16 GB', 'HD 1 TB', '192.08.92.14', 1,24.0, 15.75, 635.45,2633254);
 
 INSERT INTO Capturas VALUES 
 (1, 1, 1, '2023-04-04 12:00:00', 3.4, 56.88, 4.5, 10.0, 25.5, 580.4);  
@@ -179,6 +180,15 @@ INSERT INTO Alertas (idAlerta, nomeAlerta) VALUES
 (3, "Disco"),
 (4, "Rede");
 
+INSERT INTO Possuem (idPosse, fkAlerta, fkMaquina, dataHora) VALUES
+(1, 1, 2, '2023-04-04 13:04:00'),
+(2, 1, 2, '2023-04-04 13:04:00'),
+(3, 1, 2, '2023-04-04 13:04:00'),
+(4, 1, 3, '2023-04-04 13:04:00'),
+(5, 1, 3, '2023-04-04 13:04:00'),
+(6, 1, 3, '2023-04-04 13:04:00'),
+(7, 1, 3, '2023-04-04 13:04:00'),
+(8, 1, 3, '2023-04-04 13:04:00');
 -- drop database datawatch;
 
 -- GRAFICO DE BARRA EMPILHADA
@@ -213,25 +223,23 @@ SELECT idMaquina Id, nomeMaquina, statusSistema,
               where fkempresa = 1 
               order by tempoAtividade desc;
 
-
-
-
-select Maquinas.nomeMaquina as 'Nome da maquina', Alertas.nomeAlerta as 'Alerta', Possuem.dataHora as 'Momento'
-	from Possuem
-		JOIN Maquinas
-			ON Possuem.fkMaquina = Maquinas.idMaquina
-		JOIN Alertas
-			ON Possuem.fkAlerta = Alertas.idAlerta;				
-            
-	select * from chamados;
-    
+    -- Mostrar máquinas, já com a quantidade de chamados
     SELECT maquinas.idMaquina Id, maquinas.nomeMaquina, maquinas.statusSistema,
 	SEC_TO_TIME(maquinas.tempoAtividade) AS tempo_total,
        CONCAT(FLOOR(maquinas.tempoAtividade / 86400), ' dias, ',
               SEC_TO_TIME(maquinas.tempoAtividade % 86400)) AS tempo_formatado,
-              count(chamados.fkmaquina) AS contagemChamados
+              count(possuem.fkmaquina) AS contagemChamados
               FROM Maquinas
-              JOIN chamados
-              ON maquinas.idmaquina = chamados.fkmaquina
+              LEFT JOIN possuem
+              ON maquinas.idmaquina = possuem.fkmaquina
               where maquinas.fkempresa = 1
-              order by tempoAtividade;
+              group by idmaquina;
+              
+              
+              select Maquinas.nomeMaquina as 'Nome da maquina', Alertas.nomeAlerta as 'Alerta', Possuem.dataHora as 'Momento'
+	from Possuem
+		JOIN Maquinas
+			ON Possuem.fkMaquina = Maquinas.idMaquina
+		JOIN Alertas
+			ON Possuem.fkAlerta = Alertas.idAlerta;
+              
