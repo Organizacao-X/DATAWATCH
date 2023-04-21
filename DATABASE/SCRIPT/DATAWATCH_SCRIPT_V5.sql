@@ -242,4 +242,36 @@ SELECT idMaquina Id, nomeMaquina, statusSistema,
 			ON Possuem.fkMaquina = Maquinas.idMaquina
 		JOIN Alertas
 			ON Possuem.fkAlerta = Alertas.idAlerta;
-              
+            
+            select 
+    c.redeUpload as upload, 
+    c.redeDownload as download,
+    c.cpuUso as cpuuso,
+    c.temperatura as temperatura,
+    c.ramUso as ramuso,
+    c.discoLivre as discolivre,
+    m.discoTotal as discoTotal,
+    m.ramTotal as ramTotal,
+    m.cpuMetrica as processadorMetrica,
+    m.ramMetrica as ramMetrica,
+    m.discoMetrica as discoMetrica,
+                    c.datahora,
+                    DATE_FORMAT(c.datahora,'%H:%i:%s') as horario
+                from Capturas as c
+                join Maquinas as m
+                ON c.fkmaquina = m.idmaquina
+                where fkMaquina = 1
+                order by idcaptura desc limit 10;
+                
+                
+	-- SELECT das máquinas ATIVAS
+             
+            SELECT idMaquina Id, nomeMaquina, statusSistema,
+		SEC_TO_TIME(tempoAtividade) AS tempo_total,
+        CONCAT(FLOOR(tempoAtividade / 86400), ' dias, ',
+              SEC_TO_TIME(tempoAtividade % 86400)) AS tempo_formatado
+              FROM Maquinas 
+              where fkempresa = 1 and statusSistema = 1
+              order by tempoAtividade desc;    
+                
+                
