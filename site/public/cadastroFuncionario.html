@@ -120,6 +120,61 @@
 </script>
 
 <script>
+    // Funções que apoiam a validação:
+    function validarEmail(email) {
+        // Verificação do formato do email:
+        var re = /\S+@\S+.\S+/;
+
+        // Retorna true se o email for válido:
+        return re.test(email);
+    }
+
+    function formatarCampo(string) {
+        // Retira os caracteres especiais:
+        return string.replace(/[.-]/g, "");
+    }
+
+    function validar() {
+        var erro = true;
+        var cpfFormatado = formatarCampo(cpf_input.value);
+
+        if (!validarEmail(email_input.value)) {
+            console.log(email_input.value);
+            inputs[1].style.borderBottom = "solid 4px red";
+            erro_email.style.display = "flex";
+            erro = false;
+        } else {
+            erro_email.style.display = "none";
+        }
+
+        if (cpfFormatado.length < 11) {
+            inputs[2].style.borderBottom = "solid 4px red";
+            erro_cpf.style.display = "flex";
+            erro = false;
+        } else {
+            erro_cpf.style.display = "none";
+        }
+
+        if (inputs[3].value.length < 8) {
+            erro_senha.style.display = "flex";
+            erro = false;
+        } else {
+            erro_senha.style.display = "none";
+        }
+
+        if (inputs[3].value != inputs[4].value) {
+            inputs[3].style.borderBottom = "solid 4px red"
+            inputs[4].style.borderBottom = "solid 4px red"
+            erro_senha_confirmacao.style.display = "flex";
+            erro = false;
+        } else {
+            erro_senha_confirmacao.style.display = "none";
+        }
+
+        return erro;
+    }
+
+
     function cadastroFuncionario() {
         /* aguardar(); */
 
@@ -162,7 +217,7 @@
                 // crie um atributo que recebe o valor recuperado aqui
                 nomeServer: inputs[0].value,
                 emailServer: inputs[1].value,
-                cpfServer: inputs[2].value,
+                cpfServer: formatarCampo(cpf_input.value),
                 senhaServer: inputs[3].value,
                 admServer: admVar,
                 fkEmpresaServer: fkEmpresa
