@@ -373,6 +373,53 @@ function cadastrarEmpresa3(req, res) {
         }
     }
 
+    // EDITAR DADOS DE UM FUNCIONÁRIO JÁ REGISTRADO
+function editarFuncionario(req, res) {
+    var idFunc = req.params.idFuncionario;
+    var email = req.body.novoEmailServer;
+    var senha = req.body.novaSenhaServer;
+
+    if (idFunc == undefined) {
+        res.status(400).send("Seu idFunc está undefined");
+    } else {
+        datawatchModel.editarFuncionario(idFunc, email, senha)
+            .then(
+                function (resultado) {
+                    res.json(resultado)
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log("\nHouve um erro ao editar o funcionário! Erro: ", erro.sqlMessage);
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
+
+// DELETAR FUNCIONARIO JA CADASTRADO
+function desativarFuncionario(req, res) {
+    var idFunc = req.params.idFuncionario;
+    if (idFunc == undefined) {
+        res.status(400).sends("Seu idFunc está undefined")
+    } else {
+        datawatchModel.desativarFuncionario(idFunc)
+            .then(
+                function (resultado) {
+                    res.json(resultado)
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro)
+                    console.log("\nHouve um erro ao deletar o funcionario! Erro: ", erro.sqlMessage)
+                    res.status(500).json(erro.sqlMessage)
+                }
+            )
+    }
+}
+
+
     module.exports = {
         entrar,
         cadastrar,
@@ -385,5 +432,7 @@ function cadastrarEmpresa3(req, res) {
         pegarMaquinas,
         pegarFuncionarios,
         pegarTempoAtivMaquinas,
-        pegarDadosGrafico
+        pegarDadosGrafico,
+        editarFuncionario,
+        desativarFuncionario
     }

@@ -99,7 +99,7 @@
                         <div class="lista-funcionario">
                             <ul id="ul_lista_funcionario">
 
-                                <li class="funcionario">
+                                <!-- <li class="funcionario">
                                     <div class="info-funcionario">
                                         <div class="conexao">
                                             <div class="status-funcionario" id=""><img
@@ -132,7 +132,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </li>
+                                </li> -->
 
                             </ul>
                         </div>
@@ -153,7 +153,7 @@
                 </div>
                 <div class="temp-yes">
                     <ul id="ul_lista_maquinas" class="lista-maquina">
-                        <li>
+                        <!-- <li>
                             <div class="info-time">
                                 <div class="sei-la">
                                     <div class="conexao-maquina">
@@ -170,7 +170,7 @@
                                     <span><b>1d 10h 26min</b></span>
                                 </div>
                             </div>
-                        </li>
+                        </li> -->
                     </ul>
                 </div>
             </div>
@@ -194,16 +194,16 @@
             <div class="edit">
                 <div class="titulo-edit">
                     <span><b>Editar funcionário</b></span>
-                    <span>Fernando</span>
+                    <span id="span_nome_funcionario"></span>
                 </div>
                 <div class="div">
                     <label><b>Novo email</b></label>
-                    <input type="text">
+                    <input type="text" id="ipt_mudar_email">
                 </div>
 
                 <div class="div">
                     <label><b>Nova senha</b></label>
-                    <input type="text">
+                    <input type="text" id="ipt_mudar_senha">
                 </div>
 
                 <div class="texto-alerta" style="display: none;">
@@ -211,7 +211,7 @@
                 </div>
 
                 <div class="opcao1">
-                    <button class="btnS" id="save_edit"><b>Salvar</b></button>
+                    <button class="btnS" id="save_edit" onclick="salvarEditar()"><b>Salvar</b></button>
                     <button class="btnN" id="cancel_edit"><b>Cancelar</b></button>
                 </div>
             </div>
@@ -226,7 +226,7 @@
                     <span><b>Você deseja realmente desativar esse funcionário?</b></span>
                 </div>
                 <div class="opcao2">
-                    <button class="btnS" id="save_deactivate"><b>Sim</b></button>
+                    <button class="btnS" id="save_deactivate" onclick="desativarFuncionario()"><b>Sim</b></button>
                     <button class="btnN" id="cancel_deactivate"><b>Não</b></button>
                 </div>
             </div>
@@ -303,13 +303,248 @@
     </div>
 
 
-    <script src="js/modal.js"></script>
+    <!-- <script src="js/modal.js"></script> -->
     <!-- <script src="js/excluir.js"></script> -->
 </body>
 
 <script type="text/javascript">
 
     var lista_maquinas = document.getElementById("ul_cards_maquinas");
+
+
+    function salvarEditar() {
+        var novo_email = ipt_mudar_email.value
+        var nova_senha = ipt_mudar_senha.value
+
+        fetch(`/datawatch/editarFuncionario/${sessionStorage.ID_FUNCIONARIO}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                novoEmailServer: novo_email,
+                novaSenhaServer: nova_senha,
+            })
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+                console.log("ok")
+                // hideModalWithSaveEditar()
+                // limparCampos(inputs)
+            }
+            // } else if (resposta.status == 404) {
+            //     window.alert("Deu 404!");
+            // } else {
+            //     throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+            // }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+    }
+
+    function desativarFuncionario() {
+        fetch(`/datawatch/desativarFuncionario/${sessionStorage.ID_FUNCIONARIO}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+            console.log(resposta)
+            if (resposta.ok) {
+                console.log("deletado com sucesso")
+                mostrarFuncionarios(sessionStorage.ID_EMPRESA)
+            }
+            // } else if (resposta.status == 404) {
+            //     window.alert("Deu 404!");
+            // } else {
+            //     throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+            // }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+    }
+
+    const $ = document
+    let modalEditarFuncionario, modalDesativarFuncionario, modalMostrarMais, modalEditarDateReiniciar,
+        modalReiniciar, sessaoElem, buttonMostrarMais, x3, buttonEditFuncionario, buttonDesativarFuncionario,
+        buttonSalvarEdit, buttonCancelarEdit, buttonConfirmDesativar, buttonCancelarDesativar, x1, x2,
+        buttonEditarDateReiniciar, buttonReiniciar, buttonConfirmReiniciar, buttonCancelarReiniciar, buttonSalvarEditDate, buttonCancelarEditDate, x4, x5
+
+    function carregarFuncoesModal() {
+        console.log("Modais carregados")
+        // modais
+        modalEditarFuncionario = $.querySelector('.modal-parent1');
+        modalDesativarFuncionario = $.querySelector('.modal-parent2');
+        modalMostrarMais = $.querySelector('.modal-parent3');
+        modalEditarDateReiniciar = $.querySelector('.modal-parent4');
+        modalReiniciar = $.querySelector('.modal-parent5');
+
+        // sessão
+        sessaoElem = $.querySelector('section');
+
+        // Maquina lista
+        buttonMostrarMais = $.querySelector('.mais');
+
+        x3 = $.querySelector('.X-3');
+
+        buttonMostrarMais.addEventListener('click', abrirModalMostrarMais)
+        x3.addEventListener('click', fecharModalMostrarMaisComX)
+        document.body.addEventListener('keyup', fecharModalMostrarMaisComEsc)
+
+        // funcionarios
+        buttonEditFuncionario = $.querySelectorAll('.abrir-editar');
+        buttonDesativarFuncionario = $.querySelectorAll('.abrir-desativar');
+
+        console.log(buttonEditFuncionario)
+        console.log(buttonDesativarFuncionario)
+
+        buttonSalvarEdit = $.querySelector('#save_edit');
+        buttonCancelarEdit = $.querySelector('#cancel_edit');
+
+        buttonConfirmDesativar = $.querySelector('#save_deactivate')
+        buttonCancelarDesativar = $.querySelector('#cancel_deactivate')
+
+        x1 = $.querySelector('.X-1');
+        x2 = $.querySelector('.X-2');
+
+        buttonEditFuncionario.forEach(botao => {
+            botao.addEventListener('click', abrirModalEditarFuncionario)
+        })
+        x1.addEventListener('click', fecharModalEditarFuncionarioComX)
+        document.body.addEventListener('keyup', fecharModalEditarFuncionarioComEsc)
+
+        buttonSalvarEdit.addEventListener('click', fecharModalEditarFuncionarioComX)
+        buttonCancelarEdit.addEventListener('click', fecharModalEditarFuncionarioComX)
+
+        buttonDesativarFuncionario.forEach(botao => {
+            botao.addEventListener('click', abrirModalDesativarFuncionario)
+        })
+        x2.addEventListener('click', fecharModalDesativarFuncionarioComX)
+        document.body.addEventListener('keyup', fecharModalDesativarFuncionarioComEsc)
+
+        buttonConfirmDesativar.addEventListener('click', fecharModalDesativarFuncionarioComX)
+        buttonCancelarDesativar.addEventListener('click', fecharModalDesativarFuncionarioComX)
+
+        buttonEditarDateReiniciar = $.querySelector('.edit-date');
+        buttonReiniciar = $.querySelectorAll('.reload');
+
+        buttonConfirmReiniciar = $.querySelector('#confirm_reiniciar')
+        buttonCancelarReiniciar = $.querySelector('#cancel_reiniciar')
+
+        buttonSalvarEditDate = $.querySelector('#save_date')
+        buttonCancelarEditDate = $.querySelector('#cancel_date')
+
+        x4 = $.querySelector('.X-4');
+        x5 = $.querySelector('.X-5');
+
+        buttonEditarDateReiniciar.addEventListener('click', abrirModalEditarDateReiniciar)
+        x4.addEventListener('click', fecharModalEditarDateReiniciarComX)
+        document.body.addEventListener('keyup', fecharModalEditarDateReiniciarComEsc)
+
+        buttonSalvarEditDate.addEventListener('click', fecharModalEditarDateReiniciarComX)
+        buttonCancelarEditDate.addEventListener('click', fecharModalEditarDateReiniciarComX)
+
+        buttonReiniciar.forEach(botao => {
+            botao.addEventListener('click', abrirModalReiniciar)
+        });
+
+        x5.addEventListener('click', fecharModalReiniciarComX)
+        document.body.addEventListener('keyup', fecharModalReiniciarComEsc)
+
+        buttonConfirmReiniciar.addEventListener('click', fecharModalReiniciarComX)
+        buttonCancelarReiniciar.addEventListener('click', fecharModalReiniciarComX)
+    }
+
+    function abrirModalReiniciar() {
+        modalReiniciar.style.display = 'block'
+        sessaoElem.style.filter = 'blur(10px)'
+        buttonReiniciar.blur()
+    }
+
+    function fecharModalReiniciarComX() {
+        modalReiniciar.style.display = 'none'
+        sessaoElem.style.filter = 'blur(0px)'
+    }
+
+    function fecharModalReiniciarComEsc(event) {
+        if (event.keyCode === 27) {
+            modalReiniciar.style.display = 'none'
+            sessaoElem.style.filter = 'blur(0px)'
+        }
+    }
+
+    function abrirModalEditarDateReiniciar() {
+        modalEditarDateReiniciar.style.display = 'block'
+        sessaoElem.style.filter = 'blur(10px)'
+        buttonEditarDateReiniciar.blur()
+    }
+
+    function fecharModalEditarDateReiniciarComX() {
+        modalEditarDateReiniciar.style.display = 'none'
+        sessaoElem.style.filter = 'blur(0px)'
+    }
+
+    function fecharModalEditarDateReiniciarComEsc(event) {
+        if (event.keyCode === 27) {
+            modalEditarDateReiniciar.style.display = 'none'
+            sessaoElem.style.filter = 'blur(0px)'
+        }
+    }
+
+    function abrirModalDesativarFuncionario() {
+        modalDesativarFuncionario.style.display = 'block'
+        sessaoElem.style.filter = 'blur(10px)'
+        buttonDesativarFuncionario.blur()
+    }
+
+    function fecharModalDesativarFuncionarioComX() {
+        modalDesativarFuncionario.style.display = 'none'
+        sessaoElem.style.filter = 'blur(0px)'
+    }
+
+    function fecharModalDesativarFuncionarioComEsc(event) {
+        if (event.keyCode === 27) {
+            modalDesativarFuncionario.style.display = 'none'
+            sessaoElem.style.filter = 'blur(0px)'
+        }
+    }
+
+    function abrirModalEditarFuncionario() {
+        modalEditarFuncionario.style.display = 'block'
+        sessaoElem.style.filter = 'blur(10px)'
+        buttonEditFuncionario.blur()
+    }
+
+    function fecharModalEditarFuncionarioComX() {
+        modalEditarFuncionario.style.display = 'none'
+        sessaoElem.style.filter = 'blur(0px)'
+    }
+
+    function fecharModalEditarFuncionarioComEsc(event) {
+        if (event.keyCode === 27) {
+            modalEditarFuncionario.style.display = 'none'
+            sessaoElem.style.filter = 'blur(0px)'
+        }
+    }
+
+    function fecharModalMostrarMaisComEsc(event) {
+        if (event.keyCode === 27) {
+            modalMostrarMais.style.display = 'none'
+            sessaoElem.style.filter = 'blur(0px)'
+        }
+    }
+
+
+    function abrirModalMostrarMais() {
+        modalMostrarMais.style.display = 'block'
+        sessaoElem.style.filter = 'blur(10px)'
+        buttonMostrarMais.blur()
+    }
+
+    function fecharModalMostrarMaisComX() {
+        modalMostrarMais.style.display = 'none'
+        sessaoElem.style.filter = 'blur(0px)'
+    }
 
     function mostrarConteudo() {
         fetch("/datawatch/consultarStatusEmpresa", {
@@ -403,11 +638,13 @@
             if (resposta.ok) {
                 resposta.json().then(dados => {
                     console.log(dados)
+                    ul_lista_funcionario.innerHTML = ''
                     if (dados.length > 0) {
                         dados.forEach(funcionario => {
                             carregarFuncionarioTela(funcionario)
 
                         });
+                        carregarFuncoesModal()
                     }
                 })
             }
@@ -443,6 +680,7 @@
     }
 
     function carregarFuncionarioTela(funcionario) {
+        console.log("Carregando funcionario")
         var liFuncionario = document.createElement("li")
         liFuncionario.setAttribute("class", "funcionario")
 
@@ -504,13 +742,25 @@
         divExcluir.setAttribute("class", "excluir")
 
         var btnExcluir = document.createElement("btn")
-        btnExcluir.setAttribute("class", "abrir-excluir")
+        btnExcluir.setAttribute("class", "abrir-desativar")
 
         var divBotaoX = document.createElement("div")
         divBotaoX.setAttribute("class", "botao")
 
         var divX = document.createElement("div")
         divX.setAttribute("class", "x")
+
+        btnEditar.setAttribute('value', funcionario.idUsuario)
+
+        btnEditar.addEventListener('click', function () {
+            sessionStorage.ID_FUNCIONARIO = btnEditar.getAttribute('value')
+        })
+
+        btnExcluir.setAttribute('value', funcionario.idUsuario)
+
+        btnExcluir.addEventListener('click', function () {
+            sessionStorage.ID_FUNCIONARIO = btnExcluir.getAttribute('value')
+        })
 
         divBotaoX.appendChild(divX)
         btnExcluir.appendChild(divBotaoX)
@@ -537,6 +787,7 @@
         divInfoFuncionario.appendChild(divContentFuncionario)
 
         liFuncionario.appendChild(divInfoFuncionario)
+        console.log(liFuncionario)
         ul_lista_funcionario.appendChild(liFuncionario)
     }
 
@@ -609,7 +860,7 @@
     }
 
 
-
+    // Função pra plotar os dados no gráfico
     google.charts.load("current", { packages: ['corechart'] });
     google.charts.setOnLoadCallback(drawChart);
     function drawChart(dados) {
@@ -662,115 +913,4 @@
         var chart = new google.visualization.ColumnChart(document.getElementById("div_grafico"));
         chart.draw(view, options);
     }
-
-    // Gráficos
-
-    // google.charts.load('current', { 'packages': ['corechart'] });
-    // google.charts.setOnLoadCallback(drawChart1);
-
-    // function drawChart1() {
-
-    //     var data = google.visualization.arrayToDataTable([
-    //         ['Minutos', 'Tempo em Atividade'],
-    //         ['', 0],
-    //         ['', 88],
-    //         ['', 144],
-    //         ['', 0],
-    //         ['', 32]
-    //     ]);
-
-    //     var options = {
-    //         title: 'Tempo de funcionamento',
-    //         curveType: 'function',
-    //         legend: { position: 'bottom' }
-    //     };
-
-    //     var chart = new google.visualization.LineChart(document.getElementById('piechart1'));
-    //     // confidencial = document.getElementById("RedeTitulo");
-
-
-    //     chart.draw(data, options);
-    // }
-
-    // google.charts.load('current', { 'packages': ['corechart'] });
-    // google.charts.setOnLoadCallback(drawChart2);
-
-    // function drawChart2() {
-
-    //     var data = google.visualization.arrayToDataTable([
-    //         ['Minutos', 'Tempo em Atividade'],
-    //         ['', 4],
-    //         ['', 99],
-    //         ['', 200],
-    //         ['', 78],
-    //         ['', 0]
-    //     ]);
-
-    //     var options = {
-    //         title: 'Internet em kbps',
-    //         curveType: 'function',
-    //         legend: { position: 'bottom' }
-    //     };
-
-    //     var chart = new google.visualization.LineChart(document.getElementById('piechart2'));
-    //     // confidencial = document.getElementById("RedeTitulo");
-
-
-    //     chart.draw(data, options);
-    // }
-
-    // google.charts.load('current', { 'packages': ['corechart'] });
-    // google.charts.setOnLoadCallback(drawChart3);
-
-    // function drawChart3() {
-
-    //     var data = google.visualization.arrayToDataTable([
-    //         ['Minutos', 'Tempo em Atividade'],
-    //         ['', 42],
-    //         ['', 444],
-    //         ['', 25],
-    //         ['', 75],
-    //         ['', 65]
-    //     ]);
-
-    //     var options = {
-    //         title: 'Internet em kbps',
-    //         curveType: 'function',
-    //         legend: { position: 'bottom' }
-    //     };
-
-    //     var chart = new google.visualization.LineChart(document.getElementById('piechart3'));
-    //     // confidencial = document.getElementById("RedeTitulo");
-
-
-    //     chart.draw(data, options);
-    // }
-
-    // google.charts.load('current', { 'packages': ['corechart'] });
-    // google.charts.setOnLoadCallback(drawChart4);
-
-    // function drawChart4() {
-
-    //     var data = google.visualization.arrayToDataTable([
-    //         ['Minutos', 'Tempo em Atividade'],
-    //         ['', 0],
-    //         ['', 324],
-    //         ['', 245],
-    //         ['', 75],
-    //         ['', 86]
-    //     ]);
-
-    //     var options = {
-    //         title: 'Internet em kbps',
-    //         curveType: 'function',
-    //         legend: { position: 'bottom' }
-    //     };
-
-    //     var chart = new google.visualization.LineChart(document.getElementById('piechart4'));
-    //     // confidencial = document.getElementById("RedeTitulo");
-
-
-    //     chart.draw(data, options);
-    // }
-
 </script>

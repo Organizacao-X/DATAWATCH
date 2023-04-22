@@ -20,7 +20,7 @@ function abrirModalMostrarMais() {
     buttonMostrarMais.blur()
 }
 
-function fecharModalMostrarMaisComX() {
+    function fecharModalMostrarMaisComX() {
     modalMostrarMais.style.display = 'none'
     sessaoElem.style.filter = 'blur(0px)'
 }

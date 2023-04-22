@@ -59,4 +59,12 @@ router.get("/pegarDadosGrafico/:idEmpresa", function (req, res) {
     datawatchController.pegarDadosGrafico(req, res)
 })
 
+router.put("/editarFuncionario/:idFuncionario", function (req, res) {
+    datawatchController.editarFuncionario(req, res)
+})
+
+router.delete("/desativarFuncionario/:idFuncionario", function (req, res) {
+    datawatchController.desativarFuncionario(req, res)
+})
+
 module.exports = router;

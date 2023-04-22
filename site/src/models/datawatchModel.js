@@ -93,15 +93,15 @@ function consultarStatusEmpresa(idUsuario) {
 }
 
 function pegarMaquinas(idEmpresa) {
-    var instrucao = `SELECT maquinas.idMaquina Id, maquinas.nomeMaquina, maquinas.statusSistema,
-	SEC_TO_TIME(maquinas.tempoAtividade) AS tempo_total,
-       CONCAT(FLOOR(maquinas.tempoAtividade / 86400), ' dias, ',
-              SEC_TO_TIME(maquinas.tempoAtividade % 86400)) AS tempo_formatado,
-              count(possuem.fkmaquina) AS contagemChamados
+    var instrucao = `SELECT Maquinas.idMaquina Id, Maquinas.nomeMaquina, Maquinas.statusSistema,
+	SEC_TO_TIME(Maquinas.tempoAtividade) AS tempo_total,
+       CONCAT(FLOOR(Maquinas.tempoAtividade / 86400), ' dias, ',
+              SEC_TO_TIME(Maquinas.tempoAtividade % 86400)) AS tempo_formatado,
+              count(Possuem.fkmaquina) AS contagemChamados
               FROM Maquinas
-              LEFT JOIN possuem
-              ON maquinas.idmaquina = possuem.fkmaquina
-              where maquinas.fkempresa = ${idEmpresa}
+              LEFT JOIN Possuem
+              ON Maquinas.idmaquina = Possuem.fkmaquina
+              where Maquinas.fkempresa = ${idEmpresa}
               group by idmaquina;`
 
     return database.executar(instrucao);
@@ -129,6 +129,18 @@ function pegarDadosGrafico(idEmpresa) {
     return database.executar(instrucao)
 }
 
+function editarFuncionario(idFunc, email, senha) {
+    var instrucao = `UPDATE Usuarios SET email = '${email}', senha = '${senha}' WHERE idUsuario = ${idFunc}`
+
+    return database.executar(instrucao)
+}
+
+function desativarFuncionario(idFunc) {
+    var instrucao = `DELETE FROM Usuarios WHERE idUsuario = ${idFunc}`
+    
+    return database.executar(instrucao)
+}
+
 module.exports = {
     entrar,
     cadastrar,
@@ -140,5 +152,7 @@ module.exports = {
     consultarStatusEmpresa,
     pegarMaquinas,
     pegarFuncionarios,
-    pegarDadosGrafico
+    pegarDadosGrafico,
+    editarFuncionario,
+    desativarFuncionario
 };
