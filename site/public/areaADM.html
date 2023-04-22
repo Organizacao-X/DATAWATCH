@@ -82,7 +82,7 @@
                             <div class="separar">
                                 <img src="./assets/icon/desligar(1).png" alt="" style="width: 150px;">
                                 <div class="dados-off">
-                                    <span id="span_porcent_maquinas_ligadas">30%</span>
+                                    <span id="span_porcent_maquinas_ligadas"></span>
                                     <img src="./assets/icon/exclamacao.png" alt="" style="width: 60px; height: 60px;">
                                 </div>
                             </div>
@@ -177,7 +177,7 @@
             <div class="bloco-quatro">
                 <div class="grafico">
                     <div class="titulo-grafico">
-                        <span><b>Horários de pico de consulmo de ram</b></span>
+                        <span><b>Horários de pico de consumo de ram</b></span>
                     </div>
                     <div id="div_grafico" class="content-grafico">
 
@@ -244,8 +244,8 @@
 
                 <div class="listar-mais">
                     <ul>
-                        <li class="mais-maquinas">
-                            <div class="info-saber-mais">
+                        <li class="mais-maquinas" id="mais_maquinas">
+                            <!-- <div class="info-saber-mais">
                                 <div class="conexao-saber-mais">
                                     <div class="status-maquina" id=""><img src="./assets/icon/circulo(1).png" alt=""
                                             style="width: 18px;">
@@ -253,9 +253,9 @@
                                     <span id=""><b>Online</b></span>
                                 </div>
                                 <div class="nome-maquina">
-                                    <span>Caixa 52</span>
+                                    <span id="todasMaquinas">Caixa 52</span>
                                 </div>
-                            </div>
+                            </div> -->
                         </li>
                     </ul>
                 </div>
@@ -294,7 +294,7 @@
                     <span><b>Você deseja realmente reiniciar essa maquina?</b></span>
                 </div>
                 <div class="opcao2">
-                    <button class="btnS" id="confirm_reiniciar"><b>Sim</b></button>
+                    <button class="btnS" id="confirm_reiniciar" onclick='enviarComando(enviarJava)'><b>Sim</b></button>
                     <button class="btnN" id="cancel_reiniciar"><b>Não</b></button>
                 </div>
             </div>
@@ -308,6 +308,12 @@
 </body>
 
 <script type="text/javascript">
+    var enviarJava = 'System.out.println("ENVIADO DO HTML");'
+function enviarComando(enviarJava) {
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", "http://localhost:8080/reiniciar?comando=" + encodeURIComponent(enviarJava), true);
+      xhr.send();
+    }
 
     var lista_maquinas = document.getElementById("ul_cards_maquinas");
 
@@ -606,8 +612,21 @@
                             if (dados[i].statusSistema == 1) {
                                 maquinasLigadas++
                             }
+                            mais_maquinas.innerHTML += `<div class="info-saber-mais">
+                                <div class="conexao-saber-mais">
+                                    <div class="status-maquina" id=""><img src="./assets/icon/circulo(1).png" alt=""
+                                            style="width: 18px;">
+                                    </div>
+                                    <span id=""><b>Online</b></span>
+                                </div>
+                                <div class="nome-maquina">
+                                    <span id="todasMaquinas">${dados[i].nomeMaquina}</span>
+                                </div>
+                            </div>`
+
                         }
                         span_porcent_maquinas_ligadas.innerHTML = `${maquinasLigadas * 100 / totalMaquinas}%`
+                        
 
                         dados.forEach(maquina => {
                             carregarTempoAtivMaquinaTela(maquina)
@@ -831,14 +850,15 @@
 
         var btnReiniciar = document.createElement("button")
         btnReiniciar.setAttribute("class", "reload")
+        
         btnReiniciar.innerHTML = "Reiniciar"
 
         var divTimeReload = document.createElement("div")
         divTimeReload.setAttribute("class", "time-reloader")
 
         var spanTimeReload = document.createElement("span")
-        var bTimeReload = document.createElement("b")
-        bTimeReload.innerHTML = `${maquina.tempo_formatado}`
+        var bTimeReload = document.createElement("p")
+        bTimeReload.innerHTML = `Ligada à <b>${maquina.tempo_formatado}</b>`
         spanTimeReload.appendChild(bTimeReload)
 
         divTimeReload.appendChild(spanTimeReload)
@@ -873,6 +893,7 @@
             if (vetorInteiro[0].indexOf(dados[i].nomeMaquina) == -1) {
                 vetorInteiro[0].push(dados[i].nomeMaquina)
                 contQtdColunas++
+                
             }
             if (dados[i].HoraFormata != ultimaHora) {
                 var vetor = [dados[i].HoraFormata]
@@ -900,7 +921,7 @@
 
         var options = {
             width: "32vh",
-            legend: { position: 'top', maxLines: 3 },
+            legend: { position: 'top', maxLines: 6 },
             bar: { groupWidth: '75%' },
             isStacked: true,
         };

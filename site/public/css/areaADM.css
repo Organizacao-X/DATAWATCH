@@ -621,8 +621,8 @@ header {
 }
 
 .content-grafico {
-  border: 3px solid rgb(255, 0, 0);
-  height: 32vh;
+  /* border: 3px solid rgb(255, 0, 0); */
+  height: 50vh;
   width: auto;
 }
 
@@ -815,7 +815,6 @@ header {
 .opcao2 button:hover {
   box-shadow: 0.4rem 0.4rem 0 black;
   transform: translate(-0.4rem, -0.4rem);
-  background-color: ;
 }
 
 .opcao2 button:active {

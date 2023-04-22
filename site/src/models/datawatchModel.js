@@ -93,16 +93,18 @@ function consultarStatusEmpresa(idUsuario) {
 }
 
 function pegarMaquinas(idEmpresa) {
-    var instrucao = `SELECT Maquinas.idMaquina Id, Maquinas.nomeMaquina, Maquinas.statusSistema,
-	SEC_TO_TIME(Maquinas.tempoAtividade) AS tempo_total,
-       CONCAT(FLOOR(Maquinas.tempoAtividade / 86400), ' dias, ',
-              SEC_TO_TIME(Maquinas.tempoAtividade % 86400)) AS tempo_formatado,
-              count(Possuem.fkmaquina) AS contagemChamados
-              FROM Maquinas
-              LEFT JOIN Possuem
-              ON Maquinas.idmaquina = Possuem.fkmaquina
-              where Maquinas.fkempresa = ${idEmpresa}
-              group by idmaquina;`
+    var instrucao = `              SELECT t1.idMaquina AS Id, t1.nomeMaquina, t1.statusSistema,
+    SEC_TO_TIME(t1.tempoAtividade) AS tempo_total,
+    CONCAT(FLOOR(t1.tempoAtividade / 86400), ' dias, ', SEC_TO_TIME(t1.tempoAtividade % 86400)) AS tempo_formatado,
+    t2.maquinasTotais
+FROM Maquinas AS t1
+CROSS JOIN (
+SELECT COUNT(idMaquina) AS maquinasTotais
+FROM Maquinas
+WHERE fkempresa = ${idEmpresa}
+) AS t2
+WHERE t1.fkempresa = ${idEmpresa} AND t1.statusSistema = 1
+ORDER BY t1.tempoAtividade DESC;`
 
     return database.executar(instrucao);
 }
