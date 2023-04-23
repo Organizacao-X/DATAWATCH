@@ -79,17 +79,9 @@ function entrar(email, senha) {
 
 // CONSULTANDO SE EMPRESA ESTÁ VERIFICADA
 function consultarStatusEmpresa(idUsuario) {
-    var instrucao = `SELECT Usuarios.idUsuario,
-                            Usuarios.nomeUsuario,
-                            Usuarios.adm,
-                            Usuarios.fkEmpresa,
-                            Empresas.verificado
-                     FROM Usuarios
-                     JOIN Empresas
-                     ON Usuarios.fkEmpresa = Empresas.idEmpresa
-                     WHERE Usuarios.idUsuario = ${idUsuario};`
 
-    var azure = `SELECT Usuarios.idUsuario,
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        var instrucao = `SELECT Usuarios.idUsuario,
                      Usuarios.nomeUsuario,
                      Usuarios.adm,
                      Usuarios.fkEmpresa,
@@ -98,12 +90,42 @@ function consultarStatusEmpresa(idUsuario) {
               JOIN Empresas
               ON Usuarios.fkEmpresa = Empresas.idEmpresa
               WHERE Usuarios.idUsuario = ${idUsuario};`
+    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+        var instrucao = `SELECT Usuarios.idUsuario,
+                            Usuarios.nomeUsuario,
+                            Usuarios.adm,
+                            Usuarios.fkEmpresa,
+                            Empresas.verificado
+                     FROM Usuarios
+                     JOIN Empresas
+                     ON Usuarios.fkEmpresa = Empresas.idEmpresa
+                     WHERE Usuarios.idUsuario = ${idUsuario};`
+    }
+    
 
-    return database.executar(azure);
+    
+
+    return database.executar(instrucao);
 }
 
 function pegarMaquinas(idEmpresa) {
-    var instrucao = `SELECT Maquinas.idMaquina Id, Maquinas.nomeMaquina, Maquinas.statusSistema,
+
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+
+        var instrucao = `SELECT Maquinas.idMaquina Id, Maquinas.nomeMaquina, Maquinas.statusSistema,
+    CONVERT(VARCHAR(8), DATEADD(SECOND, Maquinas.tempoAtividade, 0), 108) AS tempo_total,
+    (Maquinas.tempoAtividade * 1000) AS tempo_total_milissegundos,
+    CONCAT(FLOOR(Maquinas.tempoAtividade / 86400), ' dias, ',
+    CONVERT(VARCHAR(8), DATEADD(SECOND, Maquinas.tempoAtividade % 86400, 0), 108)) AS tempo_formatado,
+    COUNT(Possuem.fkmaquina) AS contagemChamados
+    FROM Maquinas
+    LEFT JOIN Possuem ON Maquinas.idmaquina = Possuem.fkmaquina
+    WHERE Maquinas.fkempresa = ${idEmpresa}
+    GROUP BY idmaquina, Maquinas.nomeMaquina, Maquinas.statusSistema, Maquinas.tempoAtividade;`
+    
+    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+
+        var instrucao = `SELECT Maquinas.idMaquina Id, Maquinas.nomeMaquina, Maquinas.statusSistema,
 	SEC_TO_TIME(Maquinas.tempoAtividade) AS tempo_total,
     (tempoAtividade * 1000) AS tempo_total_milissegundos,
        CONCAT(FLOOR(Maquinas.tempoAtividade / 86400), ' dias, ',
@@ -114,19 +136,9 @@ function pegarMaquinas(idEmpresa) {
               ON Maquinas.idmaquina = Possuem.fkmaquina
               where Maquinas.fkempresa = ${idEmpresa}
               group by idmaquina;`
+    }
 
-    var azure = `SELECT Maquinas.idMaquina Id, Maquinas.nomeMaquina, Maquinas.statusSistema,
-    CONVERT(VARCHAR(8), DATEADD(SECOND, Maquinas.tempoAtividade, 0), 108) AS tempo_total,
-    (Maquinas.tempoAtividade * 1000) AS tempo_total_milissegundos,
-    CONCAT(FLOOR(Maquinas.tempoAtividade / 86400), ' dias, ',
-           CONVERT(VARCHAR(8), DATEADD(SECOND, Maquinas.tempoAtividade % 86400, 0), 108)) AS tempo_formatado,
-    COUNT(Possuem.fkmaquina) AS contagemChamados
-FROM Maquinas
-LEFT JOIN Possuem ON Maquinas.idmaquina = Possuem.fkmaquina
-WHERE Maquinas.fkempresa = ${idEmpresa}
-GROUP BY idmaquina, Maquinas.nomeMaquina, Maquinas.statusSistema, Maquinas.tempoAtividade;`
-
-    return database.executar(azure);
+    return database.executar(instrucao);
 }
 
 function pegarFuncionarios(idEmpresa) {
@@ -136,30 +148,38 @@ function pegarFuncionarios(idEmpresa) {
 }
 
 function pegarDadosGrafico(idEmpresa) {
-    var instrucao = `SELECT 
-    nomeMaquina,
-    fkmaquina as Maquina, Sum(ramuso) as somaRam, 
-    TIME_FORMAT(dataHora, '%H : 00') AS HoraFormata 
-    from Capturas 
-    JOIN Maquinas
-        ON Maquinas.idMaquina = Capturas.fkMaquina
-    where dataHora >= SUBDATE(CURDATE(), INTERVAL 30 DAY) 
-    and Capturas.fkempresa = ${idEmpresa} 
-    group by nomeMaquina, fkmaquina, HoraFormata
-    order by HoraFormata, fkMaquina;`
 
-    var azure = `SELECT Maquinas.idMaquina Id, Maquinas.nomeMaquina, Maquinas.statusSistema,
-    CONVERT(VARCHAR(8), DATEADD(SECOND, Maquinas.tempoAtividade, 0), 108) AS tempo_total,
-    (Maquinas.tempoAtividade * 1000) AS tempo_total_milissegundos,
-    CONCAT(FLOOR(Maquinas.tempoAtividade / 86400), ' dias, ',
-           CONVERT(VARCHAR(8), DATEADD(SECOND, Maquinas.tempoAtividade % 86400, 0), 108)) AS tempo_formatado,
-    COUNT(Possuem.fkmaquina) AS contagemChamados
-FROM Maquinas
-LEFT JOIN Possuem ON Maquinas.idmaquina = Possuem.fkmaquina
-WHERE Maquinas.fkempresa = ${idEmpresa} 
-GROUP BY idmaquina, Maquinas.nomeMaquina, Maquinas.statusSistema, Maquinas.tempoAtividade;`
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
 
-    return database.executar(azure)
+        var instrucao = `SELECT 
+        nomeMaquina,
+        fkmaquina as Maquina, 
+        Sum(ramuso) as somaRam, 
+        CONVERT(varchar(5), dataHora, 108) AS HoraFormata 
+    FROM Capturas 
+    left JOIN Maquinas ON Maquinas.idMaquina = Capturas.fkMaquina
+    WHERE dataHora >= DATEADD(day, -30, GETDATE())
+    AND Capturas.fkempresa = ${idEmpresa}
+    GROUP BY nomeMaquina, fkmaquina, CONVERT(varchar(5), dataHora, 108)
+    ORDER BY HoraFormata, fkMaquina;`
+    
+    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+
+        var instrucao = `SELECT 
+        nomeMaquina,
+        fkmaquina as Maquina, Sum(ramuso) as somaRam, 
+        TIME_FORMAT(dataHora, '%H : 00') AS HoraFormata 
+        from Capturas 
+        JOIN Maquinas
+            ON Maquinas.idMaquina = Capturas.fkMaquina
+        where dataHora >= SUBDATE(CURDATE(), INTERVAL 30 DAY) 
+        and Capturas.fkempresa = ${idEmpresa} 
+        group by nomeMaquina, fkmaquina, HoraFormata
+        order by HoraFormata, fkMaquina;`
+    }
+    
+
+    return database.executar(instrucao)
 }
 
 function editarFuncionario(idFunc, email, senha) {

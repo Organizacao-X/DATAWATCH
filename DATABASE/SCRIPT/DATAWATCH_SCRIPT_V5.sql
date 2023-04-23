@@ -82,7 +82,9 @@ temperatura DECIMAL(5,2),
 ramUso DOUBLE,
 redeUpload DOUBLE,
 redeDownload DOUBLE,
-discoLivre DOUBLE,
+discoLivre1 DOUBLE,
+discoLivre2 DOUBLE,
+discoLivre3 DOUBLE,
 PRIMARY KEY (idCaptura, fkMaquina, fkEmpresa)
 );
 

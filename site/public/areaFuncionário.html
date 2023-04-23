@@ -548,7 +548,9 @@
 
                             // DISCO (Banco)
                             capacidadeDiscoLivre = registro.discolivre;
-                            capacidadeDiscoTotal = registro.discoTotal;
+                            capacidadeDiscoTotal1 = registro.discoTotal1;
+                            capacidadeDiscoTotal2 = registro.discoTotal2;
+                            capacidadeDiscoTotal3 = registro.discoTotal3;
 
                             // RAM (Banco)
                             CapacidadeRamTotal = registro.ramTotal;
@@ -646,7 +648,9 @@
 
         var data = google.visualization.arrayToDataTable([
             ['Disco', 'Memória'],
-            ['Capacidade em uso', capacidadeDiscoTotal],
+            ['Capacidade em uso (Disco 1)', capacidadeDiscoTotal1],
+            ['Capacidade em uso (Disco 2)', capacidadeDiscoTotal2],
+            ['Capacidade em uso (Disco 3)', capacidadeDiscoTotal3],
             ['Capacidade livre', capacidadeDiscoLivre],
 
         ]);
