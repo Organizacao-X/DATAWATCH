@@ -175,33 +175,104 @@
             <div class="telaCadastro">
                 <div class="modal-inteiro">
                     <ul class="menus-geral">
-                        <li class="menu1" onclick="showGraphs()">
+                        <li class="menu1" onclick="abaGrafico()">
                             <span>Gráfico</span>
                         </li>
-                        <li class="menu1" onclick="showAlerts()">
+                        <li class="menu1" onclick="abaAlerta()">
                             <span>Alertas</span>
                         </li>
-                        <li class="menu1" onclick="showInfos()">
+                        <li class="menu1" onclick="abaInfo()">
                             <span>Informações Máquina</span>
                         </li>
                     </ul>
-                    <ul class="menus-graficos">
-                        <li class="menu2" onclick="drawChartCpu()">
-                            <span>CPU</span>
-                        </li>
-                        <li class="menu2" onclick="drawChartRam()">
-                            <span>RAM</span>
-                        </li>
-                        <li class="menu2" onclick="drawChartDisco()">
-                            <span>DISCO</span>
-                        </li>
-                        <li class="menu2" onclick="drawChartRede()">
-                            <span>REDE</span>
-                        </li>
-                    </ul>
-                    <div class="modal-conteudo">
-                        <div id="div_grafico_modal" class="grafico-conteudo" style="border: solid 2px black; height: 600px;">
-        
+                    <div class="conter" id="contendo">
+                        <ul class="menus-graficos">
+                            <li class="menu2" onclick="drawChartCpu()">
+                                <span>CPU</span>
+                            </li>
+                            <li class="menu2" onclick="drawChartRam()">
+                                <span>RAM</span>
+                            </li>
+                            <li class="menu2" onclick="drawChartDisco()">
+                                <span>DISCO</span>
+                            </li>
+                            <li class="menu2" onclick="drawChartRede()">
+                                <span>REDE</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="modal-conteudo" id="conteudo">
+                        <div id="div_grafico_modal" class="grafico-conteudo"
+                            style="height: 400px; margin-bottom: 40px;"></div>
+                    </div>
+
+                    <div class="alerta" id="alert" style="display: none;">
+                        <div class="modal-alerta">
+                            <div class="descricaoAlerta">
+                                <div class="imagemMaquina">
+                                    <img src="./assets/icon/alerta.png" alt="" style="width: 150px;">
+                                </div>
+                                <div class="informacoes">
+                                    <div class="info">
+                                        <span><b>Id do alerta:</b> 1</span>
+                                        <span><b>Data do alerta:</b> 22/06/2020</span>
+                                        <span><b>Hora do alerta:</b> 23:30</span>
+                                    </div>
+                                    <div class="texto">
+                                        <span><b>Descrição do alerta</b></span>
+                                        <div class="scroll-desc">
+                                            <span>sabfaisfhsaufhasufaoiufhasufa.sw duhasudihqdhwiqduqwaduw
+                                                duqw8udwqduqwdhuiwqh diuqwhduiqwhy asuahdiahas scbdasibciashdiasudxh
+                                                saudhiuashiduashidxua</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="listaAlerta">
+                                <div class="listaTitulo">
+                                    <span>Registro de alertas (30 dias)</span>
+                                </div>
+                                <ul>
+                                    <div class="lista-registro">
+                                        <li>
+                                            <div class="rowInfo">
+                                                <span>Id: 1 </span>
+                                                <span>Titulo: dosahfouashfoSHODSh</span>
+                                            </div>
+                                        </li>
+                                    </div>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info-maquina" id="maquina-info" style="display: none;">
+                        <div class="modal-info">
+                            <div class="titulo-info">
+                                <span>Especificações técnicas da máquina</span>
+                            </div>
+                            <div class="dados-maquina">
+                                <span><b>Nome da máquina:</b> maquina02</span>
+                                <span><b>Sistema Operacional:</b> Windows</span>
+                                <span><b>Permissões:</b> Sei la</span>
+                                <span><b>Tempo de atividade:</b> 2d 5h 26min</span>
+                            </div>
+                        </div>
+                        <div class="conteudo">
+                            <button class="reload">Reiniciar</button>
+                        </div>
+                    </div>
+                    <div class="modal-parent5" style="display: none;">
+                        <div class="modal-reiniciar">
+                            <div class="reiniciar">
+                                <div class="texto-reiniciar">
+                                    <span><b>Você deseja realmente reiniciar essa maquina?</b></span>
+                                </div>
+                                <div class="opcao2">
+                                    <button class="btnS" id="confirm_reiniciar"><b>Sim</b></button>
+                                    <button class="btnN" id="cancel_reiniciar"><b>Não</b></button>
+                                </div>
+                            </div>
+                            <span class="X-5">&times;</span>
                         </div>
                     </div>
                 </div>
@@ -239,6 +310,11 @@
     // botao fechar
     // var popup_fechar = document.getElementsByClassName('popup_fechar')[0];
 
+    const modalGrafico = document.getElementById('conteudo');
+    const modalAlerta = document.getElementById('alert');
+    const graficoMenu2 = document.getElementById('contendo');
+    const modalInfo = document.getElementById('maquina-info');
+
     // abrir com clique
     botao.addEventListener('click', abrirPopup);
 
@@ -263,7 +339,39 @@
     function fecharFora(e) {
         if (e.target == popup) {
             popup.style.display = 'none';
+            modalGrafico.style.display = 'block'
+            modalAlerta.style.display = 'none'
+            graficoMenu2.style.display = 'block'
+            modalInfo.style.display = 'none'
         }
+    }
+
+    function abaGrafico() {
+        modalGrafico.style.display = 'block'
+        modalAlerta.style.display = 'none'
+        graficoMenu2.style.display = 'block'
+        modalInfo.style.display = 'none'
+
+
+        drawChartCpu()
+        drawChartDisco()
+        drawChartRam()
+        drawChartRede()
+    }
+
+    function abaAlerta() {
+        modalGrafico.style.display = "none"
+        modalAlerta.style.display = 'block'
+        graficoMenu2.style.display = 'none'
+        modalInfo.style.display = 'none'
+
+    }
+
+    function abaInfo() {
+        modalGrafico.style.display = "none"
+        modalAlerta.style.display = 'none'
+        graficoMenu2.style.display = 'none'
+        modalInfo.style.display = 'block'
     }
 
 
@@ -359,7 +467,7 @@
                                 li.style = "background-color: rgb(255, 179, 179)"
                             }
                             li.setAttribute('value', maquina.Id)
-                            li.addEventListener('click', function() {
+                            li.addEventListener('click', function () {
                                 abrirPopup(li.getAttribute('value'))
                             })
                             lista_maquinas.appendChild(li)
@@ -518,16 +626,16 @@
     function drawChartCpu() {
         var data = google.visualization.arrayToDataTable([
             ['Horário', 'Porcentagem %', 'Sales'],
-            [vetorHora[0],vetorPorcentagemCpu[0]],
-            [vetorHora[1],vetorPorcentagemCpu[1]],
-            [vetorHora[2],vetorPorcentagemCpu[2]],
-            [vetorHora[3],vetorPorcentagemCpu[3]],
-            [vetorHora[4],vetorPorcentagemCpu[4]],
-            [vetorHora[5],vetorPorcentagemCpu[5]],
-            [vetorHora[6],vetorPorcentagemCpu[6]],
-            [vetorHora[7],vetorPorcentagemCpu[7]],
-            [vetorHora[8],vetorPorcentagemCpu[8]],
-            [vetorHora[9],vetorPorcentagemCpu[9]],
+            [vetorHora[0], vetorPorcentagemCpu[0]],
+            [vetorHora[1], vetorPorcentagemCpu[1]],
+            [vetorHora[2], vetorPorcentagemCpu[2]],
+            [vetorHora[3], vetorPorcentagemCpu[3]],
+            [vetorHora[4], vetorPorcentagemCpu[4]],
+            [vetorHora[5], vetorPorcentagemCpu[5]],
+            [vetorHora[6], vetorPorcentagemCpu[6]],
+            [vetorHora[7], vetorPorcentagemCpu[7]],
+            [vetorHora[8], vetorPorcentagemCpu[8]],
+            [vetorHora[9], vetorPorcentagemCpu[9]],
         ]);
 
         // console.log(vetorHora, vetorHorasPorcentagem, vetorPorcentagemCpu)
@@ -607,10 +715,4 @@
         chart.draw(data, options);
     }
 
-
-
-
-    function showGraphs() {
-        drawChartCpu()
-    }
 </script>
