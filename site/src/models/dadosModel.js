@@ -28,7 +28,7 @@ function buscarUltimasDados(idMaquina) {
     return database.executar(instrucaoSql);
 }
 
-function buscarDadosEmTempoReal(idMaquina) {
+function buscarDadosEmTempoReal(idMaquina, idEmpresa) {
 
     instrucaoSql = ''
 
@@ -60,7 +60,8 @@ function buscarDadosEmTempoReal(idMaquina) {
                     join Maquinas as m
                     ON c.fkmaquina = m.idmaquina
                     where fkMaquina = ${idMaquina}
-                    order by idcaptura desc limit 10;`;
+                    and m.fkEmpresa = ${idEmpresa}
+                    order by horario, idcaptura desc limit 10;`;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
         return

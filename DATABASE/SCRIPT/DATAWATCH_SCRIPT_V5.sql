@@ -224,15 +224,15 @@ SELECT idMaquina Id, nomeMaquina, statusSistema,
               order by tempoAtividade desc;
 
     -- Mostrar máquinas, já com a quantidade de chamados
-    SELECT maquinas.idMaquina Id, maquinas.nomeMaquina, maquinas.statusSistema,
-	SEC_TO_TIME(maquinas.tempoAtividade) AS tempo_total,
-       CONCAT(FLOOR(maquinas.tempoAtividade / 86400), ' dias, ',
-              SEC_TO_TIME(maquinas.tempoAtividade % 86400)) AS tempo_formatado,
-              count(possuem.fkmaquina) AS contagemChamados
+    SELECT Maquinas.idMaquina Id, Maquinas.nomeMaquina, Maquinas.statusSistema,
+	SEC_TO_TIME(Maquinas.tempoAtividade) AS tempo_total,
+       CONCAT(FLOOR(Maquinas.tempoAtividade / 86400), ' dias, ',
+              SEC_TO_TIME(Maquinas.tempoAtividade % 86400)) AS tempo_formatado,
+              count(Possuem.fkmaquina) AS contagemChamados
               FROM Maquinas
-              LEFT JOIN possuem
-              ON maquinas.idmaquina = possuem.fkmaquina
-              where maquinas.fkempresa = 1
+              LEFT JOIN Possuem
+              ON Maquinas.idmaquina = Possuem.fkmaquina
+              where Maquinas.fkempresa = 1
               group by idmaquina;
               
               

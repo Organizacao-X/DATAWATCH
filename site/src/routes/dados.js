@@ -7,7 +7,7 @@ router.get("/ultimas/:idMaquina", function (req, res) {
     dadosController.buscarUltimasdados(req, res);
 });
 
-router.get("/tempo-real/:idMaquina", function (req, res) {
+router.get("/tempo-real/:idMaquina/:idEmpresa", function (req, res) {
     dadosController.buscarDadosEmTempoReal(req, res);
 })
 

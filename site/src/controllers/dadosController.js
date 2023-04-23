@@ -58,10 +58,11 @@ function cadastrarMetricas(req, res) {
 function buscarDadosEmTempoReal(req, res) {
 
     var idMaquina = req.params.idMaquina;
+    var idEmpresa = req.params.idEmpresa;
 
     console.log(`Recuperando Dados em tempo real`);
 
-    dadosModel.buscarDadosEmTempoReal(idMaquina).then(function (resultado) {
+    dadosModel.buscarDadosEmTempoReal(idMaquina, idEmpresa).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {

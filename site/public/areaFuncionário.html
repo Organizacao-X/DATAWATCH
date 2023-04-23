@@ -76,7 +76,7 @@
 
 
                 <ul class="cards" id="ul_cards_maquinas">
-                    <button id="popup_botao">OI</button>
+                    <!-- <button id="popup_botao">OI</button> -->
                     <!--  <li class="card">
                     <div>
                         <h3 class="card-title">Maquina 1</h3>
@@ -276,26 +276,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div class="formularioCadastro">
-                    <div class="conteudoCadastro">
-                        <h1>Cadastre sua Conta</h1>
-                        <div id="alerta_erro"></div>
-                        <div class="inputCadastro">
-                            <input type="text" id="inp_nome" placeholder="Nome" onchange="sem_borda(1)">
-                            <input type="text" id="inp_sobrenome" placeholder="Sobrenome" onchange="sem_borda(2)">
-                            <input type="text" id="inp_email" placeholder="E-mail" onchange="sem_borda(3)">
-                            <input type="password" id="inp_senha" placeholder="Senha" onchange="sem_borda(4)">
-                            <input type="password" id="inp_confirmacao" placeholder="Confirmação de Senha"
-                                onchange="sem_borda(5)">
-                        </div>
-                        <button class="botaoCadastrar" onclick="cadastrar()">Cadastrar</button>
-                        <p>Já tem uma conta? <b><a onclick="abrirLogin()"><u>Clique
-                                        aqui</u></a></b> para Entrar</p>
-                    </div>
-                </div>
-                <div class="imgCadastro">
-                </div> -->
-                <!-- <span class="popup_fechar">&times;</span> -->
             </div>
         </div>
     </div>
@@ -306,7 +286,7 @@
     // popup
     var popup = document.getElementById('popup_fundo');
     // abrir o popup
-    var botao = document.getElementById('popup_botao');
+    // var botao = document.getElementById('popup_botao');
     // botao fechar
     // var popup_fechar = document.getElementsByClassName('popup_fechar')[0];
 
@@ -316,14 +296,14 @@
     const modalInfo = document.getElementById('maquina-info');
 
     // abrir com clique
-    botao.addEventListener('click', abrirPopup);
+    // botao.addEventListener('click', abrirPopup);
 
     // fechar com clique no botao
     // popup_fechar.addEventListener('click', fecharPopup);
 
     // fechar com clique fora do popup
     window.addEventListener('click', fecharFora);
-
+    
     // função para abrir com o clique
     function abrirPopup(idMaquina) {
         popup.style.display = 'block';
@@ -339,10 +319,10 @@
     function fecharFora(e) {
         if (e.target == popup) {
             popup.style.display = 'none';
-            modalGrafico.style.display = 'block'
-            modalAlerta.style.display = 'none'
-            graficoMenu2.style.display = 'block'
-            modalInfo.style.display = 'none'
+            // modalGrafico.style.display = 'none'
+            // modalAlerta.style.display = 'none'
+            // graficoMenu2.style.display = 'none'
+            // modalInfo.style.display = 'none'
         }
     }
 
@@ -514,8 +494,8 @@
     }
 
     function obterdados(idMaquina) {
-        // div_container_modal.style = "display: block;"
-        fetch(`/dados/tempo-real/${idMaquina}`)
+        var idEmpresa = sessionStorage.ID_EMPRESA
+        fetch(`/dados/tempo-real/${idMaquina}/${idEmpresa}`)
             .then(resposta => {
 
                 if (resposta.ok) {
@@ -580,9 +560,9 @@
                             metrica.Ram = registro.ramMetrica;
                             metrica.Disco = registro.discoMetrica;
 
-                            drawChartCpu()
-
+                            
                         }
+                        carregarGrafCPU()
                     });
                 } else {
 
@@ -620,12 +600,15 @@
 
 
     // Gráfico CPU
-    google.charts.load('current', { 'packages': ['corechart'] });
-    google.charts.setOnLoadCallback(drawChartCpu);
-
+    function carregarGrafCPU(){ 
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChartCpu);
+        drawChartCpu()
+    }
     function drawChartCpu() {
+        console.log(vetorHora, vetorPorcentagemCpu)
         var data = google.visualization.arrayToDataTable([
-            ['Horário', 'Porcentagem %', 'Sales'],
+            ['Horário', 'Porcentagem %'],
             [vetorHora[0], vetorPorcentagemCpu[0]],
             [vetorHora[1], vetorPorcentagemCpu[1]],
             [vetorHora[2], vetorPorcentagemCpu[2]],
