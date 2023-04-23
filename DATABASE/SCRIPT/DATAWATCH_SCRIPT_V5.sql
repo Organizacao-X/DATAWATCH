@@ -49,17 +49,23 @@ dtChegada DATE,
 sistemaOperacional varchar(45),
 processador varchar(45),
 ram varchar(45),
-discoMemoria varchar(45),
+nomeDisco1 varchar(45),
 ip VARCHAR(45),
 PRIMARY KEY (idMaquina, fkEmpresa),
 statusSistema TINYINT(1),
 cpuPorcentagem DOUBLE,
 ramTotal DOUBLE,
-discoTotal DOUBLE,
+totalDisco1 DOUBLE,
 cpuMetrica DOUBLE,
 ramMetrica DOUBLE,
-discoMetrica DOUBLE,
-tempoAtividade INT
+gatilhoDisco1 DOUBLE,
+tempoAtividade INT,
+nomeDisco2 varchar(45),
+nomeDisco3 varchar(45),
+totalDisco2 DOUBLE,
+totalDisco3 DOUBLE,
+gatilhoDisco2 DOUBLE,
+gatilhoDisco3 DOUBLE
 );
 
 
@@ -120,6 +126,7 @@ VALUES
 (1, 1, 'maquina01', 'GFT56', '2023-03-03', 'I5', '16 GB', 'HD 1 TB', '192.08.92.12', 1,24.0, 15.75, 697.45,2500751),
 (2, 1, 'maquina02', 'GFT56', '2023-03-03', 'I5', '16 GB', 'HD 1 TB', '192.08.92.13', 1,24.0, 15.75, 637.45,2500664),
 (3, 1, 'maquina03', 'GFT56', '2023-03-03', 'I5', '16 GB', 'HD 1 TB', '192.08.92.14', 1,24.0, 15.75, 635.45,2633254);
+
 
 INSERT INTO Capturas VALUES 
 (1, 1, 1, '2023-04-04 12:00:00', 3.4, 56.88, 4.5, 10.0, 25.5, 580.4);  
@@ -195,7 +202,7 @@ INSERT INTO Possuem (idPosse, fkAlerta, fkMaquina, dataHora) VALUES
 SELECT 
 nomeMaquina,
 fkmaquina as Maquina, Sum(ramuso), 
-TIME_FORMAT(dataHora, '%H : 00') AS HoraFormata 
+TIME_FORMAT(dataHora, '%H : 00') AS HoraFormata
 from Capturas
 JOIN Maquinas
 	ON Maquinas.idMaquina = Capturas.fkMaquina
@@ -203,6 +210,26 @@ where dataHora >= SUBDATE(CURDATE(), INTERVAL 30 DAY)
 and Capturas.fkempresa = 2 
 group by nomeMaquina, fkmaquina, HoraFormata
 order by HoraFormata, fkMaquina;
+
+
+
+
+
+
+delete from capturas where idcaptura = 47;
+insert into capturas (idcaptura, fkmaquina, fkempresa, dataHora, cpuUso, temperatura, ramUso, redeUpload, redeDownload, discoLivre)
+ VALUES 
+(49, 2, 1, '2023-04-04 15:25:00', 3.4, 56.88, 4.2, 13.0, 25.5, 580.4);
+
+update maquinas set statussistema = 0 where idmaquina = 2;
+INSERT INTO Maquinas (idMaquina, fkEmpresa, nomeMaquina, serie, dtChegada, processador, ram, discoMemoria, ip, statusSistema, cpuPorcentagem, ramTotal, discoTotal, tempoAtividade) 
+VALUES
+(4, 1, 'maquina04', 'GFT56', '2023-03-03', 'I3', '12 GB', 'HD 500 GB', '192.08.92.15', 0,24.0, 15.75, 635.45,60000);
+
+
+
+
+
 
 
 -- MOSTRAR FUNCIONARIOS
@@ -222,17 +249,28 @@ SELECT idMaquina Id, nomeMaquina, statusSistema,
               FROM Maquinas 
               where fkempresa = 1 
               order by tempoAtividade desc;
+              
+              SELECT idMaquina Id, nomeMaquina, statusSistema,
+    SEC_TO_TIME(tempoAtividade) AS tempo_total,
+    (tempoAtividade * 1000) AS tempo_total_milissegundos,
+    CONCAT(FLOOR(tempoAtividade / 86400), ' dias, ',
+           SEC_TO_TIME(tempoAtividade % 86400)) AS tempo_formatado
+FROM Maquinas 
+WHERE fkempresa = 1 
+ORDER BY tempoAtividade DESC;
+
 
     -- Mostrar máquinas, já com a quantidade de chamados
-    SELECT Maquinas.idMaquina Id, Maquinas.nomeMaquina, Maquinas.statusSistema,
-	SEC_TO_TIME(Maquinas.tempoAtividade) AS tempo_total,
-       CONCAT(FLOOR(Maquinas.tempoAtividade / 86400), ' dias, ',
-              SEC_TO_TIME(Maquinas.tempoAtividade % 86400)) AS tempo_formatado,
-              count(Possuem.fkmaquina) AS contagemChamados
+    SELECT maquinas.idMaquina Id, maquinas.nomeMaquina, maquinas.statusSistema,
+	SEC_TO_TIME(maquinas.tempoAtividade) AS tempo_total,
+    (tempoAtividade * 1000) AS tempo_total_milissegundos,
+       CONCAT(FLOOR(maquinas.tempoAtividade / 86400), ' dias, ',
+              SEC_TO_TIME(maquinas.tempoAtividade % 86400)) AS tempo_formatado,
+              count(possuem.fkmaquina) AS contagemChamados
               FROM Maquinas
-              LEFT JOIN Possuem
-              ON Maquinas.idmaquina = Possuem.fkmaquina
-              where Maquinas.fkempresa = 1
+              LEFT JOIN possuem
+              ON maquinas.idmaquina = possuem.fkmaquina
+              where maquinas.fkempresa = 1
               group by idmaquina;
               
               
@@ -272,6 +310,24 @@ SELECT idMaquina Id, nomeMaquina, statusSistema,
               SEC_TO_TIME(tempoAtividade % 86400)) AS tempo_formatado
               FROM Maquinas 
               where fkempresa = 1 and statusSistema = 1
-              order by tempoAtividade desc;    
-                
+              order by tempoAtividade desc;
+              
+              
+SELECT t1.idMaquina AS Id, t1.nomeMaquina, t1.statusSistema,
+    SEC_TO_TIME(t1.tempoAtividade) AS tempo_total, (tempoAtividade * 1000) AS tempo_total_milissegundos,
+    CONCAT(FLOOR(t1.tempoAtividade / 86400), ' dias, ', SEC_TO_TIME(t1.tempoAtividade % 86400)) AS tempo_formatado,
+    t2.maquinasTotais
+FROM Maquinas AS t1
+CROSS JOIN (
+SELECT COUNT(idMaquina) AS maquinasTotais
+FROM Maquinas
+WHERE fkempresa = 1
+) AS t2
+WHERE t1.fkempresa = 1
+ORDER BY t1.tempoAtividade DESC;
+              
+	-- SELECT COM A QUANTIDADE DE MAQUINAS REGISTRADAS
+    
+    SELECT count(idMaquina) AS maquinasTotais FROM maquinas WHERE fkempresa = 1;
+
                 
