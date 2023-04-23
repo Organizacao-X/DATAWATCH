@@ -56,7 +56,7 @@ function cadastrarFuncionario(nome, email, cpf, senha, adm, FkEmpresa) {
 
 // CADASTRO DE Maquinas
 function cadastrarMaquina(fkEmpresa, nome, serie, data,) {
-    console.log("ACESSEI O DATAWATCH MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrarMaquina():",fkEmpresa, nome, serie, data);
+    console.log("ACESSEI O DATAWATCH MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrarMaquina():", fkEmpresa, nome, serie, data);
 
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
@@ -89,7 +89,17 @@ function consultarStatusEmpresa(idUsuario) {
                      ON Usuarios.fkEmpresa = Empresas.idEmpresa
                      WHERE Usuarios.idUsuario = ${idUsuario};`
 
-    return database.executar(instrucao);
+    var azure = `SELECT Usuarios.idUsuario,
+                     Usuarios.nomeUsuario,
+                     Usuarios.adm,
+                     Usuarios.fkEmpresa,
+                     Empresas.verificado
+              FROM Usuarios
+              JOIN Empresas
+              ON Usuarios.fkEmpresa = Empresas.idEmpresa
+              WHERE Usuarios.idUsuario = ${idUsuario};`
+
+    return database.executar(azure);
 }
 
 function pegarMaquinas(idEmpresa) {
@@ -105,7 +115,18 @@ function pegarMaquinas(idEmpresa) {
               where Maquinas.fkempresa = ${idEmpresa}
               group by idmaquina;`
 
-    return database.executar(instrucao);
+    var azure = `SELECT Maquinas.idMaquina Id, Maquinas.nomeMaquina, Maquinas.statusSistema,
+    CONVERT(VARCHAR(8), DATEADD(SECOND, Maquinas.tempoAtividade, 0), 108) AS tempo_total,
+    (Maquinas.tempoAtividade * 1000) AS tempo_total_milissegundos,
+    CONCAT(FLOOR(Maquinas.tempoAtividade / 86400), ' dias, ',
+           CONVERT(VARCHAR(8), DATEADD(SECOND, Maquinas.tempoAtividade % 86400, 0), 108)) AS tempo_formatado,
+    COUNT(Possuem.fkmaquina) AS contagemChamados
+FROM Maquinas
+LEFT JOIN Possuem ON Maquinas.idmaquina = Possuem.fkmaquina
+WHERE Maquinas.fkempresa = ${idEmpresa}
+GROUP BY idmaquina, Maquinas.nomeMaquina, Maquinas.statusSistema, Maquinas.tempoAtividade;`
+
+    return database.executar(azure);
 }
 
 function pegarFuncionarios(idEmpresa) {
@@ -127,7 +148,18 @@ function pegarDadosGrafico(idEmpresa) {
     group by nomeMaquina, fkmaquina, HoraFormata
     order by HoraFormata, fkMaquina;`
 
-    return database.executar(instrucao)
+    var azure = `SELECT Maquinas.idMaquina Id, Maquinas.nomeMaquina, Maquinas.statusSistema,
+    CONVERT(VARCHAR(8), DATEADD(SECOND, Maquinas.tempoAtividade, 0), 108) AS tempo_total,
+    (Maquinas.tempoAtividade * 1000) AS tempo_total_milissegundos,
+    CONCAT(FLOOR(Maquinas.tempoAtividade / 86400), ' dias, ',
+           CONVERT(VARCHAR(8), DATEADD(SECOND, Maquinas.tempoAtividade % 86400, 0), 108)) AS tempo_formatado,
+    COUNT(Possuem.fkmaquina) AS contagemChamados
+FROM Maquinas
+LEFT JOIN Possuem ON Maquinas.idmaquina = Possuem.fkmaquina
+WHERE Maquinas.fkempresa = ${idEmpresa} 
+GROUP BY idmaquina, Maquinas.nomeMaquina, Maquinas.statusSistema, Maquinas.tempoAtividade;`
+
+    return database.executar(azure)
 }
 
 function editarFuncionario(idFunc, email, senha) {
@@ -138,7 +170,7 @@ function editarFuncionario(idFunc, email, senha) {
 
 function desativarFuncionario(idFunc) {
     var instrucao = `DELETE FROM Usuarios WHERE idUsuario = ${idFunc}`
-    
+
     return database.executar(instrucao)
 }
 
