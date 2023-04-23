@@ -308,11 +308,13 @@
 </body>
 
 <script type="text/javascript">
-    var enviarJava = 'System.out.println("ENVIADO DO HTML");'
-function enviarComando(enviarJava) {
-      var xhr = new XMLHttpRequest();
-      xhr.open("POST", "http://localhost:8080/reiniciar?comando=" + encodeURIComponent(enviarJava), true);
-      xhr.send();
+    const agora = new Date();
+
+    var enviarJava = "TESTE"
+    function enviarComando(enviarJava) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "http://localhost:8080/reiniciar?comando=" + encodeURIComponent(enviarJava), true);
+        xhr.send();
     }
 
     var lista_maquinas = document.getElementById("ul_cards_maquinas");
@@ -608,28 +610,49 @@ function enviarComando(enviarJava) {
                     var totalMaquinas = dados.length
                     var maquinasLigadas = 0
                     if (dados.length > 0) {
+
                         for (let i = 0; i < dados.length; i++) {
                             if (dados[i].statusSistema == 1) {
                                 maquinasLigadas++
                             }
                             mais_maquinas.innerHTML += `<div class="info-saber-mais">
                                 <div class="conexao-saber-mais">
-                                    <div class="status-maquina" id=""><img src="./assets/icon/circulo(1).png" alt=""
-                                            style="width: 18px;">
+                                    <div class="status-maquina" id="img${i}">
                                     </div>
-                                    <span id=""><b>Online</b></span>
+                                    <span id="status${i}"></span>
                                 </div>
                                 <div class="nome-maquina">
                                     <span id="todasMaquinas">${dados[i].nomeMaquina}</span>
                                 </div>
                             </div>`
+                            /* 3456000000   < 40 dias em milisegundos para testes              2505600000 < 29 dias*/
+                            let fiscalDeAtividade = 2600664000
+                            console.log(dados[i].tempo_total)
+                            const statusSpan = document.getElementById(`status${i}`);
+                            const statusImg = document.getElementById(`img${i}`);
 
+                            var tempoEmMilissegundos = dados[i].tempo_total_milissegundos
+
+                            if (tempoEmMilissegundos < fiscalDeAtividade) {
+                                console.log(i + "online: " + tempoEmMilissegundos)
+                                statusImg.innerHTML = `<img src="./assets/icon/circulo(1).png" alt=""
+                                            style="width: 18px;">`
+                                statusSpan.innerHTML += `<b>Online</b>`
+                            } else {
+                                console.log(i + "offline: " + tempoEmMilissegundos)
+                                statusImg.innerHTML = `<img src="./assets/icon/circulo.png" alt=""
+                                            style="width: 18px;">`
+                                statusSpan.innerHTML += `<b>Offline</b>`
+                            }
                         }
-                        span_porcent_maquinas_ligadas.innerHTML = `${maquinasLigadas * 100 / totalMaquinas}%`
-                        
+                        span_porcent_maquinas_ligadas.innerHTML = `${(maquinasLigadas * 100 / totalMaquinas).toFixed(0)}%`
+
 
                         dados.forEach(maquina => {
-                            carregarTempoAtivMaquinaTela(maquina)
+                            if (maquina.statusSistema == 1) {
+                                carregarTempoAtivMaquinaTela(maquina)
+
+                            }
                         })
                     }
                 })
@@ -850,7 +873,7 @@ function enviarComando(enviarJava) {
 
         var btnReiniciar = document.createElement("button")
         btnReiniciar.setAttribute("class", "reload")
-        
+
         btnReiniciar.innerHTML = "Reiniciar"
 
         var divTimeReload = document.createElement("div")
@@ -893,7 +916,7 @@ function enviarComando(enviarJava) {
             if (vetorInteiro[0].indexOf(dados[i].nomeMaquina) == -1) {
                 vetorInteiro[0].push(dados[i].nomeMaquina)
                 contQtdColunas++
-                
+
             }
             if (dados[i].HoraFormata != ultimaHora) {
                 var vetor = [dados[i].HoraFormata]
