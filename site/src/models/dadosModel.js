@@ -60,7 +60,7 @@ function buscarDadosEmTempoReal(idMaquina, idEmpresa) {
                     join Maquinas as m
                     ON c.fkmaquina = m.idmaquina
                     where fkMaquina = ${idMaquina}
-                    and m.fkEmpresa = ${idEmpresa}
+                    and c.fkEmpresa = ${idEmpresa}
                     order by horario, idcaptura desc limit 10;`;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
