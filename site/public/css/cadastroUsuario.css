@@ -132,7 +132,7 @@ label {
 }
 
 input {
-    width: 60%;
+    width: 75%;
     padding: 10px 15px;
     border-radius: 10px;
     border: none;
@@ -239,16 +239,65 @@ input:focus {
      transform: rotate(-70deg);
      animation-timing-function: ease-in;
     }
-   }
+}
 
-.erro {
-    color: #ff0000;
+.inputAux {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+}
+
+.tooltip {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-image: url(../assets/imgs/ponto-de-interrogacao-tooltip.png);
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+    
+.tooltip::before,
+.tooltip::after {
+    --scale: 0;
+    --arrow-size: 10px;
+    --tooltip-color: #181818;
+
+    position: absolute;
+    top: -.25rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(var(--translate-y, 0)) scale(var(--scale));
+    transition: 150ms transform;
+    transform-origin: bottom center;
+}
+
+.tooltip::before {
+    --translate-y: calc(-100% - var(--arrow-size));
+
+    content: attr(data-tooltip);
+    color: white;
+    padding: .5rem;
+    border-radius: .3rem;
     text-align: center;
+    width: max-content;
+    background: var(--tooltip-color);
 }
 
-.erro b {
-    font-size: 12px;
+.tooltip::after {
+    --translate-y: calc(-1 * var(--arrow-size));
+
+    content: '';
+    border: var(--arrow-size) solid transparent;
+    border-top-color: var(--tooltip-color);
+    transform-origin: top center;
 }
+
+.tooltip:hover::before,
+.tooltip:hover::after {
+    --scale: 1;
+}
+
 
 @media screen and (max-width: 1536px) {
     .nav-bar {

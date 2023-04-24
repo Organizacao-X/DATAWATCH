@@ -21,7 +21,9 @@
         <nav class="nav-bar">
 
             <div class="logo">
-                <img src="assets/imgs/LOGOcomTextoV2.png" alt="" width="150px">
+                <a href="./index.html">
+                    <img src="assets/imgs/LOGOcomTextoV2.png" alt="" width="150px">
+                </a>
             </div>
 
             <div class="nav-list">
@@ -47,31 +49,49 @@
             <div class="alinhamentoInputs">
                 <h1>Cadastre-se:</h1>
                 <label class="tipo_campo">Nome:</label>
-                <input id="nome_input" type="text" placeholder="Seu nome" maxlength="45" onchange="limparBorda(this)">
-                <div class="erro campoVazioClasse"></div>
+                <div class="inputAux">
+                    <input id="nome_input" type="text" placeholder="Seu nome" maxlength="40" onchange="limparBorda(this)">
+                    <div class="tooltip" data-tooltip="Escreva o seu nome"></div>
+                </div>
+                <div class="erro" style="display: flex; height: 4px;"></div>
 
                 <label class="tipo_campo">E-mail:</label>
-                <input id="email_input" type="email" placeholder="meuemail@provedor.com" maxlength="45" onchange="limparBorda(this)">
-                <div class="erro campoVazioClasse"></div>
-                <div class="erro" id="erro_email" style="display: none;"><b>E-mail inválido</b></div>
+                <div class="inputAux">
+                    <input id="email_input" type="email" placeholder="meuemail@provedor.com" maxlength="45" onchange="limparBorda(this)">
+                    <div class="tooltip" data-tooltip="Escreva o seu email, verificando o domínio e os pontos"></div>
+                </div>
+                <div class="erro" id="erro_email" style="display: flex; height: 4px;"></div>
 
                 <label class="tipo_campo">CPF:</label>
-                <input id="cpf_input" type="text" placeholder="000.000.000-00" onchange="limparBorda(this)">
-                <div class="erro campoVazioClasse"></div>
-                <div class="erro" id="erro_cpf" style="display: none;"><b>Verifique os números do CPF</b></div>
+                <div class="inputAux">
+                    <input id="cpf_input" type="text" placeholder="000.000.000-00" onchange="limparBorda(this)">
+                    <div class="tooltip" data-tooltip="Escreva todos os 11 dígitos de seu CPF, não precisa escrever os pontos e o traço"></div>
+                </div>
+                <div class="erro" id="erro_cpf" style="display: flex; height: 4px;"></div>
 
                 <label class="tipo_campo">Senha:</label>
-                <input id="senha_input" type="password" placeholder="******" maxlength="25" onchange="limparBorda(this)">
-                <div class="erro campoVazioClasse"></div>
-                <div class="erro" id="erro_senha" style="display: none;"><b>A senha necessita ter ao menos 8 caracteres</b></div>
+                <div class="inputAux">
+                    <input id="senha_input" type="password" placeholder="******" maxlength="25" onchange="limparBorda(this)">
+                    <div class="tooltip" data-tooltip="A senha precisa ter pelo menos 8 dígitos"></div>
+                </div>
+                <div class="erro" id="erro_senha" style="display: flex; height: 4px;"></div>
 
                 <label class="tipo_campo">Confirmação da Senha:</label>
-                <input id="confirmacao_senha_input" type="password" placeholder="******" maxlength="25" onchange="limparBorda(this)">
-                <div class="erro campoVazioClasse"></div>
-                <div class="erro" id="erro_senha_confirmacao" style="display: none;"><b>Senhas não correspondem</b></div>
+                <div class="inputAux">
+                    <input id="confirmacao_senha_input" type="password" placeholder="******" maxlength="25" onchange="limparBorda(this)">
+                    <div class="tooltip" data-tooltip="As senhas necessitam ser iguais, é por sua segurança ;)"></div>
+                </div>
+                <div class="erro" id="erro_senha_confirmacao" style="display: flex; height: 4px;"></div>
 
                 <div class="carregamento">
-                    <span class="loader" style="display: none;"></span>
+                    <div class="conter" id="load" style="display: none;" >
+                        <div class="newtons-cradle">
+                            <div class="newtons-cradle__dot"></div>
+                            <div class="newtons-cradle__dot"></div>
+                            <div class="newtons-cradle__dot"></div>
+                            <div class="newtons-cradle__dot"></div>
+                        </div>
+                    </div>
                     <button class="btn" onclick="cadastrar()">CADASTRAR</button>
                     <span class="aviso" style="display: none;"><b>Não foi possivel realizar o cadastro</b></span>
                 </div>
@@ -89,7 +109,7 @@
 </script>
 <script>
     var inputs = document.querySelectorAll("input");
-    var camposVazios = document.querySelectorAll('.campoVazioClasse');
+    var erros = document.querySelectorAll('.erro');
 
     // Funções que apoiam a validação:
     function validarEmail(email) {
@@ -113,11 +133,11 @@
         }
     }
 
-    function mostrarAvisoVazio(campoVazio, valorInput) {
+    function espacamento(erro, valorInput) {
         if (valorInput.length == 0) {
-            campoVazio.innerHTML = "<b>Campo vazio</b>";
+            erro.style.display = "none";
         } else {
-            limparAviso(campoVazio);
+            limparEspaco(erro);
         }
     }
 
@@ -125,8 +145,8 @@
         input.style.borderBottom = "none";
     }
     
-    function limparAviso(campoVazio) {
-        campoVazio.innerHTML = "";
+    function limparEspaco(erro) {
+        erro.style.display = "flex";
     }
 
     function validar() {
@@ -136,35 +156,36 @@
         if (!validarEmail(email_input.value)) {
             console.log(email_input.value);
             inputs[1].style.borderBottom = "solid 4px red";
-            erro_email.style.display = "flex";
+            // erro_email.style.display = "flex";
             erro = false;
-        } else {
-            erro_email.style.display = "none";
-        }
+        } // else {
+        //     erro_email.style.display = "none";
+        // }
     
         if (cpfFormatado.length < 11) {
             inputs[2].style.borderBottom = "solid 4px red";
-            erro_cpf.style.display = "flex";
+            // erro_cpf.style.display = "flex";
             erro = false;
-        } else {
-            erro_cpf.style.display = "none";
-        }
+        } // else {
+        //     erro_cpf.style.display = "none";
+        // }
     
         if (inputs[3].value.length < 8) {
-            erro_senha.style.display = "flex";
+            inputs[3].style.borderBottom = "solid 4px red";
+            // erro_senha.style.display = "flex";
             erro = false;
-        } else {
-            erro_senha.style.display = "none";
-        }
+        } // else {
+        //     erro_senha.style.display = "none";
+        // }
     
         if (inputs[3].value != inputs[4].value) {
             inputs[3].style.borderBottom = "solid 4px red"
             inputs[4].style.borderBottom = "solid 4px red"
-            erro_senha_confirmacao.style.display = "flex";
+            // erro_senha_confirmacao.style.display = "flex";
             erro = false;
-        } else {
-            erro_senha_confirmacao.style.display = "none";
-        }
+        } // else {
+        //     erro_senha_confirmacao.style.display = "none";
+        // }
             
             return erro;
         }
@@ -172,8 +193,8 @@
     function cadastrar(field) {
 
         inputs.forEach((input, index) => {
-            mostrarBordaVazio(input, input.value);
-            mostrarAvisoVazio(camposVazios[index], input.value);
+            mostrarBordaVazio(input, input.value, );
+            espacamento(erros[index], input.value);
         });
 
         if (validar()) {
