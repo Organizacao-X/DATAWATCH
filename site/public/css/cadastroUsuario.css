@@ -131,10 +131,13 @@ header {
     display: flex;
     flex-direction: column;
     width: 100%;
+    align-items: center;
 }
 
 label {
     margin: 5px 0 5px 0;
+    align-self: flex-start;
+    padding-left: 38.5px;
 }
 
 input {
@@ -286,6 +289,7 @@ input:focus {
     padding: .5rem;
     border-radius: .3rem;
     text-align: center;
+    font-size: 15px;
     width: max-content;
     background: var(--tooltip-color);
 }
