@@ -204,6 +204,61 @@
                     <div class="modal-conteudo" id="conteudo">
                         <div id="div_grafico_modal" class="grafico-conteudo"
                             style="height: 400px; margin-bottom: 40px;"></div>
+                        <div class="barra">
+                            <div class="div-content1" id="troca1">
+                                <div class="dados-cpu">
+                                    <span><b>Processador:</b> Intel Xeon</span>
+                                    <span><b>Frequência:</b> 2,5 Ghz</span>
+                                    <span><b>Uso de Processador</b> 15 %</span>
+                                </div>
+                            </div>
+
+                            <div class="div-content2" id="troca2" style="display: none;">
+                                <div class="dados-ram">
+                                    <span><b>Memória:</b> Corsair DDR4</span>
+                                    <span><b>Memória RAM total:</b> 3,9 GB</span>
+                                    <span><b>Em uso:</b> 2,5 GB</span>
+                                    <span><b>Livre:</b> 1,4 GB</span>
+                                </div>
+                            </div>
+
+                            <div class="div-content3" id="troca3" style="display: none;">
+                                <div class="dados-disco">
+                                    <div class="disco-um">
+                                        <span><b>Disco 1:</b> SSDDriver-KingsTon</span>
+                                        <span><b>Capacidade Total:</b> 96 GB</span>
+                                        <span><b>Capacidade Livre:</b> 34 GB</span>
+                                    </div>
+
+                                    <div class="disco-dois">
+                                        <span><b>Disco 2:</b> HDDriverHardDisc</span>
+                                        <span><b>Capacidade Total:</b> 786,4 GB</span>
+                                        <span><b>Capacidade Livre:</b> 344,2 GB</span>
+                                    </div>
+
+                                    <div class="disco-tres">
+                                        <span><b>Disco 3:</b> Nenhum</span>
+                                        <span><b>Capacidade Total:</b> Nenhum</span>
+                                        <span><b>Capacidade Livre:</b> Nenhum</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="div-content4" id="troca4" style="display: none;">
+                                <div class="dados-rede">
+                                    <div class="ip">
+                                        <span><b>Host:</b> Express</span>
+                                        <span><b>Endereço IPv4:</b> 192.168.0.1</span>
+                                        <span><b>Endereço IPv6:</b> 2001:0db8:85a3:0000:0000:8a2e:0370:7334</span>
+                                    </div>
+
+                                    <div class="bytes">
+                                        <span><b>Bytes recebidos:</b> 12 GB</span>
+                                        <span><b>Bytes enviados:</b> 45 GB</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="alerta" id="alert" style="display: none;">
@@ -221,7 +276,8 @@
                                     <div class="texto">
                                         <span><b>Descrição do alerta</b></span>
                                         <div class="scroll-desc">
-                                            <span>Maquina com tela congelada no processamento do pagamento do cliente</span>
+                                            <span>Maquina com tela congelada no processamento do pagamento do
+                                                cliente</span>
                                         </div>
                                     </div>
                                 </div>
@@ -293,6 +349,11 @@
     const graficoMenu2 = document.getElementById('contendo');
     const modalInfo = document.getElementById('maquina-info');
 
+    const dado1 = document.getElementById('troca1');
+    const dado2 = document.getElementById('troca2');
+    const dado3 = document.getElementById('troca3');
+    const dado4 = document.getElementById('troca4');
+
     // abrir com clique
     // botao.addEventListener('click', abrirPopup);
 
@@ -301,7 +362,7 @@
 
     // fechar com clique fora do popup
     window.addEventListener('click', fecharFora);
-    
+
     // função para abrir com o clique
     function abrirPopup(idMaquina) {
         popup.style.display = 'block';
@@ -560,7 +621,7 @@
                             metrica.Ram = registro.ramMetrica;
                             metrica.Disco = registro.discoMetrica;
 
-                            
+
                         }
                         carregarGrafCPU()
                     });
@@ -580,6 +641,10 @@
 
 
     function drawChartRam() {
+        dado1.style.display = 'none'
+        dado2.style.display = 'block'
+        dado3.style.display = 'none'
+        dado4.style.display = 'none'
 
         var data = google.visualization.arrayToDataTable([
             ['', ''],
@@ -600,12 +665,17 @@
 
 
     // Gráfico CPU
-    function carregarGrafCPU(){ 
+    function carregarGrafCPU() {
         google.charts.load('current', { 'packages': ['corechart'] });
         google.charts.setOnLoadCallback(drawChartCpu);
         drawChartCpu()
     }
     function drawChartCpu() {
+        dado1.style.display = 'block'
+        dado2.style.display = 'none'
+        dado3.style.display = 'none'
+        dado4.style.display = 'none'
+
         console.log(vetorHora, vetorPorcentagemCpu)
         var data = google.visualization.arrayToDataTable([
             ['Horário', 'Porcentagem %'],
@@ -643,6 +713,10 @@
     google.charts.setOnLoadCallback(drawChartDisco);
 
     function drawChartDisco() {
+        dado1.style.display = 'none'
+        dado2.style.display = 'none'
+        dado3.style.display = 'block'
+        dado4.style.display = 'none'
 
         var data = google.visualization.arrayToDataTable([
             ['Disco', 'Memória'],
@@ -670,6 +744,11 @@
 
 
     function drawChartRede() {
+        dado1.style.display = 'none'
+        dado2.style.display = 'none'
+        dado3.style.display = 'none'
+        dado4.style.display = 'block'
+        
         var data = google.visualization.arrayToDataTable([
             ['horário', 'Upload', 'Download'],
             [vetorHora[0], vetorRedeUpload[0], vetorRedeDownload[0]],
