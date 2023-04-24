@@ -171,7 +171,7 @@
     </div> -->
 
     <div id="popup_fundo" class="popup">
-        <div class="popup_conteudo">
+        <div class="popup_conteudo" id="pp">
             <div class="telaCadastro">
                 <div class="modal-inteiro">
                     <ul class="menus-geral">
@@ -348,6 +348,7 @@
     const modalAlerta = document.getElementById('alert');
     const graficoMenu2 = document.getElementById('contendo');
     const modalInfo = document.getElementById('maquina-info');
+    const margemTop = document.getElementById('pp');
 
     const dado1 = document.getElementById('troca1');
     const dado2 = document.getElementById('troca2');
@@ -390,6 +391,7 @@
         modalAlerta.style.display = 'none'
         graficoMenu2.style.display = 'block'
         modalInfo.style.display = 'none'
+        margemTop.style.marginTop = '2%'
 
 
         drawChartCpu()
@@ -403,7 +405,7 @@
         modalAlerta.style.display = 'block'
         graficoMenu2.style.display = 'none'
         modalInfo.style.display = 'none'
-
+        margemTop.style.marginTop = '5%'
     }
 
     function abaInfo() {
@@ -411,6 +413,7 @@
         modalAlerta.style.display = 'none'
         graficoMenu2.style.display = 'none'
         modalInfo.style.display = 'block'
+        margemTop.style.marginTop = '5%'
     }
 
 
