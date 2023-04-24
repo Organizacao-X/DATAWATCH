@@ -69,7 +69,7 @@ function buscarDadosEmTempoReal(idMaquina, idEmpresa) {
         c.cpuUso AS cpuuso,
         c.temperatura AS temperatura,
         c.ramUso AS ramuso,
-        c.discoLivre AS discolivre,
+        c.LivreDisco1 AS discolivre,
         m.totalDisco1 AS discoTotal,
         m.ramTotal AS ramTotal,
         m.cpuMetrica AS processadorMetrica,
