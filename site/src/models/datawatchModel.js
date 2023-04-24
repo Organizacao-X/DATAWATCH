@@ -101,9 +101,9 @@ function consultarStatusEmpresa(idUsuario) {
                      ON Usuarios.fkEmpresa = Empresas.idEmpresa
                      WHERE Usuarios.idUsuario = ${idUsuario};`
     }
-    
 
-    
+
+
 
     return database.executar(instrucao);
 }
@@ -122,7 +122,7 @@ function pegarMaquinas(idEmpresa) {
     LEFT JOIN Possuem ON Maquinas.idmaquina = Possuem.fkmaquina
     WHERE Maquinas.fkempresa = ${idEmpresa}
     GROUP BY idmaquina, Maquinas.nomeMaquina, Maquinas.statusSistema, Maquinas.tempoAtividade;`
-    
+
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
 
         var instrucao = `SELECT Maquinas.idMaquina Id, Maquinas.nomeMaquina, Maquinas.statusSistema,
@@ -152,17 +152,18 @@ function pegarDadosGrafico(idEmpresa) {
     if (process.env.AMBIENTE_PROCESSO == "producao") {
 
         var instrucao = `SELECT 
-        nomeMaquina,
-        fkmaquina as Maquina, 
-        Sum(ramuso) as somaRam, 
-        CONVERT(varchar(5), dataHora, 108) AS HoraFormata 
+        Maquinas.nomeMaquina, 
+        Capturas.fkmaquina AS Maquina, 
+        SUM(Capturas.ramuso) AS somaRam, 
+        FORMAT(Capturas.dataHora, 'HH : 00') AS HoraFormata 
     FROM Capturas 
-    left JOIN Maquinas ON Maquinas.idMaquina = Capturas.fkMaquina
-    WHERE dataHora >= DATEADD(day, -30, GETDATE())
-    AND Capturas.fkempresa = ${idEmpresa}
-    GROUP BY nomeMaquina, fkmaquina, CONVERT(varchar(5), dataHora, 108)
-    ORDER BY HoraFormata, fkMaquina;`
-    
+    JOIN Maquinas 
+        ON Maquinas.idMaquina = Capturas.fkMaquina 
+    WHERE Capturas.dataHora >= DATEADD(DAY, -30, GETDATE()) 
+        AND Capturas.fkempresa = 1 
+    GROUP BY Maquinas.nomeMaquina, Capturas.fkmaquina, FORMAT(Capturas.dataHora, 'HH : 00') 
+    ORDER BY HoraFormata, Maquina;`
+
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
 
         var instrucao = `SELECT 
@@ -177,7 +178,7 @@ function pegarDadosGrafico(idEmpresa) {
         group by nomeMaquina, fkmaquina, HoraFormata
         order by HoraFormata, fkMaquina;`
     }
-    
+
 
     return database.executar(instrucao)
 }
