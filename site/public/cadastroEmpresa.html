@@ -148,6 +148,17 @@
 </script>
 
 <script>
+    var inputs = document.querySelectorAll("input");
+
+    // Funções que apoiam a validação:
+    function validarEmail(email) {
+        // Verificação do formato do email:
+        var re = /\S+@\S+\.\S+/;
+
+        // Retorna true se o email for válido:
+        return re.test(email);
+    }
+    
     function formatarCampoCnpj(string) {
         // Retira os caracteres especiais:
         return string.replace(/[.-/]/g, "");
@@ -158,11 +169,67 @@
         return string.replace(/[-]/g, "");
     }
     
-    function formatarCampoCep(string) {
+    function formatarCampoFone(string) {
         // Retira os caracteres especiais:
-        return string.replace(/[-]/g, "");
+        return string.replace(/[() -]/g, "");
     }
 
+    function mostrarBordaVazio(input, valorInput) {
+        if (valorInput.length == 0) {
+            input.style.borderBottom = "solid 4px red"
+        } else {
+            limparBorda(input);
+        }
+    }
+
+    function limparBorda(input) {
+        input.style.borderBottom = "none";
+    }
+
+    function validacao1(cnpj, cep) {
+        var erro = true;
+
+        if (cnpj < 14) {
+            inputs[1].style.borderBottom = "solid 4px red";
+
+            erro = false;
+        } else {
+            inputs[1].style.borderBottom = "none";
+        }
+        
+        if (cep < 8) {
+            inputs[2].style.borderBottom = "solid 4px red";
+
+            erro = false;
+        } else {
+            inputs[2].style.borderBottom = "none";
+        }
+
+        return erro;
+    }
+    
+    function validacao2(email, fone) {
+        var erro = true;
+
+        if (!(validarEmail(email))) {
+            inputs[9].style.borderBottom = "solid 4px red";
+
+            erro = false;
+        } else {
+            inputs[9].style.borderBottom = "none";
+        }
+        
+        if (fone < 11) {
+            inputs[10].style.borderBottom = "solid 4px red";
+
+            erro = false;
+        } else {
+            inputs[10].style.borderBottom = "none";
+        }
+
+        return erro;
+    }
+    
     function mostrarNomeUsuario() {
         span_nome_usuario.innerHTML = `Bem-vindo, ${sessionStorage.NOME_USUARIO}!`;
     }
@@ -216,16 +283,17 @@
 
     function cadastrarEmpresa() {
         var inputs = document.querySelectorAll("input.text");
-        var semErro = true;
+        var cnpj = formatarCampoCnpj(inputs[1].value);
+        var cep = formatarCampoCep(inputs[2].value);
 
         inputs.forEach(input => {
-            semErro = mostrarBordaVazio(input, input.value);
+            mostrarBordaVazio(input, input.value);
         });
 
         var fkIdVar = sessionStorage.ID_USUARIO;
 
 
-        if (semErro) {
+        if (!validacao1(cnpj, cep)) {
             fetch("/datawatch/cadastrarEmpresa1", {
                 method: "POST",
                 headers: {
@@ -233,8 +301,8 @@
                 },
                 body: JSON.stringify({
                     razaoSocialServer: inputs[0].value,
-                    cnpjServer: formatarCampoCnpj(inputs[1].value),
-                    cepServer: formatarCampoCep(inputs[2].value),
+                    cnpjServer: cnpj,
+                    cepServer: cep,
                     rua_avServer: inputs[3].value,
                     numeroServer: inputs[4].value,
                     bairroServer: inputs[5].value,
@@ -284,23 +352,23 @@
                 console.log(`ERRO: ${resposta}`);
             })
         } else {
-            alert('Preencha todos os campos')
+            console.log('Preencha todos os campos');
         }
         return false
     }
 
     function cadastrarEmpresa2(idEmpresa) {
-        var inputs = document.querySelectorAll("input");
-        var semErro = true;
+        var email = inputs[9].value;
+        var fone = formatarCampoFone(inputs[10].value);
 
         inputs.forEach(input => {
-            semErro = mostrarBordaVazio(input, input.value);
+            mostrarBordaVazio(input, input.value);
         });
 
 
 
 
-        if (semErro) {
+        if (validacao2(email, fone)) {
 
             fetch("/datawatch/cadastrarEmpresa2", {
                 method: "POST",
@@ -308,8 +376,8 @@
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    emailServer: inputs[9].value,
-                    telefoneServer: inputs[10].value,
+                    emailServer: email,
+                    telefoneServer: fone,
                     fkIdServer: idEmpresa,
 
                 })

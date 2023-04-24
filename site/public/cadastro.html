@@ -48,40 +48,50 @@
         <div class="ladoB">
             <div class="alinhamentoInputs">
                 <h1>Cadastre-se:</h1>
-                <label class="tipo_campo">Nome:</label>
-                <div class="inputAux">
-                    <input id="nome_input" type="text" placeholder="Seu nome" maxlength="40" onchange="limparBorda(this)">
-                    <div class="tooltip" data-tooltip="Escreva o seu nome"></div>
+                <div class="formElement">                    
+                    <label class="tipo_campo">Nome:</label>
+                    <div class="inputAux">
+                        <input id="nome_input" type="text" placeholder="Seu nome" maxlength="40" onchange="limparBorda(this)">
+                        <div class="tooltip" data-tooltip="Escreva o seu nome"></div>
+                    </div>
+                    <div class="erro" style="display: flex; height: 4px;"></div>
                 </div>
-                <div class="erro" style="display: flex; height: 4px;"></div>
 
-                <label class="tipo_campo">E-mail:</label>
-                <div class="inputAux">
-                    <input id="email_input" type="email" placeholder="meuemail@provedor.com" maxlength="45" onchange="limparBorda(this)">
-                    <div class="tooltip" data-tooltip="Escreva o seu email, verificando o domínio e os pontos"></div>
+                <div class="formElement">                    
+                    <label class="tipo_campo">E-mail:</label>
+                    <div class="inputAux">
+                        <input id="email_input" type="email" placeholder="meuemail@provedor.com" maxlength="45" onchange="limparBorda(this)">
+                        <div class="tooltip" data-tooltip="Escreva o seu email, verificando o domínio e os pontos"></div>
+                    </div>
+                    <div class="erro" id="erro_email" style="display: flex; height: 4px;"></div>
                 </div>
-                <div class="erro" id="erro_email" style="display: flex; height: 4px;"></div>
 
-                <label class="tipo_campo">CPF:</label>
-                <div class="inputAux">
-                    <input id="cpf_input" type="text" placeholder="000.000.000-00" onchange="limparBorda(this)">
-                    <div class="tooltip" data-tooltip="Escreva todos os 11 dígitos de seu CPF, não precisa escrever os pontos e o traço"></div>
+                <div class="formElement">                    
+                    <label class="tipo_campo">CPF:</label>
+                    <div class="inputAux">
+                        <input id="cpf_input" type="text" placeholder="000.000.000-00" onchange="limparBorda(this)">
+                        <div class="tooltip" data-tooltip="Escreva todos os 11 dígitos de seu CPF, não precisa escrever os pontos e o traço"></div>
+                    </div>
+                    <div class="erro" id="erro_cpf" style="display: flex; height: 4px;"></div>
                 </div>
-                <div class="erro" id="erro_cpf" style="display: flex; height: 4px;"></div>
 
-                <label class="tipo_campo">Senha:</label>
-                <div class="inputAux">
-                    <input id="senha_input" type="password" placeholder="******" maxlength="25" onchange="limparBorda(this)">
-                    <div class="tooltip" data-tooltip="A senha precisa ter pelo menos 8 dígitos"></div>
+                <div class="formElement">                    
+                    <label class="tipo_campo">Senha:</label>
+                    <div class="inputAux">
+                        <input id="senha_input" type="password" placeholder="******" maxlength="25" onchange="limparBorda(this)">
+                        <div class="tooltip" data-tooltip="A senha precisa ter pelo menos 8 dígitos"></div>
+                    </div>
+                    <div class="erro" id="erro_senha" style="display: flex; height: 4px;"></div>
                 </div>
-                <div class="erro" id="erro_senha" style="display: flex; height: 4px;"></div>
 
-                <label class="tipo_campo">Confirmação da Senha:</label>
-                <div class="inputAux">
-                    <input id="confirmacao_senha_input" type="password" placeholder="******" maxlength="25" onchange="limparBorda(this)">
-                    <div class="tooltip" data-tooltip="As senhas necessitam ser iguais, é por sua segurança ;)"></div>
+                <div class="formElement">                    
+                    <label class="tipo_campo">Confirmação da Senha:</label>
+                    <div class="inputAux">
+                        <input id="confirmacao_senha_input" type="password" placeholder="******" maxlength="25" onchange="limparBorda(this)">
+                        <div class="tooltip" data-tooltip="As senhas necessitam ser iguais, é por sua segurança ;)"></div>
+                    </div>
+                    <div class="erro" id="erro_senha_confirmacao" style="display: flex; height: 4px;"></div>
                 </div>
-                <div class="erro" id="erro_senha_confirmacao" style="display: flex; height: 4px;"></div>
 
                 <div class="carregamento">
                     <div class="conter" id="load" style="display: none;" >
@@ -156,39 +166,45 @@
         if (!validarEmail(email_input.value)) {
             console.log(email_input.value);
             inputs[1].style.borderBottom = "solid 4px red";
-            // erro_email.style.display = "flex";
+            erros[1].style.display = "none";
+            
             erro = false;
-        } // else {
-        //     erro_email.style.display = "none";
-        // }
+        } else {
+            erros[1].style.display = "flex";
+        }
     
         if (cpfFormatado.length < 11) {
             inputs[2].style.borderBottom = "solid 4px red";
-            // erro_cpf.style.display = "flex";
+            erros[2].style.display = "none";
+
             erro = false;
-        } // else {
-        //     erro_cpf.style.display = "none";
-        // }
+        } else {
+            erro[2].style.display = "flex";
+        }
     
         if (inputs[3].value.length < 8) {
             inputs[3].style.borderBottom = "solid 4px red";
-            // erro_senha.style.display = "flex";
+            erros[3].style.display = "none";
+
             erro = false;
-        } // else {
-        //     erro_senha.style.display = "none";
-        // }
+        } else {
+            erros[3].style.display = "flex";
+        }
     
         if (inputs[3].value != inputs[4].value) {
             inputs[3].style.borderBottom = "solid 4px red"
             inputs[4].style.borderBottom = "solid 4px red"
-            // erro_senha_confirmacao.style.display = "flex";
+            erros[3].style.display = "none";
+            erros[4].style.display = "none";
+
             erro = false;
-        } // else {
-        //     erro_senha_confirmacao.style.display = "none";
-        // }
-            
-            return erro;
+        } else {
+                erros[3].style.display = "flex";
+                erros[4].style.display = "flex";
         }
+            
+        return erro;
+    }
 
     function cadastrar(field) {
 

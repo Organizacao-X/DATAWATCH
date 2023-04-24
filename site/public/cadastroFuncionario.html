@@ -120,10 +120,12 @@
 </script>
 
 <script>
+    var inputs = document.querySelectorAll("input");
+
     // Funções que apoiam a validação:
     function validarEmail(email) {
         // Verificação do formato do email:
-        var re = /\S+@\S+.\S+/;
+        var re = /\S+@\S+\.\S+/;
 
         // Retorna true se o email for válido:
         return re.test(email);
@@ -134,53 +136,73 @@
         return string.replace(/[.-]/g, "");
     }
 
-    function validar() {
-        var erro = true;
-        var cpfFormatado = formatarCampo(cpf_input.value);
+    function mostrarBordaVazio(input, valorInput) {
+        if (valorInput.length == 0) {
+            input.style.borderBottom = "solid 4px red"
+        } else {
+            limparBorda(input);
+        }
+    }
 
-        if (!validarEmail(email_input.value)) {
+    function limparBorda(input) {
+        input.style.borderBottom = "none";
+    }
+
+    function validar(value) {
+        var erro = true;
+
+        if (!(validarEmail(email_input.value))) {
             console.log(email_input.value);
+            console.log(validarEmail(email_input.value));
             inputs[1].style.borderBottom = "solid 4px red";
-            erro_email.style.display = "flex";
+
             erro = false;
         } else {
-            erro_email.style.display = "none";
+            limparBorda(inputs[1]);
         }
 
-        if (cpfFormatado.length < 11) {
+        if (value.length < 11) {
             inputs[2].style.borderBottom = "solid 4px red";
-            erro_cpf.style.display = "flex";
+
             erro = false;
         } else {
-            erro_cpf.style.display = "none";
+            limparBorda(inputs[2]);
         }
 
         if (inputs[3].value.length < 8) {
-            erro_senha.style.display = "flex";
+            inputs[3].style.borderBottom = "solid 4px red";
+
             erro = false;
         } else {
-            erro_senha.style.display = "none";
+            limparBorda(inputs[3]);
         }
 
         if (inputs[3].value != inputs[4].value) {
             inputs[3].style.borderBottom = "solid 4px red"
             inputs[4].style.borderBottom = "solid 4px red"
-            erro_senha_confirmacao.style.display = "flex";
+
             erro = false;
         } else {
-            erro_senha_confirmacao.style.display = "none";
+            limparBorda(inputs[3]);
+            limparBorda(inputs[4]);
         }
 
         return erro;
     }
 
+    // function mostrarBordaVazio(input, valorInput) {
+    //     if (valorInput.length == 0) {
+    //         input.style.borderBottom = "solid 4px red"
+    //     } else {
+    //         limparBorda(input);
+    //     }
+    // }
 
     function cadastroFuncionario() {
         /* aguardar(); */
 
         //Recupere o valor da nova input pelo nome do id
         // Agora vá para o método fetch logo abaixo
-        var inputs = document.querySelectorAll("input.dados")
         var erro = false
 
         inputs.forEach(input => {
@@ -190,7 +212,7 @@
 
         var nomeVar = nome_input.value;
         var emailVar = email_input.value;
-        var cpfVar = cpf_input.value;
+        var cpfVar = formatarCampo(cpf_input.value);
         var senhaVar = senha_input.value;
         var confirmacaoSenhaVar = confirmacao_senha_input.value;
         var admVar = sessionStorage.ID_USUARIO;
@@ -207,45 +229,47 @@
             /* setInterval(sumirMensagem, 5000) */
         }
 
-        // Enviando o valor da nova input
-        fetch("/datawatch/cadastrarFuncionario", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                // crie um atributo que recebe o valor recuperado aqui
-                nomeServer: inputs[0].value,
-                emailServer: inputs[1].value,
-                cpfServer: formatarCampo(cpf_input.value),
-                senhaServer: inputs[3].value,
-                admServer: admVar,
-                fkEmpresaServer: fkEmpresa
-
-            })
-        }).then(function (resposta) {
-
-            console.log("resposta: ", resposta);
-
-            if (resposta.ok) {
-                /* cardErro.style.display = "block"; */
-
-                /* mensagem_erro.innerHTML = "Cadastro de funcionário realizado com sucesso!"; */
-
-                setTimeout(() => {
-                    window.location = "areaADM.html";
-                }, "2000")
-
-                limparFormulario();
+        if (validar(cpfVar)) {
+            // Enviando o valor da nova input
+            fetch("/datawatch/cadastrarFuncionario", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    // crie um atributo que recebe o valor recuperado aqui
+                    nomeServer: inputs[0].value,
+                    emailServer: inputs[1].value,
+                    cpfServer: cpfVar,
+                    senhaServer: inputs[3].value,
+                    admServer: admVar,
+                    fkEmpresaServer: fkEmpresa
+        
+                })
+            }).then(function (resposta) {
+        
+                console.log("resposta: ", resposta);
+        
+                if (resposta.ok) {
+                    /* cardErro.style.display = "block"; */
+        
+                    /* mensagem_erro.innerHTML = "Cadastro de funcionário realizado com sucesso!"; */
+        
+                    setTimeout(() => {
+                        window.location = "areaADM.html";
+                    }, "2000")
+        
+                    limparFormulario();
+                    /* finalizarAguardar(); */
+                } else {
+                    throw ("Houve um erro ao tentar realizar o cadastro!");
+                }
+            }).catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
                 /* finalizarAguardar(); */
-            } else {
-                throw ("Houve um erro ao tentar realizar o cadastro!");
-            }
-        }).catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`);
-            /* finalizarAguardar(); */
-        });
-
-        return false;
+            });
+        
+            return false;
+        }
     }
 </script>

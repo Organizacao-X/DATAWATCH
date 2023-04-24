@@ -127,6 +127,12 @@ header {
     height: 90vh;
 }
 
+.formElement {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
 label {
     margin: 5px 0 5px 0;
 }
