@@ -560,7 +560,7 @@
                 if (resposta.ok) {
                     resposta.json().then(resposta => {
 
-                        // console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
 
                         vetorHora = [];
                         vetorRedeUpload = [];
@@ -613,7 +613,7 @@
 
                             // RAM (Banco)
                             CapacidadeRamTotal = registro.ramTotal;
-                            CapacidadeRamEmUso = registro.ramUso;
+                            CapacidadeRamEmUso = registro.ramuso;
 
 
                             // MÉTRICA (Banco)
@@ -621,7 +621,7 @@
                             metrica.Ram = registro.ramMetrica;
                             metrica.Disco = registro.discoMetrica;
 
-
+                            capacidadeDiscoTotal = registro.discoTotal
                         }
                         carregarGrafCPU()
                     });
@@ -718,12 +718,12 @@
         dado3.style.display = 'block'
         dado4.style.display = 'none'
 
+        console.log(capacidadeDiscoLivre)
+
         var data = google.visualization.arrayToDataTable([
             ['Disco', 'Memória'],
-            ['Capacidade em uso (Disco 1)', capacidadeDiscoTotal1],
-            ['Capacidade em uso (Disco 2)', capacidadeDiscoTotal2],
-            ['Capacidade em uso (Disco 3)', capacidadeDiscoTotal3],
             ['Capacidade livre', capacidadeDiscoLivre],
+            ['Capacidade total', capacidadeDiscoTotal],
 
         ]);
 
