@@ -177,7 +177,7 @@
             <div class="bloco-quatro">
                 <div class="grafico">
                     <div class="titulo-grafico">
-                        <span><b>Horários de pico de consumo de ram</b></span>
+                        <span><b>Horários de pico de consumo de RAM - Últimos 30 dias</b></span>
                     </div>
                     <div id="div_grafico" class="content-grafico">
 
@@ -907,59 +907,70 @@
     google.charts.load("current", { packages: ['corechart'] });
     google.charts.setOnLoadCallback(plotarGrafico(dados));
     function drawChart(dados) {
-            console.log(dados)
-            var contQtdColunas = 0;
-            var vetorInteiro = [['Nome máquina']]
-            var ultimaHora = ''
+        // console.log(dados)
+        // var contQtdColunas = 0;
+        // var vetorInteiro = [['Nome máquina']]
+        // var ultimaHora = ''
 
-            for (let i = 0; i < dados.length; i++) {
-                if (vetorInteiro[0].indexOf(dados[i].nomeMaquina) == -1) {
-                    vetorInteiro[0].push(dados[i].nomeMaquina)
-                    contQtdColunas++
+        // for (let i = 0; i < dados.length; i++) {
+        //     if (vetorInteiro[0].indexOf(dados[i].nomeMaquina) == -1) {
+        //         vetorInteiro[0].push(dados[i].nomeMaquina)
+        //         contQtdColunas++
 
-                }
-                if (dados[i].HoraFormata != ultimaHora) {
-                    var vetor = [dados[i].HoraFormata]
-                    for (let j = 0; j < dados.length; j++) {
-                        if (dados[j].HoraFormata == vetor[0]) {
-                            vetor.push(dados[j].somaRam)
-                        }
-                    }
-                    if (vetor.length != vetorInteiro[0].length) {
-                        for (let k = vetor.length - 1; k < vetorInteiro[0].length - 1; k++) {
-                            vetor.push(0)
-                        }
-                    }
-                    vetorInteiro.push(vetor)
-                    ultimaHora = dados[i].HoraFormata
-                }
-            }
-            console.log(contQtdColunas)
+        //     }
+        //     if (dados[i].HoraFormata != ultimaHora) {
+        //         var vetor = [dados[i].HoraFormata]
+        //         for (let j = 0; j < dados.length; j++) {
+        //             if (dados[j].HoraFormata == vetor[0]) {
+        //                 vetor.push(dados[j].somaRam)
+        //             }
+        //         }
+        //         if (vetor.length != vetorInteiro[0].length) {
+        //             for (let k = vetor.length - 1; k < vetorInteiro[0].length - 1; k++) {
+        //                 vetor.push(0)
+        //             }
+        //         }
+        //         vetorInteiro.push(vetor)
+        //         ultimaHora = dados[i].HoraFormata
+        //     }
+        // }
+        // console.log(contQtdColunas)
 
-            var vetorQtdColunas = [];
-            for (let i = 0; i <= contQtdColunas; i++) {
-                vetorQtdColunas.push(i)
-            }
+        // var vetorQtdColunas = [];
+        // for (let i = 0; i <= contQtdColunas; i++) {
+        //     vetorQtdColunas.push(i)
+        // }
 
-            console.log(vetor)
+        // console.log(vetor)
 
-            console.log(vetorInteiro)
+        // console.log(vetorInteiro)
 
-            var data = google.visualization.arrayToDataTable(vetorInteiro);
+        var data = google.visualization.arrayToDataTable([['Nome máquina', 'máquina01', 'máquina02', 'máquina03'],
+        ['12:00', 9.9, 11, 22],
+        ['13:00', 22, 45, 44],
+        ['14:00', 34, 65, 31]]);
 
-            var options = {
-                width: "32vh",
-                legend: { position: 'top', maxLines: 6 },
-                bar: { groupWidth: '75%' },
-                isStacked: true,
-            };
+        var options = {
+            // width: "32vw",
+            height: 330,
+            legend: { position: 'top', maxLines: 6 },
+            bar: { groupWidth: '75%' },
+            isStacked: true,
+        };
 
-            console.log(vetorQtdColunas)
+        // console.log(vetorQtdColunas)
 
-            var view = new google.visualization.DataView(data);
-            view.setColumns(vetorQtdColunas);
+        // var view = new google.visualization.DataView(data);
+        // view.setColumns(4);
 
-            var chart = new google.visualization.ColumnChart(document.getElementById("div_grafico"));
-            chart.draw(view, options);
-        }
+        var data = google.visualization.arrayToDataTable([
+            ['Nome máquina', 'máquina01', 'máquina02', 'máquina03'],
+            ['12:00', 8.6, 32.3, 54],
+            ['13:00', 56, 22, 14],
+            ['14:00', 19, 43, 24]
+        ]);
+
+        var chart = new google.visualization.ColumnChart(document.getElementById("div_grafico"));
+        chart.draw(data, options);
+    }
 </script>
