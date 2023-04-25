@@ -124,6 +124,7 @@ header {
 .menu__item:hover {
   background-color: #F2CB05;
   color: #181818;
+  cursor: pointer;
 }
 
 .image {

@@ -31,13 +31,15 @@
 
                 <ul class="menu__box">
                     <div class="image">
-                        <img src="../public/assets/imgs/imagem-do-usuario-com-fundo-preto.png" alt=""
+                        <img src="./assets/imgs/imagem-do-usuario-com-fundo-preto.png" alt=""
                             style="height: 200px; width: 200px; border-radius: 50%; ">
                     </div>
                     <div class="nomeUser">
-                        <span>Nome funcionario</span>
+                        <span id="nome_usuario_menu"></span>
                     </div>
                     <li><a class="menu__item" href="../public/areaFuncionário.html">Home</a></li>
+                    <li id="lateral_menu_cad_download"><a class="menu__item" href="./JAR/DATAWATCH-sistema.zip"
+                        download="app_DataWatch">Baixar aplicativo</a></li>
                     <li><a class="menu__item" onclick="limparSessao()">Logout</a></li>
                 </ul>
             </div>
@@ -306,8 +308,8 @@
                             </div>
                             <div class="dados-maquina">
                                 <span><b>Nome da máquina:</b> maquina02</span>
-                                <span><b>Sistema Operacional:</b> Windows</span>
-                                <span><b>Disco 1:</b> 160GB</span>
+                                <span><b>Sistema Operacional:</b> Ubuntu 22.04 LTS</span>
+                                <span><b>Data de cadastro:</b> 04/04/2023</span>
                                 <span><b>Tempo de atividade:</b> 2d 5h 26min</span>
                             </div>
                         </div>
@@ -336,6 +338,8 @@
 
 </body>
 <script>
+
+nome_usuario_menu.innerHTML =`${sessionStorage.NOME_USUARIO}`
 
     // popup
     var popup = document.getElementById('popup_fundo');
