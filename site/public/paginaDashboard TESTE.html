@@ -131,7 +131,7 @@
 
           <div class="maquina">
             <div class="dados">
-              <span>CPU</span>
+              <span>CPU <input type="text" id="senha_md5"> </span>
 
               <span>Processador</span>
 
@@ -145,7 +145,7 @@
             </div>
 
             <div class="dados2">
-              <span>Usado</span>
+              <span><button onclick="encryptar()">Aqui</button>  </span>
 
               <span>Usado</span>
 
@@ -165,8 +165,21 @@
 </body>
 
 </html>
-
+<script src="https://cdn.jsdelivr.net/npm/md5-js-tools@1.0.2/lib/md5.min.js"></script>
 <script>
+  function encryptar() {
+    if (senha_md5.value.length > 0) {
+      var senhaMd5Hash = MD5.generate(senha_md5.value);
+      console.log(senhaMd5Hash)
+      senha_md5.value = ''
+    } else {
+      alert("Input em branco!")
+    }
+
+
+  }
+
+
   function cpuIn() {
     cpu_normal.style.display = 'none';
     cpu_yellow.style.display = 'block';

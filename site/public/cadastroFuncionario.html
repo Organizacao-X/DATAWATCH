@@ -6,7 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <script src="./js/cadastro.js"></script>
     <script src="./js/funcoes.js"></script>
 
     <title>DATAWATCH | Funcionários</title>
@@ -111,7 +110,8 @@
 </body>
 
 </html>
-
+<!-- HASH MD5 -->
+<script src="https://cdn.jsdelivr.net/npm/md5-js-tools@1.0.2/lib/md5.min.js"></script>
 <!-- Máscaras -->
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"></script>
@@ -121,6 +121,12 @@
 
 <script>
     var inputs = document.querySelectorAll("input");
+
+    function teste(){
+    for (let index = 0; index < inputs.length; index++) {
+        console.log(index +": "+ inputs[index].value)
+        
+    }}
 
     // Funções que apoiam a validação:
     function validarEmail(email) {
@@ -150,18 +156,11 @@
 
     function validar(value) {
         var erro = true;
+        var cpfFormatado = formatarCampo(cpf_input.value);
 
         if (!(validarEmail(email_input.value))) {
             console.log(email_input.value);
             console.log(validarEmail(email_input.value));
-            inputs[1].style.borderBottom = "solid 4px red";
-
-            erro = false;
-        } else {
-            limparBorda(inputs[1]);
-        }
-
-        if (value.length < 11) {
             inputs[2].style.borderBottom = "solid 4px red";
 
             erro = false;
@@ -169,7 +168,7 @@
             limparBorda(inputs[2]);
         }
 
-        if (inputs[3].value.length < 8) {
+        if (inputs[3].value.length < 11) {
             inputs[3].style.borderBottom = "solid 4px red";
 
             erro = false;
@@ -177,14 +176,22 @@
             limparBorda(inputs[3]);
         }
 
-        if (inputs[3].value != inputs[4].value) {
-            inputs[3].style.borderBottom = "solid 4px red"
-            inputs[4].style.borderBottom = "solid 4px red"
+        if (inputs[4].value.length < 8) {
+            inputs[4].style.borderBottom = "solid 4px red";
 
             erro = false;
         } else {
-            limparBorda(inputs[3]);
             limparBorda(inputs[4]);
+        }
+
+        if (inputs[4].value != inputs[5].value) {
+            inputs[4].style.borderBottom = "solid 4px red"
+            inputs[5].style.borderBottom = "solid 4px red"
+
+            erro = false;
+        } else {
+            limparBorda(inputs[4]);
+            limparBorda(inputs[5]);
         }
 
         return erro;
@@ -200,7 +207,7 @@
 
     function cadastroFuncionario() {
         /* aguardar(); */
-
+        teste()
         //Recupere o valor da nova input pelo nome do id
         // Agora vá para o método fetch logo abaixo
         var erro = false
@@ -238,10 +245,10 @@
                 },
                 body: JSON.stringify({
                     // crie um atributo que recebe o valor recuperado aqui
-                    nomeServer: inputs[0].value,
-                    emailServer: inputs[1].value,
+                    nomeServer: inputs[1].value,
+                    emailServer: inputs[2].value,
                     cpfServer: cpfVar,
-                    senhaServer: inputs[3].value,
+                    senhaServer: MD5.generate(inputs[4].value),
                     admServer: admVar,
                     fkEmpresaServer: fkEmpresa
         

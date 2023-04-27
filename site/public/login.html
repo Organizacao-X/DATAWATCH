@@ -48,14 +48,14 @@
                 <label class="tipo_campo">Senha:</label>
                 <input id="senha_input" type="password" placeholder="******" onchange="limparBorda(this)">
                 <div class="erro" id="erro_senha" style="display: none;"><b>Senha inválida</b></div>
-<!--                 <div class="checkboxDiv">
+                <!--                 <div class="checkboxDiv">
                     <div class="alinhamentoCheckBox">
                         <input type="checkbox" id="rememberMe"> <label for="rememberMe">Lembrar de mim</label>
                     </div>
                         <label>Esqueci minha senha</label>
                 </div> -->
                 <div class="carregamento">
-                    <div class="conter" id="load" style="display: none;" >
+                    <div class="conter" id="load" style="display: none;">
                         <div class="newtons-cradle">
                             <div class="newtons-cradle__dot"></div>
                             <div class="newtons-cradle__dot"></div>
@@ -80,6 +80,8 @@
 </body>
 
 </html>
+<!-- HASH MD5 -->
+<script src="https://cdn.jsdelivr.net/npm/md5-js-tools@1.0.2/lib/md5.min.js"></script>
 
 <script>
     var remember = document.getElementById('rememberMe');
@@ -103,7 +105,7 @@
 
 
         console.log("FORM LOGIN: ", inputs[0].value);
-        console.log("FORM SENHA: ", inputs[1].value);
+        console.log("FORM SENHA: ", MD5.generate(inputs[1].value));
 
         fetch("/datawatch/autenticar", {
             method: "POST",
@@ -112,7 +114,7 @@
             },
             body: JSON.stringify({
                 emailServer: inputs[0].value,
-                senhaServer: inputs[1].value
+                senhaServer: MD5.generate(inputs[1].value)
             })
         }).then(function (resposta) {
             console.log("ESTOU NO THEN DO entrar()!")
@@ -128,12 +130,14 @@
                     sessionStorage.NOME_USUARIO = json.nomeUsuario;
                     sessionStorage.ID_USUARIO = json.idUsuario;
                     sessionStorage.ID_EMPRESA = json.fkEmpresa;
-                    
+
                     entrando.style.display = "none"
                     load.style.display = "block"
 
                     setTimeout(function () {
-                        if (json.adm == null) {
+                        if (json.fkEmpresa == null) {
+                            window.location = "./areaBoasVindas.html";
+                        } else if (json.adm == null) {
                             window.location = "./areaADM.html";
                         } else {
                             window.location = "./areaFuncionário.html";
