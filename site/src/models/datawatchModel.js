@@ -9,7 +9,7 @@ function cadastrar(nome, email, cpf, senha) {
     //  e na ordem de inserção dos dados.
     var instrucao = `
         INSERT INTO Usuarios (nomeUsuario, email, cpf, senha, adm, fkEmpresa) VALUES ('${nome}', '${email}', '${cpf}', 
-        CONVERT(VARCHAR(64), HASHBYTES('SHA2_256', CONCAT('${senha}', '${senha}', 2)),2), null, null);
+        CONVERT(VARCHAR(64), HASHBYTES('SHA2_256', CONCAT('${senha}', '${senha}')),2), null, null);
         `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
@@ -50,7 +50,7 @@ function cadastrarFuncionario(nome, email, cpf, senha, adm, FkEmpresa) {
     console.log("ACESSEI O DATAWATCH MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrarFuncionario():", nome, email, cpf, senha, adm);
     var instrucao = `
         INSERT INTO Usuarios (nomeUsuario, email, cpf, senha, adm, fkEmpresa) VALUES ('${nome}', '${email}','${cpf}',
-        CONVERT(VARCHAR(64), HASHBYTES('SHA2_256', CONCAT('${senha}', '${senha}', 2)),2), ${adm}, ${FkEmpresa});
+        CONVERT(VARCHAR(64), HASHBYTES('SHA2_256', CONCAT('${senha}', '${senha}')),2), ${adm}, ${FkEmpresa});
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
@@ -73,7 +73,7 @@ function cadastrarMaquina(fkEmpresa, nome, serie, data,) {
 function entrar(email, senha) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", email, senha)
     var instrucao = `
-        SELECT * FROM Usuarios WHERE email = '${email}' AND senha = CONVERT(VARCHAR(64), HASHBYTES('SHA2_256', CONCAT('${senha}', '${senha}', 2)),2);
+        SELECT * FROM Usuarios WHERE email = '${email}' AND senha = CONVERT(VARCHAR(64), HASHBYTES('SHA2_256', CONCAT('${senha}', '${senha}')),2);
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
