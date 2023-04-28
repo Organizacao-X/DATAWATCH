@@ -111,8 +111,6 @@
 </body>
 
 </html>
-<!-- HASH MD5 -->
-<script src="https://cdn.jsdelivr.net/npm/md5-js-tools@1.0.2/lib/md5.min.js"></script>
 <!-- Máscaras -->
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"></script>
@@ -229,7 +227,7 @@
                     nomeServer: inputs[0].value,
                     emailServer: inputs[1].value,
                     cpfServer: cpfFormatado,
-                    senhaServer: MD5.generate(inputs[3].value)
+                    senhaServer: inputs[3].value
                 })
             }).then(function (resposta) {
         
