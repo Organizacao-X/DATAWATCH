@@ -152,49 +152,55 @@ function pegarFuncionarios(idEmpresa) {
 function pegarDadosGrafico(idEmpresa) {
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
-
+        
         var instrucao = `SELECT 
         Maquinas.nomeMaquina, 
         Capturas.fkmaquina AS Maquina, 
         SUM(Capturas.ramuso) AS somaRam, 
         FORMAT(Capturas.dataHora, 'HH : 00') AS HoraFormata 
-    FROM Capturas 
-    JOIN Maquinas 
+        FROM Capturas 
+        JOIN Maquinas 
         ON Maquinas.idMaquina = Capturas.fkMaquina 
-    WHERE Capturas.dataHora >= DATEADD(DAY, -30, GETDATE()) 
+        WHERE Capturas.dataHora >= DATEADD(DAY, -30, GETDATE()) 
         AND Capturas.fkempresa = 1 
-    GROUP BY Maquinas.nomeMaquina, Capturas.fkmaquina, FORMAT(Capturas.dataHora, 'HH : 00') 
-    ORDER BY HoraFormata, Maquina;`
-
+        GROUP BY Maquinas.nomeMaquina, Capturas.fkmaquina, FORMAT(Capturas.dataHora, 'HH : 00') 
+        ORDER BY HoraFormata, Maquina;`
+        
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
-
+        
         var instrucao = `SELECT 
         nomeMaquina,
         fkmaquina as Maquina, Sum(ramuso) as somaRam, 
         TIME_FORMAT(dataHora, '%H : 00') AS HoraFormata 
         from Capturas 
         JOIN Maquinas
-            ON Maquinas.idMaquina = Capturas.fkMaquina
+        ON Maquinas.idMaquina = Capturas.fkMaquina
         where dataHora >= SUBDATE(CURDATE(), INTERVAL 30 DAY) 
         and Capturas.fkempresa = ${idEmpresa} 
         group by nomeMaquina, fkmaquina, HoraFormata
         order by HoraFormata, fkMaquina;`
     }
 
-
+    
     return database.executar(instrucao)
 }
 
 function editarFuncionario(idFunc, email, senha) {
     var instrucao = `UPDATE Usuarios SET email = '${email}', senha = '${senha}' WHERE idUsuario = ${idFunc}`
-
+    
     return database.executar(instrucao)
 }
 
 function desativarFuncionario(idFunc) {
     var instrucao = `DELETE FROM Usuarios WHERE idUsuario = ${idFunc}`
-
+    
     return database.executar(instrucao)
+}
+
+function exibirBoasVindas(idUsuario) {
+    var instrucao = `SELECT * FROM Usuarios WHERE idUsuario = ${idUsuario};`
+
+    return database.executar(instrucao);
 }
 
 module.exports = {
@@ -210,5 +216,6 @@ module.exports = {
     pegarFuncionarios,
     pegarDadosGrafico,
     editarFuncionario,
-    desativarFuncionario
+    desativarFuncionario,
+    exibirBoasVindas
 };

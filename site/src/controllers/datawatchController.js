@@ -20,7 +20,7 @@ function cadastrar(req, res) {
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está undefined!");
     } else {
-        
+
         // Passe os valores como parâmetro e vá para o arquivo datawatchModel.js
         datawatchModel.cadastrar(nome, email, cpf, senha)
             .then(
@@ -33,7 +33,7 @@ function cadastrar(req, res) {
                     console.log(
                         "\nHouve um erro ao realizar o cadastro! Erro: ",
                         erro.sqlMessage
-                    );  
+                    );
                     res.status(500).json(erro.message);
                 }
             );
@@ -111,8 +111,8 @@ function cadastrarEmpresa1(req, res) {
             function (resultado) {
                 res.json(resultado);
             }
-            ).catch(
-                function (erro) {
+        ).catch(
+            function (erro) {
                 console.log(erro);
                 console.log("\nHouve um erro ao realizar o cadastro de empresa! Erro: ", erro.sqlMessage);
                 res.status(500).json(erro.sqlMessage);
@@ -130,13 +130,13 @@ function cadastrarEmpresa2(req, res) {
     } else if (telefone == undefined) {
         res.status(400).send("Seu telefone está undefined!");
     } else {
-        
+
         datawatchModel.cadastrarEmpresa2(email, telefone, idusuario).then(
             function (resultado) {
                 res.json(resultado);
             }
-            ).catch(
-                function (erro) {
+        ).catch(
+            function (erro) {
                 console.log(erro);
                 console.log("\nHouve um erro ao realizar o cadastro de empresa! Erro: ", erro.sqlMessage);
                 res.status(500).json(erro.sqlMessage);
@@ -166,214 +166,214 @@ function cadastrarEmpresa3(req, res) {
         );
     }
 }
-    /* CADASTRO DE FUNCIONARIO */
-    function cadastrarFuncionario(req, res) {
-        // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
-        var nome = req.body.nomeServer;
-        var email = req.body.emailServer;
-        var cpf = req.body.cpfServer;
-        var senha = req.body.senhaServer;
-        var adm = req.body.admServer;
-        var fkEmpresa = req.body.fkEmpresaServer
+/* CADASTRO DE FUNCIONARIO */
+function cadastrarFuncionario(req, res) {
+    // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
+    var nome = req.body.nomeServer;
+    var email = req.body.emailServer;
+    var cpf = req.body.cpfServer;
+    var senha = req.body.senhaServer;
+    var adm = req.body.admServer;
+    var fkEmpresa = req.body.fkEmpresaServer
 
-        // Faça as validações dos valores
-        if (nome == undefined) {
-            res.status(400).send("Seu nome está undefined!");
-        } else if (email == undefined) {
-            res.status(400).send("Seu email está undefined!");
-        } else if (cpf == undefined) {
-            res.status(400).send("Seu cpf está undefined!");
-        } else if (senha == undefined) {
-            res.status(400).send("Sua senha está undefined!");
-        } else if (adm == undefined) {
-            res.status(400).send("Funcionário não vinculado a um gerente(undefined)");
-        } else if (fkEmpresa == undefined) {
-            res.status(400).send("Funcionário não vinculado a uma empresa   (undefined)");
-        } else {
+    // Faça as validações dos valores
+    if (nome == undefined) {
+        res.status(400).send("Seu nome está undefined!");
+    } else if (email == undefined) {
+        res.status(400).send("Seu email está undefined!");
+    } else if (cpf == undefined) {
+        res.status(400).send("Seu cpf está undefined!");
+    } else if (senha == undefined) {
+        res.status(400).send("Sua senha está undefined!");
+    } else if (adm == undefined) {
+        res.status(400).send("Funcionário não vinculado a um gerente(undefined)");
+    } else if (fkEmpresa == undefined) {
+        res.status(400).send("Funcionário não vinculado a uma empresa   (undefined)");
+    } else {
 
-            // Passe os valores como parâmetro e vá para o arquivo datawatchModel.js
-            datawatchModel.cadastrarFuncionario(nome, email, cpf, senha, adm, fkEmpresa)
-                .then(
-                    function (resultado) {
+        // Passe os valores como parâmetro e vá para o arquivo datawatchModel.js
+        datawatchModel.cadastrarFuncionario(nome, email, cpf, senha, adm, fkEmpresa)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
+function entrar(req, res) {
+    var email = req.body.emailServer;
+    var senha = req.body.senhaServer;
+
+    if (email == undefined) {
+        res.status(400).send("Seu email está undefined!");
+    } else if (senha == undefined) {
+        res.status(400).send("Sua senha está indefinida!");
+    } else {
+
+        datawatchModel.entrar(email, senha)
+            .then(
+                function (resultado) {
+                    console.log(`\nResultados encontrados: ${resultado.length}`);
+                    console.log(`Resultados: ${JSON.stringify(resultado)}`); // transforma JSON em String
+
+                    if (resultado.length == 1) {
+                        console.log(resultado);
+                        res.json(resultado[0]);
+                    } else if (resultado.length == 0) {
+                        res.status(403).send("Email e/ou senha inválido(s)");
+                    } else {
+                        res.status(403).send("Mais de um usuário com o mesmo login e senha!");
+                    }
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log("\nHouve um erro ao realizar o login! Erro: ", erro.sqlMessage);
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
+// CONSULTANDO SE EMPRESA ESTÁ VERIFICADA
+function consultarStatusEmpresa(req, res) {
+    var idUsuario = req.body.idUsuarioServer;
+
+    if (idUsuario == undefined) {
+        res.status(400).send("Seu ID de usuário está undefined!");
+    } else {
+        datawatchModel.consultarStatusEmpresa(idUsuario)
+            .then(
+                function (resultado) {
+                    console.log(`Resultados: ${JSON.stringify(resultado)}`); // transforma JSON em String
+                    if (resultado.length == 1 || resultado.length == 0) {
+                        console.log(resultado);
                         res.json(resultado);
+                    } else {
+                        res.status(403).send("Usuário com mais de uma empresa cadastrada!");
                     }
-                ).catch(
-                    function (erro) {
-                        console.log(erro);
-                        console.log(
-                            "\nHouve um erro ao realizar o cadastro! Erro: ",
-                            erro.sqlMessage
-                        );
-                        res.status(500).json(erro.sqlMessage);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log("\nHouve um erro ao realizar o login! Erro: ", erro.sqlMessage);
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
+// PEGANDO AS MÁQUINAS DA EMRPESA X
+function pegarMaquinas(req, res) {
+    var idEmpresa = req.body.idEmpresaServer;
+
+    if (idEmpresa == undefined) {
+        res.status(400).send("Sua idEmpresa está undefined");
+    } else {
+        datawatchModel.pegarMaquinas(idEmpresa)
+            .then(
+                function (resultado) {
+                    console.log(`\nResultados encontrados: ${resultado.length}`);
+                    console.log(`Resultados: ${JSON.stringify(resultado)}`);
+
+                    if (resultado.length > 0) {
+                        console.log(resultado);
+                        res.json(resultado);
+                    } else if (resultado.length == 0) {
+                        console.log("Nenhuma máquina cadastrada nesta empresa")
+                        res.status(403).send("Nenhuma máquina cadastrada");
+                    } else {
+                        res.status(403).send("Erro");
                     }
-                );
-        }
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log("\nHouve um erro ao puxar as máquinas cadastradas! Erro: ", erro.sqlMessage);
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
+function pegarFuncionarios(req, res) {
+    var idEmpresa = req.body.idEmpresaServer;
+
+    if (idEmpresa == undefined) {
+        res.status(400).send("Sua idEmpresa está undefined");
+    } else {
+        datawatchModel.pegarFuncionarios(idEmpresa)
+            .then(
+                function (resultado) {
+                    console.log(`\nResultados encontrados: ${resultado.length}`);
+                    console.log(`Resultados: ${JSON.stringify(resultado)}`);
+
+                    if (resultado.length > 0) {
+                        console.log(resultado);
+                        res.json(resultado);
+                    } else if (resultado.length == 0) {
+                        console.log("Nenhum funcionário cadastrado nesta empresa")
+                        res.status(403).send("Nenhum funcionário cadastrado");
+                    } else {
+                        res.status(403).send("Erro");
+                    }
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log("\nHouve um erro ao puxar os funcionários cadastrados! Erro: ", erro.sqlMessage);
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
+function pegarTempoAtivMaquinas(req, res) {
+    var idEmpresa = req.params.idEmpresa;
+
+    if (idEmpresa == undefined) {
+        res.status(400).send("Sua empresa está undefined")
+    } else {
+        datawatchModel.pegarTempoAtivMaquinas(idEmpresa).then(function (resultado) {
+            console.log(`Maquinas e tempo de atv encontrado: ${resultado}`)
+            res.json(resultado)
+        }).catch(function (erro) {
+            console.log(erro)
+            console.log("Houve um erro ao pegar as máquinas e seu tempo de atividade! Erro : ", erro.sqlMessage)
+            res.status(500).json(erro.sqlMessage)
+        })
     }
 
-    function entrar(req, res) {
-        var email = req.body.emailServer;
-        var senha = req.body.senhaServer;
-    
-        if (email == undefined) {
-            res.status(400).send("Seu email está undefined!");
-        } else if (senha == undefined) {
-            res.status(400).send("Sua senha está indefinida!");
-        } else {
-            
-            datawatchModel.entrar(email, senha)
-                .then(
-                    function (resultado) {
-                        console.log(`\nResultados encontrados: ${resultado.length}`);
-                        console.log(`Resultados: ${JSON.stringify(resultado)}`); // transforma JSON em String
-    
-                        if (resultado.length == 1) {
-                            console.log(resultado);
-                            res.json(resultado[0]);
-                        } else if (resultado.length == 0) {
-                            res.status(403).send("Email e/ou senha inválido(s)");
-                        } else {
-                            res.status(403).send("Mais de um usuário com o mesmo login e senha!");
-                        }
-                    }
-                ).catch(
-                    function (erro) {
-                        console.log(erro);
-                        console.log("\nHouve um erro ao realizar o login! Erro: ", erro.sqlMessage);
-                        res.status(500).json(erro.sqlMessage);
-                    }
-                );
-        }
+}
+
+function pegarDadosGrafico(req, res) {
+    var idEmpresa = req.params.idEmpresa;
+
+    if (idEmpresa == undefined) {
+        res.status(400).send("Sua empresa está undefined")
+    } else {
+        datawatchModel.pegarDadosGrafico(idEmpresa).then(function (resultado) {
+            console.log(`Dados de máquina encontrados: ${resultado}`)
+            res.json(resultado)
+        }).catch(function (erro) {
+            console.log(erro)
+            console.log("Houve um erro ao pegar os dados das máquinas! Erro: ", erro.sqlMessage)
+            res.status(500).json(erro.sqlMessage)
+        })
     }
+}
 
-    // CONSULTANDO SE EMPRESA ESTÁ VERIFICADA
-    function consultarStatusEmpresa(req, res) {
-        var idUsuario = req.body.idUsuarioServer;
-    
-        if (idUsuario == undefined) {
-            res.status(400).send("Seu ID de usuário está undefined!");
-        } else {
-            datawatchModel.consultarStatusEmpresa(idUsuario)
-                .then(
-                    function (resultado) {
-                        console.log(`Resultados: ${JSON.stringify(resultado)}`); // transforma JSON em String
-                        if (resultado.length == 1 || resultado.length == 0) {
-                            console.log(resultado);
-                            res.json(resultado);
-                        } else {
-                            res.status(403).send("Usuário com mais de uma empresa cadastrada!");
-                        }
-                    }
-                ).catch(
-                    function (erro) {
-                        console.log(erro);
-                        console.log("\nHouve um erro ao realizar o login! Erro: ", erro.sqlMessage);
-                        res.status(500).json(erro.sqlMessage);
-                    }
-                );
-        }
-    }
-
-    // PEGANDO AS MÁQUINAS DA EMRPESA X
-    function pegarMaquinas(req, res) {
-        var idEmpresa = req.body.idEmpresaServer;
-    
-        if (idEmpresa == undefined) {
-            res.status(400).send("Sua idEmpresa está undefined");
-        } else {
-            datawatchModel.pegarMaquinas(idEmpresa)
-                .then(
-                    function (resultado) {
-                        console.log(`\nResultados encontrados: ${resultado.length}`);
-                        console.log(`Resultados: ${JSON.stringify(resultado)}`);
-    
-                        if (resultado.length > 0) {
-                            console.log(resultado);
-                            res.json(resultado);
-                        } else if (resultado.length == 0) {
-                            console.log("Nenhuma máquina cadastrada nesta empresa")
-                            res.status(403).send("Nenhuma máquina cadastrada");
-                        } else {
-                            res.status(403).send("Erro");
-                        }
-                    }
-                ).catch(
-                    function (erro) {
-                        console.log(erro);
-                        console.log("\nHouve um erro ao puxar as máquinas cadastradas! Erro: ", erro.sqlMessage);
-                        res.status(500).json(erro.sqlMessage);
-                    }
-                );
-        }
-    }
-    
-    function pegarFuncionarios(req, res) {
-        var idEmpresa = req.body.idEmpresaServer;
-    
-        if (idEmpresa == undefined) {
-            res.status(400).send("Sua idEmpresa está undefined");
-        } else {
-            datawatchModel.pegarFuncionarios(idEmpresa)
-                .then(
-                    function (resultado) {
-                        console.log(`\nResultados encontrados: ${resultado.length}`);
-                        console.log(`Resultados: ${JSON.stringify(resultado)}`);
-    
-                        if (resultado.length > 0) {
-                            console.log(resultado);
-                            res.json(resultado);
-                        } else if (resultado.length == 0) {
-                            console.log("Nenhum funcionário cadastrado nesta empresa")
-                            res.status(403).send("Nenhum funcionário cadastrado");
-                        } else {
-                            res.status(403).send("Erro");
-                        }
-                    }
-                ).catch(
-                    function (erro) {
-                        console.log(erro);
-                        console.log("\nHouve um erro ao puxar os funcionários cadastrados! Erro: ", erro.sqlMessage);
-                        res.status(500).json(erro.sqlMessage);
-                    }
-                );
-        }
-    }
-
-    function pegarTempoAtivMaquinas(req, res) {
-        var idEmpresa = req.params.idEmpresa;
-
-        if (idEmpresa == undefined) {
-            res.status(400).send("Sua empresa está undefined")
-        } else {
-            datawatchModel.pegarTempoAtivMaquinas(idEmpresa).then(function (resultado) {
-                console.log(`Maquinas e tempo de atv encontrado: ${resultado}`)
-                res.json(resultado)
-            }).catch(function (erro) {
-                console.log(erro)
-                console.log("Houve um erro ao pegar as máquinas e seu tempo de atividade! Erro : ", erro.sqlMessage)
-                res.status(500).json(erro.sqlMessage)
-            })
-        }
-
-    }
-
-    function pegarDadosGrafico(req, res) {
-        var idEmpresa = req.params.idEmpresa;
-
-        if (idEmpresa == undefined) {
-            res.status(400).send("Sua empresa está undefined")
-        } else {
-            datawatchModel.pegarDadosGrafico(idEmpresa).then(function (resultado) {
-                console.log(`Dados de máquina encontrados: ${resultado}`)
-                res.json(resultado)
-            }).catch(function (erro) {
-                console.log(erro)
-                console.log("Houve um erro ao pegar os dados das máquinas! Erro: ", erro.sqlMessage)
-                res.status(500).json(erro.sqlMessage)
-            })
-        }
-    }
-
-    // EDITAR DADOS DE UM FUNCIONÁRIO JÁ REGISTRADO
+// EDITAR DADOS DE UM FUNCIONÁRIO JÁ REGISTRADO
 function editarFuncionario(req, res) {
     var idFunc = req.params.idFuncionario;
     var email = req.body.novoEmailServer;
@@ -419,20 +419,38 @@ function desativarFuncionario(req, res) {
     }
 }
 
+function exibirBoasVindas(req, res) {
+    var idUsuario = req.params.idUsuario;
 
-    module.exports = {
-        entrar,
-        cadastrar,
-        cadastrarFuncionario,
-        cadastrarMaquina,
-        cadastrarEmpresa1,
-        cadastrarEmpresa2,
-        cadastrarEmpresa3,
-        consultarStatusEmpresa,
-        pegarMaquinas,
-        pegarFuncionarios,
-        pegarTempoAtivMaquinas,
-        pegarDadosGrafico,
-        editarFuncionario,
-        desativarFuncionario
+    if (idUsuario == undefined) {
+        res.status(400).send("Seu usuário está undefined")
+    } else {
+        datawatchModel.exibirBoasVindas(idUsuario).then(function (resultado) {
+            console.log(`Dados de usuário encontrados: ${resultado}`)
+            res.json(resultado)
+        }).catch(function (erro) {
+            console.log(erro)
+            console.log("Houve um erro ao pegar os dados do usuário! Erro: ", erro.sqlMessage)
+            res.status(500).json(erro.sqlMessage)
+        })
     }
+}
+
+
+module.exports = {
+    entrar,
+    cadastrar,
+    cadastrarFuncionario,
+    cadastrarMaquina,
+    cadastrarEmpresa1,
+    cadastrarEmpresa2,
+    cadastrarEmpresa3,
+    consultarStatusEmpresa,
+    pegarMaquinas,
+    pegarFuncionarios,
+    pegarTempoAtivMaquinas,
+    pegarDadosGrafico,
+    editarFuncionario,
+    desativarFuncionario,
+    exibirBoasVindas
+}

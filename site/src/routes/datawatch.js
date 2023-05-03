@@ -67,4 +67,8 @@ router.delete("/desativarFuncionario/:idFuncionario", function (req, res) {
     datawatchController.desativarFuncionario(req, res)
 })
 
+router.get("/exibirBoasVindas/:idUsuario", function (req, res) {
+    datawatchController.exibirBoasVindas(req, res);
+})
+
 module.exports = router;
