@@ -119,7 +119,8 @@ function pegarMaquinas(idEmpresa) {
     (Maquinas.tempoAtividade * 1000) AS tempo_total_milissegundos,
     CONCAT(FLOOR(Maquinas.tempoAtividade / 86400), ' dias, ',
     CONVERT(VARCHAR(8), DATEADD(SECOND, Maquinas.tempoAtividade % 86400, 0), 108)) AS tempo_formatado,
-    COUNT(Possuem.fkmaquina) AS contagemChamados
+    COUNT(Possuem.fkmaquina) AS contagemChamados,
+    SUM(Possuem.PesoAlertas) AS PesoAlerta
     FROM Maquinas
     LEFT JOIN Possuem ON Maquinas.idmaquina = Possuem.fkmaquina
     WHERE Maquinas.fkempresa = ${idEmpresa}
@@ -191,6 +192,13 @@ function editarFuncionario(idFunc, email, senha) {
     return database.executar(instrucao)
 }
 
+function lancarMetricas(cpu, ram, disco, idMaquina) {
+    
+    var instrucao = `UPDATE Maquinas SET cpuMetrica = '${cpu}', ramMetrica = '${ram}', gatilhoDisco1 = '${disco}' WHERE idMaquina = ${idMaquina}`
+    
+    return database.executar(instrucao)
+}
+
 function desativarFuncionario(idFunc) {
     var instrucao = `DELETE FROM Usuarios WHERE idUsuario = ${idFunc}`
     
@@ -217,5 +225,6 @@ module.exports = {
     pegarDadosGrafico,
     editarFuncionario,
     desativarFuncionario,
-    exibirBoasVindas
+    exibirBoasVindas,
+    lancarMetricas
 };

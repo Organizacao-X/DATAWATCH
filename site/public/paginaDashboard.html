@@ -281,7 +281,7 @@
     var ram = CapacidadeRamTotal*0.85;
     var disco = capacidadeDiscoTotal*0.70;
 
-    fetch("/datawatch/autenticar", {
+    fetch(`/datawatch/lancarMetricas/${idMaquina}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -297,18 +297,18 @@
         if (resposta.ok) {
             console.log(resposta);
 
-            resposta.json().then(json => {
-                console.log(json);
-                console.log(JSON.stringify(json));
+            // resposta.json().then(json => {
+            //     console.log(json);
+            //     console.log(JSON.stringify(json));
 
-                sessionStorage.EMAIL_USUARIO = json.email;
-                sessionStorage.NOME_USUARIO = json.nomeUsuario;
-                sessionStorage.ID_USUARIO = json.idUsuario;
-                sessionStorage.ID_EMPRESA = json.idEmpresa;
+            //     sessionStorage.EMAIL_USUARIO = json.email;
+            //     sessionStorage.NOME_USUARIO = json.nomeUsuario;
+            //     sessionStorage.ID_USUARIO = json.idUsuario;
+            //     sessionStorage.ID_EMPRESA = json.idEmpresa;
 
                
 
-            });
+            // });
 
         } else {
 

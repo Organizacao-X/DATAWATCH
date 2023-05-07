@@ -436,6 +436,30 @@ function exibirBoasVindas(req, res) {
     }
 }
 
+function lancarMetricas(req, res) {
+    var cpu = req.params.cpuMetricaServer;
+    var ram = req.body.ramMetricaServer;
+    var disco = req.body.discoMetricaServer;
+    var idMaquina = req.body.idMaquinaServer;
+
+    if (idMaquina == undefined) {
+        res.status(400).send("");
+    } else {
+        datawatchModel.lancarMetricas(cpu, ram, disco, idMaquina)
+            .then(
+                function (resultado) {
+                    res.json(resultado)
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log("\nHouve um erro ao adicionar as métricas! Erro: ", erro.sqlMessage);
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
 
 module.exports = {
     entrar,
@@ -452,5 +476,6 @@ module.exports = {
     pegarDadosGrafico,
     editarFuncionario,
     desativarFuncionario,
-    exibirBoasVindas
+    exibirBoasVindas,
+    lancarMetricas
 }

@@ -10,6 +10,10 @@ router.post("/cadastrar", function (req, res) {
     datawatchController.cadastrar(req, res);
 })
 
+router.put("/lancarMetricas/:idMaquina", function (req, res) {
+    datawatchController.lancarMetricas(req, res);
+})
+
 //Recebendo os dados do html cadastroFuncionario
 router.post("/cadastrarFuncionario", function (req, res) {
     datawatchController.cadastrarFuncionario(req, res);

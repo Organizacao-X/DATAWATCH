@@ -505,9 +505,9 @@ nome_usuario_menu.innerHTML =`${sessionStorage.NOME_USUARIO}`
 
                             li.style = "background-color: rgb(255, 179, 179)"
 
-                            if (maquina.contagemChamados == 0) {
+                            if (maquina.PesoAlerta == 0 || maquina.PesoAlerta == null) {
                                 li.style = "background-color: rgb(189, 255, 188)"
-                            } else if (maquina.contagemChamados >= 1 && maquina.contagemChamados <= 3) {
+                            } else if (maquina.PesoAlerta >= 20 && maquina.PesoAlerta <= 69) {
                                 li.style = "background-color: rgb(255, 254, 167)"
                             } else {
                                 li.style = "background-color: rgb(255, 179, 179)"
@@ -518,6 +518,7 @@ nome_usuario_menu.innerHTML =`${sessionStorage.NOME_USUARIO}`
                             })
                             lista_maquinas.appendChild(li)
                             console.log(lista_maquinas)
+                            metricas(maquina.Id)
                         });
                     }
 
@@ -631,6 +632,7 @@ nome_usuario_menu.innerHTML =`${sessionStorage.NOME_USUARIO}`
                             capacidadeDiscoTotal = registro.discoTotal
                         }
                         carregarGrafCPU()
+                        metricas(idMaquina)
                     });
                 } else {
 
@@ -641,6 +643,72 @@ nome_usuario_menu.innerHTML =`${sessionStorage.NOME_USUARIO}`
                 console.error(`Erro na obtenção dos dados do aquario p/ gráfico: ${error.message}`);
             });
     }
+
+    // Lançar Métricas no Banco
+
+    function metricas(idMaquina) {
+        debugger
+         
+         // CONTAS para MÉTRICAS
+
+         console.log(`${CapacidadeRamTotal}`);
+         console.log(`${capacidadeDiscoTotal}`);
+     
+         var cpu = 90;
+         var ram = CapacidadeRamTotal*0.85;
+         var disco = capacidadeDiscoTotal*0.70;
+         
+         console.log(`${cpu}`);
+         console.log(`${ram}`);
+         console.log(`${disco}`);
+         console.log(`${idMaquina}`);
+     
+         fetch(`/datawatch/lancarMetricas/${idMaquina}`, {
+             method: "POST",
+             headers: {
+                 "Content-Type": "application/json"
+             },
+             body: JSON.stringify({
+                 cpuMetricaServer: Number(cpu),
+                 ramMetricaServer: Number(ram),
+                 discoMetricaServer: Number(disco),
+                 idMaquinaServer: idMaquina
+             })
+         }).then(function (resposta) {
+             console.log("ESTOU NO THEN DO entrar()!")
+     
+             if (resposta.ok) {
+                 console.log(resposta);
+     
+                 // resposta.json().then(json => {
+                 //     console.log(json);
+                 //     console.log(JSON.stringify(json));
+     
+                 //     sessionStorage.EMAIL_USUARIO = json.email;
+                 //     sessionStorage.NOME_USUARIO = json.nomeUsuario;
+                 //     sessionStorage.ID_USUARIO = json.idUsuario;
+                 //     sessionStorage.ID_EMPRESA = json.idEmpresa;
+     
+                    
+     
+                 // });
+     
+             } else {
+     
+                 console.log("Houve um erro ao tentar cadastrar as métricas");
+     
+                 // resposta.text().then(texto => {
+                 //     console.error(texto);
+     
+                 // });
+             }
+     
+         }).catch(function (erro) {
+             console.log(erro);
+         })
+     
+         return false;
+         }
 
     // Gráfico RAM
     google.charts.load('current', { 'packages': ['corechart'] });
