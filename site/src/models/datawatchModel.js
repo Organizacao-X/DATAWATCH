@@ -249,6 +249,6 @@ module.exports = {
     desativarFuncionario,
     exibirBoasVindas,
     lancarMetricas,
-    validarDiretor,
+    // validarDiretor,
     pegarDadosDiretor
 };

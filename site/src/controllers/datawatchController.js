@@ -445,7 +445,7 @@ function lancarMetricas(req, res) {
     if (idMaquina == undefined) {
         res.status(400).send("");
     } else {
-        console.log(cpu, ram, disco, idMaquinacpuMetricaServer)
+        console.log(cpu, ram, disco, idMaquina)
         datawatchModel.lancarMetricas(cpu, ram, disco, idMaquina)
             .then(
                 function (resultado) {
