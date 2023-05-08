@@ -193,9 +193,14 @@ function editarFuncionario(idFunc, email, senha) {
 }
 
 function lancarMetricas(cpu, ram, disco, idMaquina) {
+
+    if (cpu == undefined) {
+        cpu = null
+    }
     
-    var instrucao = `UPDATE Maquinas SET cpuMetrica = '${cpu}', ramMetrica = '${ram}', gatilhoDisco1 = '${disco}' WHERE idMaquina = ${idMaquina}`
+    var instrucao = `UPDATE Maquinas SET cpuMetrica = ${cpu}, ramMetrica = ${ram}, gatilhoDisco1 = ${disco} WHERE idMaquina = ${idMaquina}`
     
+    console.log(instrucao);
     return database.executar(instrucao)
 }
 

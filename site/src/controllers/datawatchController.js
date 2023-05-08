@@ -437,7 +437,7 @@ function exibirBoasVindas(req, res) {
 }
 
 function lancarMetricas(req, res) {
-    var cpu = req.params.cpuMetricaServer;
+    var cpu = req.body.cpuMetricaServer;
     var ram = req.body.ramMetricaServer;
     var disco = req.body.discoMetricaServer;
     var idMaquina = req.body.idMaquinaServer;
@@ -445,6 +445,7 @@ function lancarMetricas(req, res) {
     if (idMaquina == undefined) {
         res.status(400).send("");
     } else {
+        console.log(cpu, ram, disco, idMaquinacpuMetricaServer)
         datawatchModel.lancarMetricas(cpu, ram, disco, idMaquina)
             .then(
                 function (resultado) {

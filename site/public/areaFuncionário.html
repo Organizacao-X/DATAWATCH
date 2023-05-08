@@ -663,15 +663,15 @@ nome_usuario_menu.innerHTML =`${sessionStorage.NOME_USUARIO}`
          console.log(`${disco}`);
          console.log(`${idMaquina}`);
      
-         fetch(`/datawatch/lancarMetricas/${idMaquina}`, {
+         fetch(`/datawatch/lancarMetricas`, {
              method: "POST",
              headers: {
                  "Content-Type": "application/json"
              },
              body: JSON.stringify({
-                 cpuMetricaServer: Number(cpu),
-                 ramMetricaServer: Number(ram),
-                 discoMetricaServer: Number(disco),
+                 cpuMetricaServer: cpu,
+                 ramMetricaServer: ram,
+                 discoMetricaServer: disco,
                  idMaquinaServer: idMaquina
              })
          }).then(function (resposta) {
