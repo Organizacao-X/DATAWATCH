@@ -658,10 +658,6 @@ nome_usuario_menu.innerHTML =`${sessionStorage.NOME_USUARIO}`
          var ram = CapacidadeRamTotal*0.85;
          var disco = capacidadeDiscoTotal*0.70;
          
-         console.log(`${cpu}`);
-         console.log(`${ram}`);
-         console.log(`${disco}`);
-         console.log(`${idMaquina}`);
      
          fetch(`/datawatch/lancarMetricas`, {
              method: "POST",
