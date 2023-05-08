@@ -460,6 +460,10 @@ function lancarMetricas(req, res) {
     }
 }
 
+function pegarDadosDiretor(req, res) {
+    
+}
+
 
 module.exports = {
     entrar,

@@ -211,6 +211,23 @@ function exibirBoasVindas(idUsuario) {
     return database.executar(instrucao);
 }
 
+function pegarDadosDiretor(idUsuario) {
+    var instrucao = `SELECT
+    Maquinas.fkEmpresa,
+    Empresas.razaoSocial,
+    SUM(Maquinas.statusSistema) AS 'maquinasAtivas',
+    COUNT(Maquinas.statusSistema) AS 'qtdMaquinas'
+    FROM [dbo].[Maquinas]
+    JOIN [dbo].[Empresas] ON Maquinas.fkEmpresa = Empresas.idEmpresa
+    WHERE fkEmpresa = ${idUsuario} GROUP BY fkEmpresa, razaoSocial;`
+
+    return database.executar(instrucao);
+}
+
+// function validarDiretor(idUsuario) {
+    
+// }
+
 module.exports = {
     entrar,
     cadastrar,
@@ -226,5 +243,7 @@ module.exports = {
     editarFuncionario,
     desativarFuncionario,
     exibirBoasVindas,
-    lancarMetricas
+    lancarMetricas,
+    validarDiretor,
+    pegarDadosDiretor
 };
