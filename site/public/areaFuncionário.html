@@ -630,7 +630,7 @@ nome_usuario_menu.innerHTML =`${sessionStorage.NOME_USUARIO}`
                             metrica.Disco = registro.discoMetrica;
 
                             capacidadeDiscoTotal = registro.discoTotal
-                            alertas(registro.maquina,registro.empresa);
+                            alertas(registro.maquina,registro.empresa, registro.cpuuso);
                         }
                         carregarGrafCPU();
                         metricas(idMaquina);
@@ -706,10 +706,10 @@ nome_usuario_menu.innerHTML =`${sessionStorage.NOME_USUARIO}`
 
 
 
-         function alertas(idMaquina,idEmpresa){
+         function alertas(idMaquina,idEmpresa, PorcentagemCpu){
 
             if(metrica.Processador!=null) {
-                if(metrica.Processador<vetorPorcentagemCpu){
+                if(metrica.Processador<PorcentagemCpu){
                     alertasRegistro(idMaquina,idEmpresa,1,20);
                 }
             }
