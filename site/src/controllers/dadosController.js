@@ -21,39 +21,39 @@ function buscarUltimasDados(req, res) {
     });
 }
 
-function cadastrarMetricas(req, res) {
-    // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
-    var cpu = req.body.cpuMetricaServer;
-    var ram = req.body.ramMetricaServer;
-    var disco = req.body.discoMetricaServer;
+// function cadastrarMetricas(req, res) {
+//     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
+//     var cpu = req.body.cpuMetricaServer;
+//     var ram = req.body.ramMetricaServer;
+//     var disco = req.body.discoMetricaServer;
 
-    // Faça as validações dos valores
-    if (ram == undefined) {
-        res.status(400).send("Seu ram está undefined!");
-    } else if (cpu == undefined) {
-        res.status(400).send("Seu cpu está undefined!");
-    } else if (disco == undefined) {
-        res.status(400).send("Sua disco está undefined!");
-    } else {
+//     // Faça as validações dos valores
+//     if (ram == undefined) {
+//         res.status(400).send("Seu ram está undefined!");
+//     } else if (cpu == undefined) {
+//         res.status(400).send("Seu cpu está undefined!");
+//     } else if (disco == undefined) {
+//         res.status(400).send("Sua disco está undefined!");
+//     } else {
         
-        // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.cadastrarDados(cpu, ram, disco, idMaquina)
-            .then(
-                function (resultado) {
-                    res.json(resultado);
-                }
-            ).catch(
-                function (erro) {
-                    console.log(erro);
-                    console.log(
-                        "\nHouve um erro ao realizar o cadastro! Erro: ",
-                        erro.sqlMessage
-                    );
-                    res.status(500).json(erro.sqlMessage);
-                }
-            );
-    }
-}
+//         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
+//         usuarioModel.cadastrarDados(cpu, ram, disco, idMaquina)
+//             .then(
+//                 function (resultado) {
+//                     res.json(resultado);
+//                 }
+//             ).catch(
+//                 function (erro) {
+//                     console.log(erro);
+//                     console.log(
+//                         "\nHouve um erro ao realizar o cadastro! Erro: ",
+//                         erro.sqlMessage
+//                     );
+//                     res.status(500).json(erro.sqlMessage);
+//                 }
+//             );
+//     }
+// }
 
 function buscarDadosEmTempoReal(req, res) {
 
@@ -78,6 +78,6 @@ function buscarDadosEmTempoReal(req, res) {
 module.exports = {
     buscarUltimasDados,
     buscarDadosEmTempoReal,
-    cadastrarMetricas
+    // cadastrarMetricas
 
 }

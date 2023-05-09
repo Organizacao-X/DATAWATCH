@@ -118,35 +118,36 @@ function buscarDadosEmTempoReal(idMaquina, idEmpresa) {
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
-function cadastrarDados(cpu, ram, disco, idMaquina) {
 
-    instrucaoSql = '';
+// function cadastrarDados(cpu, ram, disco, idMaquina) {
 
-    if (process.env.AMBIENTE_PROCESSO == "produção") {
+//     instrucaoSql = '';
 
-        instrucaoSql = `UPDATE Maquinas 
-    SET cpuMetrica = ${cpu} AND 
-    ramMetrica = ${ram} AND 
-    gatilhoDisco = ${disco}
-    WHERE idMaquina = ${idMaquina};`;
+//     if (process.env.AMBIENTE_PROCESSO == "produção") {
 
-    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+//         instrucaoSql = `UPDATE Maquinas 
+//     SET cpuMetrica = ${cpu} AND 
+//     ramMetrica = ${ram} AND 
+//     gatilhoDisco = ${disco}
+//     WHERE idMaquina = ${idMaquina};`;
 
-        instrucaoSql = `UPDATE Maquinas 
-    SET cpuMetrica = ${cpu} AND 
-    ramMetrica = ${ram} AND 
-    gatilhoDisco = ${disco}
-    WHERE idMaquina = ${idMaquina};`;
+//     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
 
-    }
+//         instrucaoSql = `UPDATE Maquinas 
+//     SET cpuMetrica = ${cpu} AND 
+//     ramMetrica = ${ram} AND 
+//     gatilhoDisco = ${disco}
+//     WHERE idMaquina = ${idMaquina};`;
 
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
-}
+//     }
+
+//     console.log("Executando a instrução SQL: \n" + instrucaoSql);
+//     return database.executar(instrucaoSql);
+// }
 
 
 module.exports = {
     buscarUltimasDados,
     buscarDadosEmTempoReal,
-    cadastrarDados
+    // cadastrarDados
 }
