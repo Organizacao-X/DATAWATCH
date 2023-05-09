@@ -630,7 +630,7 @@ nome_usuario_menu.innerHTML =`${sessionStorage.NOME_USUARIO}`
                             metrica.Disco = registro.discoMetrica;
 
                             capacidadeDiscoTotal = registro.discoTotal
-                            alertas(registro.maquina,registro.empresa, registro.cpuuso);
+                            alertas(registro.maquina,registro.empresa, registro.cpuuso, registro.download, registro.upload);
                         }
                         carregarGrafCPU();
                         metricas(idMaquina);
@@ -706,7 +706,7 @@ nome_usuario_menu.innerHTML =`${sessionStorage.NOME_USUARIO}`
 
 
 
-         function alertas(idMaquina,idEmpresa, PorcentagemCpu){
+         function alertas(idMaquina,idEmpresa, PorcentagemCpu, downloadAlerta, uploadAlert){
 
             if(metrica.Processador!=null) {
                 if(metrica.Processador<PorcentagemCpu){
@@ -726,7 +726,7 @@ nome_usuario_menu.innerHTML =`${sessionStorage.NOME_USUARIO}`
                 }
             }
 
-            if(vetorRedeDownload[i]==null||vetorRedeUpload==null){
+            if(downloadAlerta==null||uploadAlert==null){
                 alertasRegistro(idMaquina,idEmpresa,4,100);
             }
 
