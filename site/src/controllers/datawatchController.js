@@ -396,7 +396,28 @@ function editarFuncionario(req, res) {
             );
     }
 }
+// VICULAR O CÓDIGO PRA TER DIRETOR
+function vincularDiretor(req, res) {
+    var idEmpresa = req.params.idFuncionario;
+    var uuid = req.body.novoEmailServer;
 
+    if (idEmpresa == undefined) {
+        res.status(400).send("Seu idEmpresa está undefined");
+    } else {
+        datawatchModel.editarFuncionario(idEmpresa, uuid)
+            .then(
+                function (resultado) {
+                    res.json(resultado)
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log("\nHouve um erro ao vincular o diretor! Erro: ", erro.sqlMessage);
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
 
 // DELETAR FUNCIONARIO JA CADASTRADO
 function desativarFuncionario(req, res) {
@@ -486,11 +507,6 @@ function registrarAlertas(req, res) {
     }
 }
 
-function pegarDadosDiretor(req, res) {
-    
-}
-
-
 module.exports = {
     entrar,
     cadastrar,
@@ -508,5 +524,6 @@ module.exports = {
     desativarFuncionario,
     exibirBoasVindas,
     lancarMetricas,
-    registrarAlertas
+    registrarAlertas,
+    vincularDiretor
 }
