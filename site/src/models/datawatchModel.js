@@ -8,8 +8,8 @@ function cadastrar(nome, email, cpf, senha) {
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
     var instrucao = `
-        INSERT INTO Usuarios (nomeUsuario, email, cpf, senha, adm, fkEmpresa) VALUES ('${nome}', '${email}', '${cpf}', 
-        CONVERT(VARCHAR(64), HASHBYTES('SHA2_256', CONCAT('${senha}', '${senha}')),2), null, null);
+        INSERT INTO Usuarios (nomeUsuario, email, cpf, senha, adm, fkEmpresa, uuid) VALUES ('${nome}', '${email}', '${cpf}', 
+        CONVERT(VARCHAR(64), HASHBYTES('SHA2_256', CONCAT('${senha}', '${senha}')),2), null, null, NEWID());
         `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
@@ -49,8 +49,8 @@ function cadastrarEmpresa3(idempresa, idusuario) {
 function cadastrarFuncionario(nome, email, cpf, senha, adm, FkEmpresa) {
     console.log("ACESSEI O DATAWATCH MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrarFuncionario():", nome, email, cpf, senha, adm);
     var instrucao = `
-        INSERT INTO Usuarios (nomeUsuario, email, cpf, senha, adm, fkEmpresa) VALUES ('${nome}', '${email}','${cpf}',
-        CONVERT(VARCHAR(64), HASHBYTES('SHA2_256', CONCAT('${senha}', '${senha}')),2), ${adm}, ${FkEmpresa});
+        INSERT INTO Usuarios (nomeUsuario, email, cpf, senha, adm, fkEmpresa, uuid) VALUES ('${nome}', '${email}','${cpf}',
+        CONVERT(VARCHAR(64), HASHBYTES('SHA2_256', CONCAT('${senha}', '${senha}')),2), ${adm}, ${FkEmpresa}, NEWID());
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
@@ -193,9 +193,22 @@ function editarFuncionario(idFunc, email, senha) {
 }
 
 function lancarMetricas(cpu, ram, disco, idMaquina) {
+
+    if (cpu == undefined) {
+        cpu = null
+    }
     
-    var instrucao = `UPDATE Maquinas SET cpuMetrica = '${cpu}', ramMetrica = '${ram}', gatilhoDisco1 = '${disco}' WHERE idMaquina = ${idMaquina}`
+    var instrucao = `UPDATE Maquinas SET cpuMetrica = ${cpu}, ramMetrica = ${ram}, gatilhoDisco1 = ${disco} WHERE idMaquina = ${idMaquina}`
     
+    console.log(instrucao);
+    return database.executar(instrucao)
+}
+
+function registrarAlertas(idMaquina,idEmpresa,tipoAlerta,pesoAlerta){
+    var instrucao = `Insert INTO Possuem (fkAlerta, fkMaquina, fkEmpresa, dataHora, pesoAlertas) VALUES
+    (${tipoAlerta}, ${idMaquina}, ${idEmpresa}, CONVERT (DATETIME, CURRENT_TIMESTAMP), ${pesoAlerta});`
+    
+    console.log(instrucao);
     return database.executar(instrucao)
 }
 
@@ -244,6 +257,7 @@ module.exports = {
     desativarFuncionario,
     exibirBoasVindas,
     lancarMetricas,
-    validarDiretor,
+    registrarAlertas,
+    // validarDiretor,
     pegarDadosDiretor
 };
