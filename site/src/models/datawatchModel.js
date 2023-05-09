@@ -204,6 +204,14 @@ function lancarMetricas(cpu, ram, disco, idMaquina) {
     return database.executar(instrucao)
 }
 
+function registrarAlertas(idMaquina,idEmpresa,tipoAlerta,pesoAlerta){
+    var instrucao = `Insert INTO Possuem (fkAlerta, fkMaquina, fkEmpresa, dataHora, pesoAlertas) VALUES
+    (${tipoAlerta}, ${idMaquina}, ${idEmpresa}, CONVERT (DATETIME, CURRENT_TIMESTAMP), ${pesoAlerta});`
+    
+    console.log(instrucao);
+    return database.executar(instrucao)
+}
+
 function desativarFuncionario(idFunc) {
     var instrucao = `DELETE FROM Usuarios WHERE idUsuario = ${idFunc}`
     
@@ -249,6 +257,7 @@ module.exports = {
     desativarFuncionario,
     exibirBoasVindas,
     lancarMetricas,
+    registrarAlertas,
     // validarDiretor,
     pegarDadosDiretor
 };

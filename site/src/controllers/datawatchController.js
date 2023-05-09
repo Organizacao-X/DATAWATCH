@@ -461,6 +461,31 @@ function lancarMetricas(req, res) {
     }
 }
 
+function registrarAlertas(req, res) {
+    var idMaquina = req.body.idMaquinaServer;
+    var idEmpresa = req.body.idEmpresaServer;
+    var tipoAlerta = req.body.tipoAlertaServer;
+    var pesoAlerta = req.body.Server;
+
+    if (idMaquina == undefined) {
+        res.status(400).send("");
+    } else {
+        console.log(idMaquina, idEmpresa, tipoAlerta, pesoAlerta)
+        datawatchModel.registrarAlertas(idMaquina, idEmpresa, tipoAlerta, pesoAlerta)
+            .then(
+                function (resultado) {
+                    res.json(resultado)
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log("\nHouve um erro ao registar os alertas! Erro: ", erro.sqlMessage);
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
 function pegarDadosDiretor(req, res) {
     
 }
@@ -482,5 +507,6 @@ module.exports = {
     editarFuncionario,
     desativarFuncionario,
     exibirBoasVindas,
-    lancarMetricas
+    lancarMetricas,
+    registrarAlertas
 }

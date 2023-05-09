@@ -64,6 +64,8 @@ function buscarDadosEmTempoReal(idMaquina, idEmpresa) {
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
         instrucaoSql = `SELECT TOP 10
+        c.fkmaquina AS maquina,
+		c.fkEmpresa AS empresa,
         c.redeUpload AS upload,
         c.redeDownload AS download,
         c.cpuUso AS cpuuso,

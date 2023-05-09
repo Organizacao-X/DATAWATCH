@@ -630,9 +630,10 @@ nome_usuario_menu.innerHTML =`${sessionStorage.NOME_USUARIO}`
                             metrica.Disco = registro.discoMetrica;
 
                             capacidadeDiscoTotal = registro.discoTotal
+                            alertas(registro.maquina,registro.empresa);
                         }
-                        carregarGrafCPU()
-                        metricas(idMaquina)
+                        carregarGrafCPU();
+                        metricas(idMaquina);
                     });
                 } else {
 
@@ -650,9 +651,6 @@ nome_usuario_menu.innerHTML =`${sessionStorage.NOME_USUARIO}`
         debugger
          
          // CONTAS para MÉTRICAS
-
-         console.log(`${CapacidadeRamTotal}`);
-         console.log(`${capacidadeDiscoTotal}`);
      
          var cpu = 90;
          var ram = CapacidadeRamTotal*0.85;
@@ -692,6 +690,84 @@ nome_usuario_menu.innerHTML =`${sessionStorage.NOME_USUARIO}`
              } else {
      
                  console.log("Houve um erro ao tentar cadastrar as métricas");
+     
+                 // resposta.text().then(texto => {
+                 //     console.error(texto);
+     
+                 // });
+             }
+     
+         }).catch(function (erro) {
+             console.log(erro);
+         })
+     
+         return false;
+         }
+
+
+
+         function alertas(idMaquina,idEmpresa){
+
+            if(metrica.Processador!=null) {
+                if(metrica.Processador<vetorPorcentagemCpu){
+                    alertasRegistro(idMaquina,idEmpresa,1,20);
+                }
+            }
+
+            if(metrica.Ram!=null) {
+                if(metrica.Ram<CapacidadeRamEmUso){
+                    alertasRegistro(idMaquina,idEmpresa,2,30);
+                }
+            }
+
+            if(metrica.Disco!=null) {
+                if(metrica.Disco<capacidadeDiscoLivre){
+                    alertasRegistro(idMaquina,idEmpresa,3,40);
+                }
+            }
+
+            if(vetorRedeDownload[i]==null||vetorRedeUpload==null){
+                alertasRegistro(idMaquina,idEmpresa,4,100);
+            }
+
+            
+
+         }
+
+         function alertasRegistro(idMaquina,idEmpresa,tipoAlerta,pesoAlerta){
+            fetch(`/datawatch/lancarMetricas`, {
+             method: "POST",
+             headers: {
+                 "Content-Type": "application/json"
+             },
+             body: JSON.stringify({
+                 idMaquinaServer: idMaquina,
+                 idEmpresaServer: idEmpresa,
+                 tipoAlertaServer: tipoAlerta,
+                 pesoAlertaServer: pesoAlerta
+             })
+         }).then(function (resposta) {
+             console.log("ESTOU NO THEN DO entrar()!")
+     
+             if (resposta.ok) {
+                 console.log(resposta);
+     
+                 // resposta.json().then(json => {
+                 //     console.log(json);
+                 //     console.log(JSON.stringify(json));
+     
+                 //     sessionStorage.EMAIL_USUARIO = json.email;
+                 //     sessionStorage.NOME_USUARIO = json.nomeUsuario;
+                 //     sessionStorage.ID_USUARIO = json.idUsuario;
+                 //     sessionStorage.ID_EMPRESA = json.idEmpresa;
+     
+                    
+     
+                 // });
+     
+             } else {
+     
+                 console.log("Houve um erro ao tentar registrar os alertas");
      
                  // resposta.text().then(texto => {
                  //     console.error(texto);
