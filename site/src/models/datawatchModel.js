@@ -162,7 +162,7 @@ function pegarDadosGrafico(idEmpresa) {
         FROM Capturas 
         JOIN Maquinas 
         ON Maquinas.idMaquina = Capturas.fkMaquina 
-        WHERE Capturas.dataHora >= DATEADD(DAY, -30, GETDATE()) 
+        WHERE Capturas.dataHora <= DATEADD(DAY, -30, GETDATE()) 
         AND Capturas.fkempresa = 1 
         GROUP BY Maquinas.nomeMaquina, Capturas.fkmaquina, FORMAT(Capturas.dataHora, 'HH : 00') 
         ORDER BY HoraFormata, Maquina;`
@@ -188,6 +188,13 @@ function pegarDadosGrafico(idEmpresa) {
 
 function editarFuncionario(idFunc, email, senha) {
     var instrucao = `UPDATE Usuarios SET email = '${email}', senha = '${senha}' WHERE idUsuario = ${idFunc}`
+    
+    return database.executar(instrucao)
+}
+
+function vincularDiretor(idEmpresa, uuid) {
+    var instrucao = `INSERT INTO Diretores VALUES
+     (${idUsuario},${idEmpresa},'${uuid}')`
     
     return database.executar(instrucao)
 }
@@ -259,5 +266,6 @@ module.exports = {
     lancarMetricas,
     registrarAlertas,
     // validarDiretor,
-    pegarDadosDiretor
+    pegarDadosDiretor,
+    vincularDiretor
 };
