@@ -71,7 +71,7 @@ router.put("/editarFuncionario/:idFuncionario", function (req, res) {
     datawatchController.editarFuncionario(req, res)
 })
 
-router.put("/vincularDiretor/:idEmpresa", function (req, res) {
+router.post("/vincularDiretor/:idUsuario", function (req, res) {
     datawatchController.vincularDiretor(req, res)
 })
 

@@ -192,7 +192,7 @@ function editarFuncionario(idFunc, email, senha) {
     return database.executar(instrucao)
 }
 
-function vincularDiretor(idEmpresa, uuid) {
+function vincularDiretor(idUsuario, idEmpresa, uuid) {
     var instrucao = `INSERT INTO Diretores VALUES
      (${idUsuario},${idEmpresa},'${uuid}')`
     

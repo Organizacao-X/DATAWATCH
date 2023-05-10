@@ -398,21 +398,27 @@ function editarFuncionario(req, res) {
 }
 // VICULAR O CÓDIGO PRA TER DIRETOR
 function vincularDiretor(req, res) {
-    var idEmpresa = req.params.idFuncionario;
-    var uuid = req.body.novoEmailServer;
+    var idEmpresa = req.body.idEmpresa;
+    var uuid = req.body.uuid;
+    var idUsuario = req.params.idUsuario;
 
     if (idEmpresa == undefined) {
-        res.status(400).send("Seu idEmpresa está undefined");
+        res.status(400).send("A empresa está indefinido!");
+    } else if (uuid == undefined) {
+        res.status(400).send("O uuid está indefinido!");
+    } else if (idUsuario == undefined) {
+        res.status(403).send("O id do usuário está indefinido!");
     } else {
-        datawatchModel.editarFuncionario(idEmpresa, uuid)
+        datawatchModel.vincularDiretor(idUsuario, idEmpresa, uuid)
             .then(
                 function (resultado) {
-                    res.json(resultado)
+                    res.json(resultado);
                 }
-            ).catch(
+            )
+            .catch(
                 function (erro) {
                     console.log(erro);
-                    console.log("\nHouve um erro ao vincular o diretor! Erro: ", erro.sqlMessage);
+                    console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
                     res.status(500).json(erro.sqlMessage);
                 }
             );

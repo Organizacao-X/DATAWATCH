@@ -30,7 +30,7 @@
 
 
 
-                <ul class="menu__box">
+                <ul class="menu__box" id="menu__box">
                     <div class="image">
                         <img src="./assets/imgs/imagem-do-usuario-com-fundo-preto.png" alt=""
                             style="height: 200px; width: 200px; border-radius: 50%; ">
@@ -950,7 +950,7 @@
     google.charts.load("current", { packages: ['corechart'] });
     google.charts.setOnLoadCallback(plotarGrafico(dados));
     function drawChart(dados) {
-        debugger
+        /* debugger */
         console.log(dados)
         var contQtdColunas = 0;
         var vetorInteiro = [['Nome máquina']]
@@ -994,24 +994,6 @@
         ['13:00', 22, 45, 44],
         ['14:00', 34, 65, 31]]); */
 
-<<<<<<< HEAD
-    //     var data = google.visualization.arrayToDataTable([        
-    //     ['Nome máquina', 'máquina01', 'máquina02', 'máquina03'],
-    //     ['08:00', 32.6, 31.3, 22.7],
-    //     ['09:00', 12.2, 22.8, 24],
-    //     ['10:00', 38.1, 29.1, 35],
-    //     ['11:00', 41.9, 30.3, 54],
-    //     ['12:00', 48.6, 32.3, 54],
-    //     ['13:00', 56, 22, 14],
-    //     ['14:00', 24, 43, 24],
-    //     ['15:00', 12.3, 43, 22],
-    //     ['16:00', 29, 43, 24.4],
-    //     ['17:00', 19, 43, 35],
-    //     ['18:00', 49.2, 53, 46],
-    //     ['19:00', 33, 43, 28.7],
-    //     ['20:00', 15, 23, 14]
-    // ]);
-=======
         var data = google.visualization.arrayToDataTable([['Nome máquina', 'máquina01', 'máquina02', 'máquina03'],
         ['08:00', 32.6, 31.3, 22.7],
         ['09:00', 12.2, 22.8, 24],
@@ -1027,7 +1009,6 @@
         ['19:00', 33, 43, 28.7],
         ['20:00', 15, 23, 14]
         ]);
->>>>>>> 497474660034222b43fba23ab036575bd05cccc7
 
         var options = {
             height: 250,
@@ -1055,29 +1036,56 @@
     function vincularDiretor() {
         var uuid = codigo_diretor.value
         var idEmpresa = sessionStorage.ID_EMPRESA
+        var idUsuario = sessionStorage.ID_USUARIO
 
-        fetch(`/datawatch/vincularDiretor/${idEmpresa}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                uuid: uuid
-            })
-        }).then(function (resposta) {
+        if (uuid.length != 36) {
+            console.log(uuid.length)
+            codigo_diretor.style = 'background-color: #ff7474;'
+            codigo_diretor.value = ''
+            codigo_diretor.placeholder = `--CÓDIGO INVÁLIDO--`
+        } else if (idEmpresa == null || idEmpresa == undefined) {
+            alert("Empresa não listada")
+        } else if (idUsuario == null || idUsuario == undefined) {
+            alert("Usuário não listado")
+        } else {
 
-            if (resposta.ok) {
-                console.log("ok")
-                // hideModalWithSaveEditar()
-                // limparCampos(inputs)
-            }
-            // } else if (resposta.status == 404) {
-            //     window.alert("Deu 404!");
-            // } else {
-            //     throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
-            // }
-        }).catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`);
-        });
+            fetch(`/datawatch/vincularDiretor/${idUsuario}`, {
+                method: "post",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    idEmpresa: idEmpresa,
+                    uuid: uuid
+                })
+            }).then(function (resposta) {
+                console.log("resposta: ", resposta);
+                if (resposta.ok) {
+                    codigo_diretor.value = ''
+                    codigo_diretor.placeholder = `DIRETOR ADICIONADO`;
+                    codigo_diretor.style = 'background-color: #d0ffbb;';
+                    vincular_diretor.style = 'background-color: #6cbb41;';
+                    vincular_diretor.innerHTML = `<b>Vinculado</b>`;
+                    setTimeout(restaurarEstiloOriginal, 5000);
+                    // hideModalWithSaveEditar()
+                    // limparCampos(inputs)
+                }
+                // } else if (resposta.status == 404) {
+                //     window.alert("Deu 404!");
+                // } else {
+                //     throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+                // }
+            }).catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+            return false
+        }
+    }
+
+    function restaurarEstiloOriginal() {
+        codigo_diretor.placeholder = ``;
+        codigo_diretor.style = 'background-color: #F2CB05;';
+        vincular_diretor.innerHTML = `<b>Vincular</b>`;
+        vincular_diretor.style = 'background-color: #FFFFFF;';
     }
 </script>
