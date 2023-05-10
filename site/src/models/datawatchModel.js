@@ -162,7 +162,7 @@ function pegarDadosGrafico(idEmpresa) {
         FROM Capturas 
         JOIN Maquinas 
         ON Maquinas.idMaquina = Capturas.fkMaquina 
-        WHERE Capturas.dataHora >= DATEADD(DAY, -30, GETDATE()) 
+        WHERE Capturas.dataHora <= DATEADD(DAY, -30, GETDATE()) 
         AND Capturas.fkempresa = 1 
         GROUP BY Maquinas.nomeMaquina, Capturas.fkmaquina, FORMAT(Capturas.dataHora, 'HH : 00') 
         ORDER BY HoraFormata, Maquina;`
