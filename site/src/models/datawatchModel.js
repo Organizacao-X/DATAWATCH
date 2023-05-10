@@ -192,6 +192,13 @@ function editarFuncionario(idFunc, email, senha) {
     return database.executar(instrucao)
 }
 
+function vincularDiretor(idEmpresa, uuid) {
+    var instrucao = `INSERT INTO Diretores VALUES
+     (${idUsuario},${idEmpresa},'${uuid}')`
+    
+    return database.executar(instrucao)
+}
+
 function lancarMetricas(cpu, ram, disco, idMaquina) {
 
     if (cpu == undefined) {
@@ -259,5 +266,6 @@ module.exports = {
     lancarMetricas,
     registrarAlertas,
     // validarDiretor,
-    pegarDadosDiretor
+    pegarDadosDiretor,
+    vincularDiretor
 };

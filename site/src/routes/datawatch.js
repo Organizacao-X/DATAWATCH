@@ -71,6 +71,10 @@ router.put("/editarFuncionario/:idFuncionario", function (req, res) {
     datawatchController.editarFuncionario(req, res)
 })
 
+router.put("/vincularDiretor/:idEmpresa", function (req, res) {
+    datawatchController.vincularDiretor(req, res)
+})
+
 router.delete("/desativarFuncionario/:idFuncionario", function (req, res) {
     datawatchController.desativarFuncionario(req, res)
 })

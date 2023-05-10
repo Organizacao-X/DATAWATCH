@@ -42,8 +42,7 @@
                             href="./cadastroEmpresa.html">Cadastrar
                             empresa</a></li>
                     <li><a class="menu__item" href="./areaADM.html">Home</a></li>
-                    <li id="lateral_menu_cad_maquina"><a class="menu__item" href="./cadastromaquina.html">Cadastrar
-                            maquina</a></li>
+                    <li id="lateral_menu_cad_diretor"><a class="menu__item">Vincular um diretor</a></li>
                     <li id="lateral_menu_cad_funcionario"><a class="menu__item"
                             href="./cadastroFuncionario.html">Cadastrar funcionário</a></li>
                     <li id="lateral_menu_cad_download"><a class="menu__item" href="./JAR/DATAWATCH-sistema.zip"
@@ -303,6 +302,22 @@
     </div>
 
 
+    <div class="modal-parent6">
+        <div class="modal-diretor">
+            <div class="diretor">
+                <div class="texto-diretor">
+                    <span><b>Cole o código do seu diretor no campo abaixo</b></span>
+                    <input type="text" id="codigo_diretor">
+                </div>
+                <div class="opcao2">
+                    <button class="btnS" id="vincular_diretor" onclick="vincularDiretor()"><b>Vincular</b></button>
+                </div>
+            </div>
+            <span class="X-6">&times;</span>
+        </div>
+    </div>
+
+
     <!-- <script src="js/modal.js"></script> -->
     <!-- <script src="js/excluir.js"></script> -->
 </body>
@@ -555,6 +570,32 @@
         modalMostrarMais.style.display = 'none'
         sessaoElem.style.filter = 'blur(0px)'
     }
+
+    const modalCodigoDiretor = $.querySelector(".modal-parent6");
+    const buttonDiretor = $.querySelector("#lateral_menu_cad_diretor");
+    const x6 = $.querySelector(".X-6");
+
+    function abrirModalDiretor() {
+        modalCodigoDiretor.style.display = 'block';
+        sessaoElem.style.filter = 'blur(10px)'
+        buttonDiretor.blur();
+    }
+
+    function fecharModalDiretorComX() {
+        modalCodigoDiretor.style.display = 'none'
+        sessaoElem.style.filter = 'blur(0px)'
+    }
+
+    function fecharModalDiretorComEsc(event) {
+        if (event.keyCode === 27) {
+            modalCodigoDiretor.style.display = 'none'
+            sessaoElem.style.filter = 'blur(0px)'
+        }
+    }
+
+    buttonDiretor.addEventListener('click', abrirModalDiretor)
+    x6.addEventListener('click', fecharModalDiretorComX)
+    document.body.addEventListener('keyup', fecharModalDiretorComEsc)
 
     function mostrarConteudo() {
         fetch("/datawatch/consultarStatusEmpresa", {
@@ -953,6 +994,7 @@
         ['13:00', 22, 45, 44],
         ['14:00', 34, 65, 31]]); */
 
+<<<<<<< HEAD
     //     var data = google.visualization.arrayToDataTable([        
     //     ['Nome máquina', 'máquina01', 'máquina02', 'máquina03'],
     //     ['08:00', 32.6, 31.3, 22.7],
@@ -969,27 +1011,73 @@
     //     ['19:00', 33, 43, 28.7],
     //     ['20:00', 15, 23, 14]
     // ]);
+=======
+        var data = google.visualization.arrayToDataTable([['Nome máquina', 'máquina01', 'máquina02', 'máquina03'],
+        ['08:00', 32.6, 31.3, 22.7],
+        ['09:00', 12.2, 22.8, 24],
+        ['10:00', 38.1, 29.1, 35],
+        ['11:00', 41.9, 30.3, 54],
+        ['12:00', 48.6, 32.3, 54],
+        ['13:00', 56, 22, 14],
+        ['14:00', 24, 43, 24],
+        ['15:00', 12.3, 43, 22],
+        ['16:00', 29, 43, 24.4],
+        ['17:00', 19, 43, 35],
+        ['18:00', 49.2, 53, 46],
+        ['19:00', 33, 43, 28.7],
+        ['20:00', 15, 23, 14]
+        ]);
+>>>>>>> 497474660034222b43fba23ab036575bd05cccc7
 
-    var options = {
-        height: 250,
-        legend: { position: 'top', maxLines: 6 },
-        bar: { groupWidth: '75%' },
-        isStacked: true,
-        tooltip: {
-            isHtml: true,
-            formatter: function (tooltipItem, data) {
-                var rowIndex = tooltipItem.row;
-                var columnIndex = tooltipItem.column;
-                var value = data.getValue(rowIndex, columnIndex);
-                var machineName = data.getColumnLabel(columnIndex);
-                var time = data.getValue(rowIndex, 0);
-                var formattedValue = value.toLocaleString() + 'GB';
-                return '<div><strong>' + machineName + '</strong><br>' + time + ': ' + formattedValue + '</div>';
+        var options = {
+            height: 250,
+            legend: { position: 'top', maxLines: 6 },
+            bar: { groupWidth: '75%' },
+            isStacked: true,
+            tooltip: {
+                isHtml: true,
+                formatter: function (tooltipItem, data) {
+                    var rowIndex = tooltipItem.row;
+                    var columnIndex = tooltipItem.column;
+                    var value = data.getValue(rowIndex, columnIndex);
+                    var machineName = data.getColumnLabel(columnIndex);
+                    var time = data.getValue(rowIndex, 0);
+                    var formattedValue = value.toLocaleString() + 'GB';
+                    return '<div><strong>' + machineName + '</strong><br>' + time + ': ' + formattedValue + '</div>';
+                }
             }
-        }
-    };
+        };
 
-    var chart = new google.visualization.ColumnChart(document.getElementById("div_grafico"));
-    chart.draw(data, options);
-}
+        var chart = new google.visualization.ColumnChart(document.getElementById("div_grafico"));
+        chart.draw(data, options);
+    }
+
+    function vincularDiretor() {
+        var uuid = codigo_diretor.value
+        var idEmpresa = sessionStorage.ID_EMPRESA
+
+        fetch(`/datawatch/vincularDiretor/${idEmpresa}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                uuid: uuid
+            })
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+                console.log("ok")
+                // hideModalWithSaveEditar()
+                // limparCampos(inputs)
+            }
+            // } else if (resposta.status == 404) {
+            //     window.alert("Deu 404!");
+            // } else {
+            //     throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+            // }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+    }
 </script>

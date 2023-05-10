@@ -6,6 +6,32 @@ const modalMostrarMais = $.querySelector('.modal-parent3');
 const modalEditarDateReiniciar = $.querySelector('.modal-parent4');
 const modalReiniciar = $.querySelector('.modal-parent5');
 
+const modalCodigoDiretor = $.getElementsByClassName("modal-parent6");
+const buttonDiretor = $.getElementById("lateral_menu_cad_diretor");
+const x6 = $.getElementsByClassName("X-6");
+
+function abrirModalDiretor(){
+    modalCodigoDiretor.style.display = 'block';
+    sessaoElem.style.filter = 'blur(10px)'
+    buttonDiretor.blur();
+}
+
+function fecharModalDiretorComX(){
+    modalCodigoDiretor.style.display = 'none'
+    sessaoElem.style.filter = 'blur(0px)'
+}
+
+function fecharModalDiretorComEsc(event){
+    if (event.keyCode === 27) {
+        modalCodigoDiretor.style.display = 'none'
+        sessaoElem.style.filter = 'blur(0px)'
+    }
+}
+
+buttonDiretor.addEventListener('click', abrirModalDiretor)
+x6.addEventListener('click', fecharModalDiretorComX)
+document.body.addEventListener('keyup', fecharModalDiretorComEsc)
+
 // sessão
 const sessaoElem = $.querySelector('section');
 
