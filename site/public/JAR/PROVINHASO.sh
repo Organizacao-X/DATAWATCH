@@ -83,7 +83,7 @@ then
     echo "Container Docker 'Datawatch' já existe."
 else
     echo "Container Docker 'Datawatch' não encontrado. Criando container..."
-    sudo docker run -d -p 1433:1433 --name Datawatch -e "MYSQL_DATABASE=datawatch" -e "MYSQL_ROOT_PASSWORD=datawatch" mysql:5.7
+    sudo docker run -d -p 3306:3306 --name Datawatch -e "MYSQL_DATABASE=datawatch" -e "MYSQL_ROOT_PASSWORD=datawatch" mysql:5.7
 fi
 
 sleep 2
