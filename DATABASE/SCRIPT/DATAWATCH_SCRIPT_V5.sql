@@ -14,7 +14,8 @@ complemento VARCHAR(45) NOT NULL,
 bairro VARCHAR(45) NOT NULL,
 cidade VARCHAR(45) NOT NULL,
 estado CHAR(2) NOT NULL,
-verificado TINYINT(1)
+verificado TINYINT(1),
+filial INT
 );
 
 CREATE TABLE IF NOT EXISTS Usuarios (
@@ -28,7 +29,8 @@ imagemUser VARCHAR(100),
 adm INT,
 CONSTRAINT FOREIGN KEY (adm) REFERENCES Usuarios (idUsuario),
 fkEmpresa INT,
-CONSTRAINT FOREIGN KEY (fkEmpresa) REFERENCES Empresas (idEmpresa)
+CONSTRAINT FOREIGN KEY (fkEmpresa) REFERENCES Empresas (idEmpresa),
+uuid VARCHAR(36)
 );
 
 
@@ -65,7 +67,8 @@ nomeDisco3 varchar(45),
 totalDisco2 DOUBLE,
 totalDisco3 DOUBLE,
 gatilhoDisco2 DOUBLE,
-gatilhoDisco3 DOUBLE
+gatilhoDisco3 DOUBLE,
+mac VARCHAR(100)
 );
 
 
@@ -100,6 +103,7 @@ CREATE TABLE Possuem (
     fkMaquina INT,
     CONSTRAINT FOREIGN KEY (fkMaquina) REFERENCES Maquinas (idMaquina),
     dataHora DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    pesoAlerta DOUBLE
     PRIMARY KEY (idPosse, fkAlerta, fkMaquina)
 );
 
