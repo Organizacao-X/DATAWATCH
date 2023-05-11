@@ -29,15 +29,15 @@ sleep 3
 
 # verificando JAVA, iniciando
 
-java -version #verifica versao atual do java
+java --version #verifica versao atual do java
 if [ $? = 0 ]; #se retorno for igual a 0
 then #entao,
 echo $(tput setaf 10)O JAVA ESTÁ INSTALADO!$(tput setaf 15) #print no terminal
 else #se nao,
 echo $(tput setaf 9)o java não está instalado$(tput setaf 15) #print no terminal
-echo 	$(tput setaf 10)gostaria de instalar o java? [s/n]$(tput setaf 15)” #print no terminal
-read get #variável que guarda resposta do usuário
-if [ \“$get\” == \“s\” ]; #se retorno for igual a 0
+echo $(tput setaf 10)gostaria de instalar o java? [s/n]$(tput setaf 15) #print no terminal
+read getjava #variável que guarda resposta do usuário
+if [ \“$getjava\” == \“s\” ]; #se retorno for igual a 0
 then #entao
 sudo apt install openjdk-17-jre -y #executa instalacao do java
 fi #fecha o 2º if
@@ -52,20 +52,20 @@ sleep 2
 
 
 docker -version 
-if [$? = 0];
+if [ $? = 0 ];
 then
-echo $(tput setaf 9) O DOCKER ESTÁ SENDO INSTALADO!$(tput setaf 15)
-else
 echo $(tput setaf 9) o docker não está instalado $(tput setaf 15)
+else
+echo $(tput setaf 9) O DOCKER ESTÁ SENDO INSTALADO!$(tput setaf 15)
 sleep 2
-echo $(tput setaf 10)gostaria de instalar o docker? [s/n]$(tput setaf 15)”
-if [ \“$get\” == \“s\” ];
+echo $(tput setaf 10)gostaria de instalar o docker? [s/n]$(tput setaf 15)
+read getdocker
+if [ \“$getdocker\” == \“s\” ];
 then
 sudo apt install docker.io
-fi
-fi 
-echo $(tput setaf 10)gostaria de iniciar um container Docker com MYSQL:5.7?$(tput setaf 15)”
-if [ \“$get\” == \“s\” ];
+echo $(tput setaf 10)gostaria de iniciar um container Docker com MYSQL:5.7?$(tput setaf 15)
+read getmysql
+if [ \“$getmysql\” == \“s\” ];
 then
 sudo systemctl start docker
 echo iniciando $(tput setaf 11)CONTAINER DOCKER...$(tput setaf 15)
@@ -82,9 +82,7 @@ LsA147504
 USE Datawatch;
 
 
-CREATE TABLE IF NOT EXISTS Empresas (
-idEmpresa INT PRIMARY KEY AUTO_INCREMENT,
-razaoSocial VARCHAR(45) NOT NULL,
+CREATE TABLE IF NOT EXISTS Empresas ( idEmpresa INT PRIMARY KEY AUTO_INCREMENT,razaoSocial VARCHAR(45) NOT NULL,
 cnpj CHAR(14) NOT NULL,
 cep CHAR(8) NOT NULL,
 logradouro VARCHAR(100) NOT NULL,
@@ -170,23 +168,26 @@ discoLivre3 DOUBLE,
 PRIMARY KEY (idCaptura, fkMaquina, fkEmpresa)
 );
 
-CREATE TABLE Alertas (
+CREATE TABLE IF NOT EXISTS Alertas (
 	idAlerta INT PRIMARY KEY AUTO_INCREMENT,
     nomeAlerta VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE Possuem (
+CREATE TABLE IF NOT EXISTS Possuem (
 	idPosse INT AUTO_INCREMENT,
     fkAlerta INT,
     CONSTRAINT FOREIGN KEY (fkAlerta) REFERENCES Alertas (idAlerta),
     fkMaquina INT,
     CONSTRAINT FOREIGN KEY (fkMaquina) REFERENCES Maquinas (idMaquina),
     dataHora DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    pesoAlerta DOUBLE
+    pesoAlerta DOUBLE,
     PRIMARY KEY (idPosse, fkAlerta, fkMaquina)
 );
 
 fi
+fi
+fi 
+
 
 # FIM
 #-------------------------------------------------------------------------------
