@@ -533,8 +533,8 @@
         return false
     }
 
-    function exibirAlertas() {
-        fetch("/datawatch/pegarMaquinas", {
+    function exibirAlertas(idMaquina) {
+        fetch(`/exibiralertas/${idMaquina}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
