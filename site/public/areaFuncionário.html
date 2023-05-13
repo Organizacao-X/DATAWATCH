@@ -39,7 +39,7 @@
                     </div>
                     <li><a class="menu__item" href="../public/areaFuncionário.html">Home</a></li>
                     <li id="lateral_menu_cad_download"><a class="menu__item" href="./JAR/DATAWATCH-sistema.zip"
-                        download="app_DataWatch">Baixar aplicativo</a></li>
+                            download="app_DataWatch">Baixar aplicativo</a></li>
                     <li><a class="menu__item" onclick="limparSessao()">Logout</a></li>
                 </ul>
             </div>
@@ -339,7 +339,7 @@
 </body>
 <script>
 
-nome_usuario_menu.innerHTML =`${sessionStorage.NOME_USUARIO}`
+    nome_usuario_menu.innerHTML = `${sessionStorage.NOME_USUARIO}`
 
     // popup
     var popup = document.getElementById('popup_fundo');
@@ -518,7 +518,7 @@ nome_usuario_menu.innerHTML =`${sessionStorage.NOME_USUARIO}`
                             })
                             lista_maquinas.appendChild(li)
                             console.log(lista_maquinas)
-                            
+
                         });
                     }
 
@@ -531,6 +531,20 @@ nome_usuario_menu.innerHTML =`${sessionStorage.NOME_USUARIO}`
             console.log(`ERRO: ${resposta}`);
         })
         return false
+    }
+
+    function exibirAlertas() {
+        fetch("/datawatch/pegarMaquinas", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idEmpresaServer: idEmpresa
+            })
+        }).then(function (resposta) {
+
+        });
     }
 
     var vetorHora = [];
@@ -630,7 +644,7 @@ nome_usuario_menu.innerHTML =`${sessionStorage.NOME_USUARIO}`
                             metrica.Disco = registro.discoMetrica;
 
                             capacidadeDiscoTotal = registro.discoTotal
-                            alertas(registro.maquina,registro.empresa, registro.cpuuso, registro.download, registro.upload);
+                            alertas(registro.maquina, registro.empresa, registro.cpuuso, registro.download, registro.upload);
                         }
                         carregarGrafCPU();
                         metricas(idMaquina);
@@ -649,138 +663,138 @@ nome_usuario_menu.innerHTML =`${sessionStorage.NOME_USUARIO}`
 
     function metricas(idMaquina) {
         debugger
-         
-         // CONTAS para MÉTRICAS
-     
-         var cpu = 90;
-         var ram = CapacidadeRamTotal*0.85;
-         var disco = capacidadeDiscoTotal*0.70;
-         
-     
-         fetch(`/datawatch/lancarMetricas`, {
-             method: "POST",
-             headers: {
-                 "Content-Type": "application/json"
-             },
-             body: JSON.stringify({
-                 cpuMetricaServer: cpu,
-                 ramMetricaServer: ram,
-                 discoMetricaServer: disco,
-                 idMaquinaServer: idMaquina
-             })
-         }).then(function (resposta) {
-             console.log("ESTOU NO THEN DO entrar()!")
-     
-             if (resposta.ok) {
-                 console.log(resposta);
-     
-                 // resposta.json().then(json => {
-                 //     console.log(json);
-                 //     console.log(JSON.stringify(json));
-     
-                 //     sessionStorage.EMAIL_USUARIO = json.email;
-                 //     sessionStorage.NOME_USUARIO = json.nomeUsuario;
-                 //     sessionStorage.ID_USUARIO = json.idUsuario;
-                 //     sessionStorage.ID_EMPRESA = json.idEmpresa;
-     
-                    
-     
-                 // });
-     
-             } else {
-     
-                 console.log("Houve um erro ao tentar cadastrar as métricas");
-     
-                 // resposta.text().then(texto => {
-                 //     console.error(texto);
-     
-                 // });
-             }
-     
-         }).catch(function (erro) {
-             console.log(erro);
-         })
-     
-         return false;
-         }
+
+        // CONTAS para MÉTRICAS
+
+        var cpu = 90;
+        var ram = CapacidadeRamTotal * 0.85;
+        var disco = capacidadeDiscoTotal * 0.70;
+
+
+        fetch(`/datawatch/lancarMetricas`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                cpuMetricaServer: cpu,
+                ramMetricaServer: ram,
+                discoMetricaServer: disco,
+                idMaquinaServer: idMaquina
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+
+                // resposta.json().then(json => {
+                //     console.log(json);
+                //     console.log(JSON.stringify(json));
+
+                //     sessionStorage.EMAIL_USUARIO = json.email;
+                //     sessionStorage.NOME_USUARIO = json.nomeUsuario;
+                //     sessionStorage.ID_USUARIO = json.idUsuario;
+                //     sessionStorage.ID_EMPRESA = json.idEmpresa;
 
 
 
-         function alertas(idMaquina,idEmpresa, PorcentagemCpu, downloadAlerta, uploadAlert){
+                // });
 
-            if(metrica.Processador!=null) {
-                if(metrica.Processador<PorcentagemCpu){
-                    alertasRegistro(idMaquina,idEmpresa,1,20);
-                }
+            } else {
+
+                console.log("Houve um erro ao tentar cadastrar as métricas");
+
+                // resposta.text().then(texto => {
+                //     console.error(texto);
+
+                // });
             }
 
-            if(metrica.Ram!=null) {
-                if(metrica.Ram<CapacidadeRamEmUso){
-                    alertasRegistro(idMaquina,idEmpresa,2,30);
-                }
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+    }
+
+
+
+    function alertas(idMaquina, idEmpresa, PorcentagemCpu, downloadAlerta, uploadAlert) {
+
+        if (metrica.Processador != null) {
+            if (metrica.Processador < PorcentagemCpu) {
+                alertasRegistro(idMaquina, idEmpresa, 1, 20);
+            }
+        }
+
+        if (metrica.Ram != null) {
+            if (metrica.Ram < CapacidadeRamEmUso) {
+                alertasRegistro(idMaquina, idEmpresa, 2, 30);
+            }
+        }
+
+        if (metrica.Disco != null) {
+            if (metrica.Disco < capacidadeDiscoLivre) {
+                alertasRegistro(idMaquina, idEmpresa, 3, 40);
+            }
+        }
+
+        if (downloadAlerta == null || uploadAlert == null) {
+            alertasRegistro(idMaquina, idEmpresa, 4, 100);
+        }
+
+
+
+    }
+
+    function alertasRegistro(idMaquina, idEmpresa, tipoAlerta, pesoAlerta) {
+        fetch(`/datawatch/lancarMetricas`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idMaquinaServer: idMaquina,
+                idEmpresaServer: idEmpresa,
+                tipoAlertaServer: tipoAlerta,
+                pesoAlertaServer: pesoAlerta
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+
+                // resposta.json().then(json => {
+                //     console.log(json);
+                //     console.log(JSON.stringify(json));
+
+                //     sessionStorage.EMAIL_USUARIO = json.email;
+                //     sessionStorage.NOME_USUARIO = json.nomeUsuario;
+                //     sessionStorage.ID_USUARIO = json.idUsuario;
+                //     sessionStorage.ID_EMPRESA = json.idEmpresa;
+
+
+
+                // });
+
+            } else {
+
+                console.log("Houve um erro ao tentar registrar os alertas");
+
+                // resposta.text().then(texto => {
+                //     console.error(texto);
+
+                // });
             }
 
-            if(metrica.Disco!=null) {
-                if(metrica.Disco<capacidadeDiscoLivre){
-                    alertasRegistro(idMaquina,idEmpresa,3,40);
-                }
-            }
+        }).catch(function (erro) {
+            console.log(erro);
+        })
 
-            if(downloadAlerta==null||uploadAlert==null){
-                alertasRegistro(idMaquina,idEmpresa,4,100);
-            }
-
-            
-
-         }
-
-         function alertasRegistro(idMaquina,idEmpresa,tipoAlerta,pesoAlerta){
-            fetch(`/datawatch/lancarMetricas`, {
-             method: "POST",
-             headers: {
-                 "Content-Type": "application/json"
-             },
-             body: JSON.stringify({
-                 idMaquinaServer: idMaquina,
-                 idEmpresaServer: idEmpresa,
-                 tipoAlertaServer: tipoAlerta,
-                 pesoAlertaServer: pesoAlerta
-             })
-         }).then(function (resposta) {
-             console.log("ESTOU NO THEN DO entrar()!")
-     
-             if (resposta.ok) {
-                 console.log(resposta);
-     
-                 // resposta.json().then(json => {
-                 //     console.log(json);
-                 //     console.log(JSON.stringify(json));
-     
-                 //     sessionStorage.EMAIL_USUARIO = json.email;
-                 //     sessionStorage.NOME_USUARIO = json.nomeUsuario;
-                 //     sessionStorage.ID_USUARIO = json.idUsuario;
-                 //     sessionStorage.ID_EMPRESA = json.idEmpresa;
-     
-                    
-     
-                 // });
-     
-             } else {
-     
-                 console.log("Houve um erro ao tentar registrar os alertas");
-     
-                 // resposta.text().then(texto => {
-                 //     console.error(texto);
-     
-                 // });
-             }
-     
-         }).catch(function (erro) {
-             console.log(erro);
-         })
-     
-         return false;
-         }
+        return false;
+    }
 
     // Gráfico RAM
     google.charts.load('current', { 'packages': ['corechart'] });
@@ -895,7 +909,7 @@ nome_usuario_menu.innerHTML =`${sessionStorage.NOME_USUARIO}`
         dado2.style.display = 'none'
         dado3.style.display = 'none'
         dado4.style.display = 'block'
-        
+
         var data = google.visualization.arrayToDataTable([
             ['horário', 'Upload', 'Download'],
             [vetorHora[0], vetorRedeUpload[0], vetorRedeDownload[0]],
