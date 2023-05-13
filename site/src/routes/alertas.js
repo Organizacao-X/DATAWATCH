@@ -5,7 +5,7 @@ var alertasController = require("../controllers/alertasController");
 
 
 router.get("/exibiralertas/:idmaquina", function (req, res) {
-    alertasController.exibirBoasVindas(req, res);
+    alertasController.exibiralertas(req, res);
 })
 
 
