@@ -83,7 +83,9 @@ function autenticarDiretor(uuid) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", uuid)
 
     var instrucao = `
-        select * from [dbo].[Diretores] where uuid = '${uuid}';
+    SELECT CASE WHEN COUNT(*) > 0 THEN 1 ELSE 0 END AS existe_registro 
+    FROM [dbo].[Diretores] 
+    WHERE uuid = '${uuid}';
     `;
 
     console.log("Executando a instrução SQL: \n" + instrucao);

@@ -16,7 +16,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
 </head>
 
-<body onload="verificarLembrarMe()">
+<body>
     <!-- NAVBAR -->
     <header>
         <nav class="nav-bar">
@@ -81,17 +81,7 @@
 
 </html>
 <script>
-    var remember = document.getElementById('rememberMe');
-
-    function verificarLembrarMe() {
-        if (localStorage.getItem('username') && localStorage.getItem('password')) {
-            document.getElementById('email_input').value = localStorage.getItem('username');
-            document.getElementById('senha_input').value = localStorage.getItem('password');
-            remember.checked = true;
-        }
-    }
-
-    var validar = false;
+    var validar = 0;
     function validarDiretor(uuid) {
         fetch("/datawatch/autenticarDiretor", {
             method: "POST",
@@ -102,17 +92,22 @@
                 uuidServer: uuid
             })
         }).then(function (resposta) {
-            
-            for (let i = 0; i < resposta.length; i++) {
-                console.log(resposta[i]);
+            console.log("ESTOU NO THEN DO validarDiretor()!")
 
-                if (resposta[i].uuid == uuid) {
-                    validar = true;
-                }
+            if (resposta.ok) {
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+                    validar = json.existe_registro
+                });
+
+            } else {
+                console.log("Houve um erro ao tentar autenticar diretor");
+                resposta.text().then(texto => {
+                    console.error(texto);
+                    /* finalizarAguardar(texto); */
+                });
             }
-            // if (resposta.length > 0) {
-            //     validar = true;
-            // }
         });
     }
 
@@ -164,7 +159,7 @@
 
                     setTimeout(function () {
                         debugger
-                        if (validar) {
+                        if (validar > 0) {
                             window.location = "./areaDiretor.html";
                         } else if (json.fkEmpresa == null) {
                             window.location = "./areaBoasVindas.html";
@@ -194,18 +189,5 @@
         })
 
         return false;
-
-        if (remember.checked) {
-            salvarCredenciais();
-        }
-        alert('Logado com sucesso')
-        window.location = "./areaADM.html"
-    }
-
-    function salvarCredenciais() {
-        var email = email_input.value;
-        var senha = senha_input.value;
-        localStorage.setItem('username', email);
-        localStorage.setItem('password', senha); // seria bom criptografar isso
     }
 </script>
