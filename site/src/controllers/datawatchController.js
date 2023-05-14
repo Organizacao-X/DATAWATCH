@@ -245,6 +245,31 @@ function entrar(req, res) {
     }
 }
 
+function autenticarDiretor(req, res) {
+    var uuid = req.body.uuidServer;
+
+    if (uuid == undefined) {
+        res.status(400).send("Seu uuid está undefined!");
+    } else {
+        datawatchModel.autenticarDiretor(uuid)
+            .then(
+                function (resultado) {
+                    console.log(`\nResultados encontrados: ${resultado.length}`);
+                    console.log(`Resultados: ${JSON.stringify(resultado)}`); // transforma JSON em String
+
+                        console.log(resultado);
+                        res.json(resultado[0]);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log("\nHouve um erro ao realizar a validação! Erro: ", erro.sqlMessage);
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
 // CONSULTANDO SE EMPRESA ESTÁ VERIFICADA
 function consultarStatusEmpresa(req, res) {
     var idUsuario = req.body.idUsuarioServer;
@@ -509,6 +534,7 @@ function registrarAlertas(req, res) {
 
 module.exports = {
     entrar,
+    autenticarDiretor,
     cadastrar,
     cadastrarFuncionario,
     cadastrarMaquina,

@@ -91,7 +91,30 @@
         }
     }
 
+    var validar = false;
+    function validarDiretor(uuid) {
+        fetch("/datawatch/autenticarDiretor", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                uuidServer: uuid
+            })
+        }).then(function (resposta) {
+            
+            for (let i = 0; i < resposta.length; i++) {
+                console.log(resposta[i]);
 
+                if (resposta[i].uuid == uuid) {
+                    validar = true;
+                }
+            }
+            // if (resposta.length > 0) {
+            //     validar = true;
+            // }
+        });
+    }
 
     function entrar() {
         var inputs = document.querySelectorAll("input")
@@ -128,11 +151,22 @@
                     sessionStorage.ID_USUARIO = json.idUsuario;
                     sessionStorage.ID_EMPRESA = json.fkEmpresa;
 
+                    // Uma ideia:
+                    sessionStorage.UUID = json.uuid;
+                    console.log(sessionStorage.UUID);
+
+                    validarDiretor(sessionStorage.UUID);
+
                     entrando.style.display = "none"
                     load.style.display = "block"
 
+                    validarDiretor(sessionStorage.UUID);
+
                     setTimeout(function () {
-                        if (json.fkEmpresa == null) {
+                        debugger
+                        if (validar) {
+                            window.location = "./areaDiretor.html";
+                        } else if (json.fkEmpresa == null) {
                             window.location = "./areaBoasVindas.html";
                         } else if (json.adm == null) {
                             window.location = "./areaADM.html";

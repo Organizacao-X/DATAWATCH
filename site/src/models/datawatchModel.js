@@ -79,6 +79,17 @@ function entrar(email, senha) {
     return database.executar(instrucao);
 }
 
+function autenticarDiretor(uuid) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", uuid)
+
+    var instrucao = `
+        select * from [dbo].[Diretores] where uuid = '${uuid}';
+    `;
+
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 // CONSULTANDO SE EMPRESA ESTÁ VERIFICADA
 function consultarStatusEmpresa(idUsuario) {
 
@@ -153,7 +164,7 @@ function pegarFuncionarios(idEmpresa) {
 function pegarDadosGrafico(idEmpresa) {
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
-        
+
         var instrucao = `SELECT 
         Maquinas.nomeMaquina, 
         Capturas.fkmaquina AS Maquina, 
@@ -166,9 +177,9 @@ function pegarDadosGrafico(idEmpresa) {
         AND Capturas.fkempresa = 1 
         GROUP BY Maquinas.nomeMaquina, Capturas.fkmaquina, FORMAT(Capturas.dataHora, 'HH : 00') 
         ORDER BY HoraFormata, Maquina;`
-        
+
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
-        
+
         var instrucao = `SELECT 
         nomeMaquina,
         fkmaquina as Maquina, Sum(ramuso) as somaRam, 
@@ -182,20 +193,20 @@ function pegarDadosGrafico(idEmpresa) {
         order by HoraFormata, fkMaquina;`
     }
 
-    
+
     return database.executar(instrucao)
 }
 
 function editarFuncionario(idFunc, email, senha) {
     var instrucao = `UPDATE Usuarios SET email = '${email}', senha = '${senha}' WHERE idUsuario = ${idFunc}`
-    
+
     return database.executar(instrucao)
 }
 
 function vincularDiretor(idEmpresa, uuid) {
     var instrucao = `INSERT INTO Diretores VALUES
      (${idUsuario},${idEmpresa},'${uuid}')`
-    
+
     return database.executar(instrucao)
 }
 
@@ -204,24 +215,24 @@ function lancarMetricas(cpu, ram, disco, idMaquina) {
     if (cpu == undefined) {
         cpu = null
     }
-    
+
     var instrucao = `UPDATE Maquinas SET cpuMetrica = ${cpu}, ramMetrica = ${ram}, gatilhoDisco1 = ${disco} WHERE idMaquina = ${idMaquina}`
-    
+
     console.log(instrucao);
     return database.executar(instrucao)
 }
 
-function registrarAlertas(idMaquina,idEmpresa,tipoAlerta,pesoAlerta){
+function registrarAlertas(idMaquina, idEmpresa, tipoAlerta, pesoAlerta) {
     var instrucao = `Insert INTO Possuem (fkAlerta, fkMaquina, fkEmpresa, dataHora, pesoAlertas) VALUES
     (${tipoAlerta}, ${idMaquina}, ${idEmpresa}, CONVERT (DATETIME, CURRENT_TIMESTAMP), ${pesoAlerta});`
-    
+
     console.log(instrucao);
     return database.executar(instrucao)
 }
 
 function desativarFuncionario(idFunc) {
     var instrucao = `DELETE FROM Usuarios WHERE idUsuario = ${idFunc}`
-    
+
     return database.executar(instrucao)
 }
 
@@ -245,11 +256,12 @@ function pegarDadosDiretor(idUsuario) {
 }
 
 // function validarDiretor(idUsuario) {
-    
+
 // }
 
 module.exports = {
     entrar,
+    autenticarDiretor,
     cadastrar,
     cadastrarFuncionario,
     cadastrarMaquina,

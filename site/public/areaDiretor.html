@@ -39,7 +39,7 @@
                     </div>
                     <li><a class="menu__item" href="../public/areaFuncionário.html">Home</a></li>
                     <li id="lateral_menu_cad_download"><a class="menu__item" href="./JAR/DATAWATCH-sistema.zip"
-                        download="app_DataWatch">Baixar aplicativo</a></li>
+                            download="app_DataWatch">Baixar aplicativo</a></li>
                     <li><a class="menu__item" onclick="limparSessao()">Logout</a></li>
                 </ul>
             </div>
@@ -78,60 +78,64 @@
 
 
                 <ul class="cards" id="ul_cards_maquinas">
-                    <!-- <button id="popup_botao">OI</button> -->
-                    <!--  <li class="card">
-                    <div>
-                        <h3 class="card-title">Maquina 1</h3>
-
-                    </div>
-                    <div class="card-link-wrapper">
-                        <div class="status2"></div><span><b>Inativo</b></span>
-                    </div>
-                </li>
-                <li class="card">
-                    <div>
-                        <h3 class="card-title">Maquina 2</h3>
-                        <div class="card-content">
+                    <li class="card">
+                        <div>
+                            <h3 class="card-title">Filial Bela Cintra</h3>
 
                         </div>
-                    </div>
-                    <div class="card-link-wrapper">
-                        <div class="status"></div><span><b>Ativo</b></span>
-                    </div>
-                </li>
-                <li class="card">
-                    <div>
-                        <h3 class="card-title">Maquina 3</h3>
-                        <div class="card-content">
-
+                        <div class="card-link-wrapper">
+                            <div class="status2"></div>
+                            <span><b>Inativo</b></span>
                         </div>
-                    </div>
-                    <div class="card-link-wrapper">
-                        <div class="status2"></div><span><b>Inativo</b></span>
-                    </div>
-                </li>
-                <li class="card">
-                    <div>
-                        <h3 class="card-title">Maquina 4</h3>
-                        <div class="card-content">
+                    </li>
+                    <li class="card">
+                        <div>
+                            <h3 class="card-title">Maquina 2</h3>
+                            <div class="card-content">
 
+                            </div>
                         </div>
-                    </div>
-                    <div class="card-link-wrapper">
-                        <div class="status"></div><span><b>Ativo</b></span>
-                    </div>
-                </li>
-                <li class="card">
-                    <div>
-                        <h3 class="card-title">Maquina 4</h3>
-                        <div class="card-content">
+                        <div class="card-link-wrapper">
+                            <div class="status"></div>
+                            <span><b>Ativo</b></span>
+                        </div>
+                    </li>
+                    <li class="card">
+                        <div>
+                            <h3 class="card-title">Maquina 3</h3>
+                            <div class="card-content">
 
+                            </div>
                         </div>
-                    </div>
-                    <div class="card-link-wrapper">
-                        <div class="status"></div><span><b>Ativo</b></span>
-                    </div>
-                </li> -->
+                        <div class="card-link-wrapper">
+                            <div class="status2"></div>
+                            <span>
+                                <b>Inativo</b>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="card">
+                        <div>
+                            <h3 class="card-title">Maquina 4</h3>
+                            <div class="card-content">
+
+                            </div>
+                        </div>
+                        <div class="card-link-wrapper">
+                            <div class="status"></div><span><b>Ativo</b></span>
+                        </div>
+                    </li>
+                    <li class="card">
+                        <div>
+                            <h3 class="card-title">Maquina 4</h3>
+                            <div class="card-content">
+
+                            </div>
+                        </div>
+                        <div class="card-link-wrapper">
+                            <div class="status"></div><span><b>Ativo</b></span>
+                        </div>
+                    </li>
                 </ul>
 
             </div>
@@ -339,7 +343,7 @@
 </body>
 <script>
 
-nome_usuario_menu.innerHTML =`${sessionStorage.NOME_USUARIO}`
+    nome_usuario_menu.innerHTML = `${sessionStorage.NOME_USUARIO}`
 
     // popup
     var popup = document.getElementById('popup_fundo');
@@ -726,7 +730,7 @@ nome_usuario_menu.innerHTML =`${sessionStorage.NOME_USUARIO}`
         dado2.style.display = 'none'
         dado3.style.display = 'none'
         dado4.style.display = 'block'
-        
+
         var data = google.visualization.arrayToDataTable([
             ['horário', 'Upload', 'Download'],
             [vetorHora[0], vetorRedeUpload[0], vetorRedeDownload[0]],
