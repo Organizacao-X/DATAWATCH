@@ -30,7 +30,7 @@
 
 
 
-                <ul class="menu__box">
+                <ul class="menu__box" id="menu__box">
                     <div class="image">
                         <img src="./assets/imgs/imagem-do-usuario-com-fundo-preto.png" alt=""
                             style="height: 200px; width: 200px; border-radius: 50%; ">
@@ -950,7 +950,7 @@
     google.charts.load("current", { packages: ['corechart'] });
     google.charts.setOnLoadCallback(plotarGrafico(dados));
     function drawChart(dados) {
-        debugger
+        /* debugger */
         console.log(dados)
         var contQtdColunas = 0;
         var vetorInteiro = [['Nome máquina']]
@@ -1036,29 +1036,56 @@
     function vincularDiretor() {
         var uuid = codigo_diretor.value
         var idEmpresa = sessionStorage.ID_EMPRESA
+        var idUsuario = sessionStorage.ID_USUARIO
 
-        fetch(`/datawatch/vincularDiretor/${idEmpresa}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                uuid: uuid
-            })
-        }).then(function (resposta) {
+        if (uuid.length != 36) {
+            console.log(uuid.length)
+            codigo_diretor.style = 'background-color: #ff7474;'
+            codigo_diretor.value = ''
+            codigo_diretor.placeholder = `--CÓDIGO INVÁLIDO--`
+        } else if (idEmpresa == null || idEmpresa == undefined) {
+            alert("Empresa não listada")
+        } else if (idUsuario == null || idUsuario == undefined) {
+            alert("Usuário não listado")
+        } else {
 
-            if (resposta.ok) {
-                console.log("ok")
-                // hideModalWithSaveEditar()
-                // limparCampos(inputs)
-            }
-            // } else if (resposta.status == 404) {
-            //     window.alert("Deu 404!");
-            // } else {
-            //     throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
-            // }
-        }).catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`);
-        });
+            fetch(`/datawatch/vincularDiretor/${idUsuario}`, {
+                method: "post",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    idEmpresa: idEmpresa,
+                    uuid: uuid
+                })
+            }).then(function (resposta) {
+                console.log("resposta: ", resposta);
+                if (resposta.ok) {
+                    codigo_diretor.value = ''
+                    codigo_diretor.placeholder = `DIRETOR ADICIONADO`;
+                    codigo_diretor.style = 'background-color: #d0ffbb;';
+                    vincular_diretor.style = 'background-color: #6cbb41;';
+                    vincular_diretor.innerHTML = `<b>Vinculado</b>`;
+                    setTimeout(restaurarEstiloOriginal, 5000);
+                    // hideModalWithSaveEditar()
+                    // limparCampos(inputs)
+                }
+                // } else if (resposta.status == 404) {
+                //     window.alert("Deu 404!");
+                // } else {
+                //     throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+                // }
+            }).catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+            return false
+        }
+    }
+
+    function restaurarEstiloOriginal() {
+        codigo_diretor.placeholder = ``;
+        codigo_diretor.style = 'background-color: #F2CB05;';
+        vincular_diretor.innerHTML = `<b>Vincular</b>`;
+        vincular_diretor.style = 'background-color: #FFFFFF;';
     }
 </script>

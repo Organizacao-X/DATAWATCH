@@ -123,6 +123,7 @@ header {
 }
 
 .menu__item:hover {
+  cursor: pointer;
   background-color: #F2CB05;
   color: #181818;
 }
@@ -1128,13 +1129,16 @@ header {
   gap: 2rem;
 }
 .texto-diretor input{
+  text-align: center;
   width: 79%;
   padding: .5rem;
   border: 3px solid black;
   background-color: #F2CB05;
   font-size: 25px;
 }
-
+.texto-diretor input::placeholder{
+color: #181818;
+}
 
 .X-6{
   position: absolute;

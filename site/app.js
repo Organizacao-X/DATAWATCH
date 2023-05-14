@@ -13,6 +13,7 @@ var usuarioRouter = require("./src/routes/usuarios");
 var datawatchRouter = require("./src/routes/datawatch");
 var avisosRouter = require("./src/routes/avisos");
 var dadosRouter = require("./src/routes/dados");
+var alertasRouter = require("./src/routes/alertas");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -24,7 +25,8 @@ app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
 app.use("/datawatch", datawatchRouter);
 app.use("/avisos", avisosRouter);
-app.use("/dados", dadosRouter)
+app.use("/dados", dadosRouter);
+app.use("/alertas", alertasRouter);
 
 app.listen(PORTA, function () {
     console.log(`Servidor do seu site já está rodando! Acesse o caminho a seguir para visualizar: http://localhost:${PORTA} \n

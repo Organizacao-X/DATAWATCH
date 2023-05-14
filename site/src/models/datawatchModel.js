@@ -174,7 +174,7 @@ function pegarDadosGrafico(idEmpresa) {
         JOIN Maquinas 
         ON Maquinas.idMaquina = Capturas.fkMaquina 
         WHERE Capturas.dataHora <= DATEADD(DAY, -30, GETDATE()) 
-        AND Capturas.fkempresa = 1 
+        AND Capturas.fkempresa = ${idEmpresa} 
         GROUP BY Maquinas.nomeMaquina, Capturas.fkmaquina, FORMAT(Capturas.dataHora, 'HH : 00') 
         ORDER BY HoraFormata, Maquina;`
 
@@ -203,7 +203,7 @@ function editarFuncionario(idFunc, email, senha) {
     return database.executar(instrucao)
 }
 
-function vincularDiretor(idEmpresa, uuid) {
+function vincularDiretor(idUsuario, idEmpresa, uuid) {
     var instrucao = `INSERT INTO Diretores VALUES
      (${idUsuario},${idEmpresa},'${uuid}')`
 
