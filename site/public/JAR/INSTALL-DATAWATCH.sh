@@ -71,7 +71,7 @@ sudo docker exec -i Datawatch mysql -uroot -pdatawatch -e "USE datawatch;CREATE 
 sleep 2
 
 # ----------------------- CONTAINER JAVA EXISTE? --------------------------------------------------
-if sudo docker ps -q -f name=javawatch > /dev/null;
+if [ "$(sudo docker ps -q -f name=javawatch > /dev/null)" ];
 then
     echo "$(tput setaf 10)Container JAVA existe"$(tput setaf 15)
 else
