@@ -232,6 +232,38 @@ header {
 
 input {
     border-radius: 10px;
+    height: .4rem;
+}
+
+.div{
+    display: flex;
+    flex-direction: column;
+}
+
+
+.parte{
+    display: flex;
+    gap: 3rem;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#combo{
+    height: 2rem;
+    background-color: #F2CB05;
+    border: 1px solid #181818;
+    padding: 5px 5px;
+    border-radius: 5px;
+    margin-top: 5%;
+}
+
+#combo:focus{
+    outline: none;
+    background-color: #ffe979; 
+}
+
+#combo:active{
+    background-color: #ffe979; 
 }
 
 @media screen and (max-width: 1420px) {
@@ -405,3 +437,4 @@ input {
     .nav-bar {
         padding: 1rem 6rem;
     }
+}
