@@ -244,22 +244,21 @@ function exibirBoasVindas(idUsuario) {
     return database.executar(instrucao);
 }
 
-function pegarDadosDiretor(idUsuario) {
+function pegarFiliais(idDiretor) {
     var instrucao = `SELECT
-    Maquinas.fkEmpresa,
-    Empresas.razaoSocial,
-    SUM(Maquinas.statusSistema) AS 'maquinasAtivas',
-    COUNT(Maquinas.statusSistema) AS 'qtdMaquinas'
-    FROM [dbo].[Maquinas]
-    JOIN [dbo].[Empresas] ON Maquinas.fkEmpresa = Empresas.idEmpresa
-    WHERE fkEmpresa = ${idUsuario} GROUP BY fkEmpresa, razaoSocial;`
+	usu.nomeUsuario AS 'diretor',
+	emp.razaoSocial,
+	SUM(maq.statusSistema) AS 'maquinasAtivas',
+    COUNT(maq.statusSistema) AS 'qtdMaquinas'
+    FROM [dbo].[Usuarios] as usu
+    JOIN [dbo].[Diretores] as dir ON usu.uuid = dir.uuid
+    JOIN [dbo].[Empresas] as emp ON dir.fkEmpresa = emp.idEmpresa
+    JOIN [dbo].[Maquinas] as maq ON maq.fkEmpresa = emp.idEmpresa
+    WHERE usu.idUsuario = ${idDiretor}
+    GROUP BY usu.nomeUsuario, emp.razaoSocial;`
 
     return database.executar(instrucao);
 }
-
-// function validarDiretor(idUsuario) {
-
-// }
 
 module.exports = {
     entrar,
@@ -279,7 +278,6 @@ module.exports = {
     exibirBoasVindas,
     lancarMetricas,
     registrarAlertas,
-    // validarDiretor,
-    pegarDadosDiretor,
-    vincularDiretor
+    vincularDiretor,
+    pegarFiliais
 };
