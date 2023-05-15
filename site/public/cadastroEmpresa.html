@@ -112,9 +112,18 @@
                     <input class="text" id="email_input" type="text" placeholder="meuemail@provedor.com"
                         onchange="limparBorda(this)">
 
-                    <label class="tipo_campo">Número de telefone:</label>
-                    <input class="text" id="telefone_input" type="text" placeholder="(00) 0000-0000"
-                        onchange="limparBorda(this)">
+                    <div class="parte">
+                        <div class="div">
+                            <label class="tipo_campo">Número de telefone:</label>
+                            <input class="text" id="telefone_input" type="text" placeholder="(00) 0000-0000"
+                                onchange="limparBorda(this)">
+                        </div>
+                        <select name="" id="combo">
+                            <option value="">---Selecione--</option>
+                            <option value="0">Matriz</option>
+                            <option value="1">Filial</option>
+                        </select>
+                    </div>
                 </div>
 
                 <div class="carregamento">
@@ -142,7 +151,7 @@
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"></script>
 <script>
-    $('#cnpj_input').mask('00.000.000/0000-00', {reverse: false});
+    $('#cnpj_input').mask('00.000.000/0000-00', { reverse: false });
     $('#cep_input').mask('00000-000');
     $('#telefone_input').mask('(00) 0000-00000');
 </script>
@@ -158,17 +167,17 @@
         // Retorna true se o email for válido:
         return re.test(email);
     }
-    
+
     function formatarCampoCnpj(string) {
         // Retira os caracteres especiais:
         return string.replace(/[.-/]/g, "");
     }
-    
+
     function formatarCampoCep(string) {
         // Retira os caracteres especiais:
         return string.replace(/[-]/g, "");
     }
-    
+
     function formatarCampoFone(string) {
         // Retira os caracteres especiais:
         return string.replace(/[() -]/g, "");
@@ -196,7 +205,7 @@
         } else {
             inputs[1].style.borderBottom = "none";
         }
-        
+
         if (cep < 8) {
             inputs[2].style.borderBottom = "solid 4px red";
 
@@ -207,8 +216,8 @@
 
         return erro;
     }
-    
-    function validacao2(email, fone) {
+
+    function validacao2(email, fone, filial) {
         var erro = true;
 
         if (!(validarEmail(email))) {
@@ -218,7 +227,7 @@
         } else {
             inputs[9].style.borderBottom = "none";
         }
-        
+
         if (fone < 11) {
             inputs[10].style.borderBottom = "solid 4px red";
 
@@ -227,9 +236,17 @@
             inputs[10].style.borderBottom = "none";
         }
 
+        if (filial == "") {
+            combo.style.border = "solid 4px red";
+
+            erro = false;
+        } else {
+            // combo.style.borderBottom = "1px solid #181818";
+        }
+
         return erro;
     }
-    
+
     function mostrarNomeUsuario() {
         span_nome_usuario.innerHTML = `Bem-vindo, ${sessionStorage.NOME_USUARIO}!`;
     }
@@ -309,7 +326,7 @@
                     cidadeServer: inputs[6].value,
                     estadoServer: inputs[7].value,
                     complementoServer: inputs[8].value,
-
+                    filialServer: combo.value,
                 })
             }).then(function (resposta) {
                 // console.log("resposta", resposta)

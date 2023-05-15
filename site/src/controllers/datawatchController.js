@@ -86,6 +86,7 @@ function cadastrarEmpresa1(req, res) {
     var complemento = req.body.complementoServer;
     var cidade = req.body.cidadeServer;
     var estado = req.body.estadoServer;
+    var filial = req.body.filialServer;
 
     console.log(req.body)
     if (razaoSocial == undefined) {
@@ -107,7 +108,7 @@ function cadastrarEmpresa1(req, res) {
     } else if (estado == undefined) {
         res.status(400).send("Seu estado está undefined!");
     } else {
-        datawatchModel.cadastrarEmpresa1(razaoSocial, cnpj, cep, rua_av, numero, complemento, bairro, cidade, estado).then(
+        datawatchModel.cadastrarEmpresa1(razaoSocial, cnpj, cep, rua_av, numero, complemento, bairro, cidade, estado, filial).then(
             function (resultado) {
                 res.json(resultado);
             }
