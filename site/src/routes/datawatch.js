@@ -57,7 +57,7 @@ router.post("/consultarStatusEmpresa", function (req, res) {
 
 router.post("/pegarMaquinas", function (req, res) {
     datawatchController.pegarMaquinas(req, res);
-})
+});
 
 router.post("/pegarFuncionarios", function (req, res) {
     datawatchController.pegarFuncionarios(req, res);
@@ -86,5 +86,9 @@ router.delete("/desativarFuncionario/:idFuncionario", function (req, res) {
 router.get("/exibirBoasVindas/:idUsuario", function (req, res) {
     datawatchController.exibirBoasVindas(req, res);
 })
+
+router.post("/pegarFiliais", function (req, res) {
+    datawatchController.pegarFiliais(req, res);
+});
 
 module.exports = router;

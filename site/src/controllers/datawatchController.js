@@ -404,7 +404,7 @@ function editarFuncionario(req, res) {
     var idFunc = req.params.idFuncionario;
     var email = req.body.novoEmailServer;
     var senha = req.body.novaSenhaServer;
-
+    
     if (idFunc == undefined) {
         res.status(400).send("Seu idFunc está undefined");
     } else {
@@ -539,6 +539,40 @@ function registrarAlertas(req, res) {
     }
 }
 
+function pegarFiliais(req, res) {
+    var idDiretor = req.body.idServer;
+
+    if (idDiretor == undefined) {
+        res.status(400).send("Seu id está undefined");
+    } else {
+        datawatchModel.pegarFiliais(idDiretor)
+            .then(
+                function (resultado) {
+                    console.log(`\nResultados encontrados: ${resultado.length}`);
+                    console.log(`Resultados: ${JSON.stringify(resultado)}`);
+
+                    if (resultado.length > 0) {
+                        console.log(`Mostrando o resultado: ${resultado}`);
+                        res.json(resultado);
+                        console.log(resultado[0]);
+                        console.log(resultado[1]);
+                    } else if (resultado.length == 0) {
+                        console.log("Nenhum administrador cadastrou este diretor")
+                        res.status(403).send("Nenhum administrador cadastrou este diretor");
+                    } else {
+                        res.status(403).send("Erro");
+                    }
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log("\nHouve um erro ao puxar as filiais cadastradas! Erro: ", erro.sqlMessage);
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
 module.exports = {
     entrar,
     autenticarDiretor,
@@ -558,5 +592,6 @@ module.exports = {
     exibirBoasVindas,
     lancarMetricas,
     registrarAlertas,
-    vincularDiretor
+    vincularDiretor,
+    pegarFiliais
 }
