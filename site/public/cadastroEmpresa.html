@@ -111,19 +111,11 @@
                     <label class="tipo_campo">E-mail:</label>
                     <input class="text" id="email_input" type="text" placeholder="meuemail@provedor.com"
                         onchange="limparBorda(this)">
+                        
+                    <label class="tipo_campo">Número de telefone:</label>
+                    <input class="text" id="telefone_input" type="text" placeholder="(00) 0000-0000"
+                        onchange="limparBorda(this)">
 
-                    <div class="parte">
-                        <div class="div">
-                            <label class="tipo_campo">Número de telefone:</label>
-                            <input class="text" id="telefone_input" type="text" placeholder="(00) 0000-0000"
-                                onchange="limparBorda(this)">
-                        </div>
-                        <select name="" id="combo">
-                            <option value="">---Selecione--</option>
-                            <option value="0">Matriz</option>
-                            <option value="1">Filial</option>
-                        </select>
-                    </div>
                 </div>
 
                 <div class="carregamento">
@@ -326,7 +318,6 @@
                     cidadeServer: inputs[6].value,
                     estadoServer: inputs[7].value,
                     complementoServer: inputs[8].value,
-                    filialServer: combo.value,
                 })
             }).then(function (resposta) {
                 // console.log("resposta", resposta)
