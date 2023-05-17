@@ -128,16 +128,17 @@ function pegarMaquinas(idEmpresa) {
     if (process.env.AMBIENTE_PROCESSO == "producao") {
 
         var instrucao = `SELECT Maquinas.idMaquina Id, Maquinas.nomeMaquina, Maquinas.statusSistema,
-    CONVERT(VARCHAR(8), DATEADD(SECOND, Maquinas.tempoAtividade, 0), 108) AS tempo_total,
-    (Maquinas.tempoAtividade * 1000) AS tempo_total_milissegundos,
-    CONCAT(FLOOR(Maquinas.tempoAtividade / 86400), ' dias, ',
-    CONVERT(VARCHAR(8), DATEADD(SECOND, Maquinas.tempoAtividade % 86400, 0), 108)) AS tempo_formatado,
-    COUNT(Possuem.fkmaquina) AS contagemChamados,
-    SUM(Possuem.PesoAlertas) AS PesoAlerta
-    FROM Maquinas
-    LEFT JOIN Possuem ON Maquinas.idmaquina = Possuem.fkmaquina
-    WHERE Maquinas.fkempresa = ${idEmpresa}
-    GROUP BY idmaquina, Maquinas.nomeMaquina, Maquinas.statusSistema, Maquinas.tempoAtividade;`
+        CONVERT(VARCHAR(8), DATEADD(SECOND, Maquinas.tempoAtividade, 0), 108) AS tempo_total,
+        (Maquinas.tempoAtividade * 1000) AS tempo_total_milissegundos,
+        Maquinas.sistemaOperacional as sistemaOperacional,
+        CONCAT(FLOOR(Maquinas.tempoAtividade / 86400), ' dias, ',
+        CONVERT(VARCHAR(8), DATEADD(SECOND, Maquinas.tempoAtividade % 86400, 0), 108)) AS tempo_formatado,
+        COUNT(Possuem.fkmaquina) AS contagemChamados,
+        SUM(Possuem.PesoAlertas) AS PesoAlerta
+        FROM Maquinas
+        LEFT JOIN Possuem ON Maquinas.idmaquina = Possuem.fkmaquina
+        WHERE Maquinas.fkempresa = ${idEmpresa}
+        GROUP BY idmaquina, Maquinas.nomeMaquina, Maquinas.statusSistema, Maquinas.tempoAtividade, Maquinas.sistemaOperacional;`
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
 
@@ -260,6 +261,24 @@ function pegarFiliais(idDiretor) {
     return database.executar(instrucao);
 }
 
+function pegarAlertas(idMaquina) {
+    var instrucao = `SELECT * FROM Alertas a
+                     JOIN Possuem p 
+                        ON p.fkAlerta = a.idAlerta
+                        AND p.fkMaquina = ${idMaquina};`
+
+    return database.executar(instrucao);
+}
+
+function rebootar(fkMaquina, fkEmpresa) {
+    console.log("ACESSEI O DATAWATCH MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function editar(): ", fkMaquina, fkEmpresa);
+    var instrucao = `
+        UPDATE Reboot SET rebootar = 1 WHERE fkMaquina = ${fkMaquina} AND fkEmpresa = ${fkEmpresa};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 module.exports = {
     entrar,
     autenticarDiretor,
@@ -279,5 +298,7 @@ module.exports = {
     lancarMetricas,
     registrarAlertas,
     vincularDiretor,
-    pegarFiliais
+    pegarFiliais,
+    pegarAlertas,
+    rebootar
 };
