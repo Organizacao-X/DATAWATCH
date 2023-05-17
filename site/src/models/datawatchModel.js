@@ -270,6 +270,15 @@ function pegarAlertas(idMaquina) {
     return database.executar(instrucao);
 }
 
+function rebootar(fkMaquina, fkEmpresa) {
+    console.log("ACESSEI O DATAWATCH MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function editar(): ", fkMaquina, fkEmpresa);
+    var instrucao = `
+        UPDATE Reboot SET rebootar = 1 WHERE fkMaquina = ${fkMaquina} AND fkEmpresa = ${fkEmpresa};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 module.exports = {
     entrar,
     autenticarDiretor,
@@ -290,5 +299,6 @@ module.exports = {
     registrarAlertas,
     vincularDiretor,
     pegarFiliais,
-    pegarAlertas
+    pegarAlertas,
+    rebootar
 };
