@@ -317,7 +317,7 @@
                             <button class="reload">Reiniciar</button>
                         </div>
                     </div>
-                    <div class="modal-parent5" style="display: none;">
+                    <div class="modal-parent5">
                         <div class="modal-reiniciar">
                             <div class="reiniciar">
                                 <div class="texto-reiniciar">
@@ -340,7 +340,7 @@
 <script>
 
     nome_usuario_menu.innerHTML = `${sessionStorage.NOME_USUARIO}`
-
+    let $ = document;
     // popup
     var popup = document.getElementById('popup_fundo');
     // abrir o popup
@@ -353,6 +353,13 @@
     const graficoMenu2 = document.getElementById('contendo');
     const modalInfo = document.getElementById('maquina-info');
     const margemTop = document.getElementById('pp');
+
+    const modalReiniciar = $.querySelector('.modal-parent5');
+    const buttonReiniciar = $.querySelector('.reload');
+    const buttonConfirmReiniciar = $.querySelector('#confirm_reiniciar');
+    const buttonCancelarReiniciar = $.querySelector('#cancel_reiniciar');
+    const x5 = $.querySelector('.X-5');
+
 
     const dado1 = document.getElementById('troca1');
     const dado2 = document.getElementById('troca2');
@@ -419,6 +426,31 @@
         modalInfo.style.display = 'block'
         margemTop.style.marginTop = '5%'
     }
+
+    function abrirModalReiniciar() {
+        modalReiniciar.style.display = 'block'
+        sessaoElem.style.filter = 'blur(10px)'
+        buttonReiniciar.blur()
+    }
+
+    function fecharModalReiniciarComX() {
+        modalReiniciar.style.display = 'none'
+        sessaoElem.style.filter = 'blur(0px)'
+    }
+
+    function fecharModalReiniciarComEsc(event) {
+        if (event.keyCode === 27) {
+            modalReiniciar.style.display = 'none'
+            sessaoElem.style.filter = 'blur(0px)'
+        }
+    }
+
+    buttonReiniciar.addEventListener('click', abrirModalReiniciar)
+    x5.addEventListener('click', fecharModalReiniciarComX)
+    document.body.addEventListener('keyup', fecharModalReiniciarComEsc)
+
+    buttonConfirmReiniciar.addEventListener('click', fecharModalReiniciarComX)
+    buttonCancelarReiniciar.addEventListener('click', fecharModalReiniciarComX)
 
 
     function getId() {
