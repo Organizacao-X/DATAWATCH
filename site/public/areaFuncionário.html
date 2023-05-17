@@ -302,7 +302,7 @@
                         </div>
                     </div>
                     <div class="info-maquina" id="maquina-info" style="display: none;">
-                        <div class="modal-info">
+                        <!-- <div class="modal-info">
                             <div class="titulo-info">
                                 <span>Especificações técnicas da máquina</span>
                             </div>
@@ -312,7 +312,7 @@
                                 <span><b>Data de cadastro:</b> 04/04/2023</span>
                                 <span><b>Tempo de atividade:</b> 2d 5h 26min</span>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="conteudo">
                             <button class="reload">Reiniciar</button>
                         </div>
@@ -371,7 +371,8 @@
     // função para abrir com o clique
     function abrirPopup(idMaquina) {
         popup.style.display = 'block';
-        obterdados(idMaquina)
+        obterdados(idMaquina);
+        infoMaquina(maquina);
     }
 
     // função para fechar popup com o clique no botão
@@ -451,6 +452,7 @@
                     if (dados.length > 0) {
                         dados.forEach(alerta => {
                             montarListagemAlertas(alerta);
+                            
                         });
                     }
 
@@ -483,7 +485,7 @@
                         montarListagemAlertas(dados);
                         dados.forEach(maquina => {
                             var lista_maquinas = document.getElementById("ul_cards_maquinas");
-
+                            
                             var li = document.createElement("div")
                             li.setAttribute("class", "card")
 
@@ -512,10 +514,10 @@
                             iconAlert.setAttribute("class", "iconAlert")
                             textAlert.setAttribute("class", "textAlert")
                             pTextAlert.setAttribute("class", "pTextAlert")
-
+                            
                             var divContent = document.createElement("div")
                             divContent.setAttribute("class", "content")
-
+                            
                             var divStatus = document.createElement("div")
                             var spanStatus = document.createElement("span")
                             if (maquina.statusSistema == 1) {
@@ -525,19 +527,19 @@
                                 divStatus.setAttribute("class", "status2")
                                 spanStatus.innerHTML = " OFFLINE"
                             }
-
+                            
                             textAlert.appendChild(pTextAlert)
                             iconAlert.appendChild(textAlert)
                             divContent.appendChild(divStatus)
                             divContent.appendChild(spanStatus)
-
+                            
                             li.appendChild(icon)
                             li.appendChild(iconAlert)
 
                             li.appendChild(divContent)
-
+                            
                             li.style = "background-color: rgb(255, 179, 179)"
-
+                            
                             if (maquina.PesoAlerta == 0 || maquina.PesoAlerta == null) {
                                 li.style = "background-color: rgb(189, 255, 188)"
                             } else if (maquina.PesoAlerta >= 20 && maquina.PesoAlerta <= 69) {
@@ -548,10 +550,11 @@
                             li.setAttribute('value', maquina.Id)
                             li.addEventListener('click', function () {
                                 abrirPopup(li.getAttribute('value'))
+                                
                             })
                             lista_maquinas.appendChild(li)
                             console.log(lista_maquinas)
-
+                            
                         });
                     }
 
@@ -592,6 +595,50 @@
         </li>
         */
     }
+
+    function infoMaquina(registro) {
+        var divInfo = document.createElement("div");
+        divInfo.setAttribute("class" , "modal-info");
+
+
+        var divTitulo = document.createElement("div");
+        divTitulo.setAttribute("class", "titulo-info");
+
+        var divDados = document.createElement("div");
+        divDados.setAttribute("class", "dados-maquinas");
+
+        var spanNome = document.createElement("span");
+        spanNome = `<b>Nome da Máquina:<b> ${registro.nomeMaquina}`
+
+        var spanSo = document.createElement("span");
+        spanSo = `<b>Sistema Operacional:</b> ${registro.sistemaOperacional}`;
+
+        var spanTempoAtividade = document.createElement("span")
+        spanTempoAtividade = `<b>Tempo de atividade:</b> ${registro.tempo_formatado}`
+
+        divDados.appendChild(spanNome)
+        divDados.appendChild(spanSo)
+        divDados.appendChild(spanTempoAtividade)
+        divTitulo.appendChild(divDados)
+        
+
+
+        /*
+        <div class="modal-info">
+                            <div class="titulo-info">
+                                <span>Especificações técnicas da máquina</span>
+                            </div>
+                            <div class="dados-maquina">
+                                <span><b>Nome da máquina:</b> maquina02</span>
+                                <span><b>Sistema Operacional:</b> Ubuntu 22.04 LTS</span>
+                                <span><b>Data de cadastro:</b> 04/04/2023</span>
+                                <span><b>Tempo de atividade:</b> 2d 5h 26min</span>
+                            </div>
+                        </div>
+                        <div class="conteudo">
+                            <button class="reload">Reiniciar</button>
+        */
+    }
     
     function exibirAlertas(idMaquina) {
         fetch(`/exibiralertas/${idMaquina}`, {
@@ -623,8 +670,8 @@
     var capacidadeDiscoLivre = 0;
 
     // RAM 
-    var CapacidadeRamTotal = 0;
-    var CapacidadeRamEmUso = 0;
+    // var vetorCapacidadeRamTotal = [];
+    var vetorCapacidadeRamEmUso = [];
 
 
     // MÉTRICA
@@ -694,8 +741,8 @@
                             capacidadeDiscoTotal3 = registro.discoTotal3;
 
                             // RAM (Banco)
-                            CapacidadeRamTotal = registro.ramTotal;
-                            CapacidadeRamEmUso = registro.ramuso;
+                            // vetorCapacidadeRamTotal = registro.ramTotal;
+                            vetorCapacidadeRamEmUso.push(registro.ramuso);
 
 
                             // MÉTRICA (Banco)
@@ -708,7 +755,8 @@
                         }
                         carregarGrafCPU();
                         metricas(idMaquina);
-                        pegarAlertas(idMaquina)
+                        pegarAlertas(idMaquina);
+                        infoMaquina(registro);
                     });
                 } else {
 
@@ -868,17 +916,27 @@
         dado3.style.display = 'none'
         dado4.style.display = 'none'
 
-        var data = google.visualization.arrayToDataTable([
-            ['', ''],
-            ['Em uso', CapacidadeRamEmUso],
-            ['Total', CapacidadeRamTotal]
+         var data = google.visualization.arrayToDataTable([
+            ['Horário', 'Porcentagem %'],
+            [vetorHora[0], vetorCapacidadeRamEmUso[0]],
+            [vetorHora[1], vetorCapacidadeRamEmUso[1]],
+            [vetorHora[2], vetorCapacidadeRamEmUso[2]],
+            [vetorHora[3], vetorCapacidadeRamEmUso[3]],
+            [vetorHora[4], vetorCapacidadeRamEmUso[4]],
+            [vetorHora[5], vetorCapacidadeRamEmUso[5]],
+            [vetorHora[6], vetorCapacidadeRamEmUso[6]],
+            [vetorHora[7], vetorCapacidadeRamEmUso[7]],
+            [vetorHora[8], vetorCapacidadeRamEmUso[8]],
+            [vetorHora[9], vetorCapacidadeRamEmUso[9]],
         ]);
 
         var options = {
-            title: 'Uso de RAM:'
+            title: 'Uso de Ram',
+            curveType: 'function',
+            legend: { position: 'bottom' }
         };
 
-        var chart = new google.visualization.PieChart(document.getElementById('div_grafico_modal'));
+        var chart = new google.visualization.LineChart(document.getElementById('div_grafico_modal'));
         //     fraseMetrica.innerHTML = `Dados RAM 
         // <br>Em uso: 
         // <br>Disponível:`;
@@ -916,7 +974,7 @@
         // console.log(vetorHora, vetorHorasPorcentagem, vetorPorcentagemCpu)
 
         var options = {
-            title: 'Company Performance',
+            title: 'Uso do Processador',
             curveType: 'function',
             legend: { position: 'bottom' }
         };

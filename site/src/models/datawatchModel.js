@@ -128,16 +128,17 @@ function pegarMaquinas(idEmpresa) {
     if (process.env.AMBIENTE_PROCESSO == "producao") {
 
         var instrucao = `SELECT Maquinas.idMaquina Id, Maquinas.nomeMaquina, Maquinas.statusSistema,
-    CONVERT(VARCHAR(8), DATEADD(SECOND, Maquinas.tempoAtividade, 0), 108) AS tempo_total,
-    (Maquinas.tempoAtividade * 1000) AS tempo_total_milissegundos,
-    CONCAT(FLOOR(Maquinas.tempoAtividade / 86400), ' dias, ',
-    CONVERT(VARCHAR(8), DATEADD(SECOND, Maquinas.tempoAtividade % 86400, 0), 108)) AS tempo_formatado,
-    COUNT(Possuem.fkmaquina) AS contagemChamados,
-    SUM(Possuem.PesoAlertas) AS PesoAlerta
-    FROM Maquinas
-    LEFT JOIN Possuem ON Maquinas.idmaquina = Possuem.fkmaquina
-    WHERE Maquinas.fkempresa = ${idEmpresa}
-    GROUP BY idmaquina, Maquinas.nomeMaquina, Maquinas.statusSistema, Maquinas.tempoAtividade;`
+        CONVERT(VARCHAR(8), DATEADD(SECOND, Maquinas.tempoAtividade, 0), 108) AS tempo_total,
+        (Maquinas.tempoAtividade * 1000) AS tempo_total_milissegundos,
+        Maquinas.sistemaOperacional as sistemaOperacional,
+        CONCAT(FLOOR(Maquinas.tempoAtividade / 86400), ' dias, ',
+        CONVERT(VARCHAR(8), DATEADD(SECOND, Maquinas.tempoAtividade % 86400, 0), 108)) AS tempo_formatado,
+        COUNT(Possuem.fkmaquina) AS contagemChamados,
+        SUM(Possuem.PesoAlertas) AS PesoAlerta
+        FROM Maquinas
+        LEFT JOIN Possuem ON Maquinas.idmaquina = Possuem.fkmaquina
+        WHERE Maquinas.fkempresa = ${idEmpresa}
+        GROUP BY idmaquina, Maquinas.nomeMaquina, Maquinas.statusSistema, Maquinas.tempoAtividade, Maquinas.sistemaOperacional;`
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
 
