@@ -7,7 +7,7 @@
 
 /* Navbar */
 body {
-  background-color: #FFE252;
+  background-color: #505050;
 }
 
 header {
@@ -157,22 +157,26 @@ header {
   justify-content: center;
   /* margin-top: 5%; */
   font-size: 25px;
+  /* border: 3px solid red; */
+  margin-left: 5%;
 }
 
 .usuario span {
-  margin: 100px 0 10px 0;
+  color: #ffffff;
 }
+
 .container {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .placa {
-  background-color: #a2913b3f;
+  background-color: #d7d7d75d;
   width: 95%;
   border-radius: 10px;
   align-items: center;
   justify-content: center;
+  margin-top: 10%;
 }
 
 .legenda {
@@ -192,6 +196,7 @@ header {
   height: 100%;
   /* background-color: aqua; */
 }
+
 .legendaTexto p {
   color: #ffffff;
   margin-left: 10px;
@@ -203,7 +208,7 @@ header {
   width: 100%;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: start;
+  justify-content: start; 
 }
 
 .card {
