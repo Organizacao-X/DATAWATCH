@@ -23,7 +23,7 @@ idUsuario INT PRIMARY KEY AUTO_INCREMENT,
 nomeUsuario VARCHAR(45) NOT NULL,
 email VARCHAR(45) NOT NULL, CONSTRAINT chkEmailUsuario CHECK (email LIKE '%@%'),
 cpf CHAR(11) NOT NULL,
-senha VARCHAR(25) NOT NULL, CONSTRAINT chkSenha CHECK (length(senha) >= 8),
+senha VARCHAR(400) NOT NULL, CONSTRAINT chkSenha CHECK (length(senha) >= 8),
 statusUsuario TINYINT(1),
 imagemUser VARCHAR(100),
 adm INT,
@@ -108,7 +108,7 @@ CREATE TABLE Possuem (
 );
 DESC Usuarios;
 INSERT INTO Usuarios VALUES
-(1, 'lele', 'lele@gmail.com', 12312312312, '12345678', 1, 'IMAGEM', null, null, null),
+(1, 'lele', 'lele@gmail.com', 12312312312, '33CDBC3872B3789776EFF6178CD7585D9C9B080C752AA4E92C274D768E2A7EA2', 1, 'IMAGEM', null, null, null),
 (2, 'Lucas', 'lucas@gmail.com', 12312312444, '12345678', 1, 'IMAGEM', null, null, null);
 
 INSERT INTO Empresas VALUES
@@ -289,7 +289,7 @@ ORDER BY dh.dataHora1, m.idMaquina;
 -- GROUP BY m.nomeMaquina, dh.dataHora1
 -- ORDER BY dh.dataHora1, m.nomeMaquina;
 
-delete from capturas where idcaptura = 47;
+-- delete from capturas where idcaptura = 47;
 -- insert into capturas (idcaptura, fkmaquina, fkempresa, dataHora, cpuUso, temperatura, ramUso, redeUpload, redeDownload, LivreDIsco1)
 --  VALUES 
 -- (49, 2, 1, '2023-04-04 15:25:00', 3.4, 56.88, 4.2, 13.0, 25.5, 580.4);

@@ -86,7 +86,7 @@ function cadastrarEmpresa1(req, res) {
     var complemento = req.body.complementoServer;
     var cidade = req.body.cidadeServer;
     var estado = req.body.estadoServer;
-    var filial = req.body.filialServer;
+
 
     console.log(req.body)
     if (razaoSocial == undefined) {
@@ -108,7 +108,7 @@ function cadastrarEmpresa1(req, res) {
     } else if (estado == undefined) {
         res.status(400).send("Seu estado está undefined!");
     } else {
-        datawatchModel.cadastrarEmpresa1(razaoSocial, cnpj, cep, rua_av, numero, complemento, bairro, cidade, estado, filial).then(
+        datawatchModel.cadastrarEmpresa1(razaoSocial, cnpj, cep, rua_av, numero, complemento, bairro, cidade, estado).then(
             function (resultado) {
                 res.json(resultado);
             }
@@ -573,6 +573,30 @@ function pegarFiliais(req, res) {
     }
 }
 
+function pegarAlertas(req, res) {
+    var idMaquina = req.body.idMaquinaServer;
+
+    if (idMaquina == undefined) {
+        res.status(400).send("Seu id está undefined");
+    } else {
+        datawatchModel.pegarAlertas(idMaquina)
+            .then(
+                function (resultado) {
+                    console.log(`\nResultados encontrados: ${resultado.length}`);
+                    console.log(`Resultados: ${JSON.stringify(resultado)}`);
+
+                    res.json(resultado)
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log("\nHouve um erro ao puxar os alertas! Erro: ", erro.sqlMessage);
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
 module.exports = {
     entrar,
     autenticarDiretor,
@@ -593,5 +617,6 @@ module.exports = {
     lancarMetricas,
     registrarAlertas,
     vincularDiretor,
-    pegarFiliais
+    pegarFiliais,
+    pegarAlertas
 }

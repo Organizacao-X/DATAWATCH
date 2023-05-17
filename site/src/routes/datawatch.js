@@ -91,4 +91,8 @@ router.post("/pegarFiliais", function (req, res) {
     datawatchController.pegarFiliais(req, res);
 });
 
+router.post("/pegarAlertas", function (req, res) {
+    datawatchController.pegarAlertas(req, res);
+});
+
 module.exports = router;
