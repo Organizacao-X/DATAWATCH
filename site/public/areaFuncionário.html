@@ -265,7 +265,7 @@
 
                     <div class="alerta" id="alert" style="display: none;">
                         <div class="modal-alerta">
-                            <div class="descricaoAlerta">
+                            <div class="descricaoAlerta" >
                                 <div class="imagemMaquina">
                                     <img src="./assets/icon/alerta.png" alt="" style="width: 150px;">
                                 </div>
@@ -289,7 +289,7 @@
                                     <span>Registro de alertas (30 dias)</span>
                                 </div>
                                 <ul>
-                                    <div class="lista-registro">
+                                    <div class="lista-registro" id="div_lista_registro">
                                         <li>
                                             <div class="rowInfo">
                                                 <span>Id: 1 </span>
@@ -433,6 +433,38 @@
         mostrarMaquinasFuncionarios(idEmpresa)
     }
 
+    function pegarAlertas(idMaquina) {
+        console.log(idMaquina)
+        fetch("/datawatch/pegarAlertas", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idMaquinaServer: idMaquina
+            })
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+                resposta.json().then(dados => {
+                    div_lista_registro.innerHTML = ''
+                    if (dados.length > 0) {
+                        dados.forEach(alerta => {
+                            montarListagemAlertas(alerta);
+                        });
+                    }
+
+                })
+            }
+            else {
+                throw (JSON.stringify(resposta))
+            }
+        }).catch(function (resposta) {
+            console.log(`ERRO: ${resposta}`);
+        })
+        return false
+    }
+    
     function mostrarMaquinasFuncionarios(idEmpresa) {
         fetch("/datawatch/pegarMaquinas", {
             method: "POST",
@@ -448,6 +480,7 @@
                 resposta.json().then(dados => {
                     console.log(dados)
                     if (dados.length > 0) {
+                        montarListagemAlertas(dados);
                         dados.forEach(maquina => {
                             var lista_maquinas = document.getElementById("ul_cards_maquinas");
 
@@ -533,6 +566,33 @@
         return false
     }
 
+    function montarListagemAlertas(alerta) {
+        console.log(alerta)
+        var liAlerta = document.createElement("li")
+
+        var divAlertaRowInfo = document.createElement("div")
+        divAlertaRowInfo.setAttribute("class", "rowInfo")
+
+        var spanIdAlerta = document.createElement("span")
+        spanIdAlerta.innerHTML = `Id: ${alerta.idPosse}`
+        var spanTituloAlerta = document.createElement("span")
+        spanTituloAlerta.innerHTML = `Título: ${alerta.nomeAlerta}`
+
+        divAlertaRowInfo.appendChild(spanIdAlerta)
+        divAlertaRowInfo.appendChild(spanTituloAlerta)
+        liAlerta.appendChild(divAlertaRowInfo)
+        div_lista_registro.appendChild(liAlerta)
+        /*
+        /*
+        <li>
+            <div class="rowInfo">
+                <span>Id: 1 </span>
+                <span>Titulo: Máquina travada</span>
+            </div>
+        </li>
+        */
+    }
+    
     function exibirAlertas(idMaquina) {
         fetch(`/exibiralertas/${idMaquina}`, {
             method: "POST",
@@ -648,6 +708,7 @@
                         }
                         carregarGrafCPU();
                         metricas(idMaquina);
+                        pegarAlertas(idMaquina)
                     });
                 } else {
 
@@ -662,7 +723,7 @@
     // Lançar Métricas no Banco
 
     function metricas(idMaquina) {
-        debugger
+        // debugger
 
         // CONTAS para MÉTRICAS
 

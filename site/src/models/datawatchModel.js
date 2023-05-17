@@ -260,6 +260,15 @@ function pegarFiliais(idDiretor) {
     return database.executar(instrucao);
 }
 
+function pegarAlertas(idMaquina) {
+    var instrucao = `SELECT * FROM Alertas a
+                     JOIN Possuem p 
+                        ON p.fkAlerta = a.idAlerta
+                        AND p.fkMaquina = ${idMaquina};`
+
+    return database.executar(instrucao);
+}
+
 module.exports = {
     entrar,
     autenticarDiretor,
@@ -279,5 +288,6 @@ module.exports = {
     lancarMetricas,
     registrarAlertas,
     vincularDiretor,
-    pegarFiliais
+    pegarFiliais,
+    pegarAlertas
 };
