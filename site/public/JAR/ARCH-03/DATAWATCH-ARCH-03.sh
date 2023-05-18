@@ -88,9 +88,9 @@ else
 	echo wget não encontrado. Instalando...;
 	yum install wget -y; 
 fi"
-sudo docker exec -it javawatch bash -c "if [ -f datawatch-1.0-SNAPSHOT-jar-with-dependencies.jar ]; then echo 'Sistema $(tput setaf 11)DATAWATCH$(tput setaf 15) encontrado!'; else echo 'Baixando o arquivo...'; wget https://github.com/Organizacao-X/DATAWATCH/raw/main/site/public/JAR/datawatch-1.0-SNAPSHOT-jar-with-dependencies.jar ; fi"
+sudo docker exec -it javawatch bash -c "if [ -f datawatch-1.0-SNAPSHOT-jar-CLI.jar ]; then echo 'Sistema $(tput setaf 11)DATAWATCH$(tput setaf 15) encontrado!'; else echo 'Baixando o arquivo...'; wget https://github.com/Organizacao-X/DATAWATCH/raw/main/site/public/JAR/ARCH-03/datawatch-1.0-SNAPSHOT-jar-CLI.jar ; fi"
 sleep 2
 sudo docker exec -it javawatch bash -c "yum install libudev-devel -y"
 sudo docker exec -it javawatch bash -c "echo Abrindo $(tput setaf 11)DATAWATCH...$(tput setaf 15)"
-sudo docker exec -it javawatch bash -c "java -jar datawatch-1.0-SNAPSHOT-jar-with-dependencies.jar"
+sudo docker exec -it javawatch bash -c "java -jar datawatch-1.0-SNAPSHOT-jar-CLI.jar"
 

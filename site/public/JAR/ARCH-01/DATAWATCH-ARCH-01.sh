@@ -77,12 +77,12 @@ sudo docker exec -i Datawatch mysql -uroot -pdatawatch -e "USE datawatch;CREATE 
 sleep 2
 
 # ----------------------- EXECUTANDO O JAR ---------------------------------------------------------
-if [ -f datawatch-1.0-SNAPSHOT-jar-with-dependencies.jar ]; 
+if [ -f datawatch-1.0-SNAPSHOT-jar-GUI.jar ]; 
 then echo ...
 else
   echo "Baixando o arquivo..."
-  wget https://github.com/Organizacao-X/DATAWATCH/raw/main/site/public/JAR/datawatch-1.0-SNAPSHOT-jar-with-dependencies.jar
+  wget https://github.com/Organizacao-X/DATAWATCH/raw/main/site/public/JAR/ARCH-01/datawatch-1.0-SNAPSHOT-jar-GUI.jar
 fi
 echo Abrindo $(tput setaf 11)DATAWATCH...$(tput setaf 15)
 sleep 3
-java -jar datawatch-1.0-SNAPSHOT-jar-with-dependencies.jar
+java -jar datawatch-1.0-SNAPSHOT-jar-GUI.jar
