@@ -293,7 +293,7 @@
                     <span><b>Você deseja realmente reiniciar essa maquina?</b></span>
                 </div>
                 <div class="opcao2">
-                    <button class="btnS" id="confirm_reiniciar" onclick='enviarComando(enviarJava)'><b>Sim</b></button>
+                    <button class="btnS" id="confirm_reiniciar" onclick="rebootar(this.value)"><b>Sim</b></button>
                     <button class="btnN" id="cancel_reiniciar"><b>Não</b></button>
                 </div>
             </div>
@@ -327,11 +327,29 @@
 
     const agora = new Date();
 
-    var enviarJava = "TESTE"
-    function enviarComando(enviarJava) {
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "http://localhost:8080/reiniciar?comando=" + encodeURIComponent(enviarJava), true);
-        xhr.send();
+    function rebootar(idMaquina) {
+
+        fetch(`/datawatch/rebootar`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idMaquinaServer: idMaquina,
+                fkEmpresaServer: sessionStorage.ID_EMPRESA
+            })
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+                window.alert("Máquina reiniciada com sucesso!");
+            } else if (resposta.status == 404) {
+                window.alert("Deu 404!");
+            } else {
+                throw ("Houve um erro ao tentar rebootar a máquina: " + resposta.status);
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
     }
 
     var lista_maquinas = document.getElementById("ul_cards_maquinas");
@@ -914,10 +932,17 @@
         spanNomeMaquina.innerHTML = maquina.nomeMaquina
         divNomeMaquina.appendChild(spanNomeMaquina)
 
+        /* ---- BOTÃO REINICIAR ---- */
         var btnReiniciar = document.createElement("button")
         btnReiniciar.setAttribute("class", "reload")
-
+        btnReiniciar.setAttribute('value', maquina.Id)
+        btnReiniciar.addEventListener("click", function(){
+        var valorClicado = this.value
+        var botaoConfirmacao = document.getElementById("confirm_reiniciar");
+        botaoConfirmacao.value = valorClicado
+        })
         btnReiniciar.innerHTML = "Reiniciar"
+        /* -------------------------- */
 
         var divTimeReload = document.createElement("div")
         divTimeReload.setAttribute("class", "time-reloader")
@@ -1046,10 +1071,13 @@
         }
     }
 
+    /* RESTAURAR CAMPO COPIAR E COLAR DIRETOR */
     function restaurarEstiloOriginal() {
         codigo_diretor.placeholder = ``;
         codigo_diretor.style = 'background-color: #F2CB05;';
         vincular_diretor.innerHTML = `<b>Vincular</b>`;
         vincular_diretor.style = 'background-color: #FFFFFF;';
     }
+
+    
 </script>

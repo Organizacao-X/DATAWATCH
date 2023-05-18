@@ -597,6 +597,26 @@ function pegarAlertas(req, res) {
     }
 }
 
+function rebootar(req, res) {
+    var fkMaquina = req.body.idMaquinaServer;
+    var fkEmpresa = req.body.fkEmpresaServer;
+
+    datawatchModel.rebootar(fkMaquina, fkEmpresa)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao tentar rebootar: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+
+}
+
 module.exports = {
     entrar,
     autenticarDiretor,
@@ -618,5 +638,6 @@ module.exports = {
     registrarAlertas,
     vincularDiretor,
     pegarFiliais,
-    pegarAlertas
+    pegarAlertas,
+    rebootar
 }

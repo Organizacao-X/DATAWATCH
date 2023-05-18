@@ -95,4 +95,9 @@ router.post("/pegarAlertas", function (req, res) {
     datawatchController.pegarAlertas(req, res);
 });
 
+router.put("/rebootar", function (req, res) {
+    datawatchController.rebootar(req, res);
+});
+
+
 module.exports = router;
