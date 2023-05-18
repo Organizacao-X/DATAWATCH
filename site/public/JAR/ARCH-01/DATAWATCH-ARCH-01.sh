@@ -81,8 +81,8 @@ if [ -f datawatch-1.0-SNAPSHOT-jar-GUI.jar ];
 then echo ...
 else
   echo "Baixando o arquivo..."
-  wget https://github.com/Organizacao-X/DATAWATCH/raw/main/site/public/JAR/ARCH-01/datawatch-1.0-SNAPSHOT-jar-GUI.jar
+  wget -P ~ https://github.com/Organizacao-X/DATAWATCH/raw/main/site/public/JAR/ARCH-01/datawatch-1.0-SNAPSHOT-jar-GUI.jar
 fi
 echo Abrindo $(tput setaf 11)DATAWATCH...$(tput setaf 15)
 sleep 3
-java -jar datawatch-1.0-SNAPSHOT-jar-GUI.jar
+java -jar ~/datawatch-1.0-SNAPSHOT-jar-GUI.jar
