@@ -72,7 +72,7 @@ then
 	sudo docker start Datawatch
 else
     echo "$(tput setaf 9)Container Docker 'Datawatch' não encontrado. Criando container...$(tput setaf 15)"
-	sudo docker run -d -p 3307:3306 --name Datawatch -e "MYSQL_DATABASE=datawatch" -e "MYSQL_ROOT_PASSWORD=datawatch" mysql:5.7
+	sudo docker run -d -p 3307:3306 --name Datawatch -e "MYSQL_DATABASE=datawatch" -e "MYSQL_ROOT_PASSWORD=datawatch" -e bind-address=0.0.0.0 mysql:5.7
 fi
 echo conectando...
 sleep 10
