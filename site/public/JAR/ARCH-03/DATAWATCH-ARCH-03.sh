@@ -47,15 +47,6 @@ else
 	sudo docker pull mysql:5.7
 fi
 
-# ----------------------- IMAGEM JAVA EXISTE? -----------------------------------------------------
-if [ "$(sudo docker images -q amazoncorretto:17 2> /dev/null)" ]; 
-then
-	echo "$(tput setaf 10)Imagem amazoncorretto:17 encontrada$(tput setaf 15)"
-else
-	echo "$(tput setaf 9)Imagem amazoncorretto:17 não encontrada. Criando imagem...$(tput setaf 15)"
-	sudo docker pull amazoncorretto:17
-fi
-
 # ----------------------- CONTAINER MYSQL EXISTE? --------------------------------------------------
 if [ "$(sudo docker ps -aqf name=Datawatch)" ]; 
 then
@@ -64,6 +55,15 @@ then
 else
     echo "$(tput setaf 9)Container Docker 'Datawatch' não encontrado. Criando container...$(tput setaf 15)"
 	sudo docker run -d -p 3306:3306 --name Datawatch -e "MYSQL_DATABASE=datawatch" -e "MYSQL_ROOT_PASSWORD=datawatch" mysql:5.7
+fi
+
+# ----------------------- IMAGEM JAVA EXISTE? -----------------------------------------------------
+if [ "$(sudo docker images -q amazoncorretto:17 2> /dev/null)" ]; 
+then
+	echo "$(tput setaf 10)Imagem amazoncorretto:17 encontrada$(tput setaf 15)"
+else
+	echo "$(tput setaf 9)Imagem amazoncorretto:17 não encontrada. Criando imagem...$(tput setaf 15)"
+	sudo docker pull amazoncorretto:17
 fi
 
 # ----------------------- CONTAINER JAVA EXISTE? --------------------------------------------------
@@ -75,27 +75,6 @@ else
     sudo docker run -d --name javawatch amazoncorretto:17 sleep infinity
 fi
 
-<<<<<<< HEAD
-=======
-# ----------------------- IMAGEM MYSQL EXISTE? -----------------------------------------------------
-if [ "$(sudo docker images -q mysql:5.7 2> /dev/null)" ]; 
-then
-	echo "$(tput setaf 10)Imagem mysql:5.7 encontrada$(tput setaf 15)"
-else
-	echo "$(tput setaf 9)Imagem mysql:5.7 não encontrada. Criando imagem...$(tput setaf 15)"
-	sudo docker pull mysql:5.7
-fi
-
-# ----------------------- CONTAINER MYSQL EXISTE? --------------------------------------------------
-if [ "$(sudo docker ps -aqf name=Datawatch)" ]; 
-then
-    echo "$(tput setaf 10)Container Docker 'Datawatch' já existe.$(tput setaf 15)"
-	sudo docker start Datawatch
-else
-    echo "$(tput setaf 9)Container Docker 'Datawatch' não encontrado. Criando container...$(tput setaf 15)"
-	sudo docker run -d -p 3307:3306 --name Datawatch -e "MYSQL_DATABASE=datawatch" -e "MYSQL_ROOT_PASSWORD=datawatch" -e bind-address=0.0.0.0 mysql:5.7
-fi
->>>>>>> 0050725e318f772d95112d01d7b9c351bf2a91e4
 echo conectando...
 sleep 10
 sudo docker exec -i Datawatch mysql -uroot -pdatawatch -e "USE datawatch;CREATE TABLE IF NOT EXISTS Empresas(idEmpresa INT PRIMARY KEY AUTO_INCREMENT,razaoSocial VARCHAR(45) NOT NULL,cnpj CHAR(14) NOT NULL,cep CHAR(8) NOT NULL,logradouro VARCHAR(100) NOT NULL,numero INT NOT NULL,complemento VARCHAR(45) NOT NULL,bairro VARCHAR(45) NOT NULL,cidade VARCHAR(45) NOT NULL,estado CHAR(2) NOT NULL,verificado TINYINT(1),filial INT);CREATE TABLE IF NOT EXISTS Usuarios(idUsuario INT PRIMARY KEY AUTO_INCREMENT,nomeUsuario VARCHAR(45) NOT NULL,email VARCHAR(45) NOT NULL, CONSTRAINT chkEmailUsuario CHECK(email LIKE '%@%'),cpf CHAR(11) NOT NULL,senha VARCHAR(25) NOT NULL, CONSTRAINT chkSenha CHECK(length(senha) >= 8),statusUsuario TINYINT(1),imagemUser VARCHAR(100),adm INT,CONSTRAINT FOREIGN KEY(adm) REFERENCES Usuarios(idUsuario), fkEmpresa INT, CONSTRAINT FOREIGN KEY(fkEmpresa) REFERENCES Empresas(idEmpresa), uuid VARCHAR(36));CREATE TABLE IF NOT EXISTS Contato(fkEmpresa INT,CONSTRAINT FOREIGN KEY(fkEmpresa) REFERENCES Empresas(idEmpresa),email VARCHAR(45),telefone VARCHAR(15));CREATE TABLE IF NOT EXISTS Maquinas(idMaquina INT AUTO_INCREMENT,fkEmpresa INT,CONSTRAINT FOREIGN KEY(fkEmpresa) REFERENCES Empresas(idEmpresa),nomeMaquina VARCHAR(45) NOT NULL,serie VARCHAR(45) NOT NULL,dtChegada DATE,sistemaOperacional varchar(45),processador varchar(45),ram varchar(45),nomeDisco1 varchar(45),ip VARCHAR(45),PRIMARY KEY(idMaquina, fkEmpresa),statusSistema TINYINT(1),cpuPorcentagem DOUBLE,ramTotal DOUBLE,totalDisco1 DOUBLE,cpuMetrica DOUBLE,ramMetrica DOUBLE,gatilhoDisco1 DOUBLE,tempoAtividade INT,nomeDisco2 varchar(45),nomeDisco3 varchar(45),totalDisco2 DOUBLE,totalDisco3 DOUBLE,gatilhoDisco2 DOUBLE,gatilhoDisco3 DOUBLE,mac VARCHAR(100));CREATE TABLE IF NOT EXISTS Capturas(idCaptura INT PRIMARY KEY AUTO_INCREMENT,fkMaquina INT,fkEmpresa INT, dataHora DATETIME,cpuUso DOUBLE,temperatura DECIMAL(5,2),ramUso DOUBLE,redeUpload DOUBLE,redeDownload DOUBLE,LivreDisco1 DOUBLE,LivreDisco2 DOUBLE,LivreDisco3 DOUBLE);CREATE TABLE IF NOT EXISTS Alertas(idAlerta INT PRIMARY KEY AUTO_INCREMENT,nomeAlerta VARCHAR(255) NOT NULL);CREATE TABLE IF NOT EXISTS Possuem(idPosse INT AUTO_INCREMENT,fkAlerta INT,CONSTRAINT FOREIGN KEY(fkAlerta) REFERENCES Alertas(idAlerta),fkMaquina INT,CONSTRAINT FOREIGN KEY(fkMaquina) REFERENCES Maquinas(idMaquina),dataHora DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,pesoAlerta DOUBLE,PRIMARY KEY(idPosse, fkAlerta, fkMaquina));SHOW TABLES;"
