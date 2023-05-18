@@ -71,7 +71,7 @@ then
     echo "$(tput setaf 10)Container Docker 'Datawatch' já existe.$(tput setaf 15)"
 	sudo docker start Datawatch
 else
-    echo "$(tput setaf 9)Container Docker 'Datawatch' não encontrado. Criando container...$(tput setaf 10)"
+    echo "$(tput setaf 9)Container Docker 'Datawatch' não encontrado. Criando container...$(tput setaf 15)"
 	sudo docker run -d -p 3307:3306 --name Datawatch -e "MYSQL_DATABASE=datawatch" -e "MYSQL_ROOT_PASSWORD=datawatch" mysql:5.7
 fi
 echo conectando...
@@ -81,11 +81,11 @@ sleep 2
 
 
 # --------------------------------- EXECUTANDO NO CONTAINER JAVA ----------------------------------- 
-sudo docker exec -it javawatch bash -c "if [ '$(command -v wget 2> /dev/null)' ]; 
+sudo docker exec -it javawatch bash -c "if [ ! '$(command -v wget 2> /dev/null)' ]; 
 then 
-	echo wget instalado
+	echo wget instalado;
 else
-	echo wget não encontrado. Instalando...;
+	echo 'wget não encontrado. Instalando...';
 	yum install wget -y; 
 fi"
 sudo docker exec -it javawatch bash -c "if [ -f datawatch-1.0-SNAPSHOT-jar-CLI.jar ]; then echo 'Sistema $(tput setaf 11)DATAWATCH$(tput setaf 15) encontrado!'; else echo 'Baixando o arquivo...'; wget https://github.com/Organizacao-X/DATAWATCH/raw/main/site/public/JAR/ARCH-03/datawatch-1.0-SNAPSHOT-jar-CLI.jar ; fi"
