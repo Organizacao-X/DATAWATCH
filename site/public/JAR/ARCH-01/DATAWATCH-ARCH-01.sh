@@ -68,8 +68,8 @@ then
     echo "$(tput setaf 10)Container Docker 'Datawatch' já existe.$(tput setaf 15)"
 	sudo docker start Datawatch
 else
-    echo "$(tput setaf 9)Container Docker 'Datawatch' não encontrado. Criando container...$(tput setaf 10)"
-	sudo docker run -d -p 3307:3306 --name Datawatch -e "MYSQL_DATABASE=datawatch" -e "MYSQL_ROOT_PASSWORD=datawatch" mysql:5.7
+    echo "$(tput setaf 9)Container Docker 'Datawatch' não encontrado. Criando container...$(tput setaf 15)"
+	sudo docker run -d -p 3306:3306 --name Datawatch -e "MYSQL_DATABASE=datawatch" -e "MYSQL_ROOT_PASSWORD=datawatch" mysql:5.7
 fi
 echo conectando...
 sleep 10
@@ -77,12 +77,13 @@ sudo docker exec -i Datawatch mysql -uroot -pdatawatch -e "USE datawatch;CREATE 
 sleep 2
 
 # ----------------------- EXECUTANDO O JAR ---------------------------------------------------------
-if [ -f datawatch-1.0-SNAPSHOT-jar-with-dependencies.jar ]; 
+if [ -f datawatch-1.0-SNAPSHOT-jar-GUI.jar ]; 
 then echo ...
 else
   echo "Baixando o arquivo..."
-  wget https://github.com/Organizacao-X/DATAWATCH/raw/main/site/public/JAR/datawatch-1.0-SNAPSHOT-jar-with-dependencies.jar
+  caminho=$(pwd)
+  wget -P $caminho https://github.com/Organizacao-X/DATAWATCH/raw/main/site/public/JAR/ARCH-01/datawatch-1.0-SNAPSHOT-jar-GUI.jar
 fi
 echo Abrindo $(tput setaf 11)DATAWATCH...$(tput setaf 15)
 sleep 3
-java -jar datawatch-1.0-SNAPSHOT-jar-with-dependencies.jar
+java -jar $caminho/datawatch-1.0-SNAPSHOT-jar-GUI.jar
