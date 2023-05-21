@@ -78,14 +78,32 @@
 
 
                 <ul class="cards" id="ul_cards_filiais">
-                    <!-- <li class="card">
-                        <div class="icon"></div>
-                        <div class="filialInfo">
-                            <h3 id="cardTitle">Filial Bela Cintra</h3>
-                            <b>Máquinas ativas:</b>
-                            <b class="porcent" id="cent">0.0%</b>
+                    <li class="card">
+                        <h3 id="cardTitle">Filial Bela Cintra</h3>
+                        <div class="cubeLikeUp">
+                            <div class="filialAdress">                                
+                                <div class="icon"></div>
+                                <b>R. Bela Cintra, 1173 - Consolação, São Paulo - SP</b>
+                            </div>
+                            <div class="filialInfo">
+                                <b>Máquinas ativas:</b>
+                                <b class="porcent" id="cent">0.0%</b>
+                            </div>
                         </div>
-                    </li> -->
+                        <div class="cubeLikeDown">
+                            <div class="filialInfo adm">
+                                <b>Responsável</b>
+                                <p>Victor Daniel</p>
+                                <p>victor@gmail.com</p>
+                            </div>
+                            <div class="filialInfo machines">
+                                <b>Info. máquinas</b>
+                                <p>Ativas - 0</p>
+                                <p>Inativas - 0</p>                                
+                                <p>Quantidade - 0</p>
+                            </div>
+                        </div>
+                    </li>
                 </ul>
 
             </div>
@@ -294,7 +312,6 @@
 <script>
     nome_usuario_menu.innerHTML = `${sessionStorage.NOME_USUARIO}`
 
-
     function getId() {
         var idDiretor = sessionStorage.ID_USUARIO;
         var usuario = sessionStorage.NOME_USUARIO;
@@ -318,6 +335,7 @@
             })
         }).then(function (resposta) {
             if (resposta.ok) {
+
                 resposta.json().then(dados => {
                     console.log(dados);
                     if (dados.length > 0) {
@@ -325,36 +343,47 @@
                             // Pega o id da tag ul e atribui a uma variável
                             var listaFiliais = document.getElementById("ul_cards_filiais");
 
+                            // cria o elemento de lista
                             var li = document.createElement("li")
                             li.setAttribute("class", "card")
                             listaFiliais.appendChild(li);
 
+                            
+                            var titleFilial = document.createElement("h3");
+                            li.appendChild(titleFilial);
+                            console.log(filial.razaoSocial)
+                            titleFilial.innerHTML = `${filial.razaoSocial}`;
+                            
+                            var upSide = document.createElement("div");
+                            upSide.setAttribute("class", "cubeLikeUp");
+                            li.appendChild(upSide);                            
+                            
+                            var adressInfo = document.createElement("div");
+                            adressInfo.setAttribute("class", "filialAdress");
+                            upSide.appendChild(adressInfo);
+                            
                             var divIcon = document.createElement("div")
                             divIcon.setAttribute("class", "icon")
-                            li.appendChild(divIcon);
+                            adressInfo.appendChild(divIcon);
+
+                            var adress = document.createElement("b");                             
 
                             var divFilial = document.createElement("div")
                             divFilial.setAttribute("class", "filialInfo")
                             li.appendChild(divFilial);
 
-                            var titleFilial = document.createElement("h3");
-                            titleFilial.setAttribute("id", "cardTitle");
-                            divFilial.appendChild(titleFilial);
-                            console.log(filial.razaoSocial)
-                            titleFilial.innerHTML = `${filial.razaoSocial}`;
-
                             var titlePerct = document.createElement("b");
                             titlePerct.setAttribute("id", "perctTitle");
                             divFilial.appendChild(titlePerct);
                             titlePerct.innerHTML = `Máquinas ativas:`;
-                            
+
                             var maqPerct = document.createElement("b");
                             maqPerct.setAttribute("class", "porcent");
                             maqPerct.setAttribute("id", "cent");
                             divFilial.appendChild(maqPerct);
                             var maqAtiv = filial.maquinasAtivas;
                             var maqQtd = filial.qtdMaquinas;
-                            var porcentagem = (maqAtiv / maqQtd) * 100;                            
+                            var porcentagem = (maqAtiv / maqQtd) * 100;
                             maqPerct.innerHTML = `${porcentagem.toFixed(1)}%`;
 
                             if (porcentagem < 50) {
