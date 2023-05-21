@@ -121,10 +121,26 @@ function cadastrarEmpresa1(req, res) {
         );
     }
 }
+function recuperarEmpresa(req, res) {
+    console.log(`Recuperando Dados em tempo real`);
+    var idUsuario = req.params.idUsuario
+    datawatchModel.recuperarEmpresa(idUsuario).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar volta da empresa", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
 function cadastrarEmpresa2(req, res) {
+    var idEmpresa = req.body.idEmpresa;
     var email = req.body.emailServer;
     var telefone = req.body.telefoneServer;
-    var idusuario = req.body.fkIdServer;
 
     if (email == undefined) {
         res.status(400).send("Seu email está undefined!");
@@ -132,7 +148,7 @@ function cadastrarEmpresa2(req, res) {
         res.status(400).send("Seu telefone está undefined!");
     } else {
 
-        datawatchModel.cadastrarEmpresa2(email, telefone, idusuario).then(
+        datawatchModel.cadastrarEmpresa2(idEmpresa, email, telefone).then(
             function (resultado) {
                 res.json(resultado);
             }
@@ -147,14 +163,14 @@ function cadastrarEmpresa2(req, res) {
 }
 
 function cadastrarEmpresa3(req, res) {
-    var idempresa = req.body.fkIdServer;
-    var idusuario = req.body.idUsuarioServer;
+    var idEmpresa = req.body.idEmpresaServer;
+    var idUsuario = req.body.idUsuarioServer;
 
-    if (idempresa == undefined) {
+    if (idEmpresa == undefined) {
         res.status(400).send(`Nao ta puxando o ID`)
     } else {
 
-        datawatchModel.cadastrarEmpresa3(idempresa, idusuario).then(
+        datawatchModel.cadastrarEmpresa3(idEmpresa, idUsuario).then(
             function (resultado) {
                 res.json(resultado);
             }
@@ -624,6 +640,7 @@ module.exports = {
     cadastrarFuncionario,
     cadastrarMaquina,
     cadastrarEmpresa1,
+    recuperarEmpresa,
     cadastrarEmpresa2,
     cadastrarEmpresa3,
     consultarStatusEmpresa,

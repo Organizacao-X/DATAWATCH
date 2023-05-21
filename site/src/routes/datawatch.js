@@ -29,6 +29,11 @@ router.post("/cadastrarEmpresa1", function (req, res) {
 })
 
 //Recebendo os dados do html cadastroEmpresa
+router.get("/recuperarEmpresa/:idUsuario", function (req, res) {
+    datawatchController.recuperarEmpresa(req, res);
+})
+
+//Recebendo os dados do html cadastroEmpresa
 router.post("/cadastrarEmpresa2", function (req, res) {
     datawatchController.cadastrarEmpresa2(req, res);
 })
