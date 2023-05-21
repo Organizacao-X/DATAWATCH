@@ -17,7 +17,7 @@
 
 </head>
 
-<body onload="getId()">
+<body onload="getUuid()">
     <!-- NAVBAR -->
     <header>
         <nav class="nav-bar">
@@ -79,11 +79,27 @@
 
                 <ul class="cards" id="ul_cards_filiais">
                     <!-- <li class="card">
-                        <div class="icon"></div>
-                        <div class="filialInfo">
-                            <h3 id="cardTitle">Filial Bela Cintra</h3>
-                            <b>Máquinas ativas:</b>
-                            <b class="porcent" id="cent">0.0%</b>
+                        <h3 id="cardTitle">Filial Bela Cintra</h3>
+                        <div class="cubeLikeUp">
+                            <div class="filialAdress">                                
+                                <div class="icon"></div>
+                                <b>R. Bela Cintra, 1173 - Consolação, São Paulo - SP</b>
+                            </div>
+                            <div class="filialInfo">
+                                <b>Máquinas ativas:</b>
+                                <b class="largeFont" id="cent">0.0%</b>
+                            </div>
+                        </div>
+                        <div class="cubeLikeDown">
+                            <div class="filialInfo">
+                                <b>Responsável</b>
+                                <p>Victor Daniel</p>
+                                <p>victor@gmail.com</p>
+                            </div>
+                            <div class="filialInfo">
+                                <b>Alertas nos últimos 30 dias</b>
+                                <b class="largeFont">5</b>
+                            </div>
                         </div>
                     </li> -->
                 </ul>
@@ -91,212 +107,12 @@
             </div>
         </div>
     </section>
-    <!-- <div id="div_container_modal" class="container-modal" style="display: none;">
-        <div class="modal-inteiro">
-            <ul class="menus-geral">
-                <li class="menu1" onclick="showGraphs()">
-                    <span>Gráfico</span>
-                </li>
-                <li class="menu1" onclick="showAlerts()">
-                    <span>Alertas</span>
-                </li>
-                <li class="menu1" onclick="showInfos()">
-                    <span>Informações Máquina</span>
-                </li>
-            </ul>
-            <ul class="menus-graficos">
-                <li class="menu2" onclick="drawChartCpu()">
-                    <span>CPU</span>
-                </li>
-                <li class="menu2" onclick="drawChartRam()">
-                    <span>RAM</span>
-                </li>
-                <li class="menu2" onclick="drawChartDisco()">
-                    <span>DISCO</span>
-                </li>
-                <li class="menu2" onclick="drawChartRede()">
-                    <span>REDE</span>
-                </li>
-            </ul>
-            <div class="modal-conteudo">
-                <div id="div_grafico_modal" class="grafico-conteudo" style="border: solid 2px black; height: 600px;">
-
-                </div>
-            </div>
-        </div>
-    </div> -->
-
-    <div id="popup_fundo" class="popup">
-        <div class="popup_conteudo" id="pp">
-            <div class="telaCadastro">
-                <div class="modal-inteiro">
-                    <ul class="menus-geral">
-                        <li class="menu1" onclick="abaGrafico()">
-                            <span>Gráfico</span>
-                        </li>
-                        <li class="menu1" onclick="abaAlerta()">
-                            <span>Alertas</span>
-                        </li>
-                        <li class="menu1" onclick="abaInfo()">
-                            <span>Informações Máquina</span>
-                        </li>
-                    </ul>
-                    <div class="conter" id="contendo">
-                        <ul class="menus-graficos">
-                            <li class="menu2" onclick="drawChartCpu()">
-                                <span>CPU</span>
-                            </li>
-                            <li class="menu2" onclick="drawChartRam()">
-                                <span>RAM</span>
-                            </li>
-                            <li class="menu2" onclick="drawChartDisco()">
-                                <span>DISCO</span>
-                            </li>
-                            <li class="menu2" onclick="drawChartRede()">
-                                <span>REDE</span>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="modal-conteudo" id="conteudo">
-                        <div id="div_grafico_modal" class="grafico-conteudo"
-                            style="height: 400px; margin-bottom: 40px;"></div>
-                        <div class="barra">
-                            <div class="div-content1" id="troca1">
-                                <div class="dados-cpu">
-                                    <span><b>Processador:</b> Intel Xeon</span>
-                                    <span><b>Frequência:</b> 2,5 Ghz</span>
-                                    <span><b>Uso de Processador</b> 15 %</span>
-                                </div>
-                            </div>
-
-                            <div class="div-content2" id="troca2" style="display: none;">
-                                <div class="dados-ram">
-                                    <span><b>Memória:</b> Corsair DDR4</span>
-                                    <span><b>Memória RAM total:</b> 3,9 GB</span>
-                                    <span><b>Em uso:</b> 2,5 GB</span>
-                                    <span><b>Livre:</b> 1,4 GB</span>
-                                </div>
-                            </div>
-
-                            <div class="div-content3" id="troca3" style="display: none;">
-                                <div class="dados-disco">
-                                    <div class="disco-um">
-                                        <span><b>Disco 1:</b> SSDDriver-KingsTon</span>
-                                        <span><b>Capacidade Total:</b> 96 GB</span>
-                                        <span><b>Capacidade Livre:</b> 34 GB</span>
-                                    </div>
-
-                                    <div class="disco-dois">
-                                        <span><b>Disco 2:</b> HDDriverHardDisc</span>
-                                        <span><b>Capacidade Total:</b> 786,4 GB</span>
-                                        <span><b>Capacidade Livre:</b> 344,2 GB</span>
-                                    </div>
-
-                                    <div class="disco-tres">
-                                        <span><b>Disco 3:</b> Nenhum</span>
-                                        <span><b>Capacidade Total:</b> Nenhum</span>
-                                        <span><b>Capacidade Livre:</b> Nenhum</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="div-content4" id="troca4" style="display: none;">
-                                <div class="dados-rede">
-                                    <div class="ip">
-                                        <span><b>Host:</b> Express</span>
-                                        <span><b>Endereço IPv4:</b> 192.168.0.1</span>
-                                        <span><b>Endereço IPv6:</b> 2001:0db8:85a3:0000:0000:8a2e:0370:7334</span>
-                                    </div>
-
-                                    <div class="bytes">
-                                        <span><b>Bytes recebidos:</b> 12 GB</span>
-                                        <span><b>Bytes enviados:</b> 45 GB</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="alerta" id="alert" style="display: none;">
-                        <div class="modal-alerta">
-                            <div class="descricaoAlerta">
-                                <div class="imagemMaquina">
-                                    <img src="./assets/icon/alerta.png" alt="" style="width: 150px;">
-                                </div>
-                                <div class="informacoes">
-                                    <div class="info">
-                                        <span><b>Id do alerta:</b> 1</span>
-                                        <span><b>Data do alerta:</b> 22/06/2020</span>
-                                        <span><b>Hora do alerta:</b> 23:30</span>
-                                    </div>
-                                    <div class="texto">
-                                        <span><b>Descrição do alerta</b></span>
-                                        <div class="scroll-desc">
-                                            <span>Maquina com tela congelada no processamento do pagamento do
-                                                cliente</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="listaAlerta">
-                                <div class="listaTitulo">
-                                    <span>Registro de alertas (30 dias)</span>
-                                </div>
-                                <ul>
-                                    <div class="lista-registro">
-                                        <li>
-                                            <div class="rowInfo">
-                                                <span>Id: 1 </span>
-                                                <span>Titulo: Máquina travada</span>
-                                            </div>
-                                        </li>
-                                    </div>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="info-maquina" id="maquina-info" style="display: none;">
-                        <div class="modal-info">
-                            <div class="titulo-info">
-                                <span>Especificações técnicas da máquina</span>
-                            </div>
-                            <div class="dados-maquina">
-                                <span><b>Nome da máquina:</b> maquina02</span>
-                                <span><b>Sistema Operacional:</b> Ubuntu 22.04 LTS</span>
-                                <span><b>Data de cadastro:</b> 04/04/2023</span>
-                                <span><b>Tempo de atividade:</b> 2d 5h 26min</span>
-                            </div>
-                        </div>
-                        <div class="conteudo">
-                            <button class="reload">Reiniciar</button>
-                        </div>
-                    </div>
-                    <div class="modal-parent5" style="display: none;">
-                        <div class="modal-reiniciar">
-                            <div class="reiniciar">
-                                <div class="texto-reiniciar">
-                                    <span><b>Você deseja realmente reiniciar essa maquina?</b></span>
-                                </div>
-                                <div class="opcao2">
-                                    <button class="btnS" id="confirm_reiniciar"><b>Sim</b></button>
-                                    <button class="btnN" id="cancel_reiniciar"><b>Não</b></button>
-                                </div>
-                            </div>
-                            <span class="X-5">&times;</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
 </body>
 <script>
     nome_usuario_menu.innerHTML = `${sessionStorage.NOME_USUARIO}`
 
-
-    function getId() {
-        var idDiretor = sessionStorage.ID_USUARIO;
+    function getUuid() {
+        var uuid = sessionStorage.UUID;
         var usuario = sessionStorage.NOME_USUARIO;
         if (usuario == '') {
             span_usuario.innerHTML = `Olá, visitante!`
@@ -304,20 +120,21 @@
             span_usuario.innerHTML = `Olá, ${usuario}!`
         }
 
-        mostrarFiliais(idDiretor)
+        mostrarFiliais(uuid)
     }
 
-    function mostrarFiliais(idDiretor) {
+    function mostrarFiliais(uuid) {
         fetch("/datawatch/pegarFiliais", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                idServer: idDiretor
+                uuidServer: uuid
             })
         }).then(function (resposta) {
             if (resposta.ok) {
+
                 resposta.json().then(dados => {
                     console.log(dados);
                     if (dados.length > 0) {
@@ -325,36 +142,50 @@
                             // Pega o id da tag ul e atribui a uma variável
                             var listaFiliais = document.getElementById("ul_cards_filiais");
 
+                            /* PARTE DE CIMA DO CARD */
+                            /* ------ ESQUERDA: ---------- */
+                            // cria o elemento de lista
                             var li = document.createElement("li")
                             li.setAttribute("class", "card")
                             listaFiliais.appendChild(li);
-
-                            var divIcon = document.createElement("div")
-                            divIcon.setAttribute("class", "icon")
-                            li.appendChild(divIcon);
-
-                            var divFilial = document.createElement("div")
-                            divFilial.setAttribute("class", "filialInfo")
-                            li.appendChild(divFilial);
-
+                            
                             var titleFilial = document.createElement("h3");
-                            titleFilial.setAttribute("id", "cardTitle");
-                            divFilial.appendChild(titleFilial);
+                            li.appendChild(titleFilial);
                             console.log(filial.razaoSocial)
                             titleFilial.innerHTML = `${filial.razaoSocial}`;
+                            
+                            var upSide = document.createElement("div");
+                            upSide.setAttribute("class", "cubeLikeUp");
+                            li.appendChild(upSide);
+                            
+                            var adressInfo = document.createElement("div");
+                            adressInfo.setAttribute("class", "filialAdress");
+                            upSide.appendChild(adressInfo);
+                            
+                            var divIcon = document.createElement("div")
+                            divIcon.setAttribute("class", "icon")
+                            adressInfo.appendChild(divIcon);
+
+                            var adress = document.createElement("b");
+                            adressInfo.appendChild(adress);
+                            adress.innerHTML = `${filial.logradouro}, ${filial.numero} - ${filial.bairro}, ${filial.cidade} - ${filial.estado}`;
+                            /* ----------------------- */
+
+                            /* ------ DIREITA: ------ */
+                            var divFilial = document.createElement("div")
+                            divFilial.setAttribute("class", "filialInfo")
+                            upSide.appendChild(divFilial);
 
                             var titlePerct = document.createElement("b");
-                            titlePerct.setAttribute("id", "perctTitle");
                             divFilial.appendChild(titlePerct);
                             titlePerct.innerHTML = `Máquinas ativas:`;
-                            
+
                             var maqPerct = document.createElement("b");
-                            maqPerct.setAttribute("class", "porcent");
-                            maqPerct.setAttribute("id", "cent");
+                            maqPerct.setAttribute("class", "largeFont");
                             divFilial.appendChild(maqPerct);
                             var maqAtiv = filial.maquinasAtivas;
                             var maqQtd = filial.qtdMaquinas;
-                            var porcentagem = (maqAtiv / maqQtd) * 100;                            
+                            var porcentagem = (maqAtiv / maqQtd) * 100;
                             maqPerct.innerHTML = `${porcentagem.toFixed(1)}%`;
 
                             if (porcentagem < 50) {
@@ -364,42 +195,45 @@
                             } else {
                                 li.style = "background-color: rgb(189, 255, 188)"
                             }
+                            /* ----------------------- */
 
-                            /*
-                            var pTitle = document.createElement("p")
-                            // pTitle.innerHTML = maquina.nomeMaquina
+                            /* PARTE DE BAIXO DO CARD */
+                            /* ------ ESQUERDA: ------ */
+                            var downSide = document.createElement("div");
+                            downSide.setAttribute("class", "cubeLikeDown");
+                            li.appendChild(downSide);
 
-                            divTitle.appendChild(pTitle)
-                            li.appendChild(divTitle)
+                            var adm = document.createElement("div");
+                            adm.setAttribute("class", "filialInfo");
+                            downSide.appendChild(adm);
 
-                            var icon = document.createElement("div")
-                            icon.setAttribute("id", "icon")
-                            icon.setAttribute("class", "icon")
+                            var tituloAdm = document.createElement("b");
+                            adm.appendChild(tituloAdm);
+                            tituloAdm.innerHTML = `Responsável`;
 
+                            var nomeAdm = document.createElement("p");
+                            adm.appendChild(nomeAdm);
+                            nomeAdm.innerHTML = `${filial.administrador}`;
+                            
+                            var emailAdm = document.createElement("p");
+                            adm.appendChild(emailAdm);
+                            emailAdm.innerHTML = `${filial.email}`;
+                            /* ----------------------- */
+                            
+                            /* ------ DIREITA: ------ */
+                            var alertas = document.createElement("div");
+                            alertas.setAttribute("class", "filialInfo");
+                            downSide.appendChild(alertas);
 
-                            var iconAlert = document.createElement("div")
-                            var textAlert = document.createElement("div")
-                            var pTextAlert = document.createElement("p")
-                            pTextAlert.innerHTML = maquina.contagemChamados;
+                            var alertTitle = document.createElement("b");
+                            alertas.appendChild(alertTitle);
+                            alertTitle.innerHTML = `Alertas nos últimos 30 dias`;
 
-                            li.appendChild(icon)
-
-                            li.style = "background-color: rgb(255, 179, 179)"
-
-                            if (maquina.contagemChamados == 0) {
-                                li.style = "background-color: rgb(189, 255, 188)"
-                            } else if (maquina.contagemChamados >= 1 && maquina.contagemChamados <= 3) {
-                                li.style = "background-color: rgb(255, 254, 167)"
-                            } else {
-                                li.style = "background-color: rgb(255, 179, 179)"
-                            }
-                            li.setAttribute('value', maquina.Id)
-                            li.addEventListener('click', function () {
-                                abrirPopup(li.getAttribute('value'))
-                            })
-                            lista_maquinas.appendChild(li)
-                            console.log(lista_maquinas)
-                            */
+                            var qtdAlerts = document.createElement("b");
+                            qtdAlerts.setAttribute("class", "largeFont");
+                            alertas.appendChild(qtdAlerts);
+                            qtdAlerts.innerHTML = `${filial.qtdLogs}`;
+                            /* ----------------------- */
                         });
                     }
 
@@ -412,339 +246,5 @@
             console.log(`ERRO: ${resposta}`);
         })
         return false
-    }
-
-    // popup
-    var popup = document.getElementById('popup_fundo');
-    // abrir o popup
-    // var botao = document.getElementById('popup_botao');
-    // botao fechar
-    // var popup_fechar = document.getElementsByClassName('popup_fechar')[0];
-
-    const modalGrafico = document.getElementById('conteudo');
-    const modalAlerta = document.getElementById('alert');
-    const graficoMenu2 = document.getElementById('contendo');
-    const modalInfo = document.getElementById('maquina-info');
-    const margemTop = document.getElementById('pp');
-
-    const dado1 = document.getElementById('troca1');
-    const dado2 = document.getElementById('troca2');
-    const dado3 = document.getElementById('troca3');
-    const dado4 = document.getElementById('troca4');
-
-    // abrir com clique
-    // botao.addEventListener('click', abrirPopup);
-
-    // fechar com clique no botao
-    // popup_fechar.addEventListener('click', fecharPopup);
-
-    // fechar com clique fora do popup
-    window.addEventListener('click', fecharFora);
-
-    // função para abrir com o clique
-    function abrirPopup(idMaquina) {
-        popup.style.display = 'block';
-        obterdados(idMaquina)
-    }
-
-    // função para fechar popup com o clique no botão
-    // function fecharPopup() {
-    //     popup.style.display = 'none';
-    // }
-
-    // função para fechar popup se clicar fora
-    function fecharFora(e) {
-        if (e.target == popup) {
-            popup.style.display = 'none';
-            // modalGrafico.style.display = 'none'
-            // modalAlerta.style.display = 'none'
-            // graficoMenu2.style.display = 'none'
-            // modalInfo.style.display = 'none'
-        }
-    }
-
-    function abaGrafico() {
-        modalGrafico.style.display = 'block'
-        modalAlerta.style.display = 'none'
-        graficoMenu2.style.display = 'block'
-        modalInfo.style.display = 'none'
-        margemTop.style.marginTop = '2%'
-
-
-        drawChartCpu()
-        drawChartDisco()
-        drawChartRam()
-        drawChartRede()
-    }
-
-    function abaAlerta() {
-        modalGrafico.style.display = "none"
-        modalAlerta.style.display = 'block'
-        graficoMenu2.style.display = 'none'
-        modalInfo.style.display = 'none'
-        margemTop.style.marginTop = '5%'
-    }
-
-    function abaInfo() {
-        modalGrafico.style.display = "none"
-        modalAlerta.style.display = 'none'
-        graficoMenu2.style.display = 'none'
-        modalInfo.style.display = 'block'
-        margemTop.style.marginTop = '5%'
-    }
-
-    var vetorHora = [];
-    var vetorRedeUpload = [];
-    var vetorRedeDownload = [];
-
-    //PROCESSADOR
-    var vetorPorcentagemCpu = [];
-    var vetorHorasPorcentagem = [];
-
-    //TEMPERATURA
-    var temperatura = [];
-
-    // DISCO
-    var capacidadeDiscoTotal = 0;
-    var capacidadeDiscoLivre = 0;
-
-    // RAM 
-    var CapacidadeRamTotal = 0;
-    var CapacidadeRamEmUso = 0;
-
-
-    // MÉTRICA
-    var metrica = {
-        Processador: "",
-        Ram: "",
-        Disco: ""
-    }
-
-    function obterdados(idMaquina) {
-        var idEmpresa = sessionStorage.ID_EMPRESA
-        fetch(`/dados/tempo-real/${idMaquina}/${idEmpresa}`)
-            .then(resposta => {
-
-                if (resposta.ok) {
-                    resposta.json().then(resposta => {
-
-                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-
-                        vetorHora = [];
-                        vetorRedeUpload = [];
-                        vetorRedeDownload = [];
-
-                        //PROCESSADOR
-                        vetorPorcentagemCpu = [];
-                        vetorHorasPorcentagem = [];
-
-                        //TEMPERATURA
-                        temperatura = [];
-
-                        // DISCO
-                        capacidadeDiscoTotal = 0;
-                        capacidadeDiscoLivre = 0;
-
-                        // RAM 
-                        CapacidadeRamTotal = 0;
-                        CapacidadeRamEmUso = 0;
-
-
-                        // MÉTRICA
-                        metrica = {
-                            Processador: "",
-                            Ram: "",
-                            Disco: ""
-                        }
-
-                        for (i = 0; i < resposta.length; i++) {
-                            var registro = resposta[i];
-
-                            // HORÁRIO (Para parametros)
-                            vetorHora.push(registro.horario);
-
-                            // REDE (Banco)
-                            vetorRedeDownload.push(registro.download);
-                            vetorRedeUpload.push(registro.upload);
-
-                            // CPU (Banco)
-                            vetorPorcentagemCpu.push(registro.cpuuso);
-
-                            // TEMPERATURA (Banco)
-                            temperatura.push(registro.temperatura);
-
-                            // DISCO (Banco)
-                            capacidadeDiscoLivre = registro.discolivre;
-                            capacidadeDiscoTotal1 = registro.discoTotal1;
-                            capacidadeDiscoTotal2 = registro.discoTotal2;
-                            capacidadeDiscoTotal3 = registro.discoTotal3;
-
-                            // RAM (Banco)
-                            CapacidadeRamTotal = registro.ramTotal;
-                            CapacidadeRamEmUso = registro.ramuso;
-
-
-                            // MÉTRICA (Banco)
-                            metrica.Processador = registro.processadorMetrica;
-                            metrica.Ram = registro.ramMetrica;
-                            metrica.Disco = registro.discoMetrica;
-
-                            capacidadeDiscoTotal = registro.discoTotal
-                        }
-                        carregarGrafCPU()
-                    });
-                } else {
-
-                    console.error('Nenhum dado encontrado ou erro na API');
-                }
-            })
-            .catch(function (error) {
-                console.error(`Erro na obtenção dos dados do aquario p/ gráfico: ${error.message}`);
-            });
-    }
-
-    // Gráfico RAM
-    google.charts.load('current', { 'packages': ['corechart'] });
-    google.charts.setOnLoadCallback(drawChartRam);
-
-
-    function drawChartRam() {
-        dado1.style.display = 'none'
-        dado2.style.display = 'block'
-        dado3.style.display = 'none'
-        dado4.style.display = 'none'
-
-        var data = google.visualization.arrayToDataTable([
-            ['', ''],
-            ['Em uso', CapacidadeRamEmUso],
-            ['Total', CapacidadeRamTotal]
-        ]);
-
-        var options = {
-            title: 'Uso de RAM:'
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('div_grafico_modal'));
-        //     fraseMetrica.innerHTML = `Dados RAM 
-        // <br>Em uso: 
-        // <br>Disponível:`;
-        chart.draw(data, options);
-    }
-
-
-    // Gráfico CPU
-    function carregarGrafCPU() {
-        google.charts.load('current', { 'packages': ['corechart'] });
-        google.charts.setOnLoadCallback(drawChartCpu);
-        drawChartCpu()
-    }
-    function drawChartCpu() {
-        dado1.style.display = 'block'
-        dado2.style.display = 'none'
-        dado3.style.display = 'none'
-        dado4.style.display = 'none'
-
-        console.log(vetorHora, vetorPorcentagemCpu)
-        var data = google.visualization.arrayToDataTable([
-            ['Horário', 'Porcentagem %'],
-            [vetorHora[0], vetorPorcentagemCpu[0]],
-            [vetorHora[1], vetorPorcentagemCpu[1]],
-            [vetorHora[2], vetorPorcentagemCpu[2]],
-            [vetorHora[3], vetorPorcentagemCpu[3]],
-            [vetorHora[4], vetorPorcentagemCpu[4]],
-            [vetorHora[5], vetorPorcentagemCpu[5]],
-            [vetorHora[6], vetorPorcentagemCpu[6]],
-            [vetorHora[7], vetorPorcentagemCpu[7]],
-            [vetorHora[8], vetorPorcentagemCpu[8]],
-            [vetorHora[9], vetorPorcentagemCpu[9]],
-        ]);
-
-        // console.log(vetorHora, vetorHorasPorcentagem, vetorPorcentagemCpu)
-
-        var options = {
-            title: 'Company Performance',
-            curveType: 'function',
-            legend: { position: 'bottom' }
-        };
-
-
-        var chart = new google.visualization.LineChart(document.getElementById('div_grafico_modal'));
-        // confidencial = document.getElementById("processadorTitulo");
-        //     fraseMetrica.innerHTML = `Dados Processador 
-        // <br>Utilização: `;
-
-        chart.draw(data, options);
-    }
-
-    // Gráfico Disco
-    google.charts.load('current', { 'packages': ['corechart'] });
-    google.charts.setOnLoadCallback(drawChartDisco);
-
-    function drawChartDisco() {
-        dado1.style.display = 'none'
-        dado2.style.display = 'none'
-        dado3.style.display = 'block'
-        dado4.style.display = 'none'
-
-        console.log(capacidadeDiscoLivre)
-
-        var data = google.visualization.arrayToDataTable([
-            ['Disco', 'Memória'],
-            ['Capacidade livre', capacidadeDiscoLivre],
-            ['Capacidade total', capacidadeDiscoTotal],
-
-        ]);
-
-        var options = {
-            title: 'Disco:'
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('div_grafico_modal'));
-        //     fraseMetrica.innerHTML = `Dados Disco 
-        // <br> Capacidade Total: ${capacidadeDiscoTotal}
-        // <br> Capacidade em uso: ${capacidadeDiscoLivre}`;
-        chart.draw(data, options);
-    }
-
-    // Gráfico Rede
-    google.charts.load('current', { 'packages': ['corechart'] });
-    google.charts.setOnLoadCallback(drawChartRede);
-
-
-    function drawChartRede() {
-        dado1.style.display = 'none'
-        dado2.style.display = 'none'
-        dado3.style.display = 'none'
-        dado4.style.display = 'block'
-
-        var data = google.visualization.arrayToDataTable([
-            ['horário', 'Upload', 'Download'],
-            [vetorHora[0], vetorRedeUpload[0], vetorRedeDownload[0]],
-            [vetorHora[1], vetorRedeUpload[1], vetorRedeDownload[1]],
-            [vetorHora[2], vetorRedeUpload[2], vetorRedeDownload[2]],
-            [vetorHora[3], vetorRedeUpload[3], vetorRedeDownload[3]],
-            [vetorHora[4], vetorRedeUpload[4], vetorRedeDownload[4]],
-            [vetorHora[5], vetorRedeUpload[5], vetorRedeDownload[5]],
-            [vetorHora[6], vetorRedeUpload[6], vetorRedeDownload[6]],
-            [vetorHora[7], vetorRedeUpload[7], vetorRedeDownload[7]],
-            [vetorHora[8], vetorRedeUpload[8], vetorRedeDownload[8]],
-            [vetorHora[9], vetorRedeUpload[9], vetorRedeDownload[9]],
-
-        ]);
-
-        var options = {
-            title: 'Internet em kbps',
-            curveType: 'function',
-            legend: { position: 'bottom' }
-        };
-
-        var chart = new google.visualization.LineChart(document.getElementById('div_grafico_modal'));
-        // confidencial = document.getElementById("redeTitulo");
-        // fraseMetrica.innerHTML = `Dados Rede 
-        // <br>Enviar: 
-        // <br>Receber: `;
-
-        chart.draw(data, options);
-    }
-
+    }git 
 </script>

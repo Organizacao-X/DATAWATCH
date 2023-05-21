@@ -259,18 +259,50 @@ function exibirBoasVindas(idUsuario) {
     return database.executar(instrucao);
 }
 
-function pegarFiliais(idDiretor) {
+function pegarFiliais(uuid) {
     var instrucao = `SELECT
-	usu.nomeUsuario AS 'diretor',
-	emp.razaoSocial,
-	SUM(maq.statusSistema) AS 'maquinasAtivas',
-    COUNT(maq.statusSistema) AS 'qtdMaquinas'
-    FROM [dbo].[Usuarios] as usu
-    JOIN [dbo].[Diretores] as dir ON usu.uuid = dir.uuid
-    JOIN [dbo].[Empresas] as emp ON dir.fkEmpresa = emp.idEmpresa
-    JOIN [dbo].[Maquinas] as maq ON maq.fkEmpresa = emp.idEmpresa
-    WHERE usu.idUsuario = ${idDiretor}
-    GROUP BY usu.nomeUsuario, emp.razaoSocial;`
+    usu.nomeUsuario AS 'administrador',
+    usu.email,
+    emp.razaoSocial,
+    emp.logradouro,
+    emp.numero,
+    emp.bairro,
+    emp.cidade,
+    emp.estado,
+    emp.cep,
+    SUM(maq.statusSistema) AS 'maquinasAtivas',
+    COUNT(maq.statusSistema) AS 'qtdMaquinas',
+    (COUNT(maq.statusSistema) - SUM(maq.statusSistema)) AS 'maquinasInativas',
+    logs.qtdLogs
+FROM [dbo].[Empresas] AS emp
+JOIN [dbo].[Usuarios] AS usu
+    ON usu.fkEmpresa = emp.idEmpresa
+JOIN [dbo].[Diretores] AS dir
+	ON emp.idEmpresa = dir.fkEmpresa
+JOIN [dbo].[Maquinas] AS maq
+    ON maq.fkEmpresa = emp.idEmpresa
+LEFT JOIN
+    (
+        SELECT
+            fkEmpresa,
+            COUNT(dataHora) AS qtdLogs
+        FROM [dbo].[Log]
+        WHERE dataHora >= DATEADD(DAY, -30, GETDATE())
+        GROUP BY fkEmpresa
+    ) AS logs
+    ON logs.fkEmpresa = emp.idEmpresa
+WHERE usu.adm IS NULL AND dir.uuid = '${uuid}'
+GROUP BY
+    usu.nomeUsuario,
+    usu.email,
+    emp.razaoSocial,
+    emp.logradouro,
+    emp.numero,
+    emp.bairro,
+    emp.cidade,
+    emp.estado,
+    emp.cep,
+    logs.qtdLogs;`
 
     return database.executar(instrucao);
 }

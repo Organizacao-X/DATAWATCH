@@ -556,12 +556,12 @@ function registrarAlertas(req, res) {
 }
 
 function pegarFiliais(req, res) {
-    var idDiretor = req.body.idServer;
+    var uuid = req.body.uuidServer;
 
-    if (idDiretor == undefined) {
-        res.status(400).send("Seu id está undefined");
+    if (uuid == undefined) {
+        res.status(400).send("Seu uuid está undefined");
     } else {
-        datawatchModel.pegarFiliais(idDiretor)
+        datawatchModel.pegarFiliais(uuid)
             .then(
                 function (resultado) {
                     console.log(`\nResultados encontrados: ${resultado.length}`);
@@ -570,8 +570,6 @@ function pegarFiliais(req, res) {
                     if (resultado.length > 0) {
                         console.log(`Mostrando o resultado: ${resultado}`);
                         res.json(resultado);
-                        console.log(resultado[0]);
-                        console.log(resultado[1]);
                     } else if (resultado.length == 0) {
                         console.log("Nenhum administrador cadastrou este diretor")
                         res.status(403).send("Nenhum administrador cadastrou este diretor");

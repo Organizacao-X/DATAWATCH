@@ -171,13 +171,13 @@ header {
 
 .placa {
   background-color: #a2913b3f;
-  width: 90%;
+  width: 100%;
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  margin: 0px 20px 0px 20px;
+  margin: 0 1%;
 }
 
 .legenda {
@@ -211,26 +211,26 @@ header {
   flex-wrap: wrap;
   align-items: center;
   justify-content: start;
-  margin: 0px 20px 0px 20px;
 }
 
 .card {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  width: 229px;
+  justify-content: space-evenly;
+  width: 33.33%;
   height: 280px;
   background-color: #fff;
-  margin: 10px;
-  border-radius: 15px;
-  padding: 8px;
+  border-radius: 0px;
   transition: 0.5 all;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  border: solid 2px #c6c6c677;
 }
 
 .card:hover {
-  cursor: pointer;
-  scale: 1.01;
+  background-color: #e7e7e7;
 }
 
 .card-link-wrapper {
@@ -245,26 +245,34 @@ header {
 }
 
 .icon {
-  width: 90%;
-  height: 130px;
+  width: 100%;
+  height: 90px;
   background-image: url(../assets/imgs/shop-vector.png);
   background-repeat: no-repeat;
   background-position: center;
   background-size: 50%;
 }
 
+.filialAdress {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+.filialAdress b {
+  display: flex;
+  text-align: center;
+}
+
 .filialInfo {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  width: 50%;
 }
 
-.filialInfo h3 {
-  margin: 0px 20px 0px 20px;
-  text-align: center;
-}
-
-.porcent {
+.largeFont {
   font-size: 50px;
 }
 
@@ -283,6 +291,18 @@ header {
   padding: 0 0 0 5px;
 }
 
+.cubeLikeUp {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.cubeLikeDown {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
 .corLegenda {
   background-color: rgb(189, 255, 188);
   width: 15px;
@@ -299,22 +319,6 @@ header {
   background-color: rgb(255, 179, 179);
   width: 15px;
   height: 15px;
-}
-
-.status {
-  background-color: rgb(4, 255, 0);
-  width: 7%;
-  border-radius: 50%;
-  height: 15px;
-  animation: animation 1.5s linear infinite;
-}
-
-.status2 {
-  background-color: rgb(255, 0, 0);
-  width: 7%;
-  border-radius: 50%;
-  height: 15px;
-  animation: animation 1.5s linear infinite;
 }
 
 /* MODAL */
