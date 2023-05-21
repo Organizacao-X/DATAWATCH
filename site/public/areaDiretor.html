@@ -17,7 +17,7 @@
 
 </head>
 
-<body onload="getId()">
+<body onload="getUuid()">
     <!-- NAVBAR -->
     <header>
         <nav class="nav-bar">
@@ -87,20 +87,18 @@
                             </div>
                             <div class="filialInfo">
                                 <b>Máquinas ativas:</b>
-                                <b class="porcent" id="cent">0.0%</b>
+                                <b class="largeFont" id="cent">0.0%</b>
                             </div>
                         </div>
                         <div class="cubeLikeDown">
-                            <div class="filialInfo adm">
+                            <div class="filialInfo">
                                 <b>Responsável</b>
                                 <p>Victor Daniel</p>
                                 <p>victor@gmail.com</p>
                             </div>
-                            <div class="filialInfo machines">
-                                <b>Info. máquinas</b>
-                                <p>Ativas - 0</p>
-                                <p>Inativas - 0</p>                                
-                                <p>Quantidade - 0</p>
+                            <div class="filialInfo">
+                                <b>Alertas nos últimos 30 dias</b>
+                                <b class="largeFont">5</b>
                             </div>
                         </div>
                     </li>
@@ -312,8 +310,8 @@
 <script>
     nome_usuario_menu.innerHTML = `${sessionStorage.NOME_USUARIO}`
 
-    function getId() {
-        var idDiretor = sessionStorage.ID_USUARIO;
+    function getUuid() {
+        var uuid = sessionStorage.UUID;
         var usuario = sessionStorage.NOME_USUARIO;
         if (usuario == '') {
             span_usuario.innerHTML = `Olá, visitante!`
@@ -321,17 +319,17 @@
             span_usuario.innerHTML = `Olá, ${usuario}!`
         }
 
-        mostrarFiliais(idDiretor)
+        mostrarFiliais(uuid)
     }
 
-    function mostrarFiliais(idDiretor) {
+    function mostrarFiliais(uuid) {
         fetch("/datawatch/pegarFiliais", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                idServer: idDiretor
+                uuidServer: uuid
             })
         }).then(function (resposta) {
             if (resposta.ok) {
@@ -343,11 +341,12 @@
                             // Pega o id da tag ul e atribui a uma variável
                             var listaFiliais = document.getElementById("ul_cards_filiais");
 
+                            /* PARTE DE CIMA DO CARD */
+                            /* ------ ESQUERDA: ---------- */
                             // cria o elemento de lista
                             var li = document.createElement("li")
                             li.setAttribute("class", "card")
                             listaFiliais.appendChild(li);
-
                             
                             var titleFilial = document.createElement("h3");
                             li.appendChild(titleFilial);
@@ -356,7 +355,7 @@
                             
                             var upSide = document.createElement("div");
                             upSide.setAttribute("class", "cubeLikeUp");
-                            li.appendChild(upSide);                            
+                            li.appendChild(upSide);
                             
                             var adressInfo = document.createElement("div");
                             adressInfo.setAttribute("class", "filialAdress");
@@ -366,20 +365,22 @@
                             divIcon.setAttribute("class", "icon")
                             adressInfo.appendChild(divIcon);
 
-                            var adress = document.createElement("b");                             
+                            var adress = document.createElement("b");
+                            adressInfo.appendChild(adress);
+                            adress.innerHTML = `${filial.logradouro}, ${filial.numero} - ${filial.bairro}, ${filial.cidade} - ${filial.estado}`;
+                            /* ----------------------- */
 
+                            /* ------ DIREITA: ------ */
                             var divFilial = document.createElement("div")
                             divFilial.setAttribute("class", "filialInfo")
-                            li.appendChild(divFilial);
+                            upSide.appendChild(divFilial);
 
                             var titlePerct = document.createElement("b");
-                            titlePerct.setAttribute("id", "perctTitle");
                             divFilial.appendChild(titlePerct);
                             titlePerct.innerHTML = `Máquinas ativas:`;
 
                             var maqPerct = document.createElement("b");
-                            maqPerct.setAttribute("class", "porcent");
-                            maqPerct.setAttribute("id", "cent");
+                            maqPerct.setAttribute("class", "largeFont");
                             divFilial.appendChild(maqPerct);
                             var maqAtiv = filial.maquinasAtivas;
                             var maqQtd = filial.qtdMaquinas;
@@ -393,6 +394,45 @@
                             } else {
                                 li.style = "background-color: rgb(189, 255, 188)"
                             }
+                            /* ----------------------- */
+
+                            /* PARTE DE BAIXO DO CARD */
+                            /* ------ ESQUERDA: ------ */
+                            var downSide = document.createElement("div");
+                            downSide.setAttribute("class", "cubeLikeDown");
+                            li.appendChild(downSide);
+
+                            var adm = document.createElement("div");
+                            adm.setAttribute("class", "filialInfo");
+                            downSide.appendChild(adm);
+
+                            var tituloAdm = document.createElement("b");
+                            adm.appendChild(tituloAdm);
+                            tituloAdm.innerHTML = `Responsável`;
+
+                            var nomeAdm = document.createElement("p");
+                            adm.appendChild(nomeAdm);
+                            nomeAdm.innerHTML = `${filial.administrador}`;
+                            
+                            var emailAdm = document.createElement("p");
+                            adm.appendChild(emailAdm);
+                            emailAdm.innerHTML = `${filial.email}`;
+                            /* ----------------------- */
+                            
+                            /* ------ DIREITA: ------ */
+                            var alertas = document.createElement("div");
+                            alertas.setAttribute("class", "filialInfo");
+                            downSide.appendChild(alertas);
+
+                            var alertTitle = document.createElement("b");
+                            alertas.appendChild(alertTitle);
+                            alertTitle.innerHTML = `Alertas nos últimos 30 dias`;
+
+                            var qtdAlerts = document.createElement("b");
+                            qtdAlerts.setAttribute("class", "largeFont");
+                            alertas.appendChild(qtdAlerts);
+                            qtdAlerts.innerHTML = `${filial.qtdLogs}`;
+                            /* ----------------------- */
 
                             /*
                             var pTitle = document.createElement("p")
