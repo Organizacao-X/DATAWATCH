@@ -204,6 +204,24 @@ header {
   margin-left: 10px;
 }
 
+.corLegenda {
+  background-color: rgb(189, 255, 188);
+  width: 15px;
+  height: 15px;
+}
+
+.corLegenda2 {
+  background-color: rgb(255, 254, 167);
+  width: 15px;
+  height: 15px;
+}
+
+.corLegenda3 {
+  background-color: rgb(255, 179, 179);
+  width: 15px;
+  height: 15px;
+}
+
 .cards {
   display: flex;
   flex-direction: row;
@@ -303,22 +321,13 @@ header {
   width: 100%;
 }
 
-.corLegenda {
-  background-color: rgb(189, 255, 188);
-  width: 15px;
-  height: 15px;
+.alerts {
+  display: flex;
 }
 
-.corLegenda2 {
-  background-color: rgb(255, 254, 167);
-  width: 15px;
-  height: 15px;
-}
-
-.corLegenda3 {
-  background-color: rgb(255, 179, 179);
-  width: 15px;
-  height: 15px;
+.alert {
+  align-self: center;
+  margin-left: 10px;
 }
 
 /* MODAL */
