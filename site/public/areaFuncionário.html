@@ -264,7 +264,7 @@
 
                     <div class="alerta" id="alert" style="display: none;">
                         <div class="modal-alerta">
-                            <div class="descricaoAlerta" >
+                            <div class="descricaoAlerta">
                                 <div class="imagemMaquina">
                                     <img src="./assets/icon/alerta.png" alt="" style="width: 150px;">
                                 </div>
@@ -483,7 +483,7 @@
                     if (dados.length > 0) {
                         dados.forEach(alerta => {
                             montarListagemAlertas(alerta);
-                            
+
                         });
                     }
 
@@ -497,7 +497,7 @@
         })
         return false
     }
-    
+
     function mostrarMaquinasFuncionarios(idEmpresa) {
         fetch("/datawatch/pegarMaquinas", {
             method: "POST",
@@ -516,7 +516,7 @@
                         montarListagemAlertas(dados);
                         dados.forEach(maquina => {
                             var lista_maquinas = document.getElementById("ul_cards_maquinas");
-                            
+
                             var li = document.createElement("div")
                             li.setAttribute("class", "card")
 
@@ -545,10 +545,10 @@
                             iconAlert.setAttribute("class", "iconAlert")
                             textAlert.setAttribute("class", "textAlert")
                             pTextAlert.setAttribute("class", "pTextAlert")
-                            
+
                             var divContent = document.createElement("div")
                             divContent.setAttribute("class", "content")
-                            
+
                             var divStatus = document.createElement("div")
                             var spanStatus = document.createElement("span")
                             if (maquina.statusSistema == 1) {
@@ -558,19 +558,19 @@
                                 divStatus.setAttribute("class", "status2")
                                 spanStatus.innerHTML = " OFFLINE"
                             }
-                            
+
                             textAlert.appendChild(pTextAlert)
                             iconAlert.appendChild(textAlert)
                             divContent.appendChild(divStatus)
                             divContent.appendChild(spanStatus)
-                            
+
                             li.appendChild(icon)
                             li.appendChild(iconAlert)
 
                             li.appendChild(divContent)
-                            
+
                             li.style = "background-color: rgb(255, 179, 179)"
-                            
+
                             if (maquina.PesoAlerta == 0 || maquina.PesoAlerta == null) {
                                 li.style = "background-color: rgb(189, 255, 188)"
                             } else if (maquina.PesoAlerta >= 20 && maquina.PesoAlerta <= 69) {
@@ -581,11 +581,11 @@
                             li.setAttribute('value', maquina.Id)
                             li.addEventListener('click', function () {
                                 abrirPopup(li.getAttribute('value'))
-                                
+
                             })
                             lista_maquinas.appendChild(li)
                             console.log(lista_maquinas)
-                            
+
                         });
                     }
 
@@ -629,7 +629,7 @@
 
     function infoMaquina(registro) {
         var divInfo = document.createElement("div");
-        divInfo.setAttribute("class" , "modal-info");
+        divInfo.setAttribute("class", "modal-info");
 
 
         var divTitulo = document.createElement("div");
@@ -651,7 +651,7 @@
         divDados.appendChild(spanSo)
         divDados.appendChild(spanTempoAtividade)
         divTitulo.appendChild(divDados)
-        
+
 
 
         /*
@@ -670,7 +670,7 @@
                             <button class="reload">Reiniciar</button>
         */
     }
-    
+
     function exibirAlertas(idMaquina) {
         fetch(`/exibiralertas/${idMaquina}`, {
             method: "POST",
@@ -701,7 +701,7 @@
     var capacidadeDiscoLivre = 0;
 
     // RAM 
-    // var vetorCapacidadeRamTotal = [];
+    var CapacidadeRamTotal = 0;
     var vetorCapacidadeRamEmUso = [];
 
 
@@ -722,7 +722,10 @@
 
                         console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
 
+                        //HORÁRIO
                         vetorHora = [];
+
+                        //REDE
                         vetorRedeUpload = [];
                         vetorRedeDownload = [];
 
@@ -731,7 +734,7 @@
                         vetorHorasPorcentagem = [];
 
                         //TEMPERATURA
-                        temperatura = [];
+                        var temperatura = [];
 
                         // DISCO
                         capacidadeDiscoTotal = 0;
@@ -739,7 +742,7 @@
 
                         // RAM 
                         CapacidadeRamTotal = 0;
-                        CapacidadeRamEmUso = 0;
+                        vetorCapacidadeRamEmUso = [];
 
 
                         // MÉTRICA
@@ -748,6 +751,7 @@
                             Ram: "",
                             Disco: ""
                         }
+
 
                         for (i = 0; i < resposta.length; i++) {
                             var registro = resposta[i];
@@ -772,7 +776,7 @@
                             capacidadeDiscoTotal3 = registro.discoTotal3;
 
                             // RAM (Banco)
-                            // vetorCapacidadeRamTotal = registro.ramTotal;
+                            CapacidadeRamTotal = registro.ramTotal;
                             vetorCapacidadeRamEmUso.push(registro.ramuso);
 
 
@@ -947,7 +951,7 @@
         dado3.style.display = 'none'
         dado4.style.display = 'none'
 
-         var data = google.visualization.arrayToDataTable([
+        var data = google.visualization.arrayToDataTable([
             ['Horário', 'Porcentagem %'],
             [vetorHora[0], vetorCapacidadeRamEmUso[0]],
             [vetorHora[1], vetorCapacidadeRamEmUso[1]],

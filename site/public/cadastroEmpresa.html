@@ -111,7 +111,7 @@
                     <label class="tipo_campo">E-mail:</label>
                     <input class="text" id="email_input" type="text" placeholder="meuemail@provedor.com"
                         onchange="limparBorda(this)">
-                        
+
                     <label class="tipo_campo">Número de telefone:</label>
                     <input class="text" id="telefone_input" type="text" placeholder="(00) 0000-0000"
                         onchange="limparBorda(this)">
@@ -145,7 +145,7 @@
 <script>
     $('#cnpj_input').mask('00.000.000/0000-00', { reverse: false });
     $('#cep_input').mask('00000-000');
-    $('#telefone_input').mask('(00) 0000-00000');
+    $('#telefone_input').mask('(00) 00000-0000');
 </script>
 
 <script>
@@ -161,8 +161,7 @@
     }
 
     function formatarCampoCnpj(string) {
-        // Retira os caracteres especiais:
-        return string.replace(/[.-/]/g, "");
+        return string.replace(/[./\-]/g, "");
     }
 
     function formatarCampoCep(string) {
@@ -209,7 +208,7 @@
         return erro;
     }
 
-    function validacao2(email, fone, filial) {
+    function validacao2(email, fone) {
         var erro = true;
 
         if (!(validarEmail(email))) {
@@ -228,14 +227,6 @@
             inputs[10].style.borderBottom = "none";
         }
 
-        if (filial == "") {
-            combo.style.border = "solid 4px red";
-
-            erro = false;
-        } else {
-            // combo.style.borderBottom = "1px solid #181818";
-        }
-
         return erro;
     }
 
@@ -243,19 +234,6 @@
         span_nome_usuario.innerHTML = `Bem-vindo, ${sessionStorage.NOME_USUARIO}!`;
     }
 
-    // function tamanho() {
-    //     // Atalhos 
-    //     $ = document.querySelector.bind(document);
-    //     $$ = document.querySelectorAll.bind(document);
-    //     print = console.log.bind(console)
-
-    //     // selecionando o elemento
-    //     let elemento = "#cnpj_input";
-
-    //     let largura = $(elemento).clientWidth;
-
-    //     document.getElementsByClass(endereco).style.width = largura;
-    // }
     var fkIdVar = sessionStorage.ID_USUARIO;
     console.log(`${fkIdVar}`);
     function buscarCEP() {
@@ -293,16 +271,20 @@
     function cadastrarEmpresa() {
         var inputs = document.querySelectorAll("input.text");
         var cnpj = formatarCampoCnpj(inputs[1].value);
+        console.log("CNPJ: " + cnpj)
         var cep = formatarCampoCep(inputs[2].value);
-
+        console.log("CEP: " + cep)
+        inputs.forEach(input => {
+            mostrarBordaVazio(input, input.value);
+        });
+        var fkIdVar = sessionStorage.ID_USUARIO;
+        var email = inputs[9].value;
+        var fone = formatarCampoFone(inputs[10].value);
         inputs.forEach(input => {
             mostrarBordaVazio(input, input.value);
         });
 
-        var fkIdVar = sessionStorage.ID_USUARIO;
-
-
-        if (!validacao1(cnpj, cep)) {
+        if (validacao1(cnpj, cep) && validacao2(email, fone)) {
             fetch("/datawatch/cadastrarEmpresa1", {
                 method: "POST",
                 headers: {
@@ -320,34 +302,20 @@
                     complementoServer: inputs[8].value,
                 })
             }).then(function (resposta) {
-                // console.log("resposta", resposta)
                 console.log("teste!!!!!!!!!!!!!!!!!!!!!!!")
                 console.log(resposta)
-                // console.log(inputs[0].value);
-                // console.log(inputs[1].value);
-                // console.log(inputs[2].value);
-                // console.log(inputs[3].value);
-                // console.log(inputs[4].value);
-                // console.log(inputs[5].value);
-                // console.log(inputs[6].value);
-                // console.log(inputs[7].value);
-                // console.log(inputs[8].value);
-
                 if (resposta.ok) {
-                    resposta.json().then(json => {
-                        var idEmpresa = json.insertId
-                        cadastrarEmpresa2(idEmpresa);
-                        cadastrarEmpresa3(idEmpresa);
+                    cadastrandoEmpresa.style.display = "none"
+                    load.style.display = "block"
+                    
+                    setTimeout(function () {
+                        recuperarEmpresa(email, fone)
+                    }, 2000);
 
-                        cadastrandoEmpresa.style.display = "none"
-                        load.style.display = "block"
-
-                        setTimeout(function () {
-                            cadastrandoEmpresa.style.display = "block"
-                            load.style.display = "none"
-
-                        }, 2000); // apenas para exibir o loading
-                    })
+                    setTimeout(function () {
+                        cadastrandoEmpresa.style.display = "block"
+                        load.style.display = "none"
+                    }, 2000); // apenas para exibir o loading
 
                 }
                 else {
@@ -365,19 +333,7 @@
         return false
     }
 
-    function cadastrarEmpresa2(idEmpresa) {
-        var email = inputs[9].value;
-        var fone = formatarCampoFone(inputs[10].value);
-
-        inputs.forEach(input => {
-            mostrarBordaVazio(input, input.value);
-        });
-
-
-
-
-        if (validacao2(email, fone)) {
-
+    function cadastrarEmpresa2(email, fone, idEmpresa) {
             fetch("/datawatch/cadastrarEmpresa2", {
                 method: "POST",
                 headers: {
@@ -386,7 +342,7 @@
                 body: JSON.stringify({
                     emailServer: email,
                     telefoneServer: fone,
-                    fkIdServer: idEmpresa,
+                    idEmpresa: idEmpresa,
 
                 })
             }).then(function (resposta) {
@@ -403,30 +359,18 @@
             }).catch(function (resposta) {
                 console.log(`ERRO: ${resposta}`);
             })
-        } else {
-            alert('Preencha todos os campos')
-        }
-
         return false
     }
     function cadastrarEmpresa3(idEmpresa) {
-        var inputs = document.querySelectorAll("input");
-        var semErro = true;
-
-        inputs.forEach(input => {
-            semErro = mostrarBordaVazio(input, input.value);
-        });
-
-        if (semErro) {
-            var idUsuario = sessionStorage.ID_USUARIO
+            var idUser = sessionStorage.ID_USUARIO
             fetch("/datawatch/cadastrarEmpresa3", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    fkIdServer: idEmpresa,
-                    idUsuarioServer: idUsuario
+                    idEmpresaServer: idEmpresa,
+                    idUsuarioServer: idUser
 
                 })
             }).then(function (resposta) {
@@ -445,10 +389,31 @@
             }).catch(function (resposta) {
                 console.log(`ERRO: ${resposta}`);
             })
-        } else {
-            alert('Preencha todos os campos')
-        }
-
         return false
     }
+
+    function recuperarEmpresa(email, fone) {
+        var idUsuario = sessionStorage.ID_USUARIO;
+        var nomeUsuario = sessionStorage.NOME_USUARIO;
+        fetch(`/datawatch/recuperarEmpresa/${idUsuario}`, {
+            cache: 'no-store'
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then(dadosUsuario => {
+                    console.log(dadosUsuario[0])
+                    console.log("O ID DA EMPRESA É: " + dadosUsuario[0].idEmpresa)
+                    cadastrarEmpresa2(email, fone, dadosUsuario[0].idEmpresa);
+                    cadastrarEmpresa3(dadosUsuario[0].idEmpresa, sessionStorage.ID_USUARIO);
+                })
+            }
+            else {
+                throw (JSON.stringify(resposta))
+            }
+        }).catch(function (resposta) {
+            console.log(`ERRO: ${resposta}`);
+        })
+        return false
+
+    }
+
 </script>
