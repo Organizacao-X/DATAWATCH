@@ -78,7 +78,7 @@
 
 
                 <ul class="cards" id="ul_cards_filiais">
-                    <!-- <li class="card">
+                    <li class="card">
                         <h3 id="cardTitle">Filial Bela Cintra</h3>
                         <div class="cubeLikeUp">
                             <div class="filialAdress">                                
@@ -98,12 +98,16 @@
                             </div>
                             <div class="filialInfo">
                                 <b>Alertas nos últimos 30 dias</b>
-                                <b class="largeFont">5</b>
+                                <div class="alerts">
+                                    <b class="largeFont">5</b>
+                                    <div class="alert">
+                                        <img src="./assets/imgs/aviso.png" width="50px">
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </li> -->
+                    </li>
                 </ul>
-
             </div>
         </div>
     </section>
@@ -142,22 +146,21 @@
                             // Pega o id da tag ul e atribui a uma variável
                             var listaFiliais = document.getElementById("ul_cards_filiais");
 
-                            /* PARTE DE CIMA DO CARD */
-                            /* ------ ESQUERDA: ---------- */
-                            // cria o elemento de lista
+                            /* Criação do card */
                             var li = document.createElement("li")
                             li.setAttribute("class", "card")
                             listaFiliais.appendChild(li);
                             
                             var titleFilial = document.createElement("h3");
                             li.appendChild(titleFilial);
-                            console.log(filial.razaoSocial)
                             titleFilial.innerHTML = `${filial.razaoSocial}`;
                             
                             var upSide = document.createElement("div");
                             upSide.setAttribute("class", "cubeLikeUp");
                             li.appendChild(upSide);
-                            
+
+                            /* PARTE DE CIMA DO CARD */
+                            /* ------ ESQUERDA: ---------- */                            
                             var adressInfo = document.createElement("div");
                             adressInfo.setAttribute("class", "filialAdress");
                             upSide.appendChild(adressInfo);
@@ -198,11 +201,11 @@
                             /* ----------------------- */
 
                             /* PARTE DE BAIXO DO CARD */
-                            /* ------ ESQUERDA: ------ */
                             var downSide = document.createElement("div");
                             downSide.setAttribute("class", "cubeLikeDown");
                             li.appendChild(downSide);
 
+                            /* ------ ESQUERDA: ------ */
                             var adm = document.createElement("div");
                             adm.setAttribute("class", "filialInfo");
                             downSide.appendChild(adm);
@@ -229,10 +232,23 @@
                             alertas.appendChild(alertTitle);
                             alertTitle.innerHTML = `Alertas nos últimos 30 dias`;
 
+                            var auxDiv = document.createElement("div");
+                            auxDiv.setAttribute("class", "alerts");
+                            alertas.appendChild(auxDiv);
+
                             var qtdAlerts = document.createElement("b");
                             qtdAlerts.setAttribute("class", "largeFont");
-                            alertas.appendChild(qtdAlerts);
+                            auxDiv.appendChild(qtdAlerts);
                             qtdAlerts.innerHTML = `${filial.qtdLogs}`;
+
+                            var iconAlert = document.createElement("div");
+                            iconAlert.setAttribute("class", "alert");
+                            auxDiv.appendChild(iconAlert);
+
+                            var imgAlert = document.createElement("img");
+                            imgAlert.setAttribute("src", "./assets/imgs/aviso.png");
+                            imgAlert.setAttribute("width", "50px");
+                            iconAlert.appendChild(imgAlert);
                             /* ----------------------- */
                         });
                     }
@@ -246,5 +262,5 @@
             console.log(`ERRO: ${resposta}`);
         })
         return false
-    }git 
+    }
 </script>
