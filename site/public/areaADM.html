@@ -635,7 +635,6 @@
                         alert("Nenhuma empresa cadastrada")
                     } else if (dados[0].verificado == 0) {
                         var idEmpresa = dados[0].fkEmpresa;
-
                     } else {
                         var idEmpresa = dados[0].fkEmpresa;
                         sessionStorage.ID_EMPRESA = idEmpresa
@@ -761,7 +760,7 @@
     }
 
     function pegarDadosGrafico(idEmpresa) {
-        fetch(`/datawatch/pegarDadosGrafico/${idEmpresa}`, {
+        fetch(`/datawatch/pegarDadosGraficoEmpilhado/${idEmpresa}`, {
             cache: 'no-store'
         }).then(function (resposta) {
             if (resposta.ok) {
@@ -936,10 +935,10 @@
         var btnReiniciar = document.createElement("button")
         btnReiniciar.setAttribute("class", "reload")
         btnReiniciar.setAttribute('value', maquina.Id)
-        btnReiniciar.addEventListener("click", function(){
-        var valorClicado = this.value
-        var botaoConfirmacao = document.getElementById("confirm_reiniciar");
-        botaoConfirmacao.value = valorClicado
+        btnReiniciar.addEventListener("click", function () {
+            var valorClicado = this.value
+            var botaoConfirmacao = document.getElementById("confirm_reiniciar");
+            botaoConfirmacao.value = valorClicado
         })
         btnReiniciar.innerHTML = "Reiniciar"
         /* -------------------------- */
@@ -973,31 +972,68 @@
 
     // Função pra plotar os dados no gráfico
     google.charts.load("current", { packages: ['corechart'] });
-    google.charts.setOnLoadCallback(plotarGrafico(dados));
+    // google.charts.setOnLoadCallback(drawChart(dados));
     function drawChart(dados) {
         /* debugger */
-        console.log(dados)
+        // console.log(dados)
         var contQtdColunas = 0;
         var vetorInteiro = [['Nome máquina']]
         var ultimaHora = ''
 
-        console.log(dados);
-        
-        var data = google.visualization.arrayToDataTable([['Nome máquina', 'máquina01', 'máquina02', 'máquina03'],
-        ['08:00', 32.6, 31.3, 22.7],
-        ['09:00', 12.2, 22.8, 24],
-        ['10:00', 38.1, 29.1, 35],
-        ['11:00', 41.9, 30.3, 54],
-        ['12:00', 48.6, 32.3, 54],
-        ['13:00', 56, 22, 14],
-        ['14:00', 24, 43, 24],
-        ['15:00', 12.3, 43, 22],
-        ['16:00', 29, 43, 24.4],
-        ['17:00', 19, 43, 35],
-        ['18:00', 49.2, 53, 46],
-        ['19:00', 33, 43, 28.7],
-        ['20:00', 15, 23, 14]
-        ]);
+        for (let i = 0; i < dados.length; i++) {
+            if (vetorInteiro[0].indexOf(dados[i].nomeMaquina) == -1) {
+                vetorInteiro[0].push(dados[i].nomeMaquina);
+            }
+        }
+
+        // cria um vetor que vai conter os dados de ramUso para cada horário (ex: ['08:00', 32.6, 31.3, 22.7])
+        var vetorDaHora = []
+        // loop nos dados de uso de RAM de cada máquina
+        for (let i = 0; i < dados.length; i++) {
+            // se o vetor estiver vazio, insira o horário da captura (irá inserir apenas uma vez) e o uso de RAM desta captura
+            if (vetorDaHora.length == 0) {
+                vetorDaHora.push(dados[i].dataHora1);
+                vetorDaHora.push(dados[i].ramUso);
+            }
+            // caso o vetor não esteja vazio (ou seja, ele terá no mínimo dois valores como por ex ['08:00', 32.6])
+            else {
+                // inserir os outros valores daquela hora
+                // precisa verificar se a hora do registro da iteração atual (dados[i].dataHora1) existe dentro do vetorDaHora
+                // pra saber se esse registro pertence a aquele horário
+                if (vetorDaHora.indexOf(dados[i].dataHora1) != -1) {
+                    vetorDaHora.push(dados[i].ramUso);
+                } else {
+                    // se o valor desse registro não pertencer ao horário já inserido no vetorDaHora
+                    // inserir no vetor inteiro os valores deste horário
+                    console.log("Inserindo no vetor inteiro o vetor: " + vetorDaHora);
+                    vetorInteiro.push(vetorDaHora)
+                    // limpar o vetorDaHora para começar a inserção de valores para um novo horário
+                    vetorDaHora = []
+                    // inserir o horário no vetor
+                    vetorDaHora.push(dados[i].dataHora1)
+                    // inserir o primeiro valor no vetor daquele horário
+                    vetorDaHora.push(dados[i].ramUso)
+                }
+            }
+        }
+        console.log(vetorInteiro);
+
+        // var data = google.visualization.arrayToDataTable([['Nome máquina', 'máquina01', 'máquina02', 'máquina03'],
+        // ['08:00', 32.6, 31.3, 22.7],
+        // ['09:00', 12.2, 22.8, 24],
+        // ['10:00', 38.1, 29.1, 35],
+        // ['11:00', 41.9, 30.3, 54],
+        // ['12:00', 48.6, 32.3, 54],
+        // ['13:00', 56, 22, 14],
+        // ['14:00', 24, 43, 24],
+        // ['15:00', 12.3, 43, 22],
+        // ['16:00', 29, 43, 24.4],
+        // ['17:00', 19, 43, 35],
+        // ['18:00', 49.2, 53, 46],
+        // ['19:00', 33, 43, 28.7],
+        // ['20:00', 15, 23, 14]
+        // ]);
+        var data = google.visualization.arrayToDataTable(vetorInteiro);
 
         var options = {
             height: 250,
@@ -1079,5 +1115,5 @@
         vincular_diretor.style = 'background-color: #FFFFFF;';
     }
 
-    
+
 </script>

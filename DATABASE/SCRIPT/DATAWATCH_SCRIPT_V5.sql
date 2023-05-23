@@ -278,14 +278,14 @@ ORDER BY dh.dataHora1, m.idMaquina;
 --   SELECT DISTINCT 
 --     FORMAT(CONVERT(datetime, dataHora, 120), 'HH : 00') AS dataHora1
 --   FROM Capturas
---   WHERE fkEmpresa = 1
+--   WHERE fkEmpresa = 6
 -- ) AS dh
 -- CROSS JOIN Maquinas AS m
--- LEFT JOIN Capturas AS c 
+-- LEFT JOIN Capturas AS c
 --   ON m.idMaquina = c.fkMaquina 
 --   AND dh.dataHora1 = FORMAT(CONVERT(datetime, c.dataHora, 120), 'HH : 00')
---   AND c.dataHora <= DATEADD(DAY, -30, GETDATE())
---   AND c.fkEmpresa = 1
+--   AND c.dataHora >= DATEADD(DAY, -30, GETDATE())
+--   AND c.fkEmpresa = 6
 -- GROUP BY m.nomeMaquina, dh.dataHora1
 -- ORDER BY dh.dataHora1, m.nomeMaquina;
 

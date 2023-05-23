@@ -104,5 +104,9 @@ router.put("/rebootar", function (req, res) {
     datawatchController.rebootar(req, res);
 });
 
+router.get("/pegarDadosGraficoEmpilhado/:idEmpresa", function (req, res) {
+    datawatchController.pegarDadosGraficoEmpilhado(req, res);
+});
+
 
 module.exports = router;

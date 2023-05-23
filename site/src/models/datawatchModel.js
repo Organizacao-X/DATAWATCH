@@ -325,6 +325,33 @@ function rebootar(fkMaquina, fkEmpresa) {
     return database.executar(instrucao);
 }
 
+function pegarDadosGraficoEmpilhado(fkEmpresa) {
+    console.log("Acessei PEGAR DADOS GRÁFICO EMPILHADO");
+
+    var instrucao = `
+SELECT 
+    m.nomeMaquina AS nomeMaquina, 
+    COALESCE(SUM(c.ramUso), 0) AS ramUso, 
+    dh.dataHora1
+FROM (
+    SELECT DISTINCT 
+      FORMAT(CONVERT(datetime, dataHora, 120), 'HH:00') AS dataHora1
+    FROM Capturas
+    WHERE fkEmpresa = ${fkEmpresa}
+  ) AS dh
+CROSS JOIN Maquinas AS m
+LEFT JOIN Capturas AS c
+    ON m.idMaquina = c.fkMaquina 
+    AND dh.dataHora1 = FORMAT(CONVERT(datetime, c.dataHora, 120), 'HH:00')
+    AND c.dataHora >= DATEADD(DAY, -30, GETDATE())
+    AND c.fkEmpresa = ${fkEmpresa}
+GROUP BY m.nomeMaquina, dh.dataHora1
+ORDER BY dh.dataHora1, m.nomeMaquina;`
+
+    console.log("Executando a instrução: " + instrucao);
+    return database.executar(instrucao);
+}
+
 module.exports = {
     entrar,
     autenticarDiretor,
@@ -347,5 +374,6 @@ module.exports = {
     vincularDiretor,
     pegarFiliais,
     pegarAlertas,
-    rebootar
+    rebootar,
+    pegarDadosGraficoEmpilhado
 };

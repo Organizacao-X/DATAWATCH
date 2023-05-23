@@ -628,7 +628,24 @@ function rebootar(req, res) {
                 res.status(500).json(erro.sqlMessage);
             }
         );
+}
 
+function pegarDadosGraficoEmpilhado(req, res) {
+    var fkEmpresa = req.params.idEmpresa;
+
+    datawatchModel.pegarDadosGraficoEmpilhado(fkEmpresa)
+    .then(
+        function (resultado) {
+            res.json(resultado);
+        }
+    )
+    .catch (
+        function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao tentar rebootar: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
 }
 
 module.exports = {
@@ -654,5 +671,6 @@ module.exports = {
     vincularDiretor,
     pegarFiliais,
     pegarAlertas,
-    rebootar
+    rebootar,
+    pegarDadosGraficoEmpilhado
 }
