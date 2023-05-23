@@ -67,7 +67,7 @@
 
                 </div>
                 <div class="separar">
-                    <div id="aviso" >
+                    <div id="aviso">
                         <span id="oi" style="display: none;"><b>Usuário e/ou senha incorretos</b></span>
                         <span id="ola" style="display: none;"><b>Preencha todos os campos</b></span>
                     </div>
@@ -131,8 +131,7 @@
             ola.style.display = "block"
             oi.style.display = "none"
         } else {
-            ola.style.display = "none"
-            oi.style.display = "block"
+
 
             console.log("FORM LOGIN: ", inputs[0].value);
             console.log("FORM SENHA: ", inputs[1].value);
@@ -196,6 +195,8 @@
                     entrando.style.display = "block"
                     load.style.display = "none"
 
+                    ola.style.display = "none"
+                    oi.style.display = "block"
 
 
                     console.log("Houve um erro ao tentar realizar o login!");
