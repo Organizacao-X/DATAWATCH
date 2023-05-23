@@ -64,6 +64,13 @@
                         </div>
                     </div>
                     <button class="btn" onclick="entrar()" id="entrando">Entrar</button>
+
+                </div>
+                <div class="separar">
+                    <div id="aviso" >
+                        <span id="oi" style="display: none;"><b>Usuário e/ou senha incorretos</b></span>
+                        <span id="ola" style="display: none;"><b>Preencha todos os campos</b></span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -113,81 +120,97 @@
 
     function entrar() {
         var inputs = document.querySelectorAll("input")
+        var emailDigitado = email_input.value
+        var senhaDigitado = senha_input.value
 
         inputs.forEach(input => {
             mostrarBordaVazio(input, input.value)
         });
 
+        if (emailDigitado == "" || senhaDigitado == "") {
+            ola.style.display = "block"
+            oi.style.display = "none"
+        } else {
+            ola.style.display = "none"
+            oi.style.display = "block"
 
-        console.log("FORM LOGIN: ", inputs[0].value);
-        console.log("FORM SENHA: ", inputs[1].value);
+            console.log("FORM LOGIN: ", inputs[0].value);
+            console.log("FORM SENHA: ", inputs[1].value);
 
-        fetch("/datawatch/autenticar", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                emailServer: inputs[0].value,
-                senhaServer: inputs[1].value
+            fetch("/datawatch/autenticar", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    emailServer: inputs[0].value,
+                    senhaServer: inputs[1].value
+                })
+            }).then(function (resposta) {
+                console.log("ESTOU NO THEN DO entrar()!")
+
+
+
+                if (resposta.ok) {
+                    console.log(resposta);
+
+                    resposta.json().then(json => {
+                        console.log(json);
+                        console.log(JSON.stringify(json));
+
+                        sessionStorage.EMAIL_USUARIO = json.email;
+                        sessionStorage.NOME_USUARIO = json.nomeUsuario;
+                        sessionStorage.ID_USUARIO = json.idUsuario;
+                        sessionStorage.ID_EMPRESA = json.fkEmpresa;
+
+                        // Uma ideia:
+                        sessionStorage.UUID = json.uuid;
+                        console.log(sessionStorage.UUID);
+
+                        validarDiretor(sessionStorage.UUID);
+
+                        entrando.style.display = "none"
+                        load.style.display = "block"
+
+
+
+                        validarDiretor(sessionStorage.UUID);
+
+                        setTimeout(function () {
+                            debugger
+                            if (validar > 0) {
+                                window.location = "./areaDiretor.html";
+                            } else if (json.fkEmpresa == null) {
+                                window.location = "./areaBoasVindas.html";
+                            } else if (json.adm == null) {
+                                window.location = "./areaADM.html";
+                            } else {
+                                window.location = "./areaFuncionário.html";
+                            }
+                        }, 3000); // apenas para exibir o loading
+
+                    });
+
+                } else {
+
+                    entrando.style.display = "block"
+                    load.style.display = "none"
+
+
+
+                    console.log("Houve um erro ao tentar realizar o login!");
+
+                    resposta.text().then(texto => {
+                        console.error(texto);
+                        /* finalizarAguardar(texto); */
+                    });
+                }
+
+            }).catch(function (erro) {
+                console.log(erro);
             })
-        }).then(function (resposta) {
-            console.log("ESTOU NO THEN DO entrar()!")
 
-            if (resposta.ok) {
-                console.log(resposta);
-
-                resposta.json().then(json => {
-                    console.log(json);
-                    console.log(JSON.stringify(json));
-
-                    sessionStorage.EMAIL_USUARIO = json.email;
-                    sessionStorage.NOME_USUARIO = json.nomeUsuario;
-                    sessionStorage.ID_USUARIO = json.idUsuario;
-                    sessionStorage.ID_EMPRESA = json.fkEmpresa;
-
-                    // Uma ideia:
-                    sessionStorage.UUID = json.uuid;
-                    console.log(sessionStorage.UUID);
-
-                    validarDiretor(sessionStorage.UUID);
-
-                    entrando.style.display = "none"
-                    load.style.display = "block"
-
-                    validarDiretor(sessionStorage.UUID);
-
-                    setTimeout(function () {
-                        debugger
-                        if (validar > 0) {
-                            window.location = "./areaDiretor.html";
-                        } else if (json.fkEmpresa == null) {
-                            window.location = "./areaBoasVindas.html";
-                        } else if (json.adm == null) {
-                            window.location = "./areaADM.html";
-                        } else {
-                            window.location = "./areaFuncionário.html";
-                        }
-                    }, 3000); // apenas para exibir o loading
-
-                });
-
-            } else {
-                entrando.style.display = "block"
-                load.style.display = "none"
-
-                console.log("Houve um erro ao tentar realizar o login!");
-
-                resposta.text().then(texto => {
-                    console.error(texto);
-                    /* finalizarAguardar(texto); */
-                });
-            }
-
-        }).catch(function (erro) {
-            console.log(erro);
-        })
-
-        return false;
+            return false;
+        }
     }
 </script>

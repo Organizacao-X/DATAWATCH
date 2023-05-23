@@ -187,6 +187,7 @@ input:focus {
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 2rem;
 }
 
 .newtons-cradle {
@@ -262,8 +263,12 @@ input:focus {
     }
    }
 
+.separar{
+    padding: 5% 0% 0% 0%;
+}
 @media screen and (max-width: 1536px) {
     .nav-bar {
         padding: 1rem 6rem;
+        
     }
 }
