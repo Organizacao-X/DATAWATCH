@@ -936,7 +936,7 @@
         btnReiniciar.setAttribute("class", "reload")
         btnReiniciar.setAttribute('value', maquina.Id)
         btnReiniciar.addEventListener("click", function () {
-            var valorClicado = this.value
+            var valorClicado = btnReiniciar.value
             var botaoConfirmacao = document.getElementById("confirm_reiniciar");
             botaoConfirmacao.value = valorClicado
         })

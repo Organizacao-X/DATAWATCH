@@ -337,6 +337,9 @@
 
 </body>
 <script>
+    
+    var graficoInScreen = "CPU";
+    var idMaquinaAux = 0;
 
     nome_usuario_menu.innerHTML = `${sessionStorage.NOME_USUARIO}`
     let $ = document;
@@ -378,7 +381,7 @@
     function abrirPopup(idMaquina) {
         popup.style.display = 'block';
         obterdados(idMaquina);
-        infoMaquina(maquina);
+        // infoMaquina(maquina);
     }
 
     // função para fechar popup com o clique no botão
@@ -720,7 +723,7 @@
                 if (resposta.ok) {
                     resposta.json().then(resposta => {
 
-                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                        console.log(resposta);
 
                         //HORÁRIO
                         vetorHora = [];
@@ -788,7 +791,26 @@
                             capacidadeDiscoTotal = registro.discoTotal
                             alertas(registro.maquina, registro.empresa, registro.cpuuso, registro.download, registro.upload);
                         }
-                        carregarGrafCPU();
+                        
+                        idMaquinaAux = idMaquina;
+                        
+                        switch (graficoInScreen) {
+                            case "CPU":
+                                carregarGrafCPU();
+                                break;
+                            case "RAM":
+                                drawChartRam();
+                                break;
+                            case "DISCO":
+                                drawChartDisco();
+                                break;
+                            case "REDE":
+                                drawChartRede();
+                                break;
+                            default:
+                                break;
+                        }
+
                         metricas(idMaquina);
                         pegarAlertas(idMaquina);
                         infoMaquina(registro);
@@ -946,6 +968,8 @@
 
 
     function drawChartRam() {
+        graficoInScreen = "RAM";
+
         dado1.style.display = 'none'
         dado2.style.display = 'block'
         dado3.style.display = 'none'
@@ -976,6 +1000,8 @@
         // <br>Em uso: 
         // <br>Disponível:`;
         chart.draw(data, options);
+        
+        setTimeout(() => obterdados(idMaquinaAux), 5000);
     }
 
 
@@ -986,6 +1012,7 @@
         drawChartCpu()
     }
     function drawChartCpu() {
+        graficoInScreen = "CPU";
         dado1.style.display = 'block'
         dado2.style.display = 'none'
         dado3.style.display = 'none'
@@ -1021,6 +1048,8 @@
         // <br>Utilização: `;
 
         chart.draw(data, options);
+
+        setTimeout(() => obterdados(idMaquinaAux), 5000);
     }
 
     // Gráfico Disco
@@ -1028,6 +1057,8 @@
     google.charts.setOnLoadCallback(drawChartDisco);
 
     function drawChartDisco() {
+        graficoInScreen = "DISCO";
+
         dado1.style.display = 'none'
         dado2.style.display = 'none'
         dado3.style.display = 'block'
@@ -1051,6 +1082,8 @@
         // <br> Capacidade Total: ${capacidadeDiscoTotal}
         // <br> Capacidade em uso: ${capacidadeDiscoLivre}`;
         chart.draw(data, options);
+
+        setTimeout(() => obterdados(idMaquinaAux), 5000);
     }
 
     // Gráfico Rede
@@ -1059,6 +1092,7 @@
 
 
     function drawChartRede() {
+        graficoInScreen = "REDE";
         dado1.style.display = 'none'
         dado2.style.display = 'none'
         dado3.style.display = 'none'
@@ -1092,6 +1126,8 @@
         // <br>Receber: `;
 
         chart.draw(data, options);
+        
+        setTimeout(() => obterdados(idMaquinaAux), 5000);
     }
 
 </script>
