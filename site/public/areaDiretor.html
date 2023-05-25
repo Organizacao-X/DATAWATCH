@@ -46,7 +46,7 @@
 
 
 
-            <div class="logo"><button class="notify" onmouseover="cpuIn()" onmouseout="cpuOut()">
+            <div class="logo"><button class="notify" onmouseover="configIn()" onmouseout="configOut()">
                     <img src="./assets/imgs/conf-hover.png" id="conf_normal" width="35px">
                         <img src="./assets/imgs/conf-normal.png" id="conf_yellow" width="35px" style="display: none;"></button>
                 <a href="./areaFuncionário.html">
@@ -117,12 +117,12 @@
 <script>
     nome_usuario_menu.innerHTML = `${sessionStorage.NOME_USUARIO}`
 
-    function cpuIn() {
+    function configIn() {
         conf_normal.style.display = 'none';
         conf_yellow.style.display = 'flex';
     }
 
-    function cpuOut() {
+    function configOut() {
         conf_yellow.style.display = 'none';
         conf_normal.style.display = 'flex ';
     }
