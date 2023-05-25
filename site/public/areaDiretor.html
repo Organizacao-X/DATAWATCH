@@ -46,7 +46,9 @@
 
 
 
-            <div class="logo">
+            <div class="logo"><button class="notify" onmouseover="cpuIn()" onmouseout="cpuOut()">
+                    <img src="./assets/imgs/conf-hover.png" id="conf_normal" width="35px">
+                        <img src="./assets/imgs/conf-normal.png" id="conf_yellow" width="35px" style="display: none;"></button>
                 <a href="./areaFuncionário.html">
                     <img src="assets/imgs/LOGOcomTextoV2.png" alt="" width="150px">
                 </a>
@@ -81,7 +83,7 @@
                     <li class="card">
                         <h3 id="cardTitle">Filial Bela Cintra</h3>
                         <div class="cubeLikeUp">
-                            <div class="filialAdress">                                
+                            <div class="filialAdress">
                                 <div class="icon"></div>
                                 <b>R. Bela Cintra, 1173 - Consolação, São Paulo - SP</b>
                             </div>
@@ -114,6 +116,16 @@
 </body>
 <script>
     nome_usuario_menu.innerHTML = `${sessionStorage.NOME_USUARIO}`
+
+    function cpuIn() {
+        conf_normal.style.display = 'none';
+        conf_yellow.style.display = 'flex';
+    }
+
+    function cpuOut() {
+        conf_yellow.style.display = 'none';
+        conf_normal.style.display = 'flex ';
+    }
 
     function getUuid() {
         var uuid = sessionStorage.UUID;
@@ -150,21 +162,21 @@
                             var li = document.createElement("li")
                             li.setAttribute("class", "card")
                             listaFiliais.appendChild(li);
-                            
+
                             var titleFilial = document.createElement("h3");
                             li.appendChild(titleFilial);
                             titleFilial.innerHTML = `${filial.razaoSocial}`;
-                            
+
                             var upSide = document.createElement("div");
                             upSide.setAttribute("class", "cubeLikeUp");
                             li.appendChild(upSide);
 
                             /* PARTE DE CIMA DO CARD */
-                            /* ------ ESQUERDA: ---------- */                            
+                            /* ------ ESQUERDA: ---------- */
                             var adressInfo = document.createElement("div");
                             adressInfo.setAttribute("class", "localInfo");
                             upSide.appendChild(adressInfo);
-                            
+
                             var divIcon = document.createElement("div")
                             divIcon.setAttribute("class", "icon")
                             adressInfo.appendChild(divIcon);
@@ -172,8 +184,8 @@
                             var adress = document.createElement("p");
                             adressInfo.appendChild(adress);
                             adress.innerHTML = `<b>Responsável</b> ${filial.administrador} ${filial.email}`
-                           /*  adress.innerHTML = `${filial.logradouro}, ${filial.numero} - ${filial.bairro}, ${filial.cidade} - ${filial.estado}`;
-                            */ /* ----------------------- */
+                            /*  adress.innerHTML = `${filial.logradouro}, ${filial.numero} - ${filial.bairro}, ${filial.cidade} - ${filial.estado}`;
+                             */ /* ----------------------- */
 
                             /* ------ DIREITA: ------ */
                             var divFilial = document.createElement("div")
@@ -213,9 +225,9 @@
 
                             var tituloAdm = document.createElement("b");
                             adm.appendChild(tituloAdm);
-                            tituloAdm.innerHTML = `${filial.logradouro}, ${filial.numero} - ${filial.bairro}, ${filial.cidade} - ${filial.estado}<button id='notify'>ALERTAS</button>`;
+                            tituloAdm.innerHTML = `${filial.logradouro}, ${filial.numero} - ${filial.bairro}, ${filial.cidade} - ${filial.estado}`;
                             /* ----------------------- */
-                            
+
                             /* ------ DIREITA: ------ */
                             var alertas = document.createElement("div");
                             alertas.setAttribute("class", "alertaPeso");
