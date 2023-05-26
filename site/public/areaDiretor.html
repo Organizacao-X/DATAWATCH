@@ -46,9 +46,11 @@
 
 
 
-            <div class="logo"><button class="notify" onmouseover="configIn()" onmouseout="configOut()">
+            <div class="logo">
+                <button class="notify" onmouseover="configIn()" onmouseout="configOut()">
                     <img src="./assets/imgs/conf-hover.png" id="conf_normal" width="35px">
-                        <img src="./assets/imgs/conf-normal.png" id="conf_yellow" width="35px" style="display: none;"></button>
+                    <img src="./assets/imgs/conf-normal.png" id="conf_yellow" width="35px"
+                        style="display: none;"></button>
                 <a href="./areaFuncionário.html">
                     <img src="assets/imgs/LOGOcomTextoV2.png" alt="" width="150px">
                 </a>
@@ -58,6 +60,7 @@
     </header>
 
     <section>
+
         <div class="usuario">
             <span id="span_usuario"></span>
         </div>
@@ -112,9 +115,50 @@
                 </ul>
             </div>
         </div>
+
     </section>
+
+    <div class="modal-parent">
+        <div class="modal-alterar">
+            <div class="alerta">
+                <div class="texto-alerta">
+
+                </div>
+            </div>
+            <span class="X">&times;</span>
+        </div>
+    </div>
 </body>
 <script>
+    let $ = document;
+
+    const sessaoElem = $.querySelector('section');
+    const modalAviso = $.querySelector('.modal-parent');
+    const buttonConfig = $.querySelector('.notify');
+    const x = $.querySelector(".X");
+
+    function abrirModalAlteracaoDiretor() {
+        modalAviso.style.display = 'block';
+        sessaoElem.style.filter = 'blur(10px)'
+        buttonConfig.blur();
+    }
+
+    function fecharModalAlteracaoDiretorComX() {
+        modalAviso.style.display = 'none'
+        sessaoElem.style.filter = 'blur(0px)'
+    }
+
+    function fecharModalAlteracaoDiretorComEsc(event) {
+        if (event.keyCode === 27) {
+            modalAviso.style.display = 'none'
+            sessaoElem.style.filter = 'blur(0px)'
+        }
+    }
+
+    buttonConfig.addEventListener('click', abrirModalAlteracaoDiretor)
+    x.addEventListener('click', fecharModalAlteracaoDiretorComX)
+    document.body.addEventListener('keyup', fecharModalAlteracaoDiretorComEsc)
+
     nome_usuario_menu.innerHTML = `${sessionStorage.NOME_USUARIO}`
 
     function configIn() {
