@@ -83,7 +83,7 @@
 
 
                 <ul class="cards" id="ul_cards_filiais">
-                    <li class="card">
+                    <!-- <li class="card">
                         <h3 id="cardTitle">Filial Bela Cintra</h3>
                         <div class="cubeLikeUp">
                             <div class="filialAdress">
@@ -111,7 +111,7 @@
                                 </div>
                             </div>
                         </div>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
         </div>
@@ -245,7 +245,14 @@
                             divFilial.appendChild(maqPerct);
                             var maqAtiv = filial.maquinasAtivas;
                             var maqQtd = filial.qtdMaquinas;
-                            var porcentagem = (maqAtiv / maqQtd) * 100;
+                            var porcentagem;
+
+                            if (maqQtd == 0 || maqAtiv == 0) {
+                                porcentagem = 0;
+                            } else {
+                                porcentagem = ((maqAtiv / maqQtd) * 100);
+                            }
+                            
                             maqPerct.innerHTML = `${porcentagem.toFixed(1)}%`;
 
                             if (porcentagem < 50) {

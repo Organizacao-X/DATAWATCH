@@ -260,7 +260,8 @@ function exibirBoasVindas(idUsuario) {
 }
 
 function pegarFiliais(uuid) {
-    var instrucao = `SELECT
+    var instrucao = `
+    SELECT
     usu.nomeUsuario AS 'administrador',
     usu.email,
     emp.razaoSocial,
@@ -270,26 +271,30 @@ function pegarFiliais(uuid) {
     emp.cidade,
     emp.estado,
     emp.cep,
-    SUM(maq.statusSistema) AS 'maquinasAtivas',
-    COUNT(maq.statusSistema) AS 'qtdMaquinas',
-    (COUNT(maq.statusSistema) - SUM(maq.statusSistema)) AS 'maquinasInativas',
-    logs.qtdLogs
+    COALESCE(SUM(maq.statusSistema), 0) AS 'maquinasAtivas',
+    COALESCE(COUNT(maq.statusSistema), 0) AS 'qtdMaquinas',
+    COALESCE((COUNT(maq.statusSistema) - SUM(maq.statusSistema)), 0) AS maquinasInativas,
+    COALESCE(logs.qtdLogs, 0) AS qtdLogs,    
+	logs.somaPeso
 FROM [dbo].[Empresas] AS emp
 JOIN [dbo].[Usuarios] AS usu
     ON usu.fkEmpresa = emp.idEmpresa
-JOIN [dbo].[Diretores] AS dir
-	ON emp.idEmpresa = dir.fkEmpresa
-JOIN [dbo].[Maquinas] AS maq
+LEFT JOIN [dbo].[Diretores] AS dir
+    ON emp.idEmpresa = dir.fkEmpresa
+LEFT JOIN [dbo].[Maquinas] AS maq
     ON maq.fkEmpresa = emp.idEmpresa
 LEFT JOIN
-    (
-        SELECT
-            fkEmpresa,
-            COUNT(dataHora) AS qtdLogs
-        FROM [dbo].[Log]
-        WHERE dataHora >= DATEADD(DAY, -30, GETDATE())
-        GROUP BY fkEmpresa
-    ) AS logs
+(
+    SELECT
+        fkEmpresa,
+        COUNT(dataHora) AS qtdLogs,
+        SUM(peso) AS somaPeso
+    FROM [dbo].[Log]
+    JOIN [dbo].[Alertas]
+        ON [dbo].[Log].fkAlerta = [dbo].[Alertas].idAlerta
+    WHERE [dbo].[Log].dataHora >= DATEADD(DAY, -30, GETDATE())
+    GROUP BY fkEmpresa
+) AS logs
     ON logs.fkEmpresa = emp.idEmpresa
 WHERE usu.adm IS NULL AND dir.uuid = '${uuid}'
 GROUP BY
@@ -302,7 +307,8 @@ GROUP BY
     emp.cidade,
     emp.estado,
     emp.cep,
-    logs.qtdLogs;`
+    logs.qtdLogs,
+    logs.somaPeso;`
 
     return database.executar(instrucao);
 }
