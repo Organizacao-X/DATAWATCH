@@ -379,7 +379,8 @@
 
                 if (resposta.ok) {
                     setTimeout(() => {
-                        window.location = "areaADM.html";
+                        localStorage.setItem('cadastroPendente', '1');
+                        window.location = "areaBoasVindas.html";
                     }, "2000")
 
                 }

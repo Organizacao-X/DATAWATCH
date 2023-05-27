@@ -33,9 +33,6 @@
                     <div class="nomeUser">
                         <span id="nome_usuario_menu"></span>
                     </div>
-                    <li><a class="menu__item" href="../public/areaFuncionário.html">Home</a></li>
-                    <li id="lateral_menu_cad_download"><a class="menu__item" href="./JAR/DATAWATCH-sistema.zip"
-                            download="app_DataWatch">Baixar aplicativo</a></li>
                     <li><a class="menu__item" onclick="limparSessao()">Logout</a></li>
                 </ul>
             </div>
@@ -51,8 +48,8 @@
     </header>
 
 
-    <section>
-       <!--  ESPAÇO PRA N FICAR EMBAIXO DA NAVBAR -->
+    <section id="sessaoPreForm">
+        <!--  ESPAÇO PRA N FICAR EMBAIXO DA NAVBAR -->
         <div class="usuario">
             <span id="span_usuario"></span>
         </div>
@@ -62,15 +59,26 @@
             <h1>Boas vindas, <span id="nome_usuario">visitante</span>! Escolha seu caminho:</h1>
         </div>
         <div class="containerTextoPassos">
-            <div class="textoPassos"><p>Defina a persona do seu perfil, iremos lhe proporcionar uma experiência compatível com sua função na empresa, aqui você poderá escolher qual tipo de dashboard faz sentido para você e como configurar cada uma delas!</p></div>
+            <div class="textoPassos">
+                <p>Defina a persona do seu perfil, iremos lhe proporcionar uma experiência compatível com sua função na
+                    empresa, aqui você poderá escolher qual tipo de dashboard faz sentido para você e como configurar
+                    cada uma delas!</p>
+            </div>
             <div class="textoPassos"></div>
         </div>
         <div class="containerModulos">
             <div class="card card1">
-                <div class="tituloCargo"><p>DIRETOR</p></div>
+                <div class="tituloCargo">
+                    <p>DIRETOR</p>
+                </div>
                 <div class="img img1"></div>
-                <div class="texto"><p>O diretor tem uma visão macro sobre todas as filiais, de forma prática, consegue ver o que realmente importa sobre como as coisas estão indo em cada estabelecimento.
-                    <br><br>Para ser um diretor, envie seu código de usuário para seus <b>GERENTES</b> de estabelecimento, feito isso, suas empresas serão mostradas em sua página <b>HOME</b>.</p></div>
+                <div class="texto">
+                    <p>O diretor tem uma visão macro sobre todas as filiais, de forma prática, consegue ver o que
+                        realmente importa sobre como as coisas estão indo em cada estabelecimento.
+                        <br><br>Para ser um diretor, envie seu código de usuário para seus <b>GERENTES</b> de
+                        estabelecimento, feito isso, suas empresas serão mostradas em sua página <b>HOME</b>.
+                    </p>
+                </div>
                 <div class="botaoArea">
                     <p><b>CÓDIGO DE USUÁRIO</b></p>
                     <span id="uuid_usuario" class="uuid_usuario"></span>
@@ -78,19 +86,35 @@
                 </div>
             </div>
             <div class="card card2">
-                <div class="tituloCargo"><p>GERENTE</p></div>
+                <div class="tituloCargo">
+                    <p>GERENTE</p>
+                </div>
                 <div class="img img2"></div>
-                <div class="texto"><p>O gerente possui o controle de máquinas e acessos, é o gerente quem cadastra uma empresa, se o seu comércio é de estabelecimento único, esta é a solução ideal. Somente o gerente pode cadastrar a persona <b>CAIXA</b> <u>(card ao lado)</u>.
-                    <br><br>Para ser um gerente, preencha o formulário de cadastro de empresa e aguarde nossa análise de veracidade.</p></div>
-                <div class="botaoArea"><p><b>CADASTRO DE EMPRESA</b></p>
+                <div class="texto">
+                    <p>O gerente possui o controle de máquinas e acessos, é o gerente quem cadastra uma empresa, se o
+                        seu comércio é de estabelecimento único, esta é a solução ideal. Somente o gerente pode
+                        cadastrar a persona <b>CAIXA</b> <u>(card ao lado)</u>.
+                        <br><br>Para ser um gerente, preencha o formulário de cadastro de empresa e aguarde nossa
+                        análise de veracidade.
+                    </p>
+                </div>
+                <div class="botaoArea">
+                    <p><b>CADASTRO DE EMPRESA</b></p>
                     <a href="./cadastroEmpresa.html"><button>PREENCHER FORMULÁRIO</button></a>
                 </div>
             </div>
             <div class="card card3">
-                <div class="tituloCargo"><p>CAIXA</p></div>
+                <div class="tituloCargo">
+                    <p>CAIXA</p>
+                </div>
                 <div class="img img3"></div>
-                <div class="texto"><p>Seus funcionários que lidam com os totens de auto atendimento, possuem uma visão micro da solução, desde a saúde atual das maquinas, até alertas de desempenho.
-                    <br><br>Porém não será este seu caminho aqui, <b>CAIXAS</b> são cadastrados por um <b>GERENTE</b>.</p></div>
+                <div class="texto">
+                    <p>Seus funcionários que lidam com os totens de auto atendimento, possuem uma visão micro da
+                        solução, desde a saúde atual das maquinas, até alertas de desempenho.
+                        <br><br>Porém não será este seu caminho aqui, <b>CAIXAS</b> são cadastrados por um
+                        <b>GERENTE</b>.
+                    </p>
+                </div>
             </div>
             <div class="void"></div>
             <div class="pilar"></div>
@@ -101,10 +125,37 @@
             <div class="void"></div>
         </div>
     </section>
+    <section id="sessaoPosForm">
+        <div class="posContainer">
+            <div class="box-aviso">
+                <h3>Prezado, <span id="nome_usuario2">visitante</span></h3>
+                <hr>
+                <span>Sua informações foram enviadas para a Datawatch, aguarde um aviso em seu e-mail sobre a análise manual de informações da sua empresa!</span>
+                <div class="imgsAssinatura">
+                <img id="imgLogo" src="./assets/imgs/botSlack.png" alt="">
+                <div class="lds-ripple"><div></div><div></div></div>
+            </div>
+            </div>
+        </div>
+    </section>
 </body>
 
 </html>
 <script>
+    if (localStorage.getItem('cadastroPendente') !== null) {
+        console.log('O item cadastroPendente existe no localStorage');
+        if (localStorage.getItem('cadastroPendente') == 1) {
+            sessaoPreForm.style.display = 'none'
+            sessaoPosForm.style.display = 'flex'
+        }
+    } else {
+
+        console.log('O item cadastroPendente não existe no localStorage');
+        localStorage.setItem('cadastroPendente', '0');
+    }
+
+
+
     function exibirBoasVindas(idUsuario) {
         var idUsuario = sessionStorage.ID_USUARIO;
         var nomeUsuario = sessionStorage.NOME_USUARIO;
@@ -117,6 +168,7 @@
 
                     uuid_usuario.innerHTML = `${dadosUsuario[0].uuid}`;
                     nome_usuario.innerHTML = `${nomeUsuario}`;
+                    nome_usuario2.innerHTML = `${nomeUsuario}`;
                 })
             }
             else {
@@ -129,25 +181,25 @@
 
     }
 
-    function copiarTexto() {    
-    let textoCopiado = document.getElementById("uuid_usuario").innerText;
-    let inputTemporario = document.createElement("input");
-    document.body.appendChild(inputTemporario);
-    inputTemporario.setAttribute("value", textoCopiado);
-    inputTemporario.select();
-    document.execCommand("copy");
-    document.body.removeChild(inputTemporario);
+    function copiarTexto() {
+        let textoCopiado = document.getElementById("uuid_usuario").innerText;
+        let inputTemporario = document.createElement("input");
+        document.body.appendChild(inputTemporario);
+        inputTemporario.setAttribute("value", textoCopiado);
+        inputTemporario.select();
+        document.execCommand("copy");
+        document.body.removeChild(inputTemporario);
 
-    btnCopiar.innerHTML = `CÓDIGO COPIADO`;
-    btnCopiar.style = 'background-color: #388016;';
-    uuid_usuario.style = 'background-color: #d0ffbb;';
+        btnCopiar.innerHTML = `CÓDIGO COPIADO`;
+        btnCopiar.style = 'background-color: #388016;';
+        uuid_usuario.style = 'background-color: #d0ffbb;';
 
-    setTimeout(restaurarEstiloOriginal, 5000);
-}
+        setTimeout(restaurarEstiloOriginal, 5000);
+    }
 
-function restaurarEstiloOriginal() {
-    btnCopiar.innerHTML = `COPIAR CÓDIGO`;
-    btnCopiar.style = 'background-color: #181818;';
-    uuid_usuario.style = '  background-color: #e3e3e3;';
-}
+    function restaurarEstiloOriginal() {
+        btnCopiar.innerHTML = `COPIAR CÓDIGO`;
+        btnCopiar.style = 'background-color: #181818;';
+        uuid_usuario.style = '  background-color: #e3e3e3;';
+    }
 </script>

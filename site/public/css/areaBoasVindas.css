@@ -313,3 +313,94 @@ header {
   background-color: #3f3f3f;
   scale: 1.02;
 }
+
+/* POS CADASTRO */
+.posContainer{
+  margin-top: 70px;
+  display: flex;
+  width: 100%;
+  height: 90vh;
+  justify-content: center;
+  align-items: center;
+}
+
+.box-aviso{
+  padding: 30px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  width: 30%;
+  height: 250px;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: 10px;
+}
+
+hr{
+  border: none;
+  background-color: #F2CB05;
+  height: 3px;
+  width: 70%;
+  margin: 10px 0 30px 0;
+}
+.imgsAssinatura {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  position: relative; /* Adiciona position: relative ao container para que o position: fixed do imgGif funcione corretamente */
+}
+
+#imgLogo {
+  opacity: 80%;
+  width: 100px;
+  margin-top: 50px;
+}
+
+.lds-ripple {
+  position: absolute;
+  z-index: 2;
+  width: 100px;
+  display: flex;
+  top: 60px;
+  left: 10px;
+}
+.lds-ripple div {
+  position: absolute;
+  border: 4px solid #fff;
+  opacity: 1;
+  border-radius: 50%;
+  animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+.lds-ripple div:nth-child(2) {
+  animation-delay: -0.5s;
+}
+@keyframes lds-ripple {
+  0% {
+    top: 36px;
+    left: 36px;
+    width: 0;
+    height: 0;
+    opacity: 0;
+  }
+  4.9% {
+    top: 36px;
+    left: 36px;
+    width: 0;
+    height: 0;
+    opacity: 0;
+  }
+  5% {
+    top: 36px;
+    left: 36px;
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+  100% {
+    top: 0px;
+    left: 0px;
+    width: 72px;
+    height: 72px;
+    opacity: 0;
+  }
+}
