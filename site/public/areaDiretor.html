@@ -9,6 +9,7 @@
     <title>DATAWATCH | Administração</title>
 
     <script src="./js/funcoes.js"></script>
+    <script src="./js/diretor.js"></script>
 
     <link rel="icon" href="./assets/imgs/LOGOV2.png">
     <link rel="stylesheet" href="./css/areaDiretor.css">
@@ -83,35 +84,37 @@
 
 
                 <ul class="cards" id="ul_cards_filiais">
-                    <!-- <li class="card">
-                        <h3 id="cardTitle">Filial Bela Cintra</h3>
+                    <li class="card">
+                        <h3>Empresa Victor</h3>
                         <div class="cubeLikeUp">
-                            <div class="filialAdress">
+                            <div class="localInfo">
                                 <div class="icon"></div>
-                                <b>R. Bela Cintra, 1173 - Consolação, São Paulo - SP</b>
+                                <div class="responsavelInfo">
+                                    <b>Responsável</b>
+                                    <p>Victor Daniel</p>
+                                    <p>victor@gmail.com</p>
+                                </div>
                             </div>
-                            <div class="filialInfo">
+                            <div class="maquinaInfo">
                                 <b>Máquinas ativas:</b>
-                                <b class="largeFont" id="cent">0.0%</b>
+                                <b class="largeFont">100.0%</b>
                             </div>
                         </div>
                         <div class="cubeLikeDown">
-                            <div class="responsavelInfo">
-                                <b>Responsável</b>
-                                <p>Victor Daniel</p>
-                                <p>victor@gmail.com</p>
+                            <div class="adressInfo">
+                                <b>Rua Serafim Carlos, 43 - Osvaldo Cruz, Sao Caetano do Sul - SP</b>
                             </div>
                             <div class="alertaPeso">
-                                <b>Alertas nos últimos 30 dias</b>
+                                <b>Peso total dos alertas</b>
                                 <div class="alerts">
-                                    <b class="largeFont">5</b>
-                                    <div class="alert">
+                                    <b class="largeFont">0</b>
+                                    <div class="alert" data-tooltip="Quantidade de alertas: 50">
                                         <img src="./assets/imgs/aviso.png" width="50px">
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </li> -->
+                    </li>
                 </ul>
             </div>
         </div>
@@ -122,7 +125,7 @@
         <div class="modal-alterar">
             <div class="alerta">
                 <div class="texto-alerta">
-
+                    <p>Parametrize os alertas em suas filiais:</p>
                 </div>
             </div>
             <span class="X">&times;</span>
@@ -174,7 +177,7 @@
     function getUuid() {
         var uuid = sessionStorage.UUID;
         var usuario = sessionStorage.NOME_USUARIO;
-        if (usuario == '') {
+        if (usuario == undefined) {
             span_usuario.innerHTML = `Olá, visitante!`
         } else {
             span_usuario.innerHTML = `Olá, ${usuario}!`
@@ -200,47 +203,46 @@
                     if (dados.length > 0) {
                         dados.forEach(filial => {
                             // Pega o id da tag ul e atribui a uma variável
-                            var listaFiliais = document.getElementById("ul_cards_filiais");
+                            var listaFiliais = $.getElementById("ul_cards_filiais");
 
                             /* Criação do card */
-                            var li = document.createElement("li")
+                            var li = $.createElement("li")
                             li.setAttribute("class", "card")
                             listaFiliais.appendChild(li);
 
-                            var titleFilial = document.createElement("h3");
+                            var titleFilial = $.createElement("h3");
                             li.appendChild(titleFilial);
                             titleFilial.innerHTML = `${filial.razaoSocial}`;
 
-                            var upSide = document.createElement("div");
+                            var upSide = $.createElement("div");
                             upSide.setAttribute("class", "cubeLikeUp");
                             li.appendChild(upSide);
 
                             /* PARTE DE CIMA DO CARD */
                             /* ------ ESQUERDA: ---------- */
-                            var adressInfo = document.createElement("div");
+                            var adressInfo = $.createElement("div");
                             adressInfo.setAttribute("class", "localInfo");
                             upSide.appendChild(adressInfo);
 
-                            var divIcon = document.createElement("div")
+                            var divIcon = $.createElement("div")
                             divIcon.setAttribute("class", "icon")
                             adressInfo.appendChild(divIcon);
 
-                            var adress = document.createElement("p");
+                            var adress = $.createElement("p");
                             adressInfo.appendChild(adress);
                             adress.innerHTML = `<b>Responsável</b> ${filial.administrador} ${filial.email}`
-                            /*  adress.innerHTML = `${filial.logradouro}, ${filial.numero} - ${filial.bairro}, ${filial.cidade} - ${filial.estado}`;
-                             */ /* ----------------------- */
+                            /* ----------------------- */
 
                             /* ------ DIREITA: ------ */
-                            var divFilial = document.createElement("div")
+                            var divFilial = $.createElement("div")
                             divFilial.setAttribute("class", "maquinaInfo")
                             upSide.appendChild(divFilial);
 
-                            var titlePerct = document.createElement("b");
+                            var titlePerct = $.createElement("b");
                             divFilial.appendChild(titlePerct);
                             titlePerct.innerHTML = `Máquinas ativas:`;
 
-                            var maqPerct = document.createElement("b");
+                            var maqPerct = $.createElement("b");
                             maqPerct.setAttribute("class", "largeFont");
                             divFilial.appendChild(maqPerct);
                             var maqAtiv = filial.maquinasAtivas;
@@ -252,7 +254,7 @@
                             } else {
                                 porcentagem = ((maqAtiv / maqQtd) * 100);
                             }
-                            
+
                             maqPerct.innerHTML = `${porcentagem.toFixed(1)}%`;
 
                             if (porcentagem < 50) {
@@ -265,44 +267,44 @@
                             /* ----------------------- */
 
                             /* PARTE DE BAIXO DO CARD */
-                            var downSide = document.createElement("div");
+                            var downSide = $.createElement("div");
                             downSide.setAttribute("class", "cubeLikeDown");
                             li.appendChild(downSide);
 
                             /* ------ ESQUERDA: ------ */
-                            var adm = document.createElement("div");
-                            adm.setAttribute("class", "responsavelInfo");
+                            var adm = $.createElement("div");
+                            adm.setAttribute("class", "adressInfo");
                             downSide.appendChild(adm);
 
-                            var tituloAdm = document.createElement("b");
+                            var tituloAdm = $.createElement("b");
                             adm.appendChild(tituloAdm);
                             tituloAdm.innerHTML = `${filial.logradouro}, ${filial.numero} - ${filial.bairro}, ${filial.cidade} - ${filial.estado}`;
                             /* ----------------------- */
 
                             /* ------ DIREITA: ------ */
-                            var alertas = document.createElement("div");
+                            var alertas = $.createElement("div");
                             alertas.setAttribute("class", "alertaPeso");
                             downSide.appendChild(alertas);
 
-                            var alertTitle = document.createElement("b");
+                            var alertTitle = $.createElement("b");
                             alertas.appendChild(alertTitle);
                             alertTitle.innerHTML = `Peso total dos alertas`;
 
-                            var auxDiv = document.createElement("div");
+                            var auxDiv = $.createElement("div");
                             auxDiv.setAttribute("class", "alerts");
                             alertas.appendChild(auxDiv);
 
-                            var qtdAlerts = document.createElement("b");
+                            var qtdAlerts = $.createElement("b");
                             qtdAlerts.setAttribute("class", "largeFont");
                             auxDiv.appendChild(qtdAlerts);
                             qtdAlerts.innerHTML = `${filial.qtdLogs}`;
 
-                            var iconAlert = document.createElement("div");
+                            var iconAlert = $.createElement("div");
                             iconAlert.setAttribute("class", "alert");
                             auxDiv.appendChild(iconAlert);
 
-                            var imgAlert = document.createElement("img");
-                            var buttonAlertDiv = document.createElement("div");
+                            var imgAlert = $.createElement("img");
+                            var buttonAlertDiv = $.createElement("div");
                             imgAlert.setAttribute("src", "./assets/imgs/aviso.png");
                             imgAlert.setAttribute("width", "50px");
                             iconAlert.appendChild(imgAlert);
