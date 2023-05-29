@@ -468,38 +468,7 @@
         mostrarMaquinasFuncionarios(idEmpresa)
     }
 
-    function pegarAlertas(idMaquina) {
-        console.log(idMaquina)
-        fetch("/datawatch/pegarAlertas", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                idMaquinaServer: idMaquina
-            })
-        }).then(function (resposta) {
-
-            if (resposta.ok) {
-                resposta.json().then(dados => {
-                    div_lista_registro.innerHTML = ''
-                    if (dados.length > 0) {
-                        dados.forEach(alerta => {
-                            montarListagemAlertas(alerta);
-
-                        });
-                    }
-
-                })
-            }
-            else {
-                throw (JSON.stringify(resposta))
-            }
-        }).catch(function (resposta) {
-            console.log(`ERRO: ${resposta}`);
-        })
-        return false
-    }
+    
 
     function mostrarMaquinasFuncionarios(idEmpresa) {
         fetch("/datawatch/pegarMaquinas", {
@@ -630,49 +599,6 @@
         */
     }
 
-    function infoMaquina(registro) {
-        var divInfo = document.createElement("div");
-        divInfo.setAttribute("class", "modal-info");
-
-
-        var divTitulo = document.createElement("div");
-        divTitulo.setAttribute("class", "titulo-info");
-
-        var divDados = document.createElement("div");
-        divDados.setAttribute("class", "dados-maquinas");
-
-        var spanNome = document.createElement("span");
-        spanNome = `<b>Nome da Máquina:<b> ${registro.nomeMaquina}`
-
-        var spanSo = document.createElement("span");
-        spanSo = `<b>Sistema Operacional:</b> ${registro.sistemaOperacional}`;
-
-        var spanTempoAtividade = document.createElement("span")
-        spanTempoAtividade = `<b>Tempo de atividade:</b> ${registro.tempo_formatado}`
-
-        divDados.appendChild(spanNome)
-        divDados.appendChild(spanSo)
-        divDados.appendChild(spanTempoAtividade)
-        divTitulo.appendChild(divDados)
-
-
-
-        /*
-        <div class="modal-info">
-                            <div class="titulo-info">
-                                <span>Especificações técnicas da máquina</span>
-                            </div>
-                            <div class="dados-maquina">
-                                <span><b>Nome da máquina:</b> maquina02</span>
-                                <span><b>Sistema Operacional:</b> Ubuntu 22.04 LTS</span>
-                                <span><b>Data de cadastro:</b> 04/04/2023</span>
-                                <span><b>Tempo de atividade:</b> 2d 5h 26min</span>
-                            </div>
-                        </div>
-                        <div class="conteudo">
-                            <button class="reload">Reiniciar</button>
-        */
-    }
 
     function exibirAlertas(idMaquina) {
         fetch(`/exibiralertas/${idMaquina}`, {
@@ -790,7 +716,6 @@
                             metrica.Disco = registro.discoMetrica;
 
                             capacidadeDiscoTotal = registro.discoTotal
-                            alertas(registro.maquina, registro.empresa, registro.cpuuso, registro.download, registro.upload);
                         }
                         
                         idMaquinaAux = idMaquina;
@@ -812,9 +737,8 @@
                                 break;
                         }
 
-                        metricas(idMaquina);
-                        pegarAlertas(idMaquina);
-                        infoMaquina(registro);
+                        
+                    
                     });
                 } else {
 
@@ -825,67 +749,6 @@
                 console.error(`Erro na obtenção dos dados do aquario p/ gráfico: ${error.message}`);
             });
     }
-
-    // Lançar Métricas no Banco
-
-    function metricas(idMaquina) {
-        // debugger
-
-        // CONTAS para MÉTRICAS
-
-        var cpu = 90;
-        var ram = CapacidadeRamTotal * 0.85;
-        var disco = capacidadeDiscoTotal * 0.70;
-
-
-        fetch(`/datawatch/lancarMetricas`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                cpuMetricaServer: cpu,
-                ramMetricaServer: ram,
-                discoMetricaServer: disco,
-                idMaquinaServer: idMaquina
-            })
-        }).then(function (resposta) {
-            console.log("ESTOU NO THEN DO entrar()!")
-
-            if (resposta.ok) {
-                console.log(resposta);
-
-                // resposta.json().then(json => {
-                //     console.log(json);
-                //     console.log(JSON.stringify(json));
-
-                //     sessionStorage.EMAIL_USUARIO = json.email;
-                //     sessionStorage.NOME_USUARIO = json.nomeUsuario;
-                //     sessionStorage.ID_USUARIO = json.idUsuario;
-                //     sessionStorage.ID_EMPRESA = json.idEmpresa;
-
-
-
-                // });
-
-            } else {
-
-                console.log("Houve um erro ao tentar cadastrar as métricas");
-
-                // resposta.text().then(texto => {
-                //     console.error(texto);
-
-                // });
-            }
-
-        }).catch(function (erro) {
-            console.log(erro);
-        })
-
-        return false;
-    }
-
-
 
     function alertas(idMaquina, idEmpresa, PorcentagemCpu, downloadAlerta, uploadAlert) {
 
