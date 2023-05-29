@@ -717,6 +717,7 @@
 
     function obterdados(idMaquina) {
         var idEmpresa = sessionStorage.ID_EMPRESA
+        console.log(idMaquina)
         fetch(`/dados/tempo-real/${idMaquina}/${idEmpresa}`)
             .then(resposta => {
 
@@ -964,7 +965,7 @@
 
     // Gráfico RAM
     google.charts.load('current', { 'packages': ['corechart'] });
-    google.charts.setOnLoadCallback(drawChartRam);
+    // google.charts.setOnLoadCallback(drawChartRam);
 
 
     function drawChartRam() {
@@ -1054,7 +1055,7 @@
 
     // Gráfico Disco
     google.charts.load('current', { 'packages': ['corechart'] });
-    google.charts.setOnLoadCallback(drawChartDisco);
+    // google.charts.setOnLoadCallback(drawChartDisco);
 
     function drawChartDisco() {
         graficoInScreen = "DISCO";
@@ -1088,7 +1089,7 @@
 
     // Gráfico Rede
     google.charts.load('current', { 'packages': ['corechart'] });
-    google.charts.setOnLoadCallback(drawChartRede);
+    // google.charts.setOnLoadCallback(drawChartRede);
 
 
     function drawChartRede() {
