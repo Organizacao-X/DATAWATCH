@@ -750,81 +750,81 @@
             });
     }
 
-    function alertas(idMaquina, idEmpresa, PorcentagemCpu, downloadAlerta, uploadAlert) {
+    // function alertas(idMaquina, idEmpresa, PorcentagemCpu, downloadAlerta, uploadAlert) {
 
-        if (metrica.Processador != null) {
-            if (metrica.Processador < PorcentagemCpu) {
-                alertasRegistro(idMaquina, idEmpresa, 1, 20);
-            }
-        }
+    //     if (metrica.Processador != null) {
+    //         if (metrica.Processador < PorcentagemCpu) {
+    //             alertasRegistro(idMaquina, idEmpresa, 1, 20);
+    //         }
+    //     }
 
-        if (metrica.Ram != null) {
-            if (metrica.Ram < CapacidadeRamEmUso) {
-                alertasRegistro(idMaquina, idEmpresa, 2, 30);
-            }
-        }
+    //     if (metrica.Ram != null) {
+    //         if (metrica.Ram < CapacidadeRamEmUso) {
+    //             alertasRegistro(idMaquina, idEmpresa, 2, 30);
+    //         }
+    //     }
 
-        if (metrica.Disco != null) {
-            if (metrica.Disco < capacidadeDiscoLivre) {
-                alertasRegistro(idMaquina, idEmpresa, 3, 40);
-            }
-        }
+    //     if (metrica.Disco != null) {
+    //         if (metrica.Disco < capacidadeDiscoLivre) {
+    //             alertasRegistro(idMaquina, idEmpresa, 3, 40);
+    //         }
+    //     }
 
-        if (downloadAlerta == null || uploadAlert == null) {
-            alertasRegistro(idMaquina, idEmpresa, 4, 100);
-        }
-
-
-
-    }
-
-    function alertasRegistro(idMaquina, idEmpresa, tipoAlerta, pesoAlerta) {
-        fetch(`/datawatch/lancarMetricas`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                idMaquinaServer: idMaquina,
-                idEmpresaServer: idEmpresa,
-                tipoAlertaServer: tipoAlerta,
-                pesoAlertaServer: pesoAlerta
-            })
-        }).then(function (resposta) {
-            console.log("ESTOU NO THEN DO entrar()!")
-
-            if (resposta.ok) {
-                console.log(resposta);
-
-                // resposta.json().then(json => {
-                //     console.log(json);
-                //     console.log(JSON.stringify(json));
-
-                //     sessionStorage.EMAIL_USUARIO = json.email;
-                //     sessionStorage.NOME_USUARIO = json.nomeUsuario;
-                //     sessionStorage.ID_USUARIO = json.idUsuario;
-                //     sessionStorage.ID_EMPRESA = json.idEmpresa;
+    //     if (downloadAlerta == null || uploadAlert == null) {
+    //         alertasRegistro(idMaquina, idEmpresa, 4, 100);
+    //     }
 
 
 
-                // });
+    // }
 
-            } else {
+    // function alertasRegistro(idMaquina, idEmpresa, tipoAlerta, pesoAlerta) {
+    //     fetch(`/datawatch/lancarMetricas`, {
+    //         method: "POST",
+    //         headers: {
+    //             "Content-Type": "application/json"
+    //         },
+    //         body: JSON.stringify({
+    //             idMaquinaServer: idMaquina,
+    //             idEmpresaServer: idEmpresa,
+    //             tipoAlertaServer: tipoAlerta,
+    //             pesoAlertaServer: pesoAlerta
+    //         })
+    //     }).then(function (resposta) {
+    //         console.log("ESTOU NO THEN DO entrar()!")
 
-                console.log("Houve um erro ao tentar registrar os alertas");
+    //         if (resposta.ok) {
+    //             console.log(resposta);
 
-                // resposta.text().then(texto => {
-                //     console.error(texto);
+    //             // resposta.json().then(json => {
+    //             //     console.log(json);
+    //             //     console.log(JSON.stringify(json));
 
-                // });
-            }
+    //             //     sessionStorage.EMAIL_USUARIO = json.email;
+    //             //     sessionStorage.NOME_USUARIO = json.nomeUsuario;
+    //             //     sessionStorage.ID_USUARIO = json.idUsuario;
+    //             //     sessionStorage.ID_EMPRESA = json.idEmpresa;
 
-        }).catch(function (erro) {
-            console.log(erro);
-        })
 
-        return false;
-    }
+
+    //             // });
+
+    //         } else {
+
+    //             console.log("Houve um erro ao tentar registrar os alertas");
+
+    //             // resposta.text().then(texto => {
+    //             //     console.error(texto);
+
+    //             // });
+    //         }
+
+    //     }).catch(function (erro) {
+    //         console.log(erro);
+    //     })
+
+    //     return false;
+    // }
 
     // Gráfico RAM
     google.charts.load('current', { 'packages': ['corechart'] });
