@@ -393,6 +393,7 @@
     function fecharFora(e) {
         if (e.target == popup) {
             popup.style.display = 'none';
+            clearTimeout(cancelarTimeOut);
             // modalGrafico.style.display = 'none'
             // modalAlerta.style.display = 'none'
             // graficoMenu2.style.display = 'none'
@@ -445,6 +446,7 @@
         if (event.keyCode === 27) {
             modalReiniciar.style.display = 'none'
             sessaoElem.style.filter = 'blur(0px)'
+            clearTimeout(cancelarTimeOut);
         }
     }
 
@@ -485,6 +487,8 @@
                 resposta.json().then(dados => {
                     console.log(dados)
                     if (dados.length > 0) {
+                        ul_cards_maquinas.innerHTML = ""
+                        div_lista_registro.innerHTML = ""
                         montarListagemAlertas(dados);
                         dados.forEach(maquina => {
                             var lista_maquinas = document.getElementById("ul_cards_maquinas");
@@ -560,7 +564,9 @@
 
                         });
                     }
-
+                    proximaAtualizacao = setTimeout(() => {
+                            mostrarMaquinasFuncionarios(idEmpresa);
+                        }, 5000);
                 })
             }
             else {
@@ -571,6 +577,8 @@
         })
         return false
     }
+
+    var proximaAtualizacao;
 
     function montarListagemAlertas(alerta) {
         console.log(alerta)
@@ -719,6 +727,7 @@
                         }
                         
                         idMaquinaAux = idMaquina;
+                        clearTimeout(cancelarTimeOut);
                         
                         switch (graficoInScreen) {
                             case "CPU":
@@ -865,16 +874,16 @@
         // <br>Disponível:`;
         chart.draw(data, options);
         
-        setTimeout(() => obterdados(idMaquinaAux), 5000);
+        cancelarTimeOut = setTimeout(() => obterdados(idMaquinaAux), 5000);
     }
 
 
     // Gráfico CPU
-    function carregarGrafCPU() {
-        google.charts.load('current', { 'packages': ['corechart'] });
-        google.charts.setOnLoadCallback(drawChartCpu);
-        drawChartCpu()
-    }
+    // function carregarGrafCPU() {
+    //     google.charts.load('current', { 'packages': ['corechart'] });
+    //     google.charts.setOnLoadCallback(drawChartCpu);
+    //     drawChartCpu()
+    // }
     function drawChartCpu() {
         graficoInScreen = "CPU";
         dado1.style.display = 'block'
@@ -913,7 +922,7 @@
 
         chart.draw(data, options);
 
-        setTimeout(() => obterdados(idMaquinaAux), 5000);
+        cancelarTimeOut = setTimeout(() => obterdados(idMaquinaAux), 5000);
     }
 
     // Gráfico Disco
@@ -947,7 +956,7 @@
         // <br> Capacidade em uso: ${capacidadeDiscoLivre}`;
         chart.draw(data, options);
 
-        setTimeout(() => obterdados(idMaquinaAux), 5000);
+        cancelarTimeOut = setTimeout(() => obterdados(idMaquinaAux), 5000);
     }
 
     // Gráfico Rede
@@ -991,7 +1000,7 @@
 
         chart.draw(data, options);
         
-        setTimeout(() => obterdados(idMaquinaAux), 5000);
+        cancelarTimeOut = setTimeout(() => obterdados(idMaquinaAux), 5000);
     }
 
 </script>
