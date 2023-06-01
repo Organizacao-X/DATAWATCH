@@ -489,7 +489,7 @@
                     if (dados.length > 0) {
                         ul_cards_maquinas.innerHTML = ""
                         div_lista_registro.innerHTML = ""
-                        montarListagemAlertas(dados);
+                        var listaId = [];
                         dados.forEach(maquina => {
                             var lista_maquinas = document.getElementById("ul_cards_maquinas");
 
@@ -534,19 +534,19 @@
                                 divStatus.setAttribute("class", "status2")
                                 spanStatus.innerHTML = " OFFLINE"
                             }
-
+                            
                             textAlert.appendChild(pTextAlert)
                             iconAlert.appendChild(textAlert)
                             divContent.appendChild(divStatus)
                             divContent.appendChild(spanStatus)
-
+                            
                             li.appendChild(icon)
                             li.appendChild(iconAlert)
-
+                            
                             li.appendChild(divContent)
-
+                            
                             li.style = "background-color: rgb(255, 179, 179)"
-
+                            
                             if (maquina.PesoAlerta == 0 || maquina.PesoAlerta == null) {
                                 li.style = "background-color: rgb(189, 255, 188)"
                             } else if (maquina.PesoAlerta >= 20 && maquina.PesoAlerta <= 69) {
@@ -557,13 +557,20 @@
                             li.setAttribute('value', maquina.Id)
                             li.addEventListener('click', function () {
                                 abrirPopup(li.getAttribute('value'))
-
+                                
                             })
                             lista_maquinas.appendChild(li)
                             console.log(lista_maquinas)
-
+                            listaId.push(maquina.Id)
                         });
                     }
+
+                    for (let index = 0; index < listaId.length; index++) {
+                        var id = listaId[index];
+                        exibirAlertas(id)
+                        
+                    }
+
                     proximaAtualizacao = setTimeout(() => {
                             mostrarMaquinasFuncionarios(idEmpresa);
                         }, 5000);
@@ -580,8 +587,9 @@
 
     var proximaAtualizacao;
 
-    function montarListagemAlertas(alerta) {
+    function montarListagemAlertas(alerta) { 
         console.log(alerta)
+
         var liAlerta = document.createElement("li")
 
         var divAlertaRowInfo = document.createElement("div")
@@ -590,7 +598,7 @@
         var spanIdAlerta = document.createElement("span")
         spanIdAlerta.innerHTML = `Id: ${alerta.idPosse}`
         var spanTituloAlerta = document.createElement("span")
-        spanTituloAlerta.innerHTML = `Título: ${alerta.nomeAlerta}`
+        spanTituloAlerta.innerHTML = `Título: ${alerta.descricao}`
 
         divAlertaRowInfo.appendChild(spanIdAlerta)
         divAlertaRowInfo.appendChild(spanTituloAlerta)
@@ -609,17 +617,21 @@
 
 
     function exibirAlertas(idMaquina) {
-        fetch(`/exibiralertas/${idMaquina}`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                idMaquinaServer: idMaquina
-            })
+        fetch(`/alertas/exibiralertas/${idMaquina}`, {
+            cache: 'no-store'
         }).then(function (resposta) {
+            if (resposta.ok) {
+                div_lista_registro.innerHTML = ''
+                resposta.json().then(dados => {
+                    dados.forEach(alerta => {
+                        montarListagemAlertas(alerta);
 
+                    });
+                })
+            };
+                
         });
+
     }
 
     var vetorHora = [];

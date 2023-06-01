@@ -7,6 +7,7 @@ var database = require("../database/config");
         JOIN Log l
            ON l.fkAlerta = a.idAlerta
            AND l.fkMaquina = ${idMaquina};`;
+           return database.executar(instrucao);
     }
 
 
