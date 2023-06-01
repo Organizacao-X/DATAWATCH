@@ -381,6 +381,8 @@
     function abrirPopup(idMaquina) {
         popup.style.display = 'block';
         obterdados(idMaquina);
+        // puxar alertas desta máquina aqui
+        exibirAlertas(idMaquina);
         // infoMaquina(maquina);
     }
 
@@ -488,7 +490,7 @@
                     console.log(dados)
                     if (dados.length > 0) {
                         ul_cards_maquinas.innerHTML = ""
-                        div_lista_registro.innerHTML = ""
+                        // div_lista_registro.innerHTML = ""
                         var listaId = [];
                         dados.forEach(maquina => {
                             var lista_maquinas = document.getElementById("ul_cards_maquinas");
@@ -565,11 +567,11 @@
                         });
                     }
 
-                    for (let index = 0; index < listaId.length; index++) {
-                        var id = listaId[index];
-                        exibirAlertas(id)
+                    // for (let index = 0; index < listaId.length; index++) {
+                    //     var id = listaId[index];
+                    //     exibirAlertas(id)
                         
-                    }
+                    // }
 
                     proximaAtualizacao = setTimeout(() => {
                             mostrarMaquinasFuncionarios(idEmpresa);
@@ -625,7 +627,6 @@
                 resposta.json().then(dados => {
                     dados.forEach(alerta => {
                         montarListagemAlertas(alerta);
-
                     });
                 })
             };

@@ -692,7 +692,7 @@
                             const statusImg = document.getElementById(`img${i}`);
 
                             var tempoEmMilissegundos = dados[i].tempo_total_milissegundos
-
+                            console.log(tempoEmMilissegundos)
                             if (tempoEmMilissegundos < fiscalDeAtividade) {
                                 console.log(i + "online: " + tempoEmMilissegundos)
                                 statusImg.innerHTML = `<img src="./assets/icon/circulo(1).png" alt=""
