@@ -23,7 +23,7 @@
     <header>
         <nav class="nav-bar">
             <div class="hamburger-menu">
-                <input id="menu__toggle" type="checkbox" />
+                <input id="menu__toggle" type="checkbox">
                 <label class="menu__btn" for="menu__toggle">
                     <span></span>
                 </label>
@@ -33,7 +33,7 @@
                 <ul class="menu__box" id="menu__box">
                     <div class="image">
                         <img src="./assets/imgs/imagem-do-usuario-com-fundo-preto.png" alt=""
-                            style="height: 200px; width: 200px; border-radius: 50%; ">
+                            style="height: 200px; width: 200px; ">
                     </div>
                     <div class="nomeUser">
                         <span id="lateral_menu_adm_name"></span>
@@ -45,8 +45,7 @@
                     <li id="lateral_menu_cad_diretor"><a class="menu__item">Vincular um diretor</a></li>
                     <li id="lateral_menu_cad_funcionario"><a class="menu__item"
                             href="./cadastroFuncionario.html">Cadastrar funcionário</a></li>
-                    <li id="lateral_menu_cad_download"><a class="menu__item" href="./JAR/DATAWATCH-sistema.zip"
-                            download="app_DataWatch">Baixar aplicativo</a></li>
+                    <li onclick="abrirModalBaixar()"><span class="menu__item">Baixar aplicativo</span></li>
                     <li><a class="menu__item" href="#" onclick="limparSessao()">Logout</a></li>
                 </ul>
             </div>
@@ -317,6 +316,36 @@
         </div>
     </div>
 
+    <div class="modal-parent7">
+        <div class="modal-download1">
+            <div class="baixar1">
+                <div class="texto-baixar1">
+                    <div class="decoracao">
+                        <span><b>Download</b></span>
+                        <div class="linha"></div>
+                    </div>
+                    <div class="img-baixar">
+                        <img src="./assets/icon/arrow.png" alt="" style="width: 150px;">
+                    </div>
+                </div>
+                <div class="texto-dois">
+                    <div class="container">
+                        <div class="tabs">
+                            <input type="radio" id="radio-1" name="tabs" checked="">
+                            <button onclick="downloadFile('./JAR/ARCH-01/DATAWATCH-ARCH-01.sh', 'teste')"><label
+                                    class="tab" for="radio-1" id="um">App 1</label></button>
+                            <input type="radio" id="radio-2" name="tabs">
+                            <button onclick="downloadFile('./JAR/ARCH-03/DATAWATCH-ARCH-03.sh', 'teste')"><label
+                                    class="tab" for="radio-2" id="um">App 2</label></button>
+                            <span class="glider"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <span class="X-7">&times;</span>
+        </div>
+    </div>
+
 
     <!-- <script src="js/modal.js"></script> -->
     <!-- <script src="js/excluir.js"></script> -->
@@ -407,11 +436,49 @@
         });
     }
 
+
     const $ = document
     let modalEditarFuncionario, modalDesativarFuncionario, modalMostrarMais, modalEditarDateReiniciar,
         modalReiniciar, sessaoElem, buttonMostrarMais, x3, buttonEditFuncionario, buttonDesativarFuncionario,
         buttonSalvarEdit, buttonCancelarEdit, buttonConfirmDesativar, buttonCancelarDesativar, x1, x2,
         buttonEditarDateReiniciar, buttonReiniciar, buttonConfirmReiniciar, buttonCancelarReiniciar, buttonSalvarEditDate, buttonCancelarEditDate, x4, x5
+
+    const modalBaixar = $.querySelector('.modal-parent7');
+    const x7 = $.querySelector('.X-7');
+
+
+    function downloadFile(url, fileName) {
+        var link = document.createElement('a');
+        link.href = url;
+        link.download = fileName;
+        link.click();
+    }
+
+    function toggleCheckbox() {
+        var checkbox = document.getElementById("menu__toggle");
+        checkbox.checked = !checkbox.checked;
+    }
+
+    function abrirModalBaixar() {
+        modalBaixar.style.display = 'block'
+        sessaoElem.style.filter = 'blur(10px)'
+        toggleCheckbox()
+    }
+
+    function fecharModalBaixarComX() {
+        modalBaixar.style.display = 'none'
+        sessaoElem.style.filter = 'blur(0px)'
+    }
+
+    function fecharModalBaixarComEsc(event) {
+        if (event.keyCode === 27) {
+            modalBaixar.style.display = 'none'
+            sessaoElem.style.filter = 'blur(0px)'
+        }
+    }
+
+    x7.addEventListener('click', fecharModalBaixarComX)
+    document.body.addEventListener('keyup', fecharModalBaixarComEsc)
 
     function carregarFuncoesModal() {
         console.log("Modais carregados")
@@ -421,6 +488,7 @@
         modalMostrarMais = $.querySelector('.modal-parent3');
         modalEditarDateReiniciar = $.querySelector('.modal-parent4');
         modalReiniciar = $.querySelector('.modal-parent5');
+
 
         // sessão
         sessaoElem = $.querySelector('section');

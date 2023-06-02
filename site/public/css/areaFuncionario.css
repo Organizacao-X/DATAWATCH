@@ -687,6 +687,139 @@ li {
   cursor: pointer;
 }
 
+
+.modal-parent6 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  display: none;
+}
+
+.modal-download1 {
+  position: absolute;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: auto;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.6rem 3rem;
+  border: 3px solid black;
+  border-radius: 5px;
+  background: white;
+  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.baixar1{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.texto-baixar1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  gap: 3rem;
+}
+
+.linha{
+  border: 3px solid #181818;
+  width: 100%;
+}
+
+.X-6 {
+  position: absolute;
+  color: #181818;
+  right: 20px;
+  top: 2px;
+  font-size: 40px;
+  cursor: pointer;
+}
+
+.img-baixar{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.tabs {
+  display: flex;
+  position: relative;
+  gap: 5rem;
+  padding: 0.75rem;
+  border-radius: 99px;
+}
+
+.tabs * {
+  z-index: 2;
+}
+
+.tabs button {
+  background-color: transparent;
+  border: none;
+}
+
+.container input[type="radio"] {
+  display: none;
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  width: 80px;
+  font-size: .8rem;
+  color: black;
+  font-weight: 500;
+  font-size: 20px;
+  cursor: pointer;
+  transition: color 0.15s ease-in;
+}
+
+.container input[type="radio"]:checked + button label {
+  color: #ebcf18;
+}
+
+.container input[id="radio-1"]:checked ~ .glider {
+  transform: translateX(0%);
+}
+
+.container input[id="radio-2"]:checked ~ .glider {
+  transform: translateX(200%);
+}
+
+
+.glider {
+  position: absolute;
+  display: flex;
+  height: 35px;
+  width: 80px;
+  background-color: #181818;
+  z-index: 1;
+  border-radius: 10px;
+  transition: 0.25s ease-out;
+}
+
+@media (max-width: 700px) {
+ 
+  .tabs {
+    transform: scale(0.6);
+  }
+}
+
+
 .barra {
   background-color: #181818;
   height: 6rem;
