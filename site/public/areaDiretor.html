@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>DATAWATCH | Administração</title>
+    <title>DATAWATCH | Diretoria</title>
 
     <script src="./js/funcoes.js"></script>
 
@@ -83,7 +83,7 @@
 
 
                 <ul class="cards" id="ul_cards_filiais">
-                    <li class="card">
+                    <!-- <li class="card">
                         <h3>Empresa Victor</h3>
                         <div class="cubeLikeUp">
                             <div class="admInfo">
@@ -113,7 +113,7 @@
                                 </div>
                             </div>
                         </div>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
         </div>
@@ -124,19 +124,39 @@
         <div class="modal-alterar">
             <div class="alerta">
                 <div class="texto-alerta">
-                    <p>Parametrize os alertas em suas filiais:</p>
-                    <select name="" id="selectFiliais">
-                        <option value="">Bela Cintra</option>
-                        <option value="">Consolação</option>
-                        <option value="">Av. Paulista</option>
-                        <option value="">Augusta</option>
-                    </select>
+                    <b>Parametrize os alertas em suas filiais:</b>
+                    <div class="parametros">
+                        <div>
+                            <p>Escolha a filial:</p>
+                            <select id="selectFiliais">
+                                <option value="optSelect">--SELECIONE--</option>
+                            </select>
+                        </div>
+                        <div>
+                            <p>Soma do peso dos alertas:</p>
+                            <input type="text" id="somaInput">
+                        </div>
+                        <div>
+                            <p>Quantidade de alertas:</p>
+                            <input type="text" id="quantidadeInput">
+                        </div>
+                    </div>
+                    <b id="aviso">Ainda há campos em branco</b>
+                    <button onclick="setAlert()" class="btn">Confirmar</button>
                 </div>
             </div>
             <span class="X">&times;</span>
         </div>
     </div>
 </body>
+<!-- MASCARAS -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"></script>
+<script>
+    $('#somaInput').mask('00000000000', { reverse: false });
+    $('#quantidadeInput').mask('00000000000', { reverse: false });
+</script>
+<script src="./js/diretor.js"></script>
 <script>
     let $ = document;
 
@@ -189,158 +209,5 @@
     function configOut() {
         conf_yellow.style.display = 'none';
         conf_normal.style.display = 'flex ';
-    }
-
-    function getUuid() {
-        var uuid = sessionStorage.UUID;
-        var usuario = sessionStorage.NOME_USUARIO;
-        if (usuario == undefined) {
-            span_usuario.innerHTML = `Olá, visitante!`
-        } else {
-            span_usuario.innerHTML = `Olá, ${usuario}!`
-        }
-
-        mostrarFiliais(uuid)
-    }
-
-    function mostrarFiliais(uuid) {
-        fetch("/datawatch/pegarFiliais", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                uuidServer: uuid
-            })
-        }).then(function (resposta) {
-            if (resposta.ok) {
-
-                resposta.json().then(dados => {
-                    console.log(dados);
-                    localStorage.setItem("dadosFiliais", JSON.stringify(dados));
-                    if (dados.length > 0) {
-                        dados.forEach(filial => {
-                            // Pega o id da tag ul e atribui a uma variável
-                            var listaFiliais = $.getElementById("ul_cards_filiais");
-
-                            /* Criação do card */
-                            var li = $.createElement("li")
-                            li.setAttribute("class", "card")
-                            listaFiliais.appendChild(li);
-
-                            var titleFilial = $.createElement("h3");
-                            li.appendChild(titleFilial);
-                            titleFilial.innerHTML = `${filial.razaoSocial}`;
-
-                            var upSide = $.createElement("div");
-                            upSide.setAttribute("class", "cubeLikeUp");
-                            li.appendChild(upSide);
-                            
-                            /* PARTE DE CIMA DO CARD */
-                            /* ------ ESQUERDA: ---------- */
-                            var adm = $.createElement("div");
-                            adm.setAttribute("class", "admInfo");
-                            upSide.appendChild(adm);
-
-                            var divIcon = $.createElement("div")
-                            divIcon.setAttribute("class", "icon")
-                            adm.appendChild(divIcon);
-
-                            var respInfo = $.createElement("div");
-                            respInfo.setAttribute("class", "responsavelInfo");
-                            adm.appendChild(respInfo);
-                            respInfo.innerHTML = `<b>Responsável:</b>
-                            <p>${filial.administrador}</p>
-                            <p>${filial.email}</p>`
-                            /* ----------------------- */
-
-                            /* ------ DIREITA: ------ */
-                            var divFilial = $.createElement("div")
-                            divFilial.setAttribute("class", "maquinaInfo")
-                            upSide.appendChild(divFilial);
-
-                            var titlePerct = $.createElement("b");
-                            divFilial.appendChild(titlePerct);
-                            titlePerct.innerHTML = `Máquinas ativas:`;
-
-                            var maqPerct = $.createElement("b");
-                            maqPerct.setAttribute("class", "largeFont");
-                            divFilial.appendChild(maqPerct);
-                            var maqAtiv = filial.maquinasAtivas;
-                            var maqQtd = filial.qtdMaquinas;
-                            var porcentagem;
-
-                            if (maqQtd == 0 || maqAtiv == 0) {
-                                porcentagem = 0;
-                            } else {
-                                porcentagem = ((maqAtiv / maqQtd) * 100);
-                            }
-
-                            maqPerct.innerHTML = `${porcentagem.toFixed(1)}%`;
-
-                            if (porcentagem < 50) {
-                                li.style = "background-color: rgb(255, 179, 179)"
-                            } else if (porcentagem < 75) {
-                                li.style = "background-color: rgb(255, 254, 167)"
-                            } else {
-                                li.style = "background-color: rgb(189, 255, 188)"
-                            }
-                            /* ----------------------- */
-
-                            /* PARTE DE BAIXO DO CARD */
-                            var downSide = $.createElement("div");
-                            downSide.setAttribute("class", "cubeLikeDown");
-                            li.appendChild(downSide);
-
-                            /* ------ ESQUERDA: ------ */
-                            var adress = $.createElement("div");
-                            adress.setAttribute("class", "adressInfo");
-                            downSide.appendChild(adress);
-                            adress.innerHTML = `<b>${filial.logradouro}, 
-                                ${filial.numero} - ${filial.bairro}, 
-                                ${filial.cidade} - ${filial.estado}</b>`;
-                            /* ----------------------- */
-
-                            /* ------ DIREITA: ------ */
-                            var alertas = $.createElement("div");
-                            alertas.setAttribute("class", "alertaPeso");
-                            downSide.appendChild(alertas);
-
-                            var alertTitle = $.createElement("b");
-                            alertas.appendChild(alertTitle);
-                            alertTitle.innerHTML = `Peso total dos alertas`;
-
-                            var auxDiv = $.createElement("div");
-                            auxDiv.setAttribute("class", "alerts");
-                            alertas.appendChild(auxDiv);
-                            
-                            var qtdAlerts = $.createElement("b");
-                            qtdAlerts.setAttribute("class", "largeFont");
-                            auxDiv.appendChild(qtdAlerts);
-                            qtdAlerts.innerHTML = `${filial.somaPeso}`;
-                            
-                            var iconAlert = $.createElement("div");
-                            iconAlert.setAttribute("class", "alert");
-                            iconAlert.setAttribute("data-tooltip", `Quantidade de alertas: ${filial.qtdLogs}`);
-                            auxDiv.appendChild(iconAlert);
-
-                            var imgAlert = $.createElement("img");
-                            var buttonAlertDiv = $.createElement("div");
-                            imgAlert.setAttribute("src", "./assets/imgs/aviso.png");
-                            imgAlert.setAttribute("width", "50px");
-                            iconAlert.appendChild(imgAlert);
-                            /* ----------------------- */
-                        });
-                    }
-
-                })
-            }
-            else {
-                throw (JSON.stringify(resposta))
-            }
-        }).catch(function (resposta) {
-            console.log(`ERRO: ${resposta}`);
-        })
-        return false
     }
 </script>

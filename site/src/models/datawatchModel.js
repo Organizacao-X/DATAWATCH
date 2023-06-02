@@ -275,7 +275,7 @@ function pegarFiliais(uuid) {
     COALESCE(COUNT(maq.statusSistema), 0) AS 'qtdMaquinas',
     COALESCE((COUNT(maq.statusSistema) - SUM(maq.statusSistema)), 0) AS maquinasInativas,
     COALESCE(logs.qtdLogs, 0) AS qtdLogs,    
-	logs.somaPeso
+    COALESCE(logs.somaPeso, 0) AS somaPeso
 FROM [dbo].[Empresas] AS emp
 JOIN [dbo].[Usuarios] AS usu
     ON usu.fkEmpresa = emp.idEmpresa
