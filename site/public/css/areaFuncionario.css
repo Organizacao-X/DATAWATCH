@@ -487,6 +487,7 @@ li {
 }
 
 .listaAlerta {
+  border: solid 5px black;
   display: flex;
   flex-direction: column;
   padding: 1rem 0 0 0;
@@ -504,8 +505,7 @@ li {
 .lista-registro {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 1rem;
+  gap: 1rem;  
   max-height: 20rem;
   padding: .5rem;
   overflow-y: auto;
@@ -530,7 +530,7 @@ li {
 }
 
 .listaAlerta ul {
-  padding: .5rem;
+  padding: rem;
 }
 
 .lista-registro li {
@@ -542,6 +542,7 @@ li {
   padding: .5rem;
   gap: 2rem;
   width: 380px;
+  padding-top: 1rem;
 }
 
 .modal-info {

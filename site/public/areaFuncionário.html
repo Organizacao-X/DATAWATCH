@@ -381,6 +381,8 @@
     function abrirPopup(idMaquina) {
         popup.style.display = 'block';
         obterdados(idMaquina);
+        // puxar alertas desta máquina aqui
+        exibirAlertas(idMaquina);
         // infoMaquina(maquina);
     }
 
@@ -393,6 +395,7 @@
     function fecharFora(e) {
         if (e.target == popup) {
             popup.style.display = 'none';
+            clearTimeout(cancelarTimeOut);
             // modalGrafico.style.display = 'none'
             // modalAlerta.style.display = 'none'
             // graficoMenu2.style.display = 'none'
@@ -445,6 +448,7 @@
         if (event.keyCode === 27) {
             modalReiniciar.style.display = 'none'
             sessaoElem.style.filter = 'blur(0px)'
+            clearTimeout(cancelarTimeOut);
         }
     }
 
@@ -485,7 +489,9 @@
                 resposta.json().then(dados => {
                     console.log(dados)
                     if (dados.length > 0) {
-                        montarListagemAlertas(dados);
+                        ul_cards_maquinas.innerHTML = ""
+                        // div_lista_registro.innerHTML = ""
+                        var listaId = [];
                         dados.forEach(maquina => {
                             var lista_maquinas = document.getElementById("ul_cards_maquinas");
 
@@ -530,19 +536,19 @@
                                 divStatus.setAttribute("class", "status2")
                                 spanStatus.innerHTML = " OFFLINE"
                             }
-
+                            
                             textAlert.appendChild(pTextAlert)
                             iconAlert.appendChild(textAlert)
                             divContent.appendChild(divStatus)
                             divContent.appendChild(spanStatus)
-
+                            
                             li.appendChild(icon)
                             li.appendChild(iconAlert)
-
+                            
                             li.appendChild(divContent)
-
+                            
                             li.style = "background-color: rgb(255, 179, 179)"
-
+                            
                             if (maquina.PesoAlerta == 0 || maquina.PesoAlerta == null) {
                                 li.style = "background-color: rgb(189, 255, 188)"
                             } else if (maquina.PesoAlerta >= 20 && maquina.PesoAlerta <= 69) {
@@ -553,14 +559,23 @@
                             li.setAttribute('value', maquina.Id)
                             li.addEventListener('click', function () {
                                 abrirPopup(li.getAttribute('value'))
-
+                                
                             })
                             lista_maquinas.appendChild(li)
                             console.log(lista_maquinas)
-
+                            listaId.push(maquina.Id)
                         });
                     }
 
+                    // for (let index = 0; index < listaId.length; index++) {
+                    //     var id = listaId[index];
+                    //     exibirAlertas(id)
+                        
+                    // }
+
+                    proximaAtualizacao = setTimeout(() => {
+                            mostrarMaquinasFuncionarios(idEmpresa);
+                        }, 5000);
                 })
             }
             else {
@@ -572,8 +587,11 @@
         return false
     }
 
-    function montarListagemAlertas(alerta) {
+    var proximaAtualizacao;
+
+    function montarListagemAlertas(alerta) { 
         console.log(alerta)
+
         var liAlerta = document.createElement("li")
 
         var divAlertaRowInfo = document.createElement("div")
@@ -582,7 +600,7 @@
         var spanIdAlerta = document.createElement("span")
         spanIdAlerta.innerHTML = `Id: ${alerta.idPosse}`
         var spanTituloAlerta = document.createElement("span")
-        spanTituloAlerta.innerHTML = `Título: ${alerta.nomeAlerta}`
+        spanTituloAlerta.innerHTML = `Título: ${alerta.descricao}`
 
         divAlertaRowInfo.appendChild(spanIdAlerta)
         divAlertaRowInfo.appendChild(spanTituloAlerta)
@@ -601,17 +619,20 @@
 
 
     function exibirAlertas(idMaquina) {
-        fetch(`/exibiralertas/${idMaquina}`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                idMaquinaServer: idMaquina
-            })
+        fetch(`/alertas/exibiralertas/${idMaquina}`, {
+            cache: 'no-store'
         }).then(function (resposta) {
-
+            if (resposta.ok) {
+                div_lista_registro.innerHTML = ''
+                resposta.json().then(dados => {
+                    dados.forEach(alerta => {
+                        montarListagemAlertas(alerta);
+                    });
+                })
+            };
+                
         });
+
     }
 
     var vetorHora = [];
@@ -719,6 +740,7 @@
                         }
                         
                         idMaquinaAux = idMaquina;
+                        clearTimeout(cancelarTimeOut);
                         
                         switch (graficoInScreen) {
                             case "CPU":
@@ -750,81 +772,81 @@
             });
     }
 
-    function alertas(idMaquina, idEmpresa, PorcentagemCpu, downloadAlerta, uploadAlert) {
+    // function alertas(idMaquina, idEmpresa, PorcentagemCpu, downloadAlerta, uploadAlert) {
 
-        if (metrica.Processador != null) {
-            if (metrica.Processador < PorcentagemCpu) {
-                alertasRegistro(idMaquina, idEmpresa, 1, 20);
-            }
-        }
+    //     if (metrica.Processador != null) {
+    //         if (metrica.Processador < PorcentagemCpu) {
+    //             alertasRegistro(idMaquina, idEmpresa, 1, 20);
+    //         }
+    //     }
 
-        if (metrica.Ram != null) {
-            if (metrica.Ram < CapacidadeRamEmUso) {
-                alertasRegistro(idMaquina, idEmpresa, 2, 30);
-            }
-        }
+    //     if (metrica.Ram != null) {
+    //         if (metrica.Ram < CapacidadeRamEmUso) {
+    //             alertasRegistro(idMaquina, idEmpresa, 2, 30);
+    //         }
+    //     }
 
-        if (metrica.Disco != null) {
-            if (metrica.Disco < capacidadeDiscoLivre) {
-                alertasRegistro(idMaquina, idEmpresa, 3, 40);
-            }
-        }
+    //     if (metrica.Disco != null) {
+    //         if (metrica.Disco < capacidadeDiscoLivre) {
+    //             alertasRegistro(idMaquina, idEmpresa, 3, 40);
+    //         }
+    //     }
 
-        if (downloadAlerta == null || uploadAlert == null) {
-            alertasRegistro(idMaquina, idEmpresa, 4, 100);
-        }
-
-
-
-    }
-
-    function alertasRegistro(idMaquina, idEmpresa, tipoAlerta, pesoAlerta) {
-        fetch(`/datawatch/lancarMetricas`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                idMaquinaServer: idMaquina,
-                idEmpresaServer: idEmpresa,
-                tipoAlertaServer: tipoAlerta,
-                pesoAlertaServer: pesoAlerta
-            })
-        }).then(function (resposta) {
-            console.log("ESTOU NO THEN DO entrar()!")
-
-            if (resposta.ok) {
-                console.log(resposta);
-
-                // resposta.json().then(json => {
-                //     console.log(json);
-                //     console.log(JSON.stringify(json));
-
-                //     sessionStorage.EMAIL_USUARIO = json.email;
-                //     sessionStorage.NOME_USUARIO = json.nomeUsuario;
-                //     sessionStorage.ID_USUARIO = json.idUsuario;
-                //     sessionStorage.ID_EMPRESA = json.idEmpresa;
+    //     if (downloadAlerta == null || uploadAlert == null) {
+    //         alertasRegistro(idMaquina, idEmpresa, 4, 100);
+    //     }
 
 
 
-                // });
+    // }
 
-            } else {
+    // function alertasRegistro(idMaquina, idEmpresa, tipoAlerta, pesoAlerta) {
+    //     fetch(`/datawatch/lancarMetricas`, {
+    //         method: "POST",
+    //         headers: {
+    //             "Content-Type": "application/json"
+    //         },
+    //         body: JSON.stringify({
+    //             idMaquinaServer: idMaquina,
+    //             idEmpresaServer: idEmpresa,
+    //             tipoAlertaServer: tipoAlerta,
+    //             pesoAlertaServer: pesoAlerta
+    //         })
+    //     }).then(function (resposta) {
+    //         console.log("ESTOU NO THEN DO entrar()!")
 
-                console.log("Houve um erro ao tentar registrar os alertas");
+    //         if (resposta.ok) {
+    //             console.log(resposta);
 
-                // resposta.text().then(texto => {
-                //     console.error(texto);
+    //             // resposta.json().then(json => {
+    //             //     console.log(json);
+    //             //     console.log(JSON.stringify(json));
 
-                // });
-            }
+    //             //     sessionStorage.EMAIL_USUARIO = json.email;
+    //             //     sessionStorage.NOME_USUARIO = json.nomeUsuario;
+    //             //     sessionStorage.ID_USUARIO = json.idUsuario;
+    //             //     sessionStorage.ID_EMPRESA = json.idEmpresa;
 
-        }).catch(function (erro) {
-            console.log(erro);
-        })
 
-        return false;
-    }
+
+    //             // });
+
+    //         } else {
+
+    //             console.log("Houve um erro ao tentar registrar os alertas");
+
+    //             // resposta.text().then(texto => {
+    //             //     console.error(texto);
+
+    //             // });
+    //         }
+
+    //     }).catch(function (erro) {
+    //         console.log(erro);
+    //     })
+
+    //     return false;
+    // }
 
     // Gráfico RAM
     google.charts.load('current', { 'packages': ['corechart'] });
@@ -865,16 +887,16 @@
         // <br>Disponível:`;
         chart.draw(data, options);
         
-        setTimeout(() => obterdados(idMaquinaAux), 5000);
+        cancelarTimeOut = setTimeout(() => obterdados(idMaquinaAux), 5000);
     }
 
 
     // Gráfico CPU
-    function carregarGrafCPU() {
-        google.charts.load('current', { 'packages': ['corechart'] });
-        google.charts.setOnLoadCallback(drawChartCpu);
-        drawChartCpu()
-    }
+    // function carregarGrafCPU() {
+    //     google.charts.load('current', { 'packages': ['corechart'] });
+    //     google.charts.setOnLoadCallback(drawChartCpu);
+    //     drawChartCpu()
+    // }
     function drawChartCpu() {
         graficoInScreen = "CPU";
         dado1.style.display = 'block'
@@ -913,7 +935,7 @@
 
         chart.draw(data, options);
 
-        setTimeout(() => obterdados(idMaquinaAux), 5000);
+        cancelarTimeOut = setTimeout(() => obterdados(idMaquinaAux), 5000);
     }
 
     // Gráfico Disco
@@ -947,7 +969,7 @@
         // <br> Capacidade em uso: ${capacidadeDiscoLivre}`;
         chart.draw(data, options);
 
-        setTimeout(() => obterdados(idMaquinaAux), 5000);
+        cancelarTimeOut = setTimeout(() => obterdados(idMaquinaAux), 5000);
     }
 
     // Gráfico Rede
@@ -991,7 +1013,7 @@
 
         chart.draw(data, options);
         
-        setTimeout(() => obterdados(idMaquinaAux), 5000);
+        cancelarTimeOut = setTimeout(() => obterdados(idMaquinaAux), 5000);
     }
 
 </script>

@@ -1,26 +1,21 @@
 #!/bin/bash
 
-which figlet 
-if [ $? = 0 ];
+echo "$(tput setaf 15)Atualizando pacotes..."
+sleep 2
+sudo apt update && sudo apt upgrade
+if [ ! "$(which figlet 2> /dev/null)" ];
 then
-	return
-else
 	sudo apt install figlet
 fi
-
+clear
 echo "$(tput setaf 11)"
 figlet -c =========
 figlet -c DATAWATCH
 figlet -c =========
 echo "$(tput setaf 10)BEM VINDO AO CLIENTE DE INSTALACAO"
 echo "$(tput setaf 10)=================================="
-echo "$(tput setaf 15)Atualizando pacotes..."
 sleep 3
-#sudo apt update && sudo apt upgrade
-echo $(tput setaf 15)aguarde....
-sleep 3
-
-# ------------------ VERIFICANDO DOCKER E INSTALANDO -------------------------------------
+# -------------------------- VERIFICANDO DOCKER E INSTALANDO -------------------------------------
 docker --version 
 if [ $? = 0 ];
 then

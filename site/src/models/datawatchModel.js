@@ -315,9 +315,9 @@ GROUP BY
 
 function pegarAlertas(idMaquina) {
     var instrucao = `SELECT * FROM Alertas a
-                     JOIN Possuem p 
-                        ON p.fkAlerta = a.idAlerta
-                        AND p.fkMaquina = ${idMaquina};`
+    JOIN Log l
+       ON l.fkAlerta = a.idAlerta
+       AND l.fkMaquina = ${idMaquina};`
 
     return database.executar(instrucao);
 }

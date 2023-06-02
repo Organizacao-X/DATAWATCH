@@ -1,9 +1,9 @@
 var alertasModel = require("../models/alertasModel");
 
 function exibiralertas(req, res) {
-    var idMaquina = req.body.idMaquinaServer;
-
-    alertasModel.exibiralertas(idMaquina)
+    var idmaquina = req.params.idmaquina;
+    console.log(`AQUI Ó CORNO ${idmaquina}`)
+    alertasModel.exibiralertas(idmaquina)
         .then(
             function (resultado) {
                 if (resultado.length > 0) {
