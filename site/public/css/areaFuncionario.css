@@ -672,6 +672,10 @@ li {
   gap: 1rem;
 }
 
+.reiniciar b {
+  color: #0000;
+}
+
 .texto-reiniciar {
   font-size: 20px;
   margin-top: 5%;

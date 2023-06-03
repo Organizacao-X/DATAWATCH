@@ -320,9 +320,11 @@
                                     <span><b>Você deseja realmente reiniciar essa maquina?</b></span>
                                 </div>
                                 <div class="opcao2">
+                                    <!-- onclick="reiniciar()" -->
                                     <button class="btnS" id="confirm_reiniciar"><b>Sim</b></button>
                                     <button class="btnN" id="cancel_reiniciar"><b>Não</b></button>
                                 </div>
+                                <b>Requisição de reinicialização enviada</b>
                             </div>
                             <span class="X-5">&times;</span>
                         </div>
@@ -350,9 +352,11 @@
                     <div class="container">
                         <div class="tabs">
                             <input type="radio" id="radio-1" name="tabs" checked="">
-                            <button onclick="downloadFile('./JAR/ARCH-01/DATAWATCH-ARCH-01.sh', 'teste')"><label class="tab" for="radio-1" id="um">App 1</label></button>
+                            <button onclick="downloadFile('./JAR/ARCH-01/DATAWATCH-ARCH-01.sh', 'teste')"><label
+                                    class="tab" for="radio-1" id="um">App 1</label></button>
                             <input type="radio" id="radio-2" name="tabs">
-                            <button onclick="downloadFile('./JAR/ARCH-03/DATAWATCH-ARCH-03.sh', 'teste')"><label class="tab" for="radio-2" id="um">App 2</label></button>
+                            <button onclick="downloadFile('./JAR/ARCH-03/DATAWATCH-ARCH-03.sh', 'teste')"><label
+                                    class="tab" for="radio-2" id="um">App 2</label></button>
                             <span class="glider"></span>
                         </div>
                     </div>
@@ -363,6 +367,7 @@
     </div>
 
 </body>
+<script src="./js/funcionario.js"></script>
 <script>
 
     var graficoInScreen = "CPU";
@@ -415,6 +420,7 @@
         // puxar alertas desta máquina aqui
         exibirAlertas(idMaquina);
         // infoMaquina(maquina);
+        sessionStorage.ID_MAQUINA = idMaquina;
     }
 
     // função para fechar popup com o clique no botão
@@ -521,8 +527,11 @@
     x5.addEventListener('click', fecharModalReiniciarComX)
     document.body.addEventListener('keyup', fecharModalReiniciarComEsc)
 
-    buttonConfirmReiniciar.addEventListener('click', fecharModalReiniciarComX)
     buttonCancelarReiniciar.addEventListener('click', fecharModalReiniciarComX)
+    buttonConfirmReiniciar.addEventListener('click', function () {
+        setTimeout(fecharModalReiniciarComX, 1500);
+    });
+
 
     function getId() {
         var idEmpresa = sessionStorage.ID_EMPRESA;
@@ -600,19 +609,19 @@
                                 divStatus.setAttribute("class", "status2")
                                 spanStatus.innerHTML = " OFFLINE"
                             }
-                            
+
                             textAlert.appendChild(pTextAlert)
                             iconAlert.appendChild(textAlert)
                             divContent.appendChild(divStatus)
                             divContent.appendChild(spanStatus)
-                            
+
                             li.appendChild(icon)
                             li.appendChild(iconAlert)
-                            
+
                             li.appendChild(divContent)
-                            
+
                             li.style = "background-color: rgb(255, 179, 179)"
-                            
+
                             if (maquina.PesoAlerta == 0 || maquina.PesoAlerta == null) {
                                 li.style = "background-color: rgb(189, 255, 188)"
                             } else if (maquina.PesoAlerta >= 20 && maquina.PesoAlerta <= 69) {
@@ -623,7 +632,7 @@
                             li.setAttribute('value', maquina.Id)
                             li.addEventListener('click', function () {
                                 abrirPopup(li.getAttribute('value'))
-                                
+
                             })
                             lista_maquinas.appendChild(li)
                             console.log(lista_maquinas)
@@ -634,7 +643,7 @@
                     // for (let index = 0; index < listaId.length; index++) {
                     //     var id = listaId[index];
                     //     exibirAlertas(id)
-                        
+
                     // }
 
                     proximaAtualizacao = setTimeout(() => {
@@ -653,7 +662,7 @@
 
     var proximaAtualizacao;
 
-    function montarListagemAlertas(alerta) { 
+    function montarListagemAlertas(alerta) {
         console.log(alerta)
 
         var liAlerta = document.createElement("li")
@@ -694,7 +703,7 @@
                     });
                 })
             };
-                
+
         });
 
     }
