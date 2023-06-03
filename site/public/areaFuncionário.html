@@ -298,7 +298,7 @@
                         </div>
                     </div>
                     <div class="info-maquina" id="maquina-info" style="display: none;">
-                        <!-- <div class="modal-info">
+                        <div class="modal-info">
                             <div class="titulo-info">
                                 <span>Especificações técnicas da máquina</span>
                             </div>
@@ -308,9 +308,21 @@
                                 <span><b>Data de cadastro:</b> 04/04/2023</span>
                                 <span><b>Tempo de atividade:</b> 2d 5h 26min</span>
                             </div>
-                        </div> -->
-                        <div class="conteudo">
-                            <button class="reload">Reiniciar</button>
+                        </div>
+                        <div class="descricaoMaquina">
+                            <div class="imagemMaquina">
+                                <img src="./assets/imgs/monitor.png" alt="" style="width: 150px;">
+                            </div>
+                            <div class="informacoes">
+                                <div class="info">
+                                    <span><b>Id do alerta:</b> 1</span>
+                                    <span><b>Data do alerta:</b> 22/06/2020</span>
+                                    <span><b>Hora do alerta:</b> 23:30</span>
+                                </div>
+                            </div>
+                            <div class="conteudo">
+                                <button class="reload">Reiniciar</button>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-parent5">
@@ -494,7 +506,7 @@
         modalGrafico.style.display = "none"
         modalAlerta.style.display = 'none'
         graficoMenu2.style.display = 'none'
-        modalInfo.style.display = 'block'
+        modalInfo.style.display = 'flex'
         margemTop.style.marginTop = '5%'
     }
 
@@ -822,9 +834,6 @@
                             default:
                                 break;
                         }
-
-
-
                     });
                 } else {
 
@@ -1014,7 +1023,7 @@
         dado3.style.display = 'block'
         dado4.style.display = 'none'
 
-        console.log(capacidadeDiscoLivre)
+        console.log("Capacidade: " + capacidadeDiscoLivre)
 
         var data = google.visualization.arrayToDataTable([
             ['Disco', 'Memória'],
