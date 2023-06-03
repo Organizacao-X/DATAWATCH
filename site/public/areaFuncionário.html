@@ -320,11 +320,10 @@
                                     <span><b>Você deseja realmente reiniciar essa maquina?</b></span>
                                 </div>
                                 <div class="opcao2">
-                                    <!-- onclick="reiniciar()" -->
                                     <button class="btnS" id="confirm_reiniciar"><b>Sim</b></button>
                                     <button class="btnN" id="cancel_reiniciar"><b>Não</b></button>
                                 </div>
-                                <b>Requisição de reinicialização enviada</b>
+                                <b class="msgConfirm">Requisição de reinicialização enviada</b>
                             </div>
                             <span class="X-5">&times;</span>
                         </div>
@@ -529,7 +528,8 @@
 
     buttonCancelarReiniciar.addEventListener('click', fecharModalReiniciarComX)
     buttonConfirmReiniciar.addEventListener('click', function () {
-        setTimeout(fecharModalReiniciarComX, 1500);
+        reiniciar();
+        setTimeout(fecharModalReiniciarComX, 2000);
     });
 
 

@@ -672,15 +672,23 @@ li {
   gap: 1rem;
 }
 
-.reiniciar b {
+.msgConfirm {
   color: #0000;
+}
+
+@keyframes fade-in {
+  0% {
+    color: #00000000;
+  }
+  100% {
+    color: #000000;
+  }
 }
 
 .texto-reiniciar {
   font-size: 20px;
   margin-top: 5%;
 }
-
 
 .X-5 {
   position: absolute;
