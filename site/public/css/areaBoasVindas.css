@@ -1,4 +1,3 @@
-
 * {
   margin: 0;
   padding: 0;
@@ -257,16 +256,25 @@ header {
   margin-top: 5px;
   background-color: #5f5f5f;
 }
-.img2{
+
+.img1 {
+  background-image: url("../assets/imgs/diretorInterface.png");
+  background-position: 30% 45%;
+  background-size: cover;
+}
+
+.img2 {
   background-image: url("../assets/dashGerente.jpg");
   background-position: 30% 45%;
   background-size: cover;
 }
-.img3{
-  background-image: url("../assets/dashFuncionario.jpg");
+
+.img3 {
+  background-image: url("../assets/imgs/funcInterface.png");
   background-position: 30% 45%;
   background-size: cover;
 }
+
 .texto {
   /* border: 1px solid rgb(0, 255, 85); */
   display: flex;
@@ -281,13 +289,15 @@ header {
   justify-content: start;
   align-items: center;
   flex-direction: column;
- /*  border: 1px solid rgb(0, 255, 85); */
+  /*  border: 1px solid rgb(0, 255, 85); */
   width: 93%;
   height: 180px;
 }
-.botaoArea p{
+
+.botaoArea p {
   margin: 20px 0;
 }
+
 .botaoArea button {
   width: 250px;
   color: #fff;
@@ -299,7 +309,8 @@ header {
   border-radius: 10px;
   transition: all 0.5s;
 }
-.uuid_usuario{
+
+.uuid_usuario {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -307,6 +318,7 @@ header {
   height: 30px;
   background-color: #e3e3e3;
 }
+
 .botaoArea button:hover {
   cursor: pointer;
   outline: none;
@@ -315,7 +327,7 @@ header {
 }
 
 /* POS CADASTRO */
-.posContainer{
+.posContainer {
   margin-top: 70px;
   display: flex;
   width: 100%;
@@ -324,7 +336,7 @@ header {
   align-items: center;
 }
 
-.box-aviso{
+.box-aviso {
   padding: 30px;
   display: flex;
   justify-content: start;
@@ -336,18 +348,20 @@ header {
   border-radius: 10px;
 }
 
-hr{
+hr {
   border: none;
   background-color: #F2CB05;
   height: 3px;
   width: 70%;
   margin: 10px 0 30px 0;
 }
+
 .imgsAssinatura {
   display: flex;
   justify-content: start;
   align-items: center;
-  position: relative; /* Adiciona position: relative ao container para que o position: fixed do imgGif funcione corretamente */
+  position: relative;
+  /* Adiciona position: relative ao container para que o position: fixed do imgGif funcione corretamente */
 }
 
 #imgLogo {
@@ -364,6 +378,7 @@ hr{
   top: 60px;
   left: 10px;
 }
+
 .lds-ripple div {
   position: absolute;
   border: 4px solid #fff;
@@ -371,9 +386,11 @@ hr{
   border-radius: 50%;
   animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
 }
+
 .lds-ripple div:nth-child(2) {
   animation-delay: -0.5s;
 }
+
 @keyframes lds-ripple {
   0% {
     top: 36px;
@@ -382,6 +399,7 @@ hr{
     height: 0;
     opacity: 0;
   }
+
   4.9% {
     top: 36px;
     left: 36px;
@@ -389,6 +407,7 @@ hr{
     height: 0;
     opacity: 0;
   }
+
   5% {
     top: 36px;
     left: 36px;
@@ -396,6 +415,7 @@ hr{
     height: 0;
     opacity: 1;
   }
+
   100% {
     top: 0px;
     left: 0px;
