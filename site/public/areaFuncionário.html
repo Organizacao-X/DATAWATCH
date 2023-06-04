@@ -205,39 +205,29 @@
                         <div class="barra">
                             <div class="div-content1" id="troca1">
                                 <div class="dados-cpu">
-                                    <span><b>Processador:</b> Intel Xeon</span>
-                                    <span><b>Frequência:</b> 2,5 Ghz</span>
-                                    <span><b>Uso de Processador</b> 15 %</span>
+                                    <span><b>Processador: </b> <span id="span_cpuNome"></span></span>
+                                    <span><b>Uso de Processador: </b> <span id="span_cpuPorcentagem"></span> % de
+                                        uso</span>
                                 </div>
                             </div>
 
                             <div class="div-content2" id="troca2" style="display: none;">
                                 <div class="dados-ram">
-                                    <span><b>Memória:</b> Corsair DDR4</span>
-                                    <span><b>Memória RAM total:</b> 3,9 GB</span>
-                                    <span><b>Em uso:</b> 2,5 GB</span>
-                                    <span><b>Livre:</b> 1,4 GB</span>
+                                    <!-- <span><b>Memória:</b> <span id="span_ramNome">Corsair DDR4</span></span> -->
+                                    <span><b>Memória RAM total: </b> <span id="span_ramTotal"></span> GB</span>
+                                    <span><b>Em uso: </b> <span id="span_ramUsado"></span> GB</span>
+                                    <span><b>Livre: </b> <span id="span_ramLivre"></span> GB</span>
                                 </div>
                             </div>
 
                             <div class="div-content3" id="troca3" style="display: none;">
                                 <div class="dados-disco">
                                     <div class="disco-um">
-                                        <span><b>Disco 1:</b> SSDDriver-KingsTon</span>
-                                        <span><b>Capacidade Total:</b> 96 GB</span>
-                                        <span><b>Capacidade Livre:</b> 34 GB</span>
-                                    </div>
-
-                                    <div class="disco-dois">
-                                        <span><b>Disco 2:</b> HDDriverHardDisc</span>
-                                        <span><b>Capacidade Total:</b> 786,4 GB</span>
-                                        <span><b>Capacidade Livre:</b> 344,2 GB</span>
-                                    </div>
-
-                                    <div class="disco-tres">
-                                        <span><b>Disco 3:</b> Nenhum</span>
-                                        <span><b>Capacidade Total:</b> Nenhum</span>
-                                        <span><b>Capacidade Livre:</b> Nenhum</span>
+                                        <span><b>Disco 1: </b> <span
+                                                id="span_disco1Nome"></span></span>
+                                        <span><b>Capacidade Total: </b> <span id="span_disco1Total"></span></span>
+                                        <span><b>Capacidade Livre: </b> <span id="span_disco1Livre"></span></span>
+                                        <span><b>Capacidade Usado: </b> <span id="span_disco1Usado"></span></span>
                                     </div>
                                 </div>
                             </div>
@@ -245,14 +235,12 @@
                             <div class="div-content4" id="troca4" style="display: none;">
                                 <div class="dados-rede">
                                     <div class="ip">
-                                        <span><b>Host:</b> Express</span>
-                                        <span><b>Endereço IPv4:</b> 192.168.0.1</span>
-                                        <span><b>Endereço IPv6:</b> 2001:0db8:85a3:0000:0000:8a2e:0370:7334</span>
+                                        <span><b>Endereço IPv4: </b><span id="span_ip4"></span></span>
                                     </div>
 
                                     <div class="bytes">
-                                        <span><b>Bytes recebidos:</b> 12 GB</span>
-                                        <span><b>Bytes enviados:</b> 45 GB</span>
+                                        <span><b>Bytes recebidos: </b> <span id="span_bytesRecebidos"></span> MB</span>
+                                        <span><b>Bytes enviados: </b> <span id="span_bytesEnviados"></span> MB</span>
                                     </div>
                                 </div>
                             </div>
@@ -303,26 +291,13 @@
                                 <span>Especificações técnicas da máquina</span>
                             </div>
                             <div class="dados-maquina">
-                                <span><b>Nome da máquina:</b> maquina02</span>
-                                <span><b>Sistema Operacional:</b> Ubuntu 22.04 LTS</span>
-                                <span><b>Data de cadastro:</b> 04/04/2023</span>
-                                <span><b>Tempo de atividade:</b> 2d 5h 26min</span>
+                                <span><b>Nome da máquina:</b> <span id="span_nomeDaMaquina"></span> </span>
+                                <span><b>Sistema Operacional:</b> <span id="span_sistemaOperacional"></span> </span>
+                                <span><b>Tempo de atividade:</b> <span id="span_tempoAtividade"></span> </span>
                             </div>
                         </div>
-                        <div class="descricaoMaquina">
-                            <div class="imagemMaquina">
-                                <img src="./assets/imgs/monitor.png" alt="" style="width: 150px;">
-                            </div>
-                            <div class="informacoes">
-                                <div class="info">
-                                    <span><b>Id do alerta:</b> 1</span>
-                                    <span><b>Data do alerta:</b> 22/06/2020</span>
-                                    <span><b>Hora do alerta:</b> 23:30</span>
-                                </div>
-                            </div>
-                            <div class="conteudo">
-                                <button class="reload">Reiniciar</button>
-                            </div>
+                        <div class="conteudo">
+                            <button class="reload">Reiniciar</button>
                         </div>
                     </div>
                     <div class="modal-parent5">
@@ -602,10 +577,15 @@
 
                             var divContent = document.createElement("div")
                             divContent.setAttribute("class", "content")
-
+                            span_nomeDaMaquina.innerHTML = ` ${maquina.nomeMaquina}`
+                            span_sistemaOperacional.innerHTML = ` ${maquina.sistemaOperacional}`
+                            span_tempoAtividade.innerHTML = ` ${maquina.tempo_formatado}`
+                            
                             var divStatus = document.createElement("div")
                             var spanStatus = document.createElement("span")
-                            if (maquina.statusSistema == 1) {
+
+                            let fiscalDeAtividade = 20
+                            if (maquina.tempoEmMilissegundos < fiscalDeAtividade) {
                                 divStatus.setAttribute("class", "status")
                                 spanStatus.innerHTML = " ONLINE"
                             } else {
@@ -714,10 +694,12 @@
     var vetorHora = [];
     var vetorRedeUpload = [];
     var vetorRedeDownload = [];
+    var Ip4
 
     //PROCESSADOR
     var vetorPorcentagemCpu = [];
     var vetorHorasPorcentagem = [];
+    var nomeCpu
 
     //TEMPERATURA
     var temperatura = [];
@@ -725,6 +707,13 @@
     // DISCO
     var capacidadeDiscoTotal = 0;
     var capacidadeDiscoLivre = 0;
+    var nomeDisco1
+    var nomeDisco2
+    var discoLivre1
+    var discoLivre2
+    var discoTotal1
+    var discoTotal2
+
 
     // RAM 
     var CapacidadeRamTotal = 0;
@@ -737,6 +726,8 @@
         Ram: "",
         Disco: ""
     }
+
+
 
     function obterdados(idMaquina) {
         var idEmpresa = sessionStorage.ID_EMPRESA
@@ -789,18 +780,25 @@
                             // REDE (Banco)
                             vetorRedeDownload.push(registro.download);
                             vetorRedeUpload.push(registro.upload);
+                            ip4 = registro.ipv4
 
                             // CPU (Banco)
                             vetorPorcentagemCpu.push(registro.cpuuso);
+                            nomeCpu = registro.nomeCpu
 
                             // TEMPERATURA (Banco)
                             temperatura.push(registro.temperatura);
 
                             // DISCO (Banco)
-                            capacidadeDiscoLivre = registro.discolivre;
-                            capacidadeDiscoTotal1 = registro.discoTotal1;
+                            capacidadeDiscoLivre = registro.discolivre1;
+                            capacidadeDiscoLivre2 = registro.discolivre2;
+                            capacidadeDiscoTotal = registro.discoTotal1;
                             capacidadeDiscoTotal2 = registro.discoTotal2;
-                            capacidadeDiscoTotal3 = registro.discoTotal3;
+                            nomeDisco1 = registro.nomeDisco1
+                            discolivre1 = registro.discolivre1
+                            discoTotal1 = registro.discoTotal1
+
+
 
                             // RAM (Banco)
                             CapacidadeRamTotal = registro.ramTotal;
@@ -812,7 +810,6 @@
                             metrica.Ram = registro.ramMetrica;
                             metrica.Disco = registro.discoMetrica;
 
-                            capacidadeDiscoTotal = registro.discoTotal
                         }
 
                         idMaquinaAux = idMaquina;
@@ -820,7 +817,7 @@
 
                         switch (graficoInScreen) {
                             case "CPU":
-                                carregarGrafCPU();
+                                drawChartCpu();
                                 break;
                             case "RAM":
                                 drawChartRam();
@@ -934,6 +931,10 @@
         dado3.style.display = 'none'
         dado4.style.display = 'none'
 
+        span_ramTotal.innerHTML = `${CapacidadeRamTotal}`
+        span_ramUsado.innerHTML = `${vetorCapacidadeRamEmUso[vetorCapacidadeRamEmUso.length-1]}`
+        span_ramLivre.innerHTML = `${(CapacidadeRamTotal - vetorCapacidadeRamEmUso[vetorCapacidadeRamEmUso.length-1]).toFixed(2)}`
+
         var data = google.visualization.arrayToDataTable([
             ['Horário', 'uso da Ram'],
             [vetorHora[0], vetorCapacidadeRamEmUso[0]],
@@ -963,7 +964,7 @@
         cancelarTimeOut = setTimeout(() => obterdados(idMaquinaAux), 5000);
     }
 
-
+    var cancelarTimeOut
     // Gráfico CPU
     // function carregarGrafCPU() {
     //     google.charts.load('current', { 'packages': ['corechart'] });
@@ -976,6 +977,9 @@
         dado2.style.display = 'none'
         dado3.style.display = 'none'
         dado4.style.display = 'none'
+
+        span_cpuNome.innerHTML = `${nomeCpu}`
+        span_cpuPorcentagem.innerHTML = `${vetorPorcentagemCpu[0]}`
 
         console.log(vetorHora, vetorPorcentagemCpu)
         var data = google.visualization.arrayToDataTable([
@@ -1023,7 +1027,23 @@
         dado3.style.display = 'block'
         dado4.style.display = 'none'
 
-        console.log("Capacidade: " + capacidadeDiscoLivre)
+        span_disco1Nome.innerHTML = `${nomeDisco1}`
+        span_disco1Total.innerHTML = `${discoTotal1} GBs`
+        span_disco1Livre.innerHTML = `${discolivre1} GBs`
+        var porcentagemUsada = (((discoTotal1 - discolivre1).toFixed(2) * 100) / discoTotal1).toFixed(2)
+        var porcentagem90 = (discoTotal1 * 0.9).toFixed(2);
+        console.log(porcentagem90 + " 90% do total: " + discoTotal1)
+        console.log("este é o tanto usado: " + (discoTotal1 - discolivre1).toFixed(2) ) 
+        var porcentagemUsadaVermelho = "<b style='color: #FF5012;'>"+porcentagemUsada+"</b>"
+        if (porcentagemUsada >= porcentagem90) {
+            span_disco1Usado.innerHTML = `${(discoTotal1 - discolivre1).toFixed(2)} GBs (${porcentagemUsada}%)`
+        } else {
+            span_disco1Usado.innerHTML = `${(discoTotal1 - discolivre1).toFixed(2)} GBs (${porcentagemUsadaVermelho}%)`
+        }
+
+
+        console.log(capacidadeDiscoLivre)
+        console.log(capacidadeDiscoTotal)
 
         var data = google.visualization.arrayToDataTable([
             ['Disco', 'Memória'],
@@ -1056,6 +1076,10 @@
         dado2.style.display = 'none'
         dado3.style.display = 'none'
         dado4.style.display = 'block'
+
+        span_ip4.innerHTML = `${ip4}`
+        span_bytesRecebidos.innerHTML = `${vetorRedeDownload[vetorRedeDownload.length - 1]}`
+        span_bytesEnviados.innerHTML = `${vetorRedeUpload[vetorRedeUpload.length - 1]}`
 
         var data = google.visualization.arrayToDataTable([
             ['horário', 'Upload', 'Download'],

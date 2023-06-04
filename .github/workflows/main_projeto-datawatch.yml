@@ -52,5 +52,5 @@ jobs:
         with:
           app-name: 'projeto-datawatch'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_35DD5796969044D08A2898FB0F8B5D61 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F67302DE19FF4AA99C5BD99667ADE5F0 }}
           package: .
