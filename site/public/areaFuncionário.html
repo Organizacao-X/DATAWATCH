@@ -323,7 +323,7 @@
                                     <button class="btnS" id="confirm_reiniciar"><b>Sim</b></button>
                                     <button class="btnN" id="cancel_reiniciar"><b>Não</b></button>
                                 </div>
-                                <b class="msgConfirm">Requisição de reinicialização enviada</b>
+                                <b class="msgConfirm">Requisição enviada</b>
                             </div>
                             <span class="X-5">&times;</span>
                         </div>
@@ -420,6 +420,7 @@
         exibirAlertas(idMaquina);
         // infoMaquina(maquina);
         sessionStorage.ID_MAQUINA = idMaquina;
+        validarReboot(sessionStorage.ID_MAQUINA);
     }
 
     // função para fechar popup com o clique no botão
@@ -494,7 +495,7 @@
         modalInfo.style.display = 'none'
         margemTop.style.marginTop = '5%'
     }
-
+    
     function abaInfo() {
         modalGrafico.style.display = "none"
         modalAlerta.style.display = 'none'
@@ -502,20 +503,24 @@
         modalInfo.style.display = 'block'
         margemTop.style.marginTop = '5%'
     }
+    
+    var msg = document.getElementsByClassName("msgConfirm");
 
-    function abrirModalReiniciar() {
+    function abrirModalReiniciar() {        
         modalReiniciar.style.display = 'block'
         sessaoElem.style.filter = 'blur(10px)'
         buttonReiniciar.blur()
     }
 
     function fecharModalReiniciarComX() {
+        msg[0].style = "color: #0000;"
         modalReiniciar.style.display = 'none'
         sessaoElem.style.filter = 'blur(0px)'
     }
-
+    
     function fecharModalReiniciarComEsc(event) {
         if (event.keyCode === 27) {
+            msg[0].style = "color: #0000;"
             modalReiniciar.style.display = 'none'
             sessaoElem.style.filter = 'blur(0px)'
             clearTimeout(cancelarTimeOut);
@@ -528,7 +533,7 @@
 
     buttonCancelarReiniciar.addEventListener('click', fecharModalReiniciarComX)
     buttonConfirmReiniciar.addEventListener('click', function () {
-        reiniciar();
+        reiniciar(sessionStorage.ID_MAQUINA);
         setTimeout(fecharModalReiniciarComX, 2000);
     });
 

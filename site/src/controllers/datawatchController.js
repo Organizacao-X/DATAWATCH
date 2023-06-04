@@ -274,8 +274,8 @@ function autenticarDiretor(req, res) {
                     console.log(`\nResultados encontrados: ${resultado.length}`);
                     console.log(`Resultados: ${JSON.stringify(resultado)}`); // transforma JSON em String
 
-                        console.log(resultado);
-                        res.json(resultado[0]);
+                    console.log(resultado);
+                    res.json(resultado[0]);
                 }
             ).catch(
                 function (erro) {
@@ -420,7 +420,7 @@ function editarFuncionario(req, res) {
     var idFunc = req.params.idFuncionario;
     var email = req.body.novoEmailServer;
     var senha = req.body.novaSenhaServer;
-    
+
     if (idFunc == undefined) {
         res.status(400).send("Seu idFunc está undefined");
     } else {
@@ -630,22 +630,40 @@ function rebootar(req, res) {
         );
 }
 
-function pegarDadosGraficoEmpilhado(req, res) {
-    var fkEmpresa = req.params.idEmpresa;
+function validarReboot(req, res) {
+    var fkMaquina = req.body.idMaquinaServer;
+    var fkEmpresa = req.body.fkEmpresaServer;
 
-    datawatchModel.pegarDadosGraficoEmpilhado(fkEmpresa)
-    .then(
+    datawatchModel.validarReboot(fkMaquina, fkEmpresa).then(
         function (resultado) {
             res.json(resultado);
         }
     )
-    .catch (
+    .catch(
         function (erro) {
             console.log(erro);
-            console.log("Houve um erro ao tentar rebootar: ", erro.sqlMessage);
+            console.log("Houve um erro ao tentar validar o reboot: ", erro.sqlMessage);
             res.status(500).json(erro.sqlMessage);
         }
     );
+}
+
+function pegarDadosGraficoEmpilhado(req, res) {
+    var fkEmpresa = req.params.idEmpresa;
+
+    datawatchModel.pegarDadosGraficoEmpilhado(fkEmpresa)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao tentar rebootar: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
 }
 
 module.exports = {
@@ -672,5 +690,6 @@ module.exports = {
     pegarFiliais,
     pegarAlertas,
     rebootar,
+    validarReboot,
     pegarDadosGraficoEmpilhado
 }

@@ -4,7 +4,6 @@
   font-family: system-ui, -apple-system, Helvetica, Arial, sans-serif;
 }
 
-
 /* Navbar */
 body {
   background-color: #505050;
@@ -598,6 +597,10 @@ li {
 .conteudo button:active {
   box-shadow: 0 0 0 black;
   transform: translate(0, 0);
+}
+
+.opcao2 {
+  display: none;
 }
 
 .opcao2 button {
