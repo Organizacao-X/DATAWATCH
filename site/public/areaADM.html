@@ -340,7 +340,6 @@
         </div>
     </div>
 
-
     <!-- <script src="js/modal.js"></script> -->
     <!-- <script src="js/excluir.js"></script> -->
 </body>
@@ -747,21 +746,25 @@
                                     <span id="todasMaquinas">${dados[i].nomeMaquina}</span>
                                 </div>
                             </div>`
+
+                            var dataHoraAtual = new Date();
+                            var dataHoraBanco = new Date (dados[i].dataHora)
+                            dataHoraBanco.setHours(dataHoraBanco.getHours() + 3);
+                            var diferencaMilissegundos = dataHoraAtual - dataHoraBanco;
+
                             /* 3456000000   < 40 dias em milisegundos para testes              2505600000 < 29 dias*/
-                            let fiscalDeAtividade = 2505600000
-                            console.log(dados[i].tempo_total)
+                            let fiscalDeAtividade = 60000
+                            
                             const statusSpan = document.getElementById(`status${i}`);
                             const statusImg = document.getElementById(`img${i}`);
 
-                            var tempoEmMilissegundos = dados[i].tempo_total_milissegundos
-                            console.log(tempoEmMilissegundos)
-                            if (tempoEmMilissegundos < fiscalDeAtividade) {
-                                console.log(i + "online: " + tempoEmMilissegundos)
+                            if (diferencaMilissegundos < fiscalDeAtividade) {
+                                console.log(i + "online: " + diferencaMilissegundos)
                                 statusImg.innerHTML = `<img src="./assets/icon/circulo(1).png" alt=""
                                             style="width: 18px;">`
                                 statusSpan.innerHTML += `<b>Online</b>`
                             } else {
-                                console.log(i + "offline: " + tempoEmMilissegundos)
+                                console.log(i + "offline: " + diferencaMilissegundos)
                                 statusImg.innerHTML = `<img src="./assets/icon/circulo.png" alt=""
                                             style="width: 18px;">`
                                 statusSpan.innerHTML += `<b>Offline</b>`
