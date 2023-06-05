@@ -783,11 +783,13 @@ li {
 .tabs button {
   background-color: transparent;
   border: none;
+  height: 50px;
 }
 
 .container input[type="radio"] {
   display: none;
 }
+
 
 .tab {
   display: flex;
@@ -795,10 +797,9 @@ li {
   justify-content: center;
   height: 30px;
   width: 80px;
-  font-size: .8rem;
   color: black;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 15px;
   cursor: pointer;
   transition: color 0.15s ease-in;
 }
@@ -808,19 +809,20 @@ li {
 }
 
 .container input[id="radio-1"]:checked ~ .glider {
-  transform: translateX(0%);
+  transform: translateX(-10%);
+  height: 50px;
 }
 
 .container input[id="radio-2"]:checked ~ .glider {
-  transform: translateX(200%);
+  transform: translateX(150%);
 }
 
 
 .glider {
   position: absolute;
   display: flex;
-  height: 35px;
-  width: 80px;
+  height: 50px;
+  width: 100px;
   background-color: #181818;
   z-index: 1;
   border-radius: 10px;

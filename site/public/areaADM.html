@@ -47,6 +47,7 @@
                             href="./cadastroFuncionario.html">Cadastrar funcionário</a></li>
                     <li onclick="abrirModalBaixar()"><span class="menu__item">Baixar aplicativo</span></li>
                     <li><a class="menu__item" href="#" onclick="limparSessao()">Logout</a></li>
+                    <li><a class="menu__item" target="_blank" href="https://datawattch.atlassian.net/servicedesk/customer/portal/2">Suporte</a></li>
                 </ul>
             </div>
 
@@ -143,12 +144,7 @@
                 <div class="titulo-execucao">
                     <span><b>Maquinas em tempo de execução</b></span>
                 </div>
-                <div class="time-container">
-                    <div class="info-reloader">
-                        <span><b>Próxima reinicialização:</b> 5 dias</span>
-                        <button class="edit-date">Editar data</button>
-                    </div>
-                </div>
+
                 <div class="temp-yes">
                     <ul id="ul_lista_maquinas" class="lista-maquina">
                         <!-- <li>
@@ -332,11 +328,9 @@
                     <div class="container">
                         <div class="tabs">
                             <input type="radio" id="radio-1" name="tabs" checked="">
-                            <button onclick="downloadFile('./JAR/ARCH-01/DATAWATCH-ARCH-01.sh', 'teste')"><label
-                                    class="tab" for="radio-1" id="um">App 1</label></button>
+                            <button onclick="downloadFile('./JAR/ARCH-01/DATAWATCH-ARCH-01.sh', 'DATAWATCH-ARCH-01.sh')"><label class="tab" for="radio-1" id="um">Datawatch Nativo</label></button>
                             <input type="radio" id="radio-2" name="tabs">
-                            <button onclick="downloadFile('./JAR/ARCH-03/DATAWATCH-ARCH-03.sh', 'teste')"><label
-                                    class="tab" for="radio-2" id="um">App 2</label></button>
+                            <button onclick="downloadFile('./JAR/ARCH-03/DATAWATCH-ARCH-03.sh', 'DATAWATCH-ARCH-03.sh')"><label class="tab" for="radio-2" id="um">Datawatch Container</label></button>
                             <span class="glider"></span>
                         </div>
                     </div>
@@ -439,13 +433,13 @@
 
     const $ = document
     let modalEditarFuncionario, modalDesativarFuncionario, modalMostrarMais, modalEditarDateReiniciar,
-        modalReiniciar, sessaoElem, buttonMostrarMais, x3, buttonEditFuncionario, buttonDesativarFuncionario,
+        modalReiniciar, buttonMostrarMais, x3, buttonEditFuncionario, buttonDesativarFuncionario,
         buttonSalvarEdit, buttonCancelarEdit, buttonConfirmDesativar, buttonCancelarDesativar, x1, x2,
         buttonEditarDateReiniciar, buttonReiniciar, buttonConfirmReiniciar, buttonCancelarReiniciar, buttonSalvarEditDate, buttonCancelarEditDate, x4, x5
 
     const modalBaixar = $.querySelector('.modal-parent7');
     const x7 = $.querySelector('.X-7');
-
+    const sessaoElem = $.querySelector('section')
 
     function downloadFile(url, fileName) {
         var link = document.createElement('a');
