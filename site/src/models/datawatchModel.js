@@ -382,6 +382,20 @@ ORDER BY dh.dataHora1, m.nomeMaquina;`
     return database.executar(instrucao);
 }
 
+function maiorConsumoRam(fkEmpresa) {
+    console.log("Acessei PEGAR DADOS GRÁFICO EMPILHADO");
+
+    var instrucao = `
+    SELECT  top 3 SUM(ramuso) as somaram, FORMAT(CONVERT(datetime, dataHora, 120), 'HH:00') as horaPico FROM [dbo].[Capturas]
+    JOIN [dbo].[Maquinas] ON Capturas.fkMaquina = Maquinas.idMaquina
+    WHERE Maquinas.fkEmpresa = ${fkEmpresa}
+    GROUP BY  FORMAT(CONVERT(datetime, dataHora, 120), 'HH:00')
+    ORDER BY somaram desc`
+
+    console.log("Executando a instrução: " + instrucao);
+    return database.executar(instrucao);
+}
+
 module.exports = {
     entrar,
     autenticarDiretor,
@@ -407,5 +421,6 @@ module.exports = {
     rebootar,
     validarReboot,
     pegarDadosGraficoEmpilhado,
-    atualizarStatusMaquinas
+    atualizarStatusMaquinas,
+    maiorConsumoRam
 };

@@ -686,6 +686,24 @@ function pegarDadosGraficoEmpilhado(req, res) {
         );
 }
 
+function maiorConsumoRam(req, res) {
+    var fkEmpresa = req.params.idEmpresa;
+
+    datawatchModel.maiorConsumoRam(fkEmpresa)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao tentar pegar maior horario: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
 module.exports = {
     entrar,
     autenticarDiretor,
@@ -712,5 +730,6 @@ module.exports = {
     rebootar,
     validarReboot,
     pegarDadosGraficoEmpilhado,
-    atualizarStatusMaquinas
+    atualizarStatusMaquinas,
+    maiorConsumoRam
 }

@@ -178,6 +178,9 @@
 
                     </div>
                 </div>
+                <div id="container_kpi"><span><b id="b_titulo">TOP 3 HORARIOS DE PICO</b></span>
+                    <div id="kpi_grafico"><span id="kpi1"></span><span id="kpi2"></span><span id="kpi3"></span></div>
+                </div>
             </div>
         </div>
     </section>
@@ -742,83 +745,6 @@
         return false
     }
 
-    // function mostrarMaquinas(idEmpresa) {
-    //     fetch("/datawatch/pegarMaquinas", {
-    //         method: "POST",
-    //         headers: {
-    //             "Content-Type": "application/json"
-    //         },
-    //         body: JSON.stringify({
-    //             idEmpresaServer: idEmpresa
-    //         })
-    //     }).then(function (resposta) {
-
-    //         if (resposta.ok) {
-    //             resposta.json().then(dados => {
-    //                 console.log(dados)
-    //                 var totalMaquinas = dados.length
-    //                 var maquinasLigadas = 0
-    //                 if (dados.length > 0) {
-
-    //                     for (let i = 0; i < dados.length; i++) {
-    //                         if (dados[i].statusSistema == 1) {
-    //                             maquinasLigadas++
-    //                         }
-    // mais_maquinas.innerHTML += `<div class="info-saber-mais">
-    //     <div class="conexao-saber-mais">
-    //         <div class="status-maquina" id="img${i}">
-    //         </div>
-    //         <span id="status${i}"></span>
-    //     </div>
-    //     <div class="nome-maquina">
-    //         <span id="todasMaquinas">${dados[i].nomeMaquina}</span>
-    //     </div>
-    // </div>`
-
-    //                         var dataHoraAtual = new Date();
-    //                         var dataHoraBanco = new Date (dados[i].dataHora)
-    //                         dataHoraBanco.setHours(dataHoraBanco.getHours() + 3);
-    //                         var diferencaMilissegundos = dataHoraAtual - dataHoraBanco;
-
-    //                         /* 3456000000   < 40 dias em milisegundos para testes              2505600000 < 29 dias*/
-    //                         let fiscalDeAtividade = 60000
-
-    // const statusSpan = document.getElementById(`status${i}`);
-    // const statusImg = document.getElementById(`img${i}`);
-
-    //                         if (diferencaMilissegundos < fiscalDeAtividade) {
-    //                             console.log(i + "online: " + diferencaMilissegundos)
-    //                             statusImg.innerHTML = `<img src="./assets/icon/circulo(1).png" alt=""
-    //                                         style="width: 18px;">`
-    //                             statusSpan.innerHTML += `<b>Online</b>`
-    //                         } else {
-    //                             console.log(i + "offline: " + diferencaMilissegundos)
-    //                             statusImg.innerHTML = `<img src="./assets/icon/circulo.png" alt=""
-    //                                         style="width: 18px;">`
-    //                             statusSpan.innerHTML += `<b>Offline</b>`
-    //                         }
-    //                     }
-    //                     span_porcent_maquinas_ligadas.innerHTML = `${(maquinasLigadas * 100 / totalMaquinas).toFixed(0)}%`
-
-
-    //                     dados.forEach(maquina => {
-    //                         if (maquina.statusSistema == 1) {
-    //                             carregarTempoAtivMaquinaTela(maquina)
-
-    //                         }
-    //                     })
-    //                 }
-    //             })
-    //         }
-    //         else {
-    //             throw (JSON.stringify(resposta))
-    //         }
-    //     }).catch(function (resposta) {
-    //         console.log(`ERRO: ${resposta}`);
-    //     })
-    //     return false
-    // }
-
     let timeoutMaquinas;
 
     function mostrarMaquinas(idEmpresa, statusMaquinas) {
@@ -839,41 +765,6 @@
                     var maquinasLigadas = 0
                     if (dados.length > 0) {
                         mais_maquinas.innerHTML = ''
-                        // for (let i = 0; i < dados.length; i++) {
-                        //     if (dados[i].statusSistema == 1) {
-                        //         maquinasLigadas++
-                        //     }
-                        //     mais_maquinas.innerHTML += `<div class="info-saber-mais">
-                        //         <div class="conexao-saber-mais">
-                        //             <div class="status-maquina" id="img${i}">
-                        //             </div>
-                        //             <span id="status${i}"></span>
-                        //         </div>
-                        //         <div class="nome-maquina">
-                        //             <span id="todasMaquinas">${dados[i].nomeMaquina}</span>
-                        //         </div>
-                        //     </div>`
-                        //     /* 3456000000   < 40 dias em milisegundos para testes              2505600000 < 29 dias*/
-                        //     let fiscalDeAtividade = 2505600000
-                        //     // console.log(dados[i].tempo_total)
-                        //     const statusSpan = document.getElementById(`status${i}`);
-                        //     const statusImg = document.getElementById(`img${i}`);
-
-                        //     var tempoEmMilissegundos = dados[i].tempo_total_milissegundos
-                        //     // console.log(tempoEmMilissegundos)
-                        // if (tempoEmMilissegundos < fiscalDeAtividade) {
-                        //     // console.log(i + "online: " + tempoEmMilissegundos)
-                        //     statusImg.innerHTML = `<img src="./assets/icon/circulo(1).png" alt=""
-                        //                 style="width: 18px;">`
-                        //     statusSpan.innerHTML += `<b>Online</b>`
-                        // } else {
-                        //     // console.log(i + "offline: " + tempoEmMilissegundos)
-                        //     statusImg.innerHTML = `<img src="./assets/icon/circulo.png" alt=""
-                        //                 style="width: 18px;">`
-                        //     statusSpan.innerHTML += `<b>Offline</b>`
-                        // }
-                        // }
-
                         console.log(statusMaquinas)
                         console.log(dados)
                         ul_lista_maquinas.innerHTML = ''
@@ -966,11 +857,37 @@
             cache: 'no-store'
         }).then(function (resposta) {
             if (resposta.ok) {
+                console.log("aqui envia")
+                maiorConsumoRam(idEmpresa)
                 resposta.json().then(dadosMaquinas => {
                     // console.log(dadosMaquinas)
                     if (dadosMaquinas.length > 0) {
                         drawChart(dadosMaquinas)
+
                     }
+                })
+            }
+            else {
+                throw (JSON.stringify(resposta))
+            }
+        }).catch(function (resposta) {
+            console.log(`ERRO: ${resposta}`);
+        })
+        return false
+
+    }
+
+    function maiorConsumoRam(idEmpresa) {
+        console.log("aqui chega")
+        fetch(`/datawatch/maiorConsumoRam/${idEmpresa}`, {
+            cache: 'no-store'
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then(registro => {
+                    kpi1.innerHTML = `<b>1º:</b> ${registro[0].horaPico} Hrs com ${(registro[0].somaram).toFixed(2)} GBs`
+                    kpi2.innerHTML = `<b>2º:</b> ${registro[1].horaPico} Hrs com ${(registro[1].somaram).toFixed(2)} GBs`
+                    kpi3.innerHTML = `<b>3º:</b> ${registro[2].horaPico} Hrs com ${(registro[2].somaram).toFixed(2)} GBs`
+
                 })
             }
             else {

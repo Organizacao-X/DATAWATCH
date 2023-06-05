@@ -116,5 +116,9 @@ router.get("/pegarDadosGraficoEmpilhado/:idEmpresa", function (req, res) {
     datawatchController.pegarDadosGraficoEmpilhado(req, res);
 });
 
+router.get("/maiorConsumoRam/:idEmpresa", function (req, res) {
+    datawatchController.maiorConsumoRam(req, res);
+});
+
 
 module.exports = router;
