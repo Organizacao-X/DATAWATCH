@@ -187,7 +187,15 @@ function pegarMaquinas(idEmpresa) {
 }
 
 function pegarFuncionarios(idEmpresa) {
-    var instrucao = `SELECT * FROM Usuarios WHERE fkEmpresa = ${idEmpresa} AND adm IS NOT NULL;`
+    var instrucao = `
+                    SELECT 
+                        u.*,
+                        IIF(d.fkEmpresa IS NULL, 0, 1) isDiretor
+                    FROM Usuarios u
+                    LEFT JOIN Diretores d
+                    ON d.fkUsuario = u.idUsuario
+                    WHERE u.fkEmpresa = ${idEmpresa}
+                    AND u.adm IS NOT NULL;`
 
     return database.executar(instrucao);
 }

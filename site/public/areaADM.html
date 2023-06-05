@@ -837,7 +837,6 @@
                     if (dados.length > 0) {
                         dados.forEach(funcionario => {
                             carregarFuncionarioTela(funcionario)
-
                         });
                         carregarFuncoesModal()
                     }
@@ -901,7 +900,40 @@
     }
 
     function carregarFuncionarioTela(funcionario) {
-        // console.log("Carregando funcionario")
+        console.log(funcionario)
+        /*
+<li class="funcionario">
+    <div class="info-funcionario">
+        <div class="conexao">
+            <div class="status-funcionario" id="">
+                <img src="./assets/icon/circulo(1).png" alt="" style="width: 18px;">
+            </div>
+            <span id=""><b>Online</b> <b>desde ás 5h</b></span>
+        </div>
+        <div class="nome">
+            <span>Fernando Brandão</span>
+        </div>
+        <div class="content-funcionario">
+            <div class="mostrar">
+                <div class="editar">
+                    <button class="abrir-editar">
+                        <div class="image-icon">
+                            <img src="../public/assets/icon/lapis.png" alt="" style="height: 22px;">
+                        </div>
+                    </button>
+                </div>
+                <div class="desativar">
+                    <button class="abrir-desativar">
+                        <div class="botao">
+                            <div class="x"></div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</li>
+        */
         var liFuncionario = document.createElement("li")
         liFuncionario.setAttribute("class", "funcionario")
 
@@ -922,12 +954,12 @@
         spanStatus.appendChild(bStatus)
         spanStatus.appendChild(bStatusHora)
 
-        if (funcionario.statusUsuario == 1) {
-            imgStatusFuncionario.src = "./assets/icon/circulo(1).png"
-            bStatus.innerHTML = "Online"
+        if (funcionario.isDiretor == 0) {
+            imgStatusFuncionario.src = "./assets/icon/user.png"
+            bStatus.innerHTML = "Funcionário"
         } else {
-            imgStatusFuncionario.src = "./assets/icon/circulo(1).png"
-            bStatus.innerHTML = "Offline"
+            imgStatusFuncionario.src = "./assets/icon/profile.png"
+            bStatus.innerHTML = "Diretor"
         }
         imgStatusFuncionario.style = "width: 18px"
 
