@@ -310,6 +310,7 @@
                                     <button class="btnS" id="confirm_reiniciar"><b>Sim</b></button>
                                     <button class="btnN" id="cancel_reiniciar"><b>Não</b></button>
                                 </div>
+                                <b class="msgConfirm">Requisição enviada</b>
                             </div>
                             <span class="X-5">&times;</span>
                         </div>
@@ -337,9 +338,11 @@
                     <div class="container">
                         <div class="tabs">
                             <input type="radio" id="radio-1" name="tabs" checked="">
-                            <button onclick="downloadFile('./JAR/ARCH-01/DATAWATCH-ARCH-01.sh', 'teste')"><label class="tab" for="radio-1" id="um">App 1</label></button>
+                            <button onclick="downloadFile('./JAR/ARCH-01/DATAWATCH-ARCH-01.sh', 'teste')"><label
+                                    class="tab" for="radio-1" id="um">App 1</label></button>
                             <input type="radio" id="radio-2" name="tabs">
-                            <button onclick="downloadFile('./JAR/ARCH-03/DATAWATCH-ARCH-03.sh', 'teste')"><label class="tab" for="radio-2" id="um">App 2</label></button>
+                            <button onclick="downloadFile('./JAR/ARCH-03/DATAWATCH-ARCH-03.sh', 'teste')"><label
+                                    class="tab" for="radio-2" id="um">App 2</label></button>
                             <span class="glider"></span>
                         </div>
                     </div>
@@ -350,6 +353,7 @@
     </div>
 
 </body>
+<script src="./js/funcionario.js"></script>
 <script>
 
     var graficoInScreen = "CPU";
@@ -402,6 +406,8 @@
         // puxar alertas desta máquina aqui
         exibirAlertas(idMaquina);
         // infoMaquina(maquina);
+        sessionStorage.ID_MAQUINA = idMaquina;
+        validarReboot(sessionStorage.ID_MAQUINA);
     }
 
     // função para fechar popup com o clique no botão
@@ -476,7 +482,7 @@
         modalInfo.style.display = 'none'
         margemTop.style.marginTop = '5%'
     }
-
+    
     function abaInfo() {
         modalGrafico.style.display = "none"
         modalAlerta.style.display = 'none'
@@ -484,20 +490,24 @@
         modalInfo.style.display = 'block'
         margemTop.style.marginTop = '5%'
     }
+    
+    var msg = document.getElementsByClassName("msgConfirm");
 
-    function abrirModalReiniciar() {
+    function abrirModalReiniciar() {        
         modalReiniciar.style.display = 'block'
         sessaoElem.style.filter = 'blur(10px)'
         buttonReiniciar.blur()
     }
 
     function fecharModalReiniciarComX() {
+        msg[0].style = "color: #0000;"
         modalReiniciar.style.display = 'none'
         sessaoElem.style.filter = 'blur(0px)'
     }
-
+    
     function fecharModalReiniciarComEsc(event) {
         if (event.keyCode === 27) {
+            msg[0].style = "color: #0000;"
             modalReiniciar.style.display = 'none'
             sessaoElem.style.filter = 'blur(0px)'
             clearTimeout(cancelarTimeOut);
@@ -508,8 +518,12 @@
     x5.addEventListener('click', fecharModalReiniciarComX)
     document.body.addEventListener('keyup', fecharModalReiniciarComEsc)
 
-    buttonConfirmReiniciar.addEventListener('click', fecharModalReiniciarComX)
     buttonCancelarReiniciar.addEventListener('click', fecharModalReiniciarComX)
+    buttonConfirmReiniciar.addEventListener('click', function () {
+        reiniciar(sessionStorage.ID_MAQUINA);
+        setTimeout(fecharModalReiniciarComX, 2000);
+    });
+
 
     function getId() {
         var idEmpresa = sessionStorage.ID_EMPRESA;
@@ -593,19 +607,19 @@
                                 divStatus.setAttribute("class", "status2")
                                 spanStatus.innerHTML = " OFFLINE"
                             }
-                            
+
                             textAlert.appendChild(pTextAlert)
                             iconAlert.appendChild(textAlert)
                             divContent.appendChild(divStatus)
                             divContent.appendChild(spanStatus)
-                            
+
                             li.appendChild(icon)
                             li.appendChild(iconAlert)
-                            
+
                             li.appendChild(divContent)
-                            
+
                             li.style = "background-color: rgb(255, 179, 179)"
-                            
+
                             if (maquina.PesoAlerta == 0 || maquina.PesoAlerta == null) {
                                 li.style = "background-color: rgb(189, 255, 188)"
                             } else if (maquina.PesoAlerta >= 20 && maquina.PesoAlerta <= 69) {
@@ -616,7 +630,7 @@
                             li.setAttribute('value', maquina.Id)
                             li.addEventListener('click', function () {
                                 abrirPopup(li.getAttribute('value'))
-                                
+
                             })
                             lista_maquinas.appendChild(li)
                             console.log(lista_maquinas)
@@ -627,7 +641,7 @@
                     // for (let index = 0; index < listaId.length; index++) {
                     //     var id = listaId[index];
                     //     exibirAlertas(id)
-                        
+
                     // }
 
                     proximaAtualizacao = setTimeout(() => {
@@ -646,7 +660,7 @@
 
     var proximaAtualizacao;
 
-    function montarListagemAlertas(alerta) { 
+    function montarListagemAlertas(alerta) {
         console.log(alerta)
 
         var liAlerta = document.createElement("li")
@@ -687,7 +701,7 @@
                     });
                 })
             };
-                
+
         });
 
     }
