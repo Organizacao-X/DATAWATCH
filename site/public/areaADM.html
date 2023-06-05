@@ -509,7 +509,7 @@
         buttonConfirmDesativar = $.querySelector('#save_deactivate')
         buttonCancelarDesativar = $.querySelector('#cancel_deactivate')
 
-        x1 = $.querySelector('.X-1');
+        x1 = $.getElementsByClassName("X-1");
         x2 = $.querySelector('.X-2');
 
         buttonEditFuncionario.forEach(botao => {
@@ -518,7 +518,7 @@
         x1.addEventListener('click', fecharModalEditarFuncionarioComX)
         document.body.addEventListener('keyup', fecharModalEditarFuncionarioComEsc)
 
-        buttonSalvarEdit.addEventListener('click', fecharModalEditarFuncionarioComX)
+        x1.addEventListener('click', fecharModalEditarFuncionarioComX)
         buttonCancelarEdit.addEventListener('click', fecharModalEditarFuncionarioComX)
 
         buttonDesativarFuncionario.forEach(botao => {
@@ -540,7 +540,7 @@
         buttonCancelarEditDate = $.querySelector('#cancel_date')
 
         x4 = $.querySelector('.X-4');
-        x5 = $.querySelector('.X-5');
+        x5 = $.getElementsByClassName("X-5");
 
         buttonEditarDateReiniciar.addEventListener('click', abrirModalEditarDateReiniciar)
         x4.addEventListener('click', fecharModalEditarDateReiniciarComX)
@@ -754,7 +754,7 @@
                             const statusImg = document.getElementById(`img${i}`);
 
                             var tempoEmMilissegundos = dados[i].tempo_total_milissegundos
-
+                            console.log(tempoEmMilissegundos)
                             if (tempoEmMilissegundos < fiscalDeAtividade) {
                                 console.log(i + "online: " + tempoEmMilissegundos)
                                 statusImg.innerHTML = `<img src="./assets/icon/circulo(1).png" alt=""
@@ -995,12 +995,13 @@
 
         /* ---- BOTÃO REINICIAR ---- */
         var btnReiniciar = document.createElement("button")
-        btnReiniciar.setAttribute("class", "reload")
+        btnReiniciar.setAttribute("class", "edit-date")
         btnReiniciar.setAttribute('value', maquina.Id)
         btnReiniciar.addEventListener("click", function () {
             var valorClicado = btnReiniciar.value
             var botaoConfirmacao = document.getElementById("confirm_reiniciar");
             botaoConfirmacao.value = valorClicado
+            abrirModalReiniciar()
         })
         btnReiniciar.innerHTML = "Reiniciar"
         /* -------------------------- */

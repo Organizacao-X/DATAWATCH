@@ -275,7 +275,7 @@ function pegarFiliais(uuid) {
     COALESCE(COUNT(maq.statusSistema), 0) AS 'qtdMaquinas',
     COALESCE((COUNT(maq.statusSistema) - SUM(maq.statusSistema)), 0) AS maquinasInativas,
     COALESCE(logs.qtdLogs, 0) AS qtdLogs,    
-	logs.somaPeso
+    COALESCE(logs.somaPeso, 0) AS somaPeso
 FROM [dbo].[Empresas] AS emp
 JOIN [dbo].[Usuarios] AS usu
     ON usu.fkEmpresa = emp.idEmpresa
@@ -331,6 +331,16 @@ function rebootar(fkMaquina, fkEmpresa) {
     return database.executar(instrucao);
 }
 
+function validarReboot(fkMaquina, fkEmpresa) {
+    console.log("ACESSEI O DATAWATCH MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function editar(): ", fkMaquina, fkEmpresa);
+
+    var instrucao = `SELECT rebootar FROM Reboot WHERE fkMaquina = ${fkMaquina} AND fkEmpresa = ${fkEmpresa}`;
+    
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    
+    return database.executar(instrucao);
+}
+
 function pegarDadosGraficoEmpilhado(fkEmpresa) {
     console.log("Acessei PEGAR DADOS GRÁFICO EMPILHADO");
 
@@ -381,5 +391,6 @@ module.exports = {
     pegarFiliais,
     pegarAlertas,
     rebootar,
+    validarReboot,
     pegarDadosGraficoEmpilhado
 };

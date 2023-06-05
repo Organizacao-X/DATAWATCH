@@ -4,46 +4,54 @@ function buscarUltimasDados(idMaquina) {
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
         instrucaoSql = `SELECT TOP 10
-    c.redeUpload AS upload,
-    c.redeDownload AS download,
-    c.cpuUso AS cpuuso,
-    c.temperatura AS temperatura,
-    c.ramUso AS ramuso,
-    c.Livredisco1 AS discolivre1,
-    c.Livredisco2 AS discolivre2,
-    c.Livredisco3 AS discolivre3,
-    m.totalDisco1 AS discoTotal1,
-    m.totalDisco2 AS discoTotal2,
-    m.totalDisco3 AS discoTotal3,
-    m.ramTotal AS ramTotal,
-    m.cpuMetrica AS processadorMetrica,
-    m.ramMetrica AS ramMetrica,
-    m.gatilhodisco1 AS discoMetrica1,
-    m.gatilhodisco2 AS discoMetrica2,
-    m.gatilhodisco3 AS discoMetrica3,
-    c.datahora,
-    FORMAT(datahora, 'HH:mm:ss') AS horario
-FROM Capturas AS c
-JOIN Maquinas AS m ON c.fkmaquina = m.idmaquina
-WHERE c.fkMaquina = ${idMaquina}
-ORDER BY c.idcaptura DESC;
+        m.nomeMaquina as nomeMaquina,
+        m.processador as nomeCpu,
+        m.nomeDisco1 as nomeDisco1,
+        m.nomeDisco2 as nomeDisco2,
+        m.ip as ipv4,
+        c.redeUpload AS upload,
+        c.redeDownload AS download,
+        c.cpuUso AS cpuuso,
+        c.temperatura AS temperatura,
+        c.ramUso AS ramuso,
+        c.Livredisco1 AS discolivre1,
+        c.Livredisco2 AS discolivre2,
+        m.totalDisco1 AS discoTotal1,
+        m.totalDisco2 AS discoTotal2,
+        m.ramTotal AS ramTotal,
+        m.cpuMetrica AS processadorMetrica,
+        m.ramMetrica AS ramMetrica,
+        m.gatilhodisco1 AS discoMetrica1,
+        m.gatilhodisco2 AS discoMetrica2,
+        c.datahora,
+        FORMAT(datahora, 'HH:mm:ss') AS horario
+    FROM Capturas AS c
+    JOIN Maquinas AS m ON c.fkmaquina = m.idmaquina
+    WHERE c.fkMaquina = ${idMaquina}
+    ORDER BY c.idcaptura DESC;
 `;
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `SELECT
-    c.redeUpload AS upload,
-    c.redeDownload AS download,
-    c.cpuUso AS cpuuso,
-    c.temperatura AS temperatura,
-    c.ramUso AS ramuso,
-    c.discoLivre AS discolivre,
-    m.totalDisco1 AS discoTotal,
-    m.ramTotal AS ramTotal,
-    m.cpuMetrica AS processadorMetrica,
-    m.ramMetrica AS ramMetrica,
-    m.gatilhodisco1 AS discoMetrica1,
-    m.gatilhodisco2 AS discoMetrica2,
-    m.gatilhodisco3 AS discoMetrica3,
-    c.datahora,
+        m.nomeMaquina as nomeMaquina,
+        m.processador as nomeCpu,
+        m.nomeDisco1 as nomeDisco1,
+        m.nomeDisco2 as nomeDisco2,
+        m.ip as ipv4,
+        c.redeUpload AS upload,
+        c.redeDownload AS download,
+        c.cpuUso AS cpuuso,
+        c.temperatura AS temperatura,
+        c.ramUso AS ramuso,
+        c.Livredisco1 AS discolivre1,
+        c.Livredisco2 AS discolivre2,
+        m.totalDisco1 AS discoTotal1,
+        m.totalDisco2 AS discoTotal2,
+        m.ramTotal AS ramTotal,
+        m.cpuMetrica AS processadorMetrica,
+        m.ramMetrica AS ramMetrica,
+        m.gatilhodisco1 AS discoMetrica1,
+        m.gatilhodisco2 AS discoMetrica2,
+        c.datahora,
     DATE_FORMAT(c.datahora,'%H:%i:%s') as horario
 FROM Capturas AS c
 JOIN Maquinas AS m ON c.fkmaquina = m.idmaquina
@@ -64,21 +72,25 @@ function buscarDadosEmTempoReal(idMaquina, idEmpresa) {
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
         instrucaoSql = `SELECT TOP 10
-        c.fkmaquina AS maquina,
-		c.fkEmpresa AS empresa,
+        m.nomeMaquina as nomeMaquina,
+        m.processador as nomeCpu,
+        m.nomeDisco1 as nomeDisco1,
+        m.nomeDisco2 as nomeDisco2,
+        m.ip as ipv4,
         c.redeUpload AS upload,
         c.redeDownload AS download,
         c.cpuUso AS cpuuso,
         c.temperatura AS temperatura,
         c.ramUso AS ramuso,
-        c.LivreDisco1 AS discolivre,
-        m.totalDisco1 AS discoTotal,
+        c.Livredisco1 AS discolivre1,
+        c.Livredisco2 AS discolivre2,
+        m.totalDisco1 AS discoTotal1,
+        m.totalDisco2 AS discoTotal2,
         m.ramTotal AS ramTotal,
         m.cpuMetrica AS processadorMetrica,
         m.ramMetrica AS ramMetrica,
         m.gatilhodisco1 AS discoMetrica1,
         m.gatilhodisco2 AS discoMetrica2,
-        m.gatilhodisco3 AS discoMetrica3,
         c.datahora,
         FORMAT(datahora, 'HH:mm:ss') AS horario
     FROM Capturas AS c
@@ -86,7 +98,7 @@ function buscarDadosEmTempoReal(idMaquina, idEmpresa) {
                     ON c.fkmaquina = m.idmaquina
                     where fkMaquina = ${idMaquina}
                     and c.fkEmpresa = ${idEmpresa}
-                    order by horario, idcaptura desc;
+                    order by idcaptura;
                     `;
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
