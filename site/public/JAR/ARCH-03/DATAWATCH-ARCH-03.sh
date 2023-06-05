@@ -15,33 +15,6 @@ figlet -c =========
 echo "$(tput setaf 10)BEM VINDO AO CLIENTE DE INSTALACAO"
 echo "$(tput setaf 10)=================================="
 sleep 3
-# ------------------ JAVA EXISTE? --------------------------------------------------------
-java -version #verifica versao atual do java
-if [ $? = 0 ]; #se retorno for igual a 0
-then #entao,
-echo $(tput setaf 10)O JAVA ESTÁ INSTALADO!$(tput setaf 15) #print no terminal
-else #se nao,
-echo $(tput setaf 9)o java não está instalado$(tput setaf 15) #print no terminal
-echo 	$(tput setaf 10)gostaria de instalar o java? [s/n]$(tput setaf 15)” #print no terminal
-read get #variável que guarda resposta do usuário
-if [ \“$get\” == \“s\” ]; #se retorno for igual a 0
-then #entao
-sudo apt install openjdk-17-jre -y #executa instalacao do java
-fi #fecha o 2º if
-fi #fecha o 1º if
-
-# ----------------------- EXECUTANDO O JAR ---------------------------------------------------------
-  caminho=$(pwd)
-if [ -f reboot-datawatch-1.0-SNAPSHOT-jar-with-dependencies.jar ]; 
-then echo ...
-else
-  echo "Baixando o arquivo..."
-  wget -P $caminho https://raw.githubusercontent.com/Organizacao-X/Reboot-teste/main/reboot-datawatch/target/reboot-datawatch-1.0-SNAPSHOT-jar-with-dependencies.jar
-fi
-echo Abrindo $(tput setaf 11)DATAWATCH...$(tput setaf 15)
-sleep 3
-chmod 777 reboot-datawatch-1.0-SNAPSHOT-jar-with-dependencies.jar
-java -jar $caminho/reboot-datawatch-1.0-SNAPSHOT-jar-with-dependencies.jar
 
 # -------------------------- VERIFICANDO DOCKER E INSTALANDO -------------------------------------
 docker --version 

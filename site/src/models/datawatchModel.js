@@ -146,11 +146,13 @@ function pegarMaquinas(idEmpresa) {
         CONCAT(FLOOR(Maquinas.tempoAtividade / 86400), ' dias, ',
         CONVERT(VARCHAR(8), DATEADD(SECOND, Maquinas.tempoAtividade % 86400, 0), 108)) AS tempo_formatado,
         COUNT(Log.fkmaquina) AS contagemChamados,
-        SUM(Alertas.peso) AS PesoAlerta
+        SUM(Alertas.peso) AS PesoAlerta,
+		MAX(cap.dataHora) as dataHora
         FROM Maquinas
         LEFT JOIN [dbo].[Log] ON Maquinas.idmaquina = Log.fkmaquina
 		LEFT join Alertas 
 		on Log.fkAlerta = Alertas.idAlerta
+		LEFT JOIN [dbo].[Capturas] AS cap ON Maquinas.idMaquina = cap.fkMaquina
         WHERE Maquinas.fkempresa = ${idEmpresa}
         GROUP BY idmaquina, Maquinas.nomeMaquina, Maquinas.statusSistema, Maquinas.tempoAtividade, Maquinas.sistemaOperacional;`
 

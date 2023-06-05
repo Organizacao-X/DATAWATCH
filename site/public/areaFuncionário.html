@@ -223,11 +223,10 @@
                             <div class="div-content3" id="troca3" style="display: none;">
                                 <div class="dados-disco">
                                     <div class="disco-um">
-                                        <span><b>Disco 1: </b> <span
-                                                id="span_disco1Nome"></span></span>
+                                        <span><b>Disco 1: </b> <span id="span_disco1Nome"></span></span>
                                         <span><b>Capacidade Total: </b> <span id="span_disco1Total"></span></span>
                                         <span><b>Capacidade Livre: </b> <span id="span_disco1Livre"></span></span>
-                                        <span><b>Capacidade Usado: </b> <span id="span_disco1Usado"></span></span>
+                                        <span><b>Espaço Usado: </b> <span id="span_disco1Usado"></span></span>
                                     </div>
                                 </div>
                             </div>
@@ -406,6 +405,7 @@
         // puxar alertas desta máquina aqui
         exibirAlertas(idMaquina);
         // infoMaquina(maquina);
+        infoMaquina(idMaquina)
         sessionStorage.ID_MAQUINA = idMaquina;
         validarReboot(sessionStorage.ID_MAQUINA);
     }
@@ -482,7 +482,7 @@
         modalInfo.style.display = 'none'
         margemTop.style.marginTop = '5%'
     }
-    
+
     function abaInfo() {
         modalGrafico.style.display = "none"
         modalAlerta.style.display = 'none'
@@ -490,10 +490,10 @@
         modalInfo.style.display = 'block'
         margemTop.style.marginTop = '5%'
     }
-    
+
     var msg = document.getElementsByClassName("msgConfirm");
 
-    function abrirModalReiniciar() {        
+    function abrirModalReiniciar() {
         modalReiniciar.style.display = 'block'
         sessaoElem.style.filter = 'blur(10px)'
         buttonReiniciar.blur()
@@ -504,7 +504,7 @@
         modalReiniciar.style.display = 'none'
         sessaoElem.style.filter = 'blur(0px)'
     }
-    
+
     function fecharModalReiniciarComEsc(event) {
         if (event.keyCode === 27) {
             msg[0].style = "color: #0000;"
@@ -554,6 +554,7 @@
                 resposta.json().then(dados => {
                     console.log(dados)
                     if (dados.length > 0) {
+                        listaDeMilissegundos = []
                         ul_cards_maquinas.innerHTML = ""
                         // div_lista_registro.innerHTML = ""
                         var listaId = [];
@@ -567,6 +568,13 @@
 
                             var pTitle = document.createElement("p")
                             pTitle.innerHTML = maquina.nomeMaquina
+
+                            listaDeInfoMaquina.push(infoDaMaquina = {
+                                idMaquina: maquina.Id,
+                                nomeMaquina: maquina.nomeMaquina,
+                                sistemaOperacional: maquina.sistemaOperacional,
+                                tempo_formatado: maquina.tempo_formatado
+                            });
 
                             divTitle.appendChild(pTitle)
                             li.appendChild(divTitle)
@@ -592,15 +600,23 @@
                             var divContent = document.createElement("div")
                             divContent.setAttribute("class", "content")
 
-                            span_nomeDaMaquina.innerHTML = ` ${maquina.nomeMaquina}`
-                            span_sistemaOperacional.innerHTML = ` ${maquina.sistemaOperacional}`
-                            span_tempoAtividade.innerHTML = ` ${maquina.tempo_formatado}`
-                            
                             var divStatus = document.createElement("div")
                             var spanStatus = document.createElement("span")
 
-                            let fiscalDeAtividade = 20
-                            if (maquina.tempoEmMilissegundos < fiscalDeAtividade) {
+                            var dataHoraAtual = new Date();
+                            var dataHoraBanco = new Date (maquina.dataHora)
+                            dataHoraBanco.setHours(dataHoraBanco.getHours() + 3);
+                            var diferencaMilissegundos = dataHoraAtual - dataHoraBanco;
+                            listaDeMilissegundos.push(diferencaMilissegundos)
+
+                            console.log("maquina: " + maquina.nomeMaquina)
+                            console.log("dataHoraAtual: " + dataHoraAtual + " | dataHoraBanco: " + dataHoraBanco)
+                            console.log("diferencaMilissegundos: " + diferencaMilissegundos)
+                            console.log("listaDeMilissegundos: " + listaDeMilissegundos)
+
+                            let fiscalDeAtividade = 60000
+                            // 4 minutos = 240000
+                            if (listaDeMilissegundos[listaDeMilissegundos.length - 1] < fiscalDeAtividade) {
                                 divStatus.setAttribute("class", "status")
                                 spanStatus.innerHTML = " ONLINE"
                             } else {
@@ -658,6 +674,29 @@
         return false
     }
 
+    function infoMaquina(idMaquina) {
+        var maquinaDaVez = null;
+
+        // Percorrer a lista de objetos JSON
+        for (var i = 0; i < listaDeInfoMaquina.length; i++) {
+            var maquina = listaDeInfoMaquina[i];
+            console.log(maquina)
+            // Verificar se o idMaquina corresponde ao desejado
+            if (maquina.idMaquina == idMaquina) {
+                maquinaDaVez = maquina;
+                break;
+            }
+        }
+        if (maquinaDaVez != null) {
+
+            span_nomeDaMaquina.innerHTML = ` ${maquinaDaVez.nomeMaquina}`
+            span_sistemaOperacional.innerHTML = ` ${maquinaDaVez.sistemaOperacional}`
+            span_tempoAtividade.innerHTML = ` ${maquinaDaVez.tempo_formatado}`
+        } else {
+            alert("erro ao carregar info da maquina")
+        }
+    }
+
     var proximaAtualizacao;
 
     function montarListagemAlertas(alerta) {
@@ -677,15 +716,6 @@
         divAlertaRowInfo.appendChild(spanTituloAlerta)
         liAlerta.appendChild(divAlertaRowInfo)
         div_lista_registro.appendChild(liAlerta)
-        /*
-        /*
-        <li>
-            <div class="rowInfo">
-                <span>Id: 1 </span>
-                <span>Titulo: Máquina travada</span>
-            </div>
-        </li>
-        */
     }
 
 
@@ -729,7 +759,6 @@
     var discoTotal1
     var discoTotal2
 
-
     // RAM 
     var CapacidadeRamTotal = 0;
     var vetorCapacidadeRamEmUso = [];
@@ -742,6 +771,15 @@
         Disco: ""
     }
 
+    //INFO MAQUINA
+    var listaDeInfoMaquina = []
+    var infoDaMaquina = {
+        nomeMaquina: "",
+        sistemaOperacional: "",
+        tempo_formatado: ""
+    };
+
+    var listaDeMilissegundos = []
 
 
     function obterdados(idMaquina) {
@@ -784,7 +822,6 @@
                             Ram: "",
                             Disco: ""
                         }
-
 
                         for (i = 0; i < resposta.length; i++) {
                             var registro = resposta[i];
@@ -860,81 +897,6 @@
             });
     }
 
-    // function alertas(idMaquina, idEmpresa, PorcentagemCpu, downloadAlerta, uploadAlert) {
-
-    //     if (metrica.Processador != null) {
-    //         if (metrica.Processador < PorcentagemCpu) {
-    //             alertasRegistro(idMaquina, idEmpresa, 1, 20);
-    //         }
-    //     }
-
-    //     if (metrica.Ram != null) {
-    //         if (metrica.Ram < CapacidadeRamEmUso) {
-    //             alertasRegistro(idMaquina, idEmpresa, 2, 30);
-    //         }
-    //     }
-
-    //     if (metrica.Disco != null) {
-    //         if (metrica.Disco < capacidadeDiscoLivre) {
-    //             alertasRegistro(idMaquina, idEmpresa, 3, 40);
-    //         }
-    //     }
-
-    //     if (downloadAlerta == null || uploadAlert == null) {
-    //         alertasRegistro(idMaquina, idEmpresa, 4, 100);
-    //     }
-
-
-
-    // }
-
-    // function alertasRegistro(idMaquina, idEmpresa, tipoAlerta, pesoAlerta) {
-    //     fetch(`/datawatch/lancarMetricas`, {
-    //         method: "POST",
-    //         headers: {
-    //             "Content-Type": "application/json"
-    //         },
-    //         body: JSON.stringify({
-    //             idMaquinaServer: idMaquina,
-    //             idEmpresaServer: idEmpresa,
-    //             tipoAlertaServer: tipoAlerta,
-    //             pesoAlertaServer: pesoAlerta
-    //         })
-    //     }).then(function (resposta) {
-    //         console.log("ESTOU NO THEN DO entrar()!")
-
-    //         if (resposta.ok) {
-    //             console.log(resposta);
-
-    //             // resposta.json().then(json => {
-    //             //     console.log(json);
-    //             //     console.log(JSON.stringify(json));
-
-    //             //     sessionStorage.EMAIL_USUARIO = json.email;
-    //             //     sessionStorage.NOME_USUARIO = json.nomeUsuario;
-    //             //     sessionStorage.ID_USUARIO = json.idUsuario;
-    //             //     sessionStorage.ID_EMPRESA = json.idEmpresa;
-
-
-
-    //             // });
-
-    //         } else {
-
-    //             console.log("Houve um erro ao tentar registrar os alertas");
-
-    //             // resposta.text().then(texto => {
-    //             //     console.error(texto);
-
-    //             // });
-    //         }
-
-    //     }).catch(function (erro) {
-    //         console.log(erro);
-    //     })
-
-    //     return false;
-    // }
 
     // Gráfico RAM
     google.charts.load('current', { 'packages': ['corechart'] });
@@ -950,8 +912,8 @@
         dado4.style.display = 'none'
 
         span_ramTotal.innerHTML = `${CapacidadeRamTotal}`
-        span_ramUsado.innerHTML = `${vetorCapacidadeRamEmUso[vetorCapacidadeRamEmUso.length-1]}`
-        span_ramLivre.innerHTML = `${(CapacidadeRamTotal - vetorCapacidadeRamEmUso[vetorCapacidadeRamEmUso.length-1]).toFixed(2)}`
+        span_ramUsado.innerHTML = `${vetorCapacidadeRamEmUso[vetorCapacidadeRamEmUso.length - 1]}`
+        span_ramLivre.innerHTML = `${(CapacidadeRamTotal - vetorCapacidadeRamEmUso[vetorCapacidadeRamEmUso.length - 1]).toFixed(2)}`
 
         var data = google.visualization.arrayToDataTable([
             ['Horário', 'uso da Ram'],
@@ -1048,11 +1010,11 @@
         span_disco1Nome.innerHTML = `${nomeDisco1}`
         span_disco1Total.innerHTML = `${discoTotal1} GBs`
         span_disco1Livre.innerHTML = `${discolivre1} GBs`
-        var porcentagemUsada = (((discoTotal1 - discolivre1).toFixed(2) * 100) / discoTotal1).toFixed(2)
+        var porcentagemUsada = (((discoTotal1 - discolivre1).toFixed(2) / discoTotal1) * 100).toFixed(2)
         var porcentagem90 = (discoTotal1 * 0.9).toFixed(2);
         console.log(porcentagem90 + " 90% do total: " + discoTotal1)
-        console.log("este é o tanto usado: " + (discoTotal1 - discolivre1).toFixed(2) ) 
-        var porcentagemUsadaVermelho = "<b style='color: #FF5012;'>"+porcentagemUsada+"</b>"
+        console.log("este é o tanto usado: " + (discoTotal1 - discolivre1).toFixed(2))
+        var porcentagemUsadaVermelho = "<b style='color: #FF5012;'>" + porcentagemUsada + "</b>"
         if (porcentagemUsada >= porcentagem90) {
             span_disco1Usado.innerHTML = `${(discoTotal1 - discolivre1).toFixed(2)} GBs (${porcentagemUsada}%)`
         } else {
@@ -1066,7 +1028,7 @@
         var data = google.visualization.arrayToDataTable([
             ['Disco', 'Memória'],
             ['Capacidade livre', capacidadeDiscoLivre],
-            ['Capacidade total', capacidadeDiscoTotal],
+            ['Usado', discoTotal1 - discolivre1],
 
         ]);
 
@@ -1129,6 +1091,14 @@
         chart.draw(data, options);
 
         cancelarTimeOut = setTimeout(() => obterdados(idMaquinaAux), 5000);
+    }
+
+    function converterDataBrasilia(dataISO8601) {
+        var data = new Date(dataISO8601);
+        var deslocamentoMinutos = data.getTimezoneOffset();
+        var deslocamentoBrasilia = deslocamentoMinutos - 180;
+        data.setMinutes(data.getMinutes() - deslocamentoBrasilia);
+        return data;
     }
 
 </script>
