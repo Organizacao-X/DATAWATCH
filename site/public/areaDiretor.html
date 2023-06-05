@@ -37,14 +37,9 @@
                     <div class="nomeUser">
                         <span id="nome_usuario_menu"></span>
                     </div>
-                    <li><a class="menu__item" href="../public/areaFuncionário.html">Home</a></li>
-                    <li id="lateral_menu_cad_download"><a class="menu__item" href="./JAR/DATAWATCH-sistema.zip"
-                            download="app_DataWatch">Baixar aplicativo</a></li>
-                    <li><a class="menu__item" onclick="limparSessao()">Logout</a></li>
+                    <li><a class="menu__item" href="../public/areaDiretor.html">Home</a></li>
                 </ul>
             </div>
-
-
 
             <div class="logo">
                 <button class="notify" onmouseover="configIn()" onmouseout="configOut()">
@@ -191,14 +186,18 @@
     nome_usuario_menu.innerHTML = `${sessionStorage.NOME_USUARIO}`
 
     function carregarFiliais() {
-        var slct = $.getElementById("selectFiliais");
-        var dados = JSON.parse(localStorage.getItem("dadosFiliais"));
+        if (sessionStorage.VALIDACAO_SELECT == undefined) {
+            sessionStorage.VALIDACAO_SELECT = "Validado";
 
-        dados.forEach(filial => {
-            var option = $.createElement("option");
-            option.innerHTML = `${filial.razaoSocial}`;
-            slct.appendChild(option);
-        });
+            var slct = $.getElementById("selectFiliais");
+            var dados = JSON.parse(localStorage.getItem("dadosFiliais"));
+    
+            dados.forEach(filial => {
+                var option = $.createElement("option");
+                option.innerHTML = `${filial.razaoSocial}`;
+                slct.appendChild(option);
+            });
+        }
     }
 
     function configIn() {

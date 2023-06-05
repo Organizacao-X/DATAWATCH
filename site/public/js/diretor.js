@@ -29,7 +29,7 @@ function mostrarFiliais(uuid) {
 
                         var alerts;
 
-                        if (localStorage.getItem(`${filial.razaoSocial}`) == undefined) {
+                        if (localStorage.getItem(filial.razaoSocial) == undefined) {
                             alerts = {
                                 sumStorage: 50,
                                 qtdStorage: 5
@@ -98,16 +98,13 @@ function mostrarFiliais(uuid) {
 
                         maqPerct.innerHTML = `${porcentagem.toFixed(1)}%`;
 
-                        if (porcentagem < 50
-                            || filial.somaPeso >= alerts.sumStorage
-                            || filial.somaPeso >= alerts.qtdStorage) {
-                            li.style = "background-color: rgb(255, 179, 179)"
-                        } else if (porcentagem < 75
-                            || filial.somaPeso >= ((alerts.sumStorage / 3) *2)
+                        if (filial.somaPeso >= alerts.sumStorage || filial.somaPeso >= alerts.qtdStorage) {
+                            li.style.backgroundColor = "#ffb3b3"
+                        } else if (filial.somaPeso >= ((alerts.sumStorage / 3) *2)
                             || filial.somaPeso >= ((alerts.qtdStorage / 3) *2)) {
-                            li.style = "background-color: rgb(255, 254, 167)"
+                            li.style.backgroundColor = "#fffea7"
                         } else {
-                            li.style = "background-color: rgb(189, 255, 188)"
+                            li.style.backgroundColor = "#bdffbc"
                         }
                         /* ----------------------- */
 
