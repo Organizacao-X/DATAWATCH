@@ -588,6 +588,7 @@
                             var textAlert = document.createElement("div")
                             var pTextAlert = document.createElement("p")
                             pTextAlert.innerHTML = maquina.contagemChamados;
+                            console.log(maquina.Id, maquina.contagemChamados)
 
                             iconAlert.setAttribute("id", "alerta")
                             textAlert.setAttribute("id", "textAlerta")
@@ -863,6 +864,7 @@
                             metrica.Disco = registro.discoMetrica;
 
                         }
+
 
                         idMaquinaAux = idMaquina;
                         clearTimeout(cancelarTimeOut);

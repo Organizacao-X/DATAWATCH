@@ -28,7 +28,7 @@ function buscarUltimasDados(idMaquina) {
     FROM Capturas AS c
     JOIN Maquinas AS m ON c.fkmaquina = m.idmaquina
     WHERE c.fkMaquina = ${idMaquina}
-    ORDER BY c.idcaptura DESC;
+    ORDER BY c.idcaptura;
 `;
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `SELECT
