@@ -135,6 +135,18 @@ function consultarStatusEmpresa(idUsuario) {
     return database.executar(instrucao);
 }
 
+function atualizarStatusMaquinas(idEmpresa) {
+    var instrucao = 
+                   `SELECT COALESCE(DATEDIFF(SECOND, MAX(c.dataHora), DATEADD(HOUR, -3, GETDATE())), 99999999) AS segundos_desde_lastinsert, m.nomeMaquina
+                   FROM Capturas c
+                   RIGHT JOIN Maquinas m ON m.idMaquina = c.fkMaquina
+                   WHERE m.fkEmpresa = ${idEmpresa}
+                   GROUP BY m.nomeMaquina
+                   ORDER BY segundos_desde_lastinsert DESC;`;
+
+    return database.executar(instrucao)
+}
+
 function pegarMaquinas(idEmpresa) {
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
@@ -394,5 +406,6 @@ module.exports = {
     pegarAlertas,
     rebootar,
     validarReboot,
-    pegarDadosGraficoEmpilhado
+    pegarDadosGraficoEmpilhado,
+    atualizarStatusMaquinas
 };

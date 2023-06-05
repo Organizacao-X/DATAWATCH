@@ -348,6 +348,26 @@ function pegarMaquinas(req, res) {
     }
 }
 
+function atualizarStatusMaquinas(req, res) {
+    var idEmpresa = req.params.idEmpresa;
+
+    if (idEmpresa == undefined) {
+        res.status(400).send("Sua idEmpresa está undefined");
+    } else {
+        datawatchModel.atualizarStatusMaquinas(idEmpresa)
+        .then(
+            function(resultado) {
+                res.json(resultado)
+            }
+        ).catch(
+            function (erro) {
+                console.log("Erro ao atualizar status das máquinas: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage)
+            }
+        )
+    }
+}
+
 function pegarFuncionarios(req, res) {
     var idEmpresa = req.body.idEmpresaServer;
 
@@ -691,5 +711,6 @@ module.exports = {
     pegarAlertas,
     rebootar,
     validarReboot,
-    pegarDadosGraficoEmpilhado
+    pegarDadosGraficoEmpilhado,
+    atualizarStatusMaquinas
 }
