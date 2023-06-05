@@ -474,42 +474,6 @@ header {
   font-size: 25px;
 }
 
-.time-container {
-  /* border: 3px solid rgb(0, 255, 21); */
-  padding: .8rem 5rem .8rem 5rem;
-}
-
-.info-reloader {
-  /* border: 3px solid rgb(255, 0, 43); */
-  display: flex;
-  justify-content: space-between;
-  color: #000000;
-  font-size: 16px;
-}
-
-.edit-date {
-  background-color: white;
-  color: black;
-  border-radius: 5px;
-  font-size: 12px;
-  font-weight: 600;
-  padding: .2em .5em;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-  border: 1px solid black;
-  box-shadow: 0 0 0 0 black;
-}
-
-.edit-date:hover {
-  transform: translateY(-4px) translateX(-2px);
-  box-shadow: 2px 5px 0 0 black;
-}
-
-.edit-date:active {
-  transform: translateY(2px) translateX(1px);
-  box-shadow: 0 0 0 0 black;
-}
-
 .temp-yes {
   /* border: 3px solid rgb(68, 0, 255); */
   max-height: 15rem;
@@ -1229,11 +1193,13 @@ color: #181818;
 .tabs button {
   background-color: transparent;
   border: none;
+  height: 50px;
 }
 
 .container input[type="radio"] {
   display: none;
 }
+
 
 .tab {
   display: flex;
@@ -1241,10 +1207,9 @@ color: #181818;
   justify-content: center;
   height: 30px;
   width: 80px;
-  font-size: .8rem;
   color: black;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 15px;
   cursor: pointer;
   transition: color 0.15s ease-in;
 }
@@ -1254,18 +1219,20 @@ color: #181818;
 }
 
 .container input[id="radio-1"]:checked ~ .glider {
-  transform: translateX(0%);
+  transform: translateX(-10%);
+  height: 50px;
 }
 
 .container input[id="radio-2"]:checked ~ .glider {
-  transform: translateX(200%);
+  transform: translateX(150%);
 }
+
 
 .glider {
   position: absolute;
   display: flex;
-  height: 35px;
-  width: 80px;
+  height: 50px;
+  width: 100px;
   background-color: #181818;
   z-index: 1;
   border-radius: 10px;
