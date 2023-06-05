@@ -38,7 +38,7 @@ else
   echo "Baixando o arquivo..."
   wget -P $caminho https://raw.githubusercontent.com/Organizacao-X/Reboot-teste/main/reboot-datawatch/target/reboot-datawatch-1.0-SNAPSHOT-jar-with-dependencies.jar
 fi
-echo Abrindo $(tput setaf 11)DATAWATCH...$(tput setaf 15)
+echo Abrindo $(tput setaf 11)Reboot...$(tput setaf 15)
 sleep 3
 chmod 777 reboot-datawatch-1.0-SNAPSHOT-jar-with-dependencies.jar
 java -jar $caminho/reboot-datawatch-1.0-SNAPSHOT-jar-with-dependencies.jar
