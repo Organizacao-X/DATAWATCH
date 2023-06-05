@@ -47,7 +47,8 @@
                             href="./cadastroFuncionario.html">Cadastrar funcionário</a></li>
                     <li onclick="abrirModalBaixar()"><span class="menu__item">Baixar aplicativo</span></li>
                     <li><a class="menu__item" href="#" onclick="limparSessao()">Logout</a></li>
-                    <li><a class="menu__item" target="_blank" href="https://datawattch.atlassian.net/servicedesk/customer/portal/2">Suporte</a></li>
+                    <li><a class="menu__item" target="_blank"
+                            href="https://datawattch.atlassian.net/servicedesk/customer/portal/2">Suporte</a></li>
                 </ul>
             </div>
 
@@ -200,7 +201,7 @@
                     <input type="text" id="ipt_mudar_senha">
                 </div>
 
-                <div class="texto-alerta" style="display: none;">
+                <div id="div_func_saved" class="texto-alerta" style="display: none;">
                     <span><b>Alterações salvas com sucesso</b></span>
                 </div>
 
@@ -328,9 +329,13 @@
                     <div class="container">
                         <div class="tabs">
                             <input type="radio" id="radio-1" name="tabs" checked="">
-                            <button onclick="downloadFile('./JAR/ARCH-01/DATAWATCH-ARCH-01.sh', 'DATAWATCH-ARCH-01.sh')"><label class="tab" for="radio-1" id="um">Datawatch Nativo</label></button>
+                            <button
+                                onclick="downloadFile('./JAR/ARCH-01/DATAWATCH-ARCH-01.sh', 'DATAWATCH-ARCH-01.sh')"><label
+                                    class="tab" for="radio-1" id="um">Datawatch Nativo</label></button>
                             <input type="radio" id="radio-2" name="tabs">
-                            <button onclick="downloadFile('./JAR/ARCH-03/DATAWATCH-ARCH-03.sh', 'DATAWATCH-ARCH-03.sh')"><label class="tab" for="radio-2" id="um">Datawatch Container</label></button>
+                            <button
+                                onclick="downloadFile('./JAR/ARCH-03/DATAWATCH-ARCH-03.sh', 'DATAWATCH-ARCH-03.sh')"><label
+                                    class="tab" for="radio-2" id="um">Datawatch Container</label></button>
                             <span class="glider"></span>
                         </div>
                     </div>
@@ -393,7 +398,8 @@
         }).then(function (resposta) {
 
             if (resposta.ok) {
-                console.log("ok")
+                // console.log("ok")
+                div_func_saved.style.display = "block"
                 // hideModalWithSaveEditar()
                 // limparCampos(inputs)
             }
@@ -416,7 +422,7 @@
         }).then(function (resposta) {
             console.log(resposta)
             if (resposta.ok) {
-                console.log("deletado com sucesso")
+                // console.log("deletado com sucesso")
                 mostrarFuncionarios(sessionStorage.ID_EMPRESA)
             }
             // } else if (resposta.status == 404) {
@@ -438,7 +444,7 @@
 
     const modalBaixar = $.querySelector('.modal-parent7');
     const x7 = $.querySelector('.X-7');
-    const sessaoElem = $.querySelector('section')
+    let sessaoElem = $.querySelector('section')
 
     function downloadFile(url, fileName) {
         var link = document.createElement('a');
@@ -474,7 +480,7 @@
     document.body.addEventListener('keyup', fecharModalBaixarComEsc)
 
     function carregarFuncoesModal() {
-        console.log("Modais carregados")
+        // console.log("Modais carregados")
         // modais
         modalEditarFuncionario = $.querySelector('.modal-parent1');
         modalDesativarFuncionario = $.querySelector('.modal-parent2');
@@ -488,7 +494,6 @@
 
         // Maquina lista
         buttonMostrarMais = $.querySelector('.mais');
-
         x3 = $.querySelector('.X-3');
 
         buttonMostrarMais.addEventListener('click', abrirModalMostrarMais)
@@ -499,8 +504,8 @@
         buttonEditFuncionario = $.querySelectorAll('.abrir-editar');
         buttonDesativarFuncionario = $.querySelectorAll('.abrir-desativar');
 
-        console.log(buttonEditFuncionario)
-        console.log(buttonDesativarFuncionario)
+        // console.log(buttonEditFuncionario)
+        // console.log(buttonDesativarFuncionario)
 
         buttonSalvarEdit = $.querySelector('#save_edit');
         buttonCancelarEdit = $.querySelector('#cancel_edit');
@@ -508,7 +513,7 @@
         buttonConfirmDesativar = $.querySelector('#save_deactivate')
         buttonCancelarDesativar = $.querySelector('#cancel_deactivate')
 
-        x1 = $.getElementsByClassName("X-1");
+        x1 = $.querySelector(".X-1");
         x2 = $.querySelector('.X-2');
 
         buttonEditFuncionario.forEach(botao => {
@@ -529,7 +534,7 @@
         buttonConfirmDesativar.addEventListener('click', fecharModalDesativarFuncionarioComX)
         buttonCancelarDesativar.addEventListener('click', fecharModalDesativarFuncionarioComX)
 
-        buttonEditarDateReiniciar = $.querySelector('.edit-date');
+        // buttonEditarDateReiniciar = $.querySelector('.edit-date');
         buttonReiniciar = $.querySelectorAll('.reload');
 
         buttonConfirmReiniciar = $.querySelector('#confirm_reiniciar')
@@ -539,14 +544,14 @@
         buttonCancelarEditDate = $.querySelector('#cancel_date')
 
         x4 = $.querySelector('.X-4');
-        x5 = $.getElementsByClassName("X-5");
+        x5 = $.querySelector(".X-5");
 
-        buttonEditarDateReiniciar.addEventListener('click', abrirModalEditarDateReiniciar)
-        x4.addEventListener('click', fecharModalEditarDateReiniciarComX)
-        document.body.addEventListener('keyup', fecharModalEditarDateReiniciarComEsc)
+        // buttonEditarDateReiniciar.addEventListener('click', abrirModalEditarDateReiniciar)
+        // x4.addEventListener('click', fecharModalEditarDateReiniciarComX)
+        // document.body.addEventListener('keyup', fecharModalEditarDateReiniciarComEsc)
 
-        buttonSalvarEditDate.addEventListener('click', fecharModalEditarDateReiniciarComX)
-        buttonCancelarEditDate.addEventListener('click', fecharModalEditarDateReiniciarComX)
+        // buttonSalvarEditDate.addEventListener('click', fecharModalEditarDateReiniciarComX)
+        // buttonCancelarEditDate.addEventListener('click', fecharModalEditarDateReiniciarComX)
 
         buttonReiniciar.forEach(botao => {
             botao.addEventListener('click', abrirModalReiniciar)
@@ -616,6 +621,9 @@
     function abrirModalEditarFuncionario() {
         modalEditarFuncionario.style.display = 'block'
         sessaoElem.style.filter = 'blur(10px)'
+        div_func_saved.style.display = 'none'
+        ipt_mudar_email.value = ''
+        ipt_mudar_senha.value = ''
         buttonEditFuncionario.blur()
     }
 
@@ -689,7 +697,7 @@
 
             if (resposta.ok) {
                 resposta.json().then(dados => {
-                    console.log(dados)
+                    // console.log(dados)
                     // verifica se existe alguma empresa relacionada com esse usuário no banco de dados
                     // mostra o conteúdo da tela caso exista, não mostra caso não exista
                     if (dados.length == 0) {
@@ -699,9 +707,10 @@
                     } else {
                         var idEmpresa = dados[0].fkEmpresa;
                         sessionStorage.ID_EMPRESA = idEmpresa
-                        mostrarMaquinas(idEmpresa);
+                        // mostrarMaquinas(idEmpresa);
                         mostrarFuncionarios(idEmpresa);
                         pegarDadosGrafico(idEmpresa)
+                        atualizarStatusMaquinas(idEmpresa)
                     }
                 })
             }
@@ -714,7 +723,105 @@
         return false
     }
 
-    function mostrarMaquinas(idEmpresa) {
+    function atualizarStatusMaquinas(idEmpresa) {
+        fetch(`/datawatch/atualizarStatusMaquinas/${idEmpresa}`, {
+            cache: 'no-store'
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then(statusMaquinas => {
+                    // console.log(dados)
+                    // if (timeoutMaquinas != undefined) {
+                    //     clearTimeout(timeoutMaquinas)
+                    // }
+                    mostrarMaquinas(idEmpresa, statusMaquinas)
+                })
+            }
+        }).catch(function (resposta) {
+            console.log(`Erro: ${resposta}`)
+        })
+        return false
+    }
+
+    // function mostrarMaquinas(idEmpresa) {
+    //     fetch("/datawatch/pegarMaquinas", {
+    //         method: "POST",
+    //         headers: {
+    //             "Content-Type": "application/json"
+    //         },
+    //         body: JSON.stringify({
+    //             idEmpresaServer: idEmpresa
+    //         })
+    //     }).then(function (resposta) {
+
+    //         if (resposta.ok) {
+    //             resposta.json().then(dados => {
+    //                 console.log(dados)
+    //                 var totalMaquinas = dados.length
+    //                 var maquinasLigadas = 0
+    //                 if (dados.length > 0) {
+
+    //                     for (let i = 0; i < dados.length; i++) {
+    //                         if (dados[i].statusSistema == 1) {
+    //                             maquinasLigadas++
+    //                         }
+    // mais_maquinas.innerHTML += `<div class="info-saber-mais">
+    //     <div class="conexao-saber-mais">
+    //         <div class="status-maquina" id="img${i}">
+    //         </div>
+    //         <span id="status${i}"></span>
+    //     </div>
+    //     <div class="nome-maquina">
+    //         <span id="todasMaquinas">${dados[i].nomeMaquina}</span>
+    //     </div>
+    // </div>`
+
+    //                         var dataHoraAtual = new Date();
+    //                         var dataHoraBanco = new Date (dados[i].dataHora)
+    //                         dataHoraBanco.setHours(dataHoraBanco.getHours() + 3);
+    //                         var diferencaMilissegundos = dataHoraAtual - dataHoraBanco;
+
+    //                         /* 3456000000   < 40 dias em milisegundos para testes              2505600000 < 29 dias*/
+    //                         let fiscalDeAtividade = 60000
+
+    // const statusSpan = document.getElementById(`status${i}`);
+    // const statusImg = document.getElementById(`img${i}`);
+
+    //                         if (diferencaMilissegundos < fiscalDeAtividade) {
+    //                             console.log(i + "online: " + diferencaMilissegundos)
+    //                             statusImg.innerHTML = `<img src="./assets/icon/circulo(1).png" alt=""
+    //                                         style="width: 18px;">`
+    //                             statusSpan.innerHTML += `<b>Online</b>`
+    //                         } else {
+    //                             console.log(i + "offline: " + diferencaMilissegundos)
+    //                             statusImg.innerHTML = `<img src="./assets/icon/circulo.png" alt=""
+    //                                         style="width: 18px;">`
+    //                             statusSpan.innerHTML += `<b>Offline</b>`
+    //                         }
+    //                     }
+    //                     span_porcent_maquinas_ligadas.innerHTML = `${(maquinasLigadas * 100 / totalMaquinas).toFixed(0)}%`
+
+
+    //                     dados.forEach(maquina => {
+    //                         if (maquina.statusSistema == 1) {
+    //                             carregarTempoAtivMaquinaTela(maquina)
+
+    //                         }
+    //                     })
+    //                 }
+    //             })
+    //         }
+    //         else {
+    //             throw (JSON.stringify(resposta))
+    //         }
+    //     }).catch(function (resposta) {
+    //         console.log(`ERRO: ${resposta}`);
+    //     })
+    //     return false
+    // }
+
+    let timeoutMaquinas;
+
+    function mostrarMaquinas(idEmpresa, statusMaquinas) {
         fetch("/datawatch/pegarMaquinas", {
             method: "POST",
             headers: {
@@ -727,15 +834,60 @@
 
             if (resposta.ok) {
                 resposta.json().then(dados => {
-                    console.log(dados)
+                    // console.log(dados)
                     var totalMaquinas = dados.length
                     var maquinasLigadas = 0
                     if (dados.length > 0) {
+                        mais_maquinas.innerHTML = ''
+                        // for (let i = 0; i < dados.length; i++) {
+                        //     if (dados[i].statusSistema == 1) {
+                        //         maquinasLigadas++
+                        //     }
+                        //     mais_maquinas.innerHTML += `<div class="info-saber-mais">
+                        //         <div class="conexao-saber-mais">
+                        //             <div class="status-maquina" id="img${i}">
+                        //             </div>
+                        //             <span id="status${i}"></span>
+                        //         </div>
+                        //         <div class="nome-maquina">
+                        //             <span id="todasMaquinas">${dados[i].nomeMaquina}</span>
+                        //         </div>
+                        //     </div>`
+                        //     /* 3456000000   < 40 dias em milisegundos para testes              2505600000 < 29 dias*/
+                        //     let fiscalDeAtividade = 2505600000
+                        //     // console.log(dados[i].tempo_total)
+                        //     const statusSpan = document.getElementById(`status${i}`);
+                        //     const statusImg = document.getElementById(`img${i}`);
 
-                        for (let i = 0; i < dados.length; i++) {
-                            if (dados[i].statusSistema == 1) {
-                                maquinasLigadas++
-                            }
+                        //     var tempoEmMilissegundos = dados[i].tempo_total_milissegundos
+                        //     // console.log(tempoEmMilissegundos)
+                        // if (tempoEmMilissegundos < fiscalDeAtividade) {
+                        //     // console.log(i + "online: " + tempoEmMilissegundos)
+                        //     statusImg.innerHTML = `<img src="./assets/icon/circulo(1).png" alt=""
+                        //                 style="width: 18px;">`
+                        //     statusSpan.innerHTML += `<b>Online</b>`
+                        // } else {
+                        //     // console.log(i + "offline: " + tempoEmMilissegundos)
+                        //     statusImg.innerHTML = `<img src="./assets/icon/circulo.png" alt=""
+                        //                 style="width: 18px;">`
+                        //     statusSpan.innerHTML += `<b>Offline</b>`
+                        // }
+                        // }
+
+                        console.log(statusMaquinas)
+                        console.log(dados)
+                        ul_lista_maquinas.innerHTML = ''
+                        let i = 0
+                        dados.forEach(maquina => {
+                            statusMaquinas.forEach(linha => {
+                                if (maquina.nomeMaquina == linha.nomeMaquina) {
+                                    if (linha.segundos_desde_lastinsert > 40) {
+                                        maquina.statusSistema = 0;
+                                    } else {
+                                        maquina.statusSistema = 1;
+                                    }
+                                }
+                            })
                             mais_maquinas.innerHTML += `<div class="info-saber-mais">
                                 <div class="conexao-saber-mais">
                                     <div class="status-maquina" id="img${i}">
@@ -743,43 +895,28 @@
                                     <span id="status${i}"></span>
                                 </div>
                                 <div class="nome-maquina">
-                                    <span id="todasMaquinas">${dados[i].nomeMaquina}</span>
+                                    <span id="todasMaquinas">${maquina.nomeMaquina}</span>
                                 </div>
                             </div>`
-
-                            var dataHoraAtual = new Date();
-                            var dataHoraBanco = new Date (dados[i].dataHora)
-                            dataHoraBanco.setHours(dataHoraBanco.getHours() + 3);
-                            var diferencaMilissegundos = dataHoraAtual - dataHoraBanco;
-
-                            /* 3456000000   < 40 dias em milisegundos para testes              2505600000 < 29 dias*/
-                            let fiscalDeAtividade = 60000
-                            
                             const statusSpan = document.getElementById(`status${i}`);
                             const statusImg = document.getElementById(`img${i}`);
-
-                            if (diferencaMilissegundos < fiscalDeAtividade) {
-                                console.log(i + "online: " + diferencaMilissegundos)
+                            if (maquina.statusSistema == 1) {
                                 statusImg.innerHTML = `<img src="./assets/icon/circulo(1).png" alt=""
                                             style="width: 18px;">`
                                 statusSpan.innerHTML += `<b>Online</b>`
+                                maquinasLigadas++
                             } else {
-                                console.log(i + "offline: " + diferencaMilissegundos)
                                 statusImg.innerHTML = `<img src="./assets/icon/circulo.png" alt=""
                                             style="width: 18px;">`
                                 statusSpan.innerHTML += `<b>Offline</b>`
                             }
-                        }
-                        span_porcent_maquinas_ligadas.innerHTML = `${(maquinasLigadas * 100 / totalMaquinas).toFixed(0)}%`
-
-
-                        dados.forEach(maquina => {
-                            if (maquina.statusSistema == 1) {
-                                carregarTempoAtivMaquinaTela(maquina)
-
-                            }
+                            i++
+                            carregarTempoAtivMaquinaTela(maquina)
                         })
                     }
+                    span_porcent_maquinas_ligadas.innerHTML = `${(maquinasLigadas * 100 / totalMaquinas).toFixed(0)}%`
+                    // console.log(idEmpresa)
+                    timeoutMaquinas = setTimeout(() => atualizarStatusMaquinas(idEmpresa), 30000);
                 })
             }
             else {
@@ -804,7 +941,7 @@
 
             if (resposta.ok) {
                 resposta.json().then(dados => {
-                    console.log(dados)
+                    // console.log(dados)
                     ul_lista_funcionario.innerHTML = ''
                     if (dados.length > 0) {
                         dados.forEach(funcionario => {
@@ -830,7 +967,7 @@
         }).then(function (resposta) {
             if (resposta.ok) {
                 resposta.json().then(dadosMaquinas => {
-                    console.log(dadosMaquinas)
+                    // console.log(dadosMaquinas)
                     if (dadosMaquinas.length > 0) {
                         drawChart(dadosMaquinas)
                     }
@@ -847,7 +984,7 @@
     }
 
     function carregarFuncionarioTela(funcionario) {
-        console.log("Carregando funcionario")
+        // console.log("Carregando funcionario")
         var liFuncionario = document.createElement("li")
         liFuncionario.setAttribute("class", "funcionario")
 
@@ -954,7 +1091,7 @@
         divInfoFuncionario.appendChild(divContentFuncionario)
 
         liFuncionario.appendChild(divInfoFuncionario)
-        console.log(liFuncionario)
+        // console.log(liFuncionario)
         ul_lista_funcionario.appendChild(liFuncionario)
     }
 
@@ -998,7 +1135,7 @@
 
         /* ---- BOTÃO REINICIAR ---- */
         var btnReiniciar = document.createElement("button")
-        btnReiniciar.setAttribute("class", "edit-date")
+        btnReiniciar.setAttribute("class", "reload")
         btnReiniciar.setAttribute('value', maquina.Id)
         btnReiniciar.addEventListener("click", function () {
             var valorClicado = btnReiniciar.value
@@ -1014,7 +1151,7 @@
 
         var spanTimeReload = document.createElement("span")
         var bTimeReload = document.createElement("p")
-        bTimeReload.innerHTML = `Ligada à <b>${maquina.tempo_formatado}</b>`
+        bTimeReload.innerHTML = `Ligada há <b>${maquina.tempo_formatado}</b>`
         spanTimeReload.appendChild(bTimeReload)
 
         divTimeReload.appendChild(spanTimeReload)
@@ -1071,7 +1208,7 @@
                 } else {
                     // se o valor desse registro não pertencer ao horário já inserido no vetorDaHora
                     // inserir no vetor inteiro os valores deste horário
-                    console.log("Inserindo no vetor inteiro o vetor: " + vetorDaHora);
+                    // console.log("Inserindo no vetor inteiro o vetor: " + vetorDaHora);
                     vetorInteiro.push(vetorDaHora)
                     // limpar o vetorDaHora para começar a inserção de valores para um novo horário
                     vetorDaHora = []
@@ -1082,7 +1219,7 @@
                 }
             }
         }
-        console.log(vetorInteiro);
+        // console.log(vetorInteiro);
 
         // var data = google.visualization.arrayToDataTable([['Nome máquina', 'máquina01', 'máquina02', 'máquina03'],
         // ['08:00', 32.6, 31.3, 22.7],
@@ -1130,7 +1267,7 @@
         var idUsuario = sessionStorage.ID_USUARIO
 
         if (uuid.length != 36) {
-            console.log(uuid.length)
+            // console.log(uuid.length)
             codigo_diretor.style = 'background-color: #ff7474;'
             codigo_diretor.value = ''
             codigo_diretor.placeholder = `--CÓDIGO INVÁLIDO--`
@@ -1150,7 +1287,7 @@
                     uuid: uuid
                 })
             }).then(function (resposta) {
-                console.log("resposta: ", resposta);
+                // console.log("resposta: ", resposta);
                 if (resposta.ok) {
                     codigo_diretor.value = ''
                     codigo_diretor.placeholder = `DIRETOR ADICIONADO`;
