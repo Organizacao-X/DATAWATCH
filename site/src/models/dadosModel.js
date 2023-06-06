@@ -98,7 +98,7 @@ function buscarDadosEmTempoReal(idMaquina, idEmpresa) {
                     ON c.fkmaquina = m.idmaquina
                     where fkMaquina = ${idMaquina}
                     and c.fkEmpresa = ${idEmpresa}
-                    order by idcaptura desc;
+                    order by idcaptura;
                     `;
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
