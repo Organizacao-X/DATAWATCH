@@ -38,7 +38,8 @@
                     <li><a class="menu__item" href="../public/areaFuncionário.html">Home</a></li>
                     <li onclick="abrirModalBaixar()"><span class="menu__item">Baixar aplicativo</span></li>
                     <li><a class="menu__item" onclick="limparSessao()">Logout</a></li>
-                    <li><a class="menu__item" target="_blank" href="https://datawattch.atlassian.net/servicedesk/customer/portal/2">Suporte</a></li>
+                    <li><a class="menu__item" target="_blank"
+                            href="https://datawattch.atlassian.net/servicedesk/customer/portal/2">Suporte</a></li>
                 </ul>
             </div>
 
@@ -255,14 +256,14 @@
                                 </div>
                                 <div class="informacoes">
                                     <div class="info">
-                                        <span><b>Id do alerta:</b> 1</span>
-                                        <span><b>Data do alerta:</b> 22/06/2020</span>
-                                        <span><b>Hora do alerta:</b> 23:30</span>
+                                        <span id="spanIdAlerta"><b>Id do alerta:</b> 1</span>
+                                        <span id="spanDataAlerta"><b></span>
+                                        
                                     </div>
                                     <div class="texto">
                                         <span><b>Descrição do alerta</b></span>
                                         <div class="scroll-desc">
-                                            <span>Maquina com tela congelada no processamento do pagamento do
+                                            <span id="spanAlertaDescricao">Maquina com tela congelada no processamento do pagamento do
                                                 cliente</span>
                                         </div>
                                     </div>
@@ -338,9 +339,13 @@
                     <div class="container">
                         <div class="tabs">
                             <input type="radio" id="radio-1" name="tabs" checked="">
-                            <button onclick="downloadFile('./JAR/ARCH-01/DATAWATCH-ARCH-01.sh', 'DATAWATCH-ARCH-01.sh')"><label class="tab" for="radio-1" id="um">Datawatch Nativo</label></button>
+                            <button
+                                onclick="downloadFile('./JAR/ARCH-01/DATAWATCH-ARCH-01.sh', 'DATAWATCH-ARCH-01.sh')"><label
+                                    class="tab" for="radio-1" id="um">Datawatch Nativo</label></button>
                             <input type="radio" id="radio-2" name="tabs">
-                            <button onclick="downloadFile('./JAR/ARCH-03/DATAWATCH-ARCH-03.sh', 'DATAWATCH-ARCH-03.sh')"><label class="tab" for="radio-2" id="um">Datawatch Container</label></button>
+                            <button
+                                onclick="downloadFile('./JAR/ARCH-03/DATAWATCH-ARCH-03.sh', 'DATAWATCH-ARCH-03.sh')"><label
+                                    class="tab" for="radio-2" id="um">Datawatch Container</label></button>
 
                             <span class="glider"></span>
                         </div>
@@ -605,7 +610,7 @@
                             var spanStatus = document.createElement("span")
 
                             var dataHoraAtual = new Date();
-                            var dataHoraBanco = new Date (maquina.dataHora)
+                            var dataHoraBanco = new Date(maquina.dataHora)
                             dataHoraBanco.setHours(dataHoraBanco.getHours() + 3);
                             var diferencaMilissegundos = dataHoraAtual - dataHoraBanco;
                             listaDeMilissegundos.push(diferencaMilissegundos)
@@ -704,6 +709,10 @@
         console.log(alerta)
 
         var liAlerta = document.createElement("li")
+        liAlerta.setAttribute("value", `${alerta.idPosse}`);
+        liAlerta.setAttribute("onclick", `alertaClick(this.value)`);
+        liAlerta.setAttribute("class", "cardAlerta")
+        
 
         var divAlertaRowInfo = document.createElement("div")
         divAlertaRowInfo.setAttribute("class", "rowInfo")
@@ -720,6 +729,53 @@
     }
 
 
+
+    function alertaClick(idAlerta) {
+
+        alerta = JSON.parse(sessionStorage.ALERTAS);
+
+
+        alerta.forEach(dados =>{
+
+        if (dados.idPosse == idAlerta) {
+        spanIdAlerta.innerHTML = `Id: ${dados.idPosse}`;
+            var diaAlerta = new Date(dados.dataHora).getDate()
+            var mesAlerta = new Date(dados.dataHora).getMonth()
+            var anoAlerta = new Date(dados.dataHora).getFullYear()
+            var horaAlerta = new Date(dados.dataHora).toLocaleTimeString()
+        spanDataAlerta.innerHTML = `Data: ${diaAlerta}/${mesAlerta}/${anoAlerta} ${horaAlerta}`;
+        
+        spanAlertaDescricao.innerHTML = `Descrição: ${dados.descricao}`;
+        }
+
+        
+        })
+
+
+
+
+
+
+        // <div class="modal-alerta">
+        //                     <div class="descricaoAlerta">
+        //                         <div class="imagemMaquina">
+        //                             <img src="./assets/icon/alerta.png" alt="" style="width: 150px;">
+        //                         </div>
+        //                         <div class="informacoes">
+        //                             <div class="info">
+        //                                 <span><b>Id do alerta:</b> 1</span>
+        //                                 <span><b>Data do alerta:</b> 22/06/2020</span>
+        //                                 <span><b>Hora do alerta:</b> 23:30</span>
+        //                             </div>
+        //                             <div class="texto">
+        //                                 <span><b>Descrição do alerta</b></span>
+        //                                 <div class="scroll-desc">
+        //                                     <span>Maquina com tela congelada no processamento do pagamento do
+        //                                         cliente</span>
+        //
+    }
+
+
     function exibirAlertas(idMaquina) {
         fetch(`/alertas/exibiralertas/${idMaquina}`, {
             cache: 'no-store'
@@ -730,6 +786,7 @@
                     dados.forEach(alerta => {
                         montarListagemAlertas(alerta);
                     });
+                    sessionStorage.ALERTAS = JSON.stringify(dados);
                 })
             };
 
