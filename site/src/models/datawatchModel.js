@@ -135,6 +135,12 @@ function consultarStatusEmpresa(idUsuario) {
     return database.executar(instrucao);
 }
 
+function updateStatusMaquina(idMaquina, status) {
+    var instrucao = `UPDATE Maquinas SET statusSistema = ${status} WHERE idMaquina = ${idMaquina};`
+
+    return database.executar(instrucao)
+}
+
 function atualizarStatusMaquinas(idEmpresa) {
     var instrucao = 
                    `SELECT COALESCE(DATEDIFF(SECOND, MAX(c.dataHora), DATEADD(HOUR, -3, GETDATE())), 99999999) AS segundos_desde_lastinsert, m.nomeMaquina
@@ -430,5 +436,6 @@ module.exports = {
     validarReboot,
     pegarDadosGraficoEmpilhado,
     atualizarStatusMaquinas,
-    maiorConsumoRam
+    maiorConsumoRam,
+    updateStatusMaquina
 };

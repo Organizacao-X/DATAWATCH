@@ -22,6 +22,7 @@ function mostrarFiliais(uuid) {
     }).then(function (resposta) {
         if (resposta.ok) {
             resposta.json().then(dados => {
+                ul_cards_filiais.innerHTML = ''
                 console.log(dados);
                 localStorage.setItem("dadosFiliais", JSON.stringify(dados));
                 if (dados.length > 0) {
@@ -152,7 +153,7 @@ function mostrarFiliais(uuid) {
                         /* ----------------------- */
                     });
                 }
-
+                setTimeout(() => mostrarFiliais(uuid), 30000);
             })
         }
         else {

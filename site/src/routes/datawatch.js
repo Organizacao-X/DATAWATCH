@@ -68,6 +68,10 @@ router.get("/atualizarStatusMaquinas/:idEmpresa", function (req, res) {
     datawatchController.atualizarStatusMaquinas(req, res);
 })
 
+router.put("/updateStatusMaquina", function (req, res) {
+    datawatchController.updateStatusMaquina(req, res);
+})
+
 router.post("/pegarFuncionarios", function (req, res) {
     datawatchController.pegarFuncionarios(req, res);
 })

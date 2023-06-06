@@ -227,6 +227,32 @@ function cadastrarFuncionario(req, res) {
     }
 }
 
+function updateStatusMaquina(req, res) {
+    var idMaquina = req.body.idMaquinaServer;
+    var status = req.body.status;
+
+    if (idMaquina == undefined) {
+        res.status(400).send("Seu ID máquina está undefined");
+    } else if (status == undefined) {
+        res.status(400).send("Seu status está undefined");
+    } else {
+        datawatchModel.updateStatusMaquina(idMaquina, status)
+        .then(
+            function (resultado) {
+                console.log("Atualizando status da máquina ", idMaquina);
+
+                res.json(resultado)
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro)
+                console.log("\nHouve um erro ao atualizar o status da máquina! Erro: ", erro.sqlMessage)
+                res.status(500).json(erro.sqlMessage)
+            }
+        )
+    }
+}
+
 function entrar(req, res) {
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
@@ -731,5 +757,6 @@ module.exports = {
     validarReboot,
     pegarDadosGraficoEmpilhado,
     atualizarStatusMaquinas,
-    maiorConsumoRam
+    maiorConsumoRam,
+    updateStatusMaquina
 }

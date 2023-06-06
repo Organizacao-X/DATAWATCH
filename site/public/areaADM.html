@@ -745,6 +745,30 @@
         return false
     }
 
+    function updateStatusMaquina(idMaquina, status) {
+        fetch(`/datawatch/updateStatusMaquina`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idMaquinaServer: idMaquina,
+                status: status
+            })
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+                console.log("Status da máquina atualizado")
+            } else if (resposta.status == 404) {
+                console.log("Erro 404")
+            } else {
+                throw ("Houve um erro ao tentar atualizar o status da máquina! Código da resposta: " + resposta.status);
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        })
+    }
+    
     let timeoutMaquinas;
 
     function mostrarMaquinas(idEmpresa, statusMaquinas) {
@@ -773,8 +797,14 @@
                             statusMaquinas.forEach(linha => {
                                 if (maquina.nomeMaquina == linha.nomeMaquina) {
                                     if (linha.segundos_desde_lastinsert > 40) {
+                                        if (maquina.statusSistema != 0) {
+                                            updateStatusMaquina(maquina.Id, 0)
+                                        }
                                         maquina.statusSistema = 0;
                                     } else {
+                                        if (maquina.statusSistema != 1) {
+                                            updateStatusMaquina(maquina.Id, 1)
+                                        }
                                         maquina.statusSistema = 1;
                                     }
                                 }
@@ -856,7 +886,7 @@
             cache: 'no-store'
         }).then(function (resposta) {
             if (resposta.ok) {
-                console.log("aqui envia")
+                // console.log("aqui envia")
                 maiorConsumoRam(idEmpresa)
                 resposta.json().then(dadosMaquinas => {
                     // console.log(dadosMaquinas)
@@ -877,7 +907,7 @@
     }
 
     function maiorConsumoRam(idEmpresa) {
-        console.log("aqui chega")
+        // console.log("aqui chega")
         fetch(`/datawatch/maiorConsumoRam/${idEmpresa}`, {
             cache: 'no-store'
         }).then(function (resposta) {
